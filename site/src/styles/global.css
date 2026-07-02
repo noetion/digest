@@ -58,6 +58,10 @@ html[data-theme="light"] {
     animation-duration: 0.01ms !important;
     transition-duration: 0.01ms !important;
   }
+  /* Scroll-driven, not time-based: communicates position, so keep it working */
+  .reading-progress {
+    animation-duration: auto !important;
+  }
 }
 
 body {
@@ -70,6 +74,39 @@ body {
   line-height: 1.65;
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
+}
+
+/* Headlines wrap to balanced lines (no orphaned last words) */
+h1,
+h2,
+.digest-title {
+  text-wrap: balance;
+}
+
+/* Reading progress bar: pure CSS scroll-driven animation, no JS.
+   Browsers without animation-timeline support simply never show it. */
+.reading-progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: var(--accent-strong);
+  transform-origin: 0 50%;
+  transform: scaleX(0);
+  z-index: 20;
+  pointer-events: none;
+  animation: grow-progress auto linear;
+  animation-timeline: scroll(root);
+}
+
+@keyframes grow-progress {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
 }
 
 .skip-link {
