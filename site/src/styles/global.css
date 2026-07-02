@@ -76,10 +76,10 @@ body {
   text-rendering: optimizeLegibility;
 }
 
-/* Headlines wrap to balanced lines (no orphaned last words) */
-h1,
-h2,
-.digest-title {
+/* Headlines wrap to balanced lines (no orphaned last words).
+   Skip digest article titles — they're long and balance makes them look cramped. */
+.hero h1,
+.section-title {
   text-wrap: balance;
 }
 
@@ -308,6 +308,11 @@ a.badge::after {
   max-width: var(--measure);
 }
 
+/* Digest pages: the article column IS the reading measure — don't cap twice */
+.digest .prose {
+  max-width: none;
+}
+
 .prose h2 {
   font-size: 1.35rem;
   letter-spacing: -0.02em;
@@ -338,6 +343,16 @@ a.badge::after {
   color: var(--text-muted);
 }
 
+/* ---------- Digest page layout ---------- */
+
+/* Wider than .wrap so the TOC can sit beside the article without squishing it */
+.digest-shell {
+  width: 100%;
+  max-width: 72rem;
+  margin-inline: auto;
+  padding-inline: clamp(1rem, 4vw, 2rem);
+}
+
 /* ---------- Table of contents (desktop) ---------- */
 
 .digest-layout {
@@ -346,9 +361,12 @@ a.badge::after {
   gap: 2.5rem;
 }
 
-@media (min-width: 74rem) {
+@media (min-width: 64rem) {
   .digest-layout {
-    grid-template-columns: minmax(0, 1fr) 15rem;
+    grid-template-columns: minmax(0, 42rem) 14rem;
+    justify-content: center;
+    align-items: start;
+    gap: clamp(2rem, 4vw, 3.5rem);
   }
 
   .toc {
