@@ -1,0 +1,59 @@
+{
+  "title": "The Morning Build, July 02, 2026",
+  "intro": "Five engineering-focused updates: a major AI lab explores a custom chip with Samsung, Meta launches an AI gizmo app called Pocket, Microsoft forms a $2.5 billion AI deployment business, OpenAI floated donating equity to a U.S. fund, and Google reports a 37 percent jump in electricity use tied to AI infrastructure.",
+  "meta_description": "Chip talks at Anthropic, Meta's Pocket app, Microsoft's $2.5B AI deployment unit, OpenAI equity proposal, and Google reports 37% jump in electricity use for AI.",
+  "stories": [
+    {
+      "headline": "Anthropic discusses custom AI chip collaboration with Samsung",
+      "what_happened": "Anthropic has held discussions with Samsung about developing a custom AI chip, but has not decided the chip's role, server integration, or performance targets, and says it will continue using chips from Google, Amazon, and Nvidia.",
+      "why_it_matters": "A custom chip would let Anthropic pursue hardware independence and tailor compute for its models; engineers should note this fits a broader trend of AI firms exploring bespoke silicon as an alternative to Nvidia-dominated stacks.",
+      "outlook": "Watch for technical details on intended workloads and performance targets if talks with Samsung progress.",
+      "source_urls": [
+        "https://techcrunch.com/2026/07/02/anthropic-is-discussing-a-new-custom-chip-with-samsung/"
+      ],
+      "topic_tag": "chips"
+    },
+    {
+      "headline": "Meta launches Pocket app for user-created AI 'gizmos'",
+      "what_happened": "Meta released Pocket, a mobile app that hosts a feed of small interactive AI experiences called gizmos which can respond to touch, tilt, sound, the camera, and photos; the app is not yet available everywhere.",
+      "why_it_matters": "Developers should expect a new distribution and interaction model for lightweight, prompt-driven AI experiences that permit remixing and direct use of device sensors, which changes how state, inputs, and media access are handled on-device and in the cloud.",
+      "outlook": "Track availability in your region and the app's API and permission model as Meta rolls it out.",
+      "source_urls": [
+        "https://www.theverge.com/tech/961086/meta-pocket-app-gizmo-ai",
+        "https://techcrunch.com/2026/07/02/meta-quietly-launches-vibe-coded-gaming-app-pocket/"
+      ],
+      "topic_tag": "big-tech"
+    },
+    {
+      "headline": "Microsoft forms Microsoft Frontier Company with $2.5B and 6,000 experts for enterprise AI deployments",
+      "what_happened": "Microsoft announced Microsoft Frontier Company, an operating business backed by $2.5 billion and staffed with 6,000 industry and engineering experts to deliver enterprise AI deployments, citing early partnerships with the London Stock Exchange Group, Unilever, Land O' Lakes, and Accenture.",
+      "why_it_matters": "This creates a large, outcome-focused deployment organization that will supply engineering resources and integration expertise to enterprises, which affects how teams plan vendor engagements and allocate internal forward-deployed engineering work.",
+      "outlook": "Compare Microsoft's model and commitments to AWS's $1 billion internal FDE effort and other vendor deployment ventures to see where enterprise engagements concentrate.",
+      "source_urls": [
+        "https://techcrunch.com/2026/07/02/microsoft-launches-its-own-ai-deployment-company-with-2-5-billion-commitment/"
+      ],
+      "topic_tag": "dev-tools"
+    },
+    {
+      "headline": "OpenAI proposed donating 5% equity to a U.S. sovereign wealth fund, per FT",
+      "what_happened": "OpenAI CEO Sam Altman proposed transferring 5 percent of OpenAI's equity to a U.S. sovereign wealth fund, with the idea framed as a way to improve relations with the administration; the talks are preliminary and likely require congressional approval.",
+      "why_it_matters": "Any transfer of equity to a public fund would create new governance and ownership dynamics for systemically important AI companies, which legal and engineering teams would need to account for in compliance and capital strategy.",
+      "outlook": "Follow reporting on detail, scope, and whether Congress or regulators would need to act before any formal transfer happens.",
+      "source_urls": [
+        "https://techcrunch.com/2026/07/02/openai-proposed-donating-5-of-its-equity-to-a-us-sovereign-wealth-fund/"
+      ],
+      "topic_tag": "policy"
+    },
+    {
+      "headline": "Google reports 37 percent rise in electricity use in 2025 driven by AI data center buildout",
+      "what_happened": "Google disclosed a 37 percent increase in electricity consumption in 2025, with data centers using over 42 million megawatt-hours compared to 30.6 million in 2024; total electricity use has risen more than 250 percent since 2019.",
+      "why_it_matters": "Engineers and infrastructure planners should factor rapidly rising power demand into capacity planning, regional grid partnerships, and procurement of clean energy, since Google links the increase to AI infrastructure and data center operations.",
+      "outlook": "Monitor Google's clean energy investments and local partnerships as it seeks to decouple electricity growth from emissions while supply-chain emissions rose 25 percent.",
+      "source_urls": [
+        "https://arstechnica.com/ai/2026/07/googles-ai-buildout-drove-37-increase-in-electricity-use-in-2025/"
+      ],
+      "topic_tag": "policy"
+    }
+  ],
+  "narration_script": "Anthropic is talking with Samsung about building a custom AI chip, but it has not decided what the chip would do, how it would sit in servers, or how fast it must be. Anthropic says it will continue to rely on chips from Google, Amazon, and Nvidia while exploring the option. This fits a pattern of AI labs seeking bespoke silicon as an alternative to a Nvidia-centered supply chain; watch for technical specs and intended workloads if the Samsung talks move forward. Meta quietly launched Pocket, a mobile app that hosts AI 'gizmos' you can scroll, touch, tilt, and remix. The app can access camera and photos and is not yet available everywhere. For engineers, Pocket represents a new distribution channel for small interactive prompt-driven experiences and it raises questions about local sensor access, state handling, and remix permissions as the app rolls out. Microsoft announced Microsoft Frontier Company, a new operating business with a $2.5 billion commitment and 6,000 experts to deliver enterprise AI deployments. The company positions the unit as an outcome-driven engineering organization to deploy Microsoft AI tools, and it already cites early partnerships with the London Stock Exchange Group, Unilever, Land O' Lakes, and Accenture. This will change how enterprises source deployment engineering compared with AWS's recent $1 billion internal FDE effort. The Financial Times reports OpenAI proposed giving 5 percent of its equity to a U.S. sovereign wealth fund, an idea framed as improving relations with the administration. The talks are preliminary and likely need congressional approval. Legal and compliance teams will need to track any formal proposal because equity transfers to a public fund would alter governance and ownership structures. Finally, Google reported a 37 percent jump in electricity use in 2025 tied to its AI data center buildout, with data centers consuming more than 42 million megawatt-hours versus 30.6 million in 2024, and a total electricity increase of over 250 percent since 2019. Google says it kept operational emissions down by buying large amounts of clean energy, but supply-chain emissions rose 25 percent. Infrastructure planners should factor rapidly growing power demand and clean energy procurement into capacity and regional planning. That is all for this edition of The Morning Build."
+}
