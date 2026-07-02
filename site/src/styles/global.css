@@ -1,4 +1,4 @@
-/* The Morning Build — editorial, typography-first, dark-mode default. */
+/* The Morning Build: editorial, typography-first, dark-mode default. */
 
 :root {
   --font-sans: "Inter Variable", ui-sans-serif, system-ui, -apple-system, sans-serif;
@@ -77,7 +77,7 @@ body {
 }
 
 /* Headlines wrap to balanced lines (no orphaned last words).
-   Skip digest article titles — they're long and balance makes them look cramped. */
+   Skip digest article titles; they're long and balance makes them look cramped. */
 .hero h1,
 .section-title {
   text-wrap: balance;
@@ -308,7 +308,7 @@ a.badge::after {
   max-width: var(--measure);
 }
 
-/* Digest pages: the article column IS the reading measure — don't cap twice */
+/* Digest pages: the article column IS the reading measure, so don't cap twice */
 .digest .prose {
   max-width: none;
 }
@@ -345,7 +345,7 @@ a.badge::after {
 
 /* ---------- Digest page layout ---------- */
 
-/* Single reading column — wide enough to read comfortably on desktop */
+/* Single reading column, wide enough to read comfortably on desktop */
 .digest-shell {
   width: 100%;
   max-width: 52rem;

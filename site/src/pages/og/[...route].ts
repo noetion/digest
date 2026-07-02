@@ -9,7 +9,7 @@ const pages = Object.fromEntries([
   ["site", { title: SITE_NAME, description: SITE_TAGLINE }],
   ...digests.map((d) => [
     d.id,
-    { title: d.data.title, description: `${formatDate(d.data.date)} — ${SITE_TAGLINE}` },
+    { title: d.data.title, description: `${formatDate(d.data.date)} · ${SITE_TAGLINE}` },
   ]),
 ]);
 

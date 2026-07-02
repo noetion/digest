@@ -1,6 +1,6 @@
 {
-  "title": "The Morning Build — July 1, 2026: New Silicon, Open Weights, and Agents That Ship",
-  "intro": "A dense start to July: cheaper inference silicon, a genuinely open frontier-class model, and agent tooling that is starting to look production-grade. (This is a sample digest — the pipeline replaces it on its first run.)",
+  "title": "The Morning Build for July 1, 2026: New Silicon, Open Weights, and Agents That Ship",
+  "intro": "A dense start to July: cheaper inference silicon, a genuinely open frontier-class model, and agent tooling that is starting to look production-grade. (This is a sample digest. The pipeline replaces it on its first run.)",
   "meta_description": "A 3nm inference chip, a frontier-class open-weights release, and agent tooling that finally survives production. Today's 2-minute engineering brief.",
   "stories": [
     {
@@ -14,7 +14,7 @@
     {
       "headline": "OpenLab releases 70B open-weights model under Apache 2.0",
       "what_happened": "OpenLab published full weights, the training recipe, and evaluation results for its 70B-parameter model under a permissive Apache 2.0 license.",
-      "why_it_matters": "Engineers get a commercially usable, frontier-class base model with a documented training pipeline — no research-only license restrictions.",
+      "why_it_matters": "Engineers get a commercially usable, frontier-class base model with a documented training pipeline and no research-only license restrictions.",
       "outlook": "Community fine-tuned variants are expected within weeks, and the release puts pricing pressure on closed-model APIs.",
       "source_urls": ["https://example.com/sample-openlab-70b"],
       "topic_tag": "ai"

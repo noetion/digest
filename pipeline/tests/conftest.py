@@ -8,7 +8,7 @@ from digest.models import Digest, Story
 @pytest.fixture
 def sample_digest() -> Digest:
     return Digest(
-        title="The Morning Build — July 2, 2026: Chips, Agents, and a Big Open Release",
+        title="The Morning Build for July 2, 2026: Chips, Agents, and a Big Open Release",
         intro="A dense day: new silicon, a major open-weights drop, and agent tooling grows up.",
         meta_description=(
             "New silicon, a major open-weights release, and agent tooling milestones "

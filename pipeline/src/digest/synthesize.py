@@ -46,6 +46,28 @@ Editorial rules (non-negotiable):
 - narration_script: a smooth spoken-word version of the whole digest, written
   to be read aloud in about two minutes (no headers, no URLs, natural
   transitions between stories).
+
+Style rules (equally non-negotiable). Write like a seasoned human newsletter
+editor, never like an AI assistant:
+- NEVER use em dashes (the — character) or double hyphens. Restructure the
+  sentence, or use a comma, colon, or period instead.
+- Never use these words or their variants: delve, dive into, unpack, unleash,
+  unlock, supercharge, game-changer, game-changing, revolutionize,
+  revolutionary, groundbreaking, cutting-edge, seamless, seamlessly, robust,
+  landscape, ecosystem-wide, paradigm, elevate, empower, harness, leverage
+  (as a verb), navigate (figuratively), crucial, pivotal, "in the world of",
+  "in the realm of", "it's worth noting", "it's important to note",
+  "at the end of the day", "look no further".
+- No formulaic openers ("In a move that...", "In today's fast-paced...").
+  Start with the concrete fact.
+- Vary sentence rhythm. Mix short declarative sentences with longer ones.
+  Never write three sentences in a row with the same structure.
+- No triads for their own sake ("faster, cheaper, and more reliable" style
+  lists in every sentence reads as machine-written).
+- No hedging filler ("arguably", "essentially", "generally speaking") and no
+  empty summarizing ("Overall, this is a significant development").
+- Plain verbs beat fancy ones: "use" not "utilize", "start" not "commence",
+  "show" not "showcase".
 """
 
 
@@ -80,6 +102,30 @@ def build_synthesis_input(
     return "\n\n".join(blocks)
 
 
+def _scrub_text(text: str) -> str:
+    """Remove em dashes the model slips through despite the prompt.
+
+    A spaced em dash becomes a comma pause; an unspaced one (rare) becomes a
+    plain hyphen so compound words survive.
+    """
+    text = text.replace(" \u2014 ", ", ").replace("\u2014 ", ", ").replace(" \u2014", ", ")
+    return text.replace("\u2014", "-")
+
+
+def scrub_digest(digest: Digest) -> Digest:
+    """Deterministic post-pass: no em dashes in any published field."""
+    digest.title = _scrub_text(digest.title)
+    digest.intro = _scrub_text(digest.intro)
+    digest.meta_description = _scrub_text(digest.meta_description)
+    digest.narration_script = _scrub_text(digest.narration_script)
+    for story in digest.stories:
+        story.headline = _scrub_text(story.headline)
+        story.what_happened = _scrub_text(story.what_happened)
+        story.why_it_matters = _scrub_text(story.why_it_matters)
+        story.outlook = _scrub_text(story.outlook)
+    return digest
+
+
 def synthesize(
     client: OpenAI,
     date_str: str,
@@ -104,4 +150,4 @@ def synthesize(
     if digest is None:
         raise RuntimeError("Synthesis returned no parsed output")
     logger.info("Synthesized digest with %d stories", len(digest.stories))
-    return digest
+    return scrub_digest(digest)
