@@ -75,7 +75,7 @@ All pipeline settings are environment variables (see `.env.example`): `MAX_STORI
 - Sticky table of contents on desktop, reading-time and story-count badges
 - Accessible: WCAG AA contrast in both themes, skip link, focus states, reduced-motion support
 
-A sample digest (`site/src/content/digests/2026-07-01.*`) ships with the repo so the site renders before the first automated run; delete it once real digests exist.
+A sample digest used to ship in the repo so the site renders before the first automated run. The pipeline writes a new dated file each day but does not remove the sample; delete any placeholder files manually after the first real digest publishes.
 
 ## Roadmap
 
