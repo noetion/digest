@@ -61,7 +61,7 @@ FEEDS: tuple[Feed, ...] = (
 )
 
 USER_AGENT = (
-    "Mozilla/5.0 (compatible; MorningBuildDigest/1.0; +https://digest-4ay.pages.dev/)"
+    "Mozilla/5.0 (compatible; MorningBuildDigest/1.0; +https://themorningbuild.com/)"
 )
 
 
@@ -76,7 +76,7 @@ class Settings(BaseSettings):
     max_article_words: int = 1800
     daily_cost_cap_usd: float = 0.25
     dry_run: bool = False
-    site_url: str = "https://example.com"
+    site_url: str = "https://themorningbuild.com"
 
 
 def load_settings() -> Settings:
