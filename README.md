@@ -79,7 +79,7 @@ A sample digest (`site/src/content/digests/2026-07-01.*`) ships with the repo so
 
 ## Roadmap
 
-- **Phase 2 — Email:** the subscribe form on the site is a placeholder. Wire it to Buttondown or Resend; an email template can render directly from each digest's canonical JSON.
+- **Phase 2 — Daily email:** add a subscribe card on the homepage and digest pages ("Start your day already caught up" / "Get the briefing"), wire it to Buttondown or Resend, and send each digest from the canonical JSON via a new `render_email.py` module. No LLM pipeline changes needed.
 - **Phase 2.5 — Social proof:** once the email list has real numbers, add subscriber-count proof to the hero and subscribe box (e.g. "Join N engineers who read The Morning Build") plus a specific reader testimonial. Social proof is the highest-impact conversion lever after benefit-led copy.
 - **Phase 3 — Paid audio:** each digest already includes a `narration_script` field and posts reserve an `audio` frontmatter slot. Add a TTS step (OpenAI TTS / ElevenLabs), upload the MP3, and the site's audio player lights up automatically. Gate a private podcast feed behind Stripe.
 

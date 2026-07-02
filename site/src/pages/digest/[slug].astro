@@ -2,7 +2,6 @@
 import { getCollection, render } from "astro:content";
 import Base from "../../layouts/Base.astro";
 import DigestMeta from "../../components/DigestMeta.astro";
-import SubscribeForm from "../../components/SubscribeForm.astro";
 import { SITE_NAME } from "../../lib/site";
 
 export async function getStaticPaths() {
@@ -69,8 +68,6 @@ const articleLd = {
             {next && <a href={`/digest/${next.id}/`}>{next.data.title} &rarr;</a>}
           </span>
         </nav>
-
-        <SubscribeForm />
       </article>
 
       {

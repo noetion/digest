@@ -2,7 +2,6 @@
 import { getCollection, render } from "astro:content";
 import Base from "../layouts/Base.astro";
 import DigestMeta from "../components/DigestMeta.astro";
-import SubscribeForm from "../components/SubscribeForm.astro";
 import { SITE_NAME, SITE_TAGLINE, SITE_DESCRIPTION, shortDate } from "../lib/site";
 
 const digests = (await getCollection("digests")).sort(
@@ -49,8 +48,6 @@ const rendered = latest ? await render(latest) : null;
         <p class="digest">The first digest publishes tomorrow morning. Check back soon.</p>
       )
     }
-
-    <SubscribeForm />
 
     {
       recent.length > 0 && (
