@@ -1,0 +1,120 @@
+---
+import "@fontsource-variable/inter";
+import "../styles/global.css";
+import { ClientRouter } from "astro:transitions";
+import { SITE_NAME, SITE_TAGLINE } from "../lib/site";
+
+interface Props {
+  title: string;
+  description: string;
+  ogImage?: string;
+  jsonLd?: Record<string, unknown>[];
+}
+
+const { title, description, ogImage, jsonLd = [] } = Astro.props;
+const canonical = new URL(Astro.url.pathname, Astro.site);
+const ogImageUrl = new URL(ogImage ?? "/og/site.png", Astro.site);
+
+const websiteLd = {
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  name: SITE_NAME,
+  description: SITE_TAGLINE,
+  url: Astro.site?.toString(),
+};
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="sitemap" href="/sitemap-index.xml" />
+    <link rel="alternate" type="application/rss+xml" title={SITE_NAME} href="/rss.xml" />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content={SITE_NAME} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={ogImageUrl} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImageUrl} />
+
+    <script type="application/ld+json" set:html={JSON.stringify(websiteLd)} />
+    {jsonLd.map((ld) => <script type="application/ld+json" set:html={JSON.stringify(ld)} />)}
+
+    <!-- No-flash theme init: must run before paint, hence inline and blocking. -->
+    <script is:inline>
+      (() => {
+        const stored = localStorage.getItem("theme");
+        const theme =
+          stored ?? (matchMedia("(prefers-color-scheme: light)").matches ? "light" : "dark");
+        document.documentElement.dataset.theme = theme;
+      })();
+    </script>
+
+    <ClientRouter />
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Skip to content</a>
+
+    <header class="site-header">
+      <div class="wrap inner">
+        <a class="masthead" href="/">
+          <span class="brace">[</span> The Context Window <span class="brace">]</span>
+        </a>
+        <nav class="site-nav" aria-label="Main">
+          <a href="/archive/">Archive</a>
+          <a href="/rss.xml">RSS</a>
+          <button class="theme-toggle" aria-label="Toggle color theme">
+            <span class="sun" aria-hidden="true">&#9728;</span>
+            <span class="moon" aria-hidden="true">&#9789;</span>
+          </button>
+        </nav>
+      </div>
+    </header>
+
+    <main id="main">
+      <slot />
+    </main>
+
+    <footer class="site-footer">
+      <div class="wrap inner">
+        <span>&copy; {new Date().getFullYear()} {SITE_NAME}. Generated daily, automatically.</span>
+        <span>
+          <a href="/archive/">Archive</a> &middot; <a href="/rss.xml">RSS</a> &middot;
+          <a href="/atom.xml">Atom</a>
+        </span>
+      </div>
+    </footer>
+
+    <script>
+      function bindThemeToggle() {
+        document.querySelector<HTMLButtonElement>(".theme-toggle")?.addEventListener(
+          "click",
+          () => {
+            const root = document.documentElement;
+            const next = root.dataset.theme === "light" ? "dark" : "light";
+            root.dataset.theme = next;
+            localStorage.setItem("theme", next);
+          },
+        );
+      }
+      bindThemeToggle();
+      document.addEventListener("astro:after-swap", () => {
+        const stored = localStorage.getItem("theme");
+        if (stored) document.documentElement.dataset.theme = stored;
+        bindThemeToggle();
+      });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,21 @@
+---
+import { formatDate, TOPIC_LABELS } from "../lib/site";
+
+interface Props {
+  date: Date;
+  readingTimeMinutes: number;
+  storyCount: number;
+  tags?: string[];
+}
+
+const { date, readingTimeMinutes, storyCount, tags = [] } = Astro.props;
+---
+
+<div class="digest-meta">
+  <time datetime={date.toISOString().slice(0, 10)}>{formatDate(date)}</time>
+  <span class="badge">{readingTimeMinutes} min read</span>
+  <span class="badge">{storyCount} stories</span>
+  {tags.map((tag) => (
+    <a class="badge accent" href={`/topics/${tag}/`}>{TOPIC_LABELS[tag] ?? tag}</a>
+  ))}
+</div>

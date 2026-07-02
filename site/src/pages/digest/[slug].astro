@@ -1,0 +1,92 @@
+---
+import { getCollection, render } from "astro:content";
+import Base from "../../layouts/Base.astro";
+import DigestMeta from "../../components/DigestMeta.astro";
+import SubscribeForm from "../../components/SubscribeForm.astro";
+import { SITE_NAME } from "../../lib/site";
+
+export async function getStaticPaths() {
+  const digests = (await getCollection("digests")).sort(
+    (a, b) => a.data.date.valueOf() - b.data.date.valueOf(),
+  );
+  return digests.map((entry, i) => ({
+    params: { slug: entry.id },
+    props: { entry, prev: digests[i - 1] ?? null, next: digests[i + 1] ?? null },
+  }));
+}
+
+const { entry, prev, next } = Astro.props;
+const { Content, headings } = await render(entry);
+const stories = headings.filter((h) => h.depth === 2);
+
+const articleLd = {
+  "@context": "https://schema.org",
+  "@type": "NewsArticle",
+  headline: entry.data.title,
+  description: entry.data.description,
+  datePublished: entry.data.date.toISOString(),
+  image: [new URL(`/og/${entry.id}.png`, Astro.site).toString()],
+  author: { "@type": "Organization", name: SITE_NAME, url: Astro.site?.toString() },
+  publisher: { "@type": "Organization", name: SITE_NAME },
+  mainEntityOfPage: new URL(Astro.url.pathname, Astro.site).toString(),
+};
+---
+
+<Base
+  title={entry.data.title}
+  description={entry.data.description}
+  ogImage={`/og/${entry.id}.png`}
+  jsonLd={[articleLd]}
+>
+  <div class="wrap">
+    <div class="digest-layout">
+      <article class="digest">
+        <DigestMeta
+          date={entry.data.date}
+          readingTimeMinutes={entry.data.readingTimeMinutes}
+          storyCount={entry.data.storyCount}
+          tags={entry.data.tags}
+        />
+        <h1>{entry.data.title}</h1>
+        <div class="prose">
+          <Content />
+        </div>
+
+        {
+          entry.data.audio && (
+            <section aria-label="Listen to this digest">
+              <h2 class="section-title">Listen</h2>
+              <audio controls src={entry.data.audio} preload="none" />
+            </section>
+          )
+        }
+
+        <nav class="pager" aria-label="Digest navigation">
+          <span>
+            {prev && <a href={`/digest/${prev.id}/`}>&larr; {prev.data.title}</a>}
+          </span>
+          <span>
+            {next && <a href={`/digest/${next.id}/`}>{next.data.title} &rarr;</a>}
+          </span>
+        </nav>
+
+        <SubscribeForm />
+      </article>
+
+      {
+        stories.length > 0 && (
+          <aside class="toc" aria-label="Stories in this digest">
+            <div class="toc-title">In this briefing</div>
+            <ol>
+              {stories.map((h) => (
+                <li>
+                  <a href={`#${h.slug}`}>{h.text}</a>
+                </li>
+              ))}
+            </ol>
+          </aside>
+        )
+      }
+    </div>
+  </div>
+</Base>

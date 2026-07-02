@@ -1,0 +1,50 @@
+---
+import { getCollection } from "astro:content";
+import Base from "../layouts/Base.astro";
+import { SITE_NAME, shortDate } from "../lib/site";
+
+const digests = (await getCollection("digests")).sort(
+  (a, b) => b.data.date.valueOf() - a.data.date.valueOf(),
+);
+
+const byMonth = new Map<string, typeof digests>();
+for (const d of digests) {
+  const key = d.data.date.toLocaleDateString("en-US", {
+    month: "long",
+    year: "numeric",
+    timeZone: "UTC",
+  });
+  byMonth.set(key, [...(byMonth.get(key) ?? []), d]);
+}
+---
+
+<Base
+  title={`Archive — ${SITE_NAME}`}
+  description={`Every daily briefing from ${SITE_NAME}, organized by month.`}
+>
+  <div class="wrap">
+    <section class="digest">
+      <h1>Archive</h1>
+      <p style="color: var(--text-muted)">{digests.length} briefings and counting.</p>
+
+      {
+        [...byMonth.entries()].map(([month, entries]) => (
+          <section aria-label={month}>
+            <h2 class="month-heading">{month}</h2>
+            <ul class="archive-list">
+              {entries.map((d) => (
+                <li class="archive-item">
+                  <a href={`/digest/${d.id}/`}>
+                    <span class="date">{shortDate(d.data.date)}</span>
+                    <div class="title">{d.data.title}</div>
+                    <p class="desc">{d.data.description}</p>
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </section>
+        ))
+      }
+    </section>
+  </div>
+</Base>

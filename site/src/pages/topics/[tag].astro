@@ -1,0 +1,49 @@
+---
+import { getCollection } from "astro:content";
+import Base from "../../layouts/Base.astro";
+import { SITE_NAME, TOPIC_LABELS, shortDate } from "../../lib/site";
+
+export async function getStaticPaths() {
+  const digests = await getCollection("digests");
+  const tags = new Set(digests.flatMap((d) => d.data.tags));
+  return [...tags].map((tag) => ({
+    params: { tag },
+    props: {
+      entries: digests
+        .filter((d) => d.data.tags.includes(tag))
+        .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf()),
+    },
+  }));
+}
+
+const { tag } = Astro.params;
+const { entries } = Astro.props;
+const label = TOPIC_LABELS[tag!] ?? tag;
+---
+
+<Base
+  title={`${label} — ${SITE_NAME}`}
+  description={`Daily briefings from ${SITE_NAME} covering ${label}.`}
+>
+  <div class="wrap">
+    <section class="digest">
+      <h1>Topic: {label}</h1>
+      <p style="color: var(--text-muted)">
+        {entries.length} briefing{entries.length === 1 ? "" : "s"} covering {label}.
+      </p>
+      <ul class="archive-list">
+        {
+          entries.map((d) => (
+            <li class="archive-item">
+              <a href={`/digest/${d.id}/`}>
+                <span class="date">{shortDate(d.data.date)}</span>
+                <div class="title">{d.data.title}</div>
+                <p class="desc">{d.data.description}</p>
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </section>
+  </div>
+</Base>

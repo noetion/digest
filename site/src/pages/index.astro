@@ -1,0 +1,78 @@
+---
+import { getCollection, render } from "astro:content";
+import Base from "../layouts/Base.astro";
+import DigestMeta from "../components/DigestMeta.astro";
+import SubscribeForm from "../components/SubscribeForm.astro";
+import { SITE_NAME, SITE_TAGLINE, SITE_DESCRIPTION, shortDate } from "../lib/site";
+
+const digests = (await getCollection("digests")).sort(
+  (a, b) => b.data.date.valueOf() - a.data.date.valueOf(),
+);
+const latest = digests[0];
+const recent = digests.slice(1, 8);
+const rendered = latest ? await render(latest) : null;
+---
+
+<Base
+  title={`${SITE_NAME} — ${SITE_TAGLINE}`}
+  description={SITE_DESCRIPTION}
+  ogImage={latest ? `/og/${latest.id}.png` : undefined}
+>
+  <section class="hero">
+    <div class="wrap">
+      <h1>{SITE_TAGLINE}</h1>
+      <p>
+        Every morning, an automated editor reads the day's AI and tech news, keeps the six
+        stories that matter to engineers, and explains what happened, why it matters, and
+        what to watch next.
+      </p>
+    </div>
+  </section>
+
+  <div class="wrap">
+    {
+      latest && rendered ? (
+        <article class="digest">
+          <DigestMeta
+            date={latest.data.date}
+            readingTimeMinutes={latest.data.readingTimeMinutes}
+            storyCount={latest.data.storyCount}
+            tags={latest.data.tags}
+          />
+          <h2 class="digest-title">
+            <a href={`/digest/${latest.id}/`}>{latest.data.title}</a>
+          </h2>
+          <div class="prose">
+            <rendered.Content />
+          </div>
+        </article>
+      ) : (
+        <p class="digest">The first digest publishes tomorrow morning. Check back soon.</p>
+      )
+    }
+
+    <SubscribeForm />
+
+    {
+      recent.length > 0 && (
+        <section aria-label="Recent digests">
+          <h2 class="section-title">Previous briefings</h2>
+          <ul class="archive-list">
+            {recent.map((d) => (
+              <li class="archive-item">
+                <a href={`/digest/${d.id}/`}>
+                  <span class="date">{shortDate(d.data.date)}</span>
+                  <div class="title">{d.data.title}</div>
+                  <p class="desc">{d.data.description}</p>
+                </a>
+              </li>
+            ))}
+          </ul>
+          <p>
+            <a href="/archive/">Browse the full archive &rarr;</a>
+          </p>
+        </section>
+      )
+    }
+  </div>
+</Base>
