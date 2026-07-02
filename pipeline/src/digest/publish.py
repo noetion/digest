@@ -31,7 +31,7 @@ def build_devto_payload(digest: Digest, day: date, site_url: str) -> dict[str, A
     canonical = canonical_digest_url(site_url, day)
     body = (
         f"{render_body(digest)}\n\n---\n\n"
-        f"*Originally published at [The Context Window]({canonical}).*\n"
+        f"*Originally published at [The Morning Build]({canonical}).*\n"
     )
     return {
         "article": {

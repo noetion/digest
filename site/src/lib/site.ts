@@ -1,5 +1,5 @@
-export const SITE_NAME = "The Context Window";
-export const SITE_TAGLINE = "Your daily 2-minute brief on AI and tech.";
+export const SITE_NAME = "The Morning Build";
+export const SITE_TAGLINE = "The day's tech news, distilled.";
 export const SITE_DESCRIPTION =
   "A fully automated daily digest of the most important AI and tech news, " +
   "written for engineers. What happened, why it matters, and what to watch next.";

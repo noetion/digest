@@ -8,10 +8,8 @@ from pydantic import BaseModel
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
 # Single source of truth for branding. Rebrand the whole project by editing these.
-# Alternative name candidates: "Signal & Noise", "Compile Daily",
-# "The Daily Diff", "Wavelength".
-SITE_NAME = "The Context Window"
-SITE_TAGLINE = "Your daily 2-minute brief on AI and tech."
+SITE_NAME = "The Morning Build"
+SITE_TAGLINE = "The day's tech news, distilled."
 
 # Repo-relative paths (resolved from this file: pipeline/src/digest/config.py -> repo root)
 REPO_ROOT = Path(__file__).resolve().parents[3]
@@ -63,7 +61,7 @@ FEEDS: tuple[Feed, ...] = (
 )
 
 USER_AGENT = (
-    "Mozilla/5.0 (compatible; ContextWindowDigest/1.0; +https://example.com/about)"
+    "Mozilla/5.0 (compatible; MorningBuildDigest/1.0; +https://digest-4ay.pages.dev/)"
 )
 
 
@@ -74,7 +72,7 @@ class Settings(BaseSettings):
 
     openai_api_key: str = ""
     dev_to_api_key: str = ""
-    max_stories: int = 6
+    max_stories: int = 5
     max_article_words: int = 1800
     daily_cost_cap_usd: float = 0.25
     dry_run: bool = False

@@ -10,7 +10,7 @@ from digest.render import reading_time_minutes, render_markdown, write_post
 def test_frontmatter_fields(sample_digest: Digest) -> None:
     md = render_markdown(sample_digest, date(2026, 7, 2))
     frontmatter = md.split("---")[1]
-    assert 'title: "The Context Window' in frontmatter
+    assert 'title: "The Morning Build' in frontmatter
     assert "date: 2026-07-02" in frontmatter
     assert "tags: [ai, chips]" in frontmatter
     assert "storyCount: 2" in frontmatter

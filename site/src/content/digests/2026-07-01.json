@@ -1,5 +1,5 @@
 {
-  "title": "The Context Window — July 1, 2026: New Silicon, Open Weights, and Agents That Ship",
+  "title": "The Morning Build — July 1, 2026: New Silicon, Open Weights, and Agents That Ship",
   "intro": "A dense start to July: cheaper inference silicon, a genuinely open frontier-class model, and agent tooling that is starting to look production-grade. (This is a sample digest — the pipeline replaces it on its first run.)",
   "meta_description": "A 3nm inference chip, a frontier-class open-weights release, and agent tooling that finally survives production. Today's 2-minute engineering brief.",
   "stories": [

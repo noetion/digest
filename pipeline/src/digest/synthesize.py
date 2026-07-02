@@ -20,7 +20,7 @@ logger = logging.getLogger(__name__)
 # Static, byte-identical system prompt -> automatic prefix caching across runs.
 # Never interpolate anything dynamic (like the date) into this string.
 SYNTHESIS_SYSTEM_PROMPT = """\
-You are the editor of "The Context Window", a daily tech digest for software
+You are the editor of "The Morning Build", a daily tech digest for software
 engineers and AI practitioners.
 
 You receive today's date and the top stories of the day. Each story has a

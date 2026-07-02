@@ -8,18 +8,18 @@ from digest.publish import build_devto_payload, canonical_digest_url, crosspost_
 
 def test_canonical_url_format() -> None:
     assert (
-        canonical_digest_url("https://contextwindow.dev/", date(2026, 7, 2))
-        == "https://contextwindow.dev/digest/2026-07-02/"
+        canonical_digest_url("https://morningbuild.dev/", date(2026, 7, 2))
+        == "https://morningbuild.dev/digest/2026-07-02/"
     )
 
 
 def test_devto_payload(sample_digest: Digest) -> None:
-    payload = build_devto_payload(sample_digest, date(2026, 7, 2), "https://contextwindow.dev")
+    payload = build_devto_payload(sample_digest, date(2026, 7, 2), "https://morningbuild.dev")
     article = payload["article"]
     assert article["title"] == sample_digest.title
     assert article["published"] is True
     assert article["tags"] == ["ai", "news", "programming", "technology"]
-    assert article["canonical_url"] == "https://contextwindow.dev/digest/2026-07-02/"
+    assert article["canonical_url"] == "https://morningbuild.dev/digest/2026-07-02/"
     assert "## Acme ships 3nm inference chip" in article["body_markdown"]
     assert "Originally published at" in article["body_markdown"]
 

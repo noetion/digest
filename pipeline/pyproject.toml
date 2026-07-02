@@ -1,7 +1,7 @@
 [project]
 name = "digest"
 version = "0.1.0"
-description = "Automated daily AI/tech news digest pipeline for The Context Window"
+description = "Automated daily AI/tech news digest pipeline for The Morning Build"
 requires-python = ">=3.12"
 dependencies = [
     "feedparser>=6.0",

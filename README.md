@@ -1,6 +1,6 @@
-# The Context Window
+# The Morning Build
 
-*Your daily 2-minute brief on AI and tech.*
+*The day's tech news, distilled.*
 
 A fully automated daily news digest platform. Every morning, a Python pipeline reads the day's AI/tech news from multiple RSS feeds, selects the stories that matter to engineers using a two-stage, cost-engineered LLM pipeline, and publishes a structured digest to a fast, SEO-optimized Astro website — with zero human involvement.
 
