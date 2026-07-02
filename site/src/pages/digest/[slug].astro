@@ -48,6 +48,22 @@ const articleLd = {
           tags={entry.data.tags}
         />
         <h1>{entry.data.title}</h1>
+
+        {
+          stories.length > 0 && (
+            <nav class="story-nav" aria-label="Stories in this digest">
+              <div class="story-nav-title">In this briefing</div>
+              <ol>
+                {stories.map((h) => (
+                  <li>
+                    <a href={`#${h.slug}`}>{h.text}</a>
+                  </li>
+                ))}
+              </ol>
+            </nav>
+          )
+        }
+
         <div class="prose">
           <Content />
         </div>
@@ -70,21 +86,6 @@ const articleLd = {
           </span>
         </nav>
       </article>
-
-      {
-        stories.length > 0 && (
-          <aside class="toc" aria-label="Stories in this digest">
-            <div class="toc-title">In this briefing</div>
-            <ol>
-              {stories.map((h) => (
-                <li>
-                  <a href={`#${h.slug}`}>{h.text}</a>
-                </li>
-              ))}
-            </ol>
-          </aside>
-        )
-      }
     </div>
   </div>
 </Base>

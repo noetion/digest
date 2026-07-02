@@ -345,71 +345,52 @@ a.badge::after {
 
 /* ---------- Digest page layout ---------- */
 
-/* Wider than .wrap so the TOC can sit beside the article without squishing it */
+/* Single reading column — wide enough to read comfortably on desktop */
 .digest-shell {
   width: 100%;
-  max-width: 72rem;
+  max-width: 52rem;
   margin-inline: auto;
-  padding-inline: clamp(1rem, 4vw, 2rem);
+  padding-inline: clamp(1.25rem, 5vw, 2rem);
 }
-
-/* ---------- Table of contents (desktop) ---------- */
 
 .digest-layout {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr);
-  gap: 2.5rem;
+  display: block;
 }
 
-@media (min-width: 64rem) {
-  .digest-layout {
-    grid-template-columns: minmax(0, 42rem) 14rem;
-    justify-content: center;
-    align-items: start;
-    gap: clamp(2rem, 4vw, 3.5rem);
-  }
-
-  .toc {
-    display: block !important;
-  }
+.story-nav {
+  margin-bottom: 1.75rem;
+  padding: 1rem 1.15rem;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--bg-raised);
+  font-size: 0.92rem;
 }
 
-.toc {
-  display: none;
-  position: sticky;
-  top: 5rem;
-  align-self: start;
-  font-size: 0.85rem;
-  border-left: 1px solid var(--border);
-  padding-left: 1.1rem;
-}
-
-.toc-title {
+.story-nav-title {
   font-family: var(--font-mono);
   font-size: 0.72rem;
   text-transform: uppercase;
   letter-spacing: 0.08em;
   color: var(--text-faint);
-  margin-bottom: 0.6rem;
+  margin-bottom: 0.55rem;
 }
 
-.toc ol {
+.story-nav ol {
   list-style: none;
   margin: 0;
   padding: 0;
 }
 
-.toc li {
-  margin-block: 0.45rem;
+.story-nav li {
+  margin-block: 0.4rem;
 }
 
-.toc a {
+.story-nav a {
   color: var(--text-muted);
-  display: block;
-  line-height: 1.4;
+  line-height: 1.45;
 }
 
-.toc a:hover {
+.story-nav a:hover {
   color: var(--text);
   text-decoration: none;
 }

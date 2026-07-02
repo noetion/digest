@@ -27,7 +27,7 @@ const rendered = latest ? await render(latest) : null;
     </div>
   </section>
 
-  <div class="wrap">
+  <div class="digest-shell">
     {
       latest && rendered ? (
         <article class="digest">
@@ -38,7 +38,7 @@ const rendered = latest ? await render(latest) : null;
             tags={latest.data.tags}
           />
           <h2 class="digest-title">
-            <a href={`/digest/${latest.id}/`}>{latest.data.title}</a>
+            <a href={`/digest/${latest.id}/`} data-astro-reload>{latest.data.title}</a>
           </h2>
           <div class="prose">
             <rendered.Content />
@@ -56,7 +56,7 @@ const rendered = latest ? await render(latest) : null;
           <ul class="archive-list">
             {recent.map((d) => (
               <li class="archive-item">
-                <a href={`/digest/${d.id}/`}>
+                  <a href={`/digest/${d.id}/`} data-astro-reload>
                   <span class="date">{shortDate(d.data.date)}</span>
                   <div class="title">{d.data.title}</div>
                   <p class="desc">{d.data.description}</p>
