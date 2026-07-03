@@ -8,6 +8,8 @@ not temperature (reasoning models don't support it).
 from __future__ import annotations
 
 import logging
+from collections import Counter
+from urllib.parse import urlsplit
 
 from openai import OpenAI
 
@@ -80,6 +82,40 @@ editor, never like an AI assistant:
 """
 
 
+def _domain(url: str) -> str:
+    return urlsplit(url).netloc.removeprefix("www.")
+
+
+def _dominant_domain(entries: list[FeedEntry], clusters: list[StoryCluster]) -> str | None:
+    """The domain that would supply the primary text for more than one story."""
+    counts = Counter(
+        _domain(max((entries[i] for i in c.entry_indices), key=lambda e: len(e.full_text)).url)
+        for c in clusters
+    )
+    domain, n = counts.most_common(1)[0]
+    return domain if n > 1 else None
+
+
+def _pick_primary(members: list[FeedEntry], dominant: str | None) -> FeedEntry:
+    """Longest extraction wins, unless a near-equal alternative (>= 70% of the
+    longest text) comes from a less-represented outlet. One outlet dominating
+    every byline reads as a single-source digest even when the stories are
+    right, so ties break toward source diversity, never at the cost of
+    substance."""
+    longest = max(members, key=lambda e: len(e.full_text))
+    if dominant is None or _domain(longest.url) != dominant:
+        return longest
+    threshold = 0.7 * len(longest.full_text)
+    alternates = [
+        m
+        for m in members
+        if _domain(m.url) != dominant and len(m.full_text) >= threshold
+    ]
+    if alternates:
+        return max(alternates, key=lambda e: len(e.full_text))
+    return longest
+
+
 def build_synthesis_input(
     date_str: str,
     entries: list[FeedEntry],
@@ -88,13 +124,14 @@ def build_synthesis_input(
     """Assemble the user message: date first, then one block per story cluster.
 
     For clusters with multiple sources, the longest extraction is the primary
-    text; the rest contribute headline + URL only (duplicate coverage is not
-    worth duplicate tokens).
+    text (with a diversity tiebreak, see _pick_primary); the rest contribute
+    headline + URL only (duplicate coverage is not worth duplicate tokens).
     """
+    dominant = _dominant_domain(entries, clusters)
     blocks = [f"Today's date: {date_str}", f"Number of stories: {len(clusters)}"]
     for n, cluster in enumerate(clusters, start=1):
         members = [entries[i] for i in cluster.entry_indices]
-        primary = max(members, key=lambda e: len(e.full_text))
+        primary = _pick_primary(members, dominant)
         block = [
             f"--- STORY {n} ---",
             f"Editor's note: {cluster.reason}",

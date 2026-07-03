@@ -28,6 +28,9 @@ class StoryCluster(BaseModel):
     """A group of entries covering the same underlying story (triage output)."""
 
     entry_indices: list[int] = Field(description="Indices into the candidate list")
+    ai_relevant: bool = Field(
+        description="True only if the story materially affects the AI ecosystem"
+    )
     significance: int = Field(ge=1, le=10, description="Significance to engineers, 1-10")
     reason: str = Field(description="One line on why this story matters")
 

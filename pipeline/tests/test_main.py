@@ -12,7 +12,7 @@ CANDIDATES = [_entry(f"https://example.com/{i}") for i in range(6)]
 
 
 def _cluster(indices: list[int]) -> StoryCluster:
-    return StoryCluster(entry_indices=indices, significance=7, reason="test")
+    return StoryCluster(entry_indices=indices, ai_relevant=True, significance=7, reason="test")
 
 
 def test_remap_all_extractions_survive() -> None:

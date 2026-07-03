@@ -58,6 +58,21 @@ FEEDS: tuple[Feed, ...] = (
         url="https://hnrss.org/frontpage?points=150",
         topic="dev-tools",
     ),
+    Feed(
+        name="The Decoder",
+        url="https://the-decoder.com/feed/",
+        topic="ai",
+    ),
+    Feed(
+        name="Ars Technica AI",
+        url="https://arstechnica.com/ai/feed/",
+        topic="ai",
+    ),
+    Feed(
+        name="The Register AI",
+        url="https://www.theregister.com/software/ai_ml/headlines.atom",
+        topic="ai",
+    ),
 )
 
 USER_AGENT = (
