@@ -8,11 +8,6 @@ on:
     - cron: "0 6 * * *"
     - cron: "30 7 * * *"
   workflow_dispatch:
-    inputs:
-      dry_run:
-        description: "Run the pipeline but write to out/ instead of publishing"
-        type: boolean
-        default: false
 
 concurrency:
   group: daily-digest
@@ -46,8 +41,6 @@ jobs:
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
           DEV_TO_API_KEY: ${{ secrets.DEV_TO_API_KEY }}
           SITE_URL: ${{ vars.SITE_URL }}
-          # Scheduled runs have no inputs; default to a real run.
-          DRY_RUN: ${{ inputs.dry_run || 'false' }}
         run: uv run python -m digest.main
 
       - name: Commit and push digest
