@@ -1,8 +1,8 @@
 """Stage A: cheap triage with gpt-5-nano.
 
-Sees only headlines + short previews (never full articles), scores each article
-for significance, and picks the top stories. Full-text extraction happens only
-for the winners.
+Sees only headlines + short previews (never full articles), clusters duplicate
+coverage of the same story, and ranks clusters by significance to engineers.
+Full-text extraction happens only for the winners.
 """
 
 from __future__ import annotations
@@ -19,8 +19,8 @@ logger = logging.getLogger(__name__)
 
 # Clusters below this score are dropped in code, not just in the prompt.
 MIN_SIGNIFICANCE = 4
-# One article per story: clustering caused wrong sources and Franken-stories.
-MAX_CLUSTER_MEMBERS = 1
+# Real duplicate coverage is 2-4 outlets; larger clusters are topic buckets.
+MAX_CLUSTER_MEMBERS = 4
 
 # Static, byte-identical system prompt -> automatic prefix caching across runs.
 TRIAGE_SYSTEM_PROMPT = """\
@@ -29,8 +29,13 @@ build software in the AI era. You receive a numbered list of candidate articles
 (headline, source, short preview).
 
 Your tasks:
-1. Create exactly one cluster per candidate entry (each cluster contains a
-   single index). Do not merge entries, even when outlets cover similar topics.
+1. Cluster entries ONLY when multiple outlets report the SAME specific news
+   event (same product launch, funding round, court ruling, or policy
+   announcement). Different companies making different announcements are ALWAYS
+   separate clusters, even on the same day or about the same broad topic (e.g.
+   "AI agents" or "big tech AI"). Different announcements from the same
+   company are also separate clusters. Never group articles because they share
+   a theme, sector, or keyword.
 2. Set ai_relevant to true when the story meaningfully affects people who build
    with AI: models, training or inference tooling, chips and compute for AI
    workloads, AI infrastructure and datacenters, developer-facing AI products
@@ -58,7 +63,7 @@ def build_triage_input(entries: list[FeedEntry]) -> str:
 
 
 def split_oversized_clusters(raw: list[StoryCluster]) -> list[StoryCluster]:
-    """Force one article per cluster so sources always match the story body."""
+    """Split topic-bucket clusters into singletons before ranking."""
     split: list[StoryCluster] = []
     for cluster in raw:
         if len(cluster.entry_indices) <= MAX_CLUSTER_MEMBERS:
