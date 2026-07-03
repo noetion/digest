@@ -1,0 +1,60 @@
+{
+  "title": "The Morning Build for July 3, 2026: Data-center monetization, agent progress, device prototypes, and privacy-first AI startups",
+  "intro": "Big tech and startups are adjusting how AI makes money: companies with big GPU fleets are preparing to sell spare compute and hosted models, agent benchmarks are showing rapid capability gains, a rocket company is prototyping a handset-like AI device, and a privacy-first AI platform just hit unicorn status.",
+  "meta_description": "Meta and SpaceX plan to sell spare AI compute; agent automation jumps; SpaceX shows an AI handset prototype; Venice AI raises $65M Series A.",
+  "stories": [
+    {
+      "headline": "Meta prepares Meta Compute to sell spare AI compute and hosted models",
+      "what_happened": "Bloomberg reported Meta is developing a cloud infrastructure business called Meta Compute to sell access to excess AI compute and hosted models, led by Santosh Janardhan, Daniel Gross, and Dina Powell McCormick. Meta has committed $182.9 billion to AI infrastructure spending and is completing large data-center projects in Louisiana and Ohio.",
+      "why_it_matters": "If Meta opens its data centers to external customers it becomes a direct infrastructure competitor to AWS, Google Cloud, and Azure, changing where teams could buy GPU-backed hosted models and raw compute. For engineers this means another provider option for large-batch training or model hosting on Meta-owned hardware.",
+      "outlook": "Watch for product details, pricing, and which models Meta will offer hosted on its infrastructure.",
+      "source_urls": [
+        "https://techcrunch.com/2026/07/01/meta-like-spacex-looks-to-turn-excess-ai-compute-into-cash/",
+        "https://techcrunch.com/2026/07/02/mark-zuckerberg-tells-staff-that-ai-agents-havent-progressed-as-quickly-as-hed-hoped/"
+      ],
+      "topic_tag": "big-tech"
+    },
+    {
+      "headline": "Meta follows SpaceX playbook: resell spare GPU capacity rather than consume it all in-house",
+      "what_happened": "The Decoder reports Meta is copying SpaceX by building a cloud business that sells spare AI compute and may host Meta models, mirroring SpaceX and xAI deals that leased Colossus 1 capacity to Anthropic and others.",
+      "why_it_matters": "This model prioritizes monetizing physical data-center assets over internal-only model development; engineering teams that need bulk GPU time or hosted inference could get supply from nontraditional cloud operators.",
+      "outlook": "Monitor whether Meta signs external compute leases or publishes hosted-model APIs and how that affects pricing competition with major cloud providers.",
+      "source_urls": [
+        "https://the-decoder.com/meta-follows-spacexs-playbook-and-builds-a-cloud-business-to-sell-its-spare-ai-compute-to-outside-customers/"
+      ],
+      "topic_tag": "big-tech"
+    },
+    {
+      "headline": "AI agents now complete 16.1% of paid freelance projects at professional quality, up from 2.5%",
+      "what_happened": "The Remote Labor Index shows top AI agents automated 16.1 percent of 240 freelance projects at pro quality, compared with 2.5 percent eight months earlier; the benchmark used human evaluators and ran agents inside pro software with up to 24 hours of compute per project.",
+      "why_it_matters": "Engineers building agentic workflows or integrating agents into production should expect rapid capability gains across tasks like 3D, CAD, and web apps, but also recognize current failure modes: agents can produce superficial outputs that look correct without underlying fidelity, and AI judges overrate results.",
+      "outlook": "Track how vendor models perform on task-specific, file-level checks and whether evaluation moves from human-in-the-loop to reproducible automated tests that open project files.",
+      "source_urls": [
+        "https://the-decoder.com/ai-agents-can-now-complete-16-percent-of-freelance-jobs-at-pro-quality-up-from-2-5-percent-eight-months-ago/"
+      ],
+      "topic_tag": "ai"
+    },
+    {
+      "headline": "SpaceX showed investors a slim handset-like AI device prototype, reportedly running xAI software",
+      "what_happened": "Reports say SpaceX presented a prototype handset-style AI device to investors described as sleeker than an iPhone and running a proprietary OS integrated with xAI, though Elon Musk has denied the reporting and the design is said to be early and subject to change.",
+      "why_it_matters": "If SpaceX pursues consumer AI hardware it could add another source of on-device inference and a vertically integrated stack from hardware to model, which matters to engineers targeting low-latency or offline agent experiences.",
+      "outlook": "Watch for formal product announcements, manufacturing commitments, and whether SpaceX couples the device with Starlink connectivity or specialized chips.",
+      "source_urls": [
+        "https://techcrunch.com/2026/07/01/spacex-has-an-ai-device-prototype-and-it-sure-sounds-phone-ish/"
+      ],
+      "topic_tag": "big-tech"
+    },
+    {
+      "headline": "Venice AI raises $65M Series A at $1B valuation with a privacy-first hosted model platform",
+      "what_happened": "TechCrunch reports Venice AI raised $65 million led by Dragonfly and reached a $1 billion valuation; the company hosts over 200 models, serves 3 million active users, averages 1.7 million API calls per day, and claims annualized run-rate revenue above $70 million.",
+      "why_it_matters": "Venice routes client-side encrypted queries through external proxies and offers end-to-end encryption on paid tiers, a model that changes trade-offs for engineers who need low-friction access to multiple model types while preserving user data privacy.",
+      "outlook": "Venice plans to buy GPUs and build data centers to reduce leasing and improve margins, so expect announcements about owned infrastructure and pricing changes tied to that shift.",
+      "source_urls": [
+        "https://techcrunch.com/2026/07/01/venice-ai-becomes-a-unicorn-with-65m-series-a-as-its-privacy-first-ai-platform-takes-off/",
+        "https://techcrunch.com/2026/07/01/gemini-spark-googles-agentic-assistant-is-now-available-on-mac/"
+      ],
+      "topic_tag": "startups"
+    }
+  ],
+  "narration_script": "Meta is planning a new business called Meta Compute to sell access to spare AI compute and possibly hosted models, according to Bloomberg and TechCrunch reporting. The unit is led by infrastructure and AI lab leaders and follows massive capital commitments, including a $182.9 billion infrastructure plan and large data centers in Louisiana and Ohio. The Decoder frames this move as copying SpaceX's playbook of renting GPU capacity to outside customers. For engineers this matters because it introduces another large-scale provider of GPU-backed training and hosted inference, which could change procurement options and pricing versus AWS, GCP, and Azure. The Remote Labor Index shows rapid capability gains for agent systems. In eight months the top automation rate rose from 2.5 percent to 16.1 percent on a 240-project benchmark run inside professional software with up to 24 hours of compute per task. The study also found that AI judges overrate outputs and that agents still fail on file-level fidelity checks, so operational teams should keep human-in-the-loop evaluation and build tests that open and inspect delivered artifacts. SpaceX reportedly showed investors a slim handset-like AI device prototype that would run xAI software on a proprietary operating system, though Musk denied the report and the design is early. If such a device ships it would be another vertical stack combining hardware, connectivity, and models, relevant to engineers building low-latency or offline agent features. Finally, Venice AI raised a $65 million Series A at a $1 billion valuation, reporting 3 million active users, 1.7 million daily API calls, and more than 200 hosted models. Venice routes client-side encrypted queries through external proxies and offers paid end-to-end encryption; it plans to buy GPUs and build data centers to stop leasing capacity. Across these stories the thread is clear: providers are trying to turn physical compute and model hosting into business lines while agent capabilities and new device concepts push where engineers will run models and how they must validate outputs."
+}
