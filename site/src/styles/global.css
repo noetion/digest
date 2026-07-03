@@ -151,11 +151,26 @@ a:hover {
 
 .site-header {
   border-bottom: 1px solid var(--border);
-  background: color-mix(in srgb, var(--bg) 85%, transparent);
-  backdrop-filter: blur(8px);
-  position: sticky;
-  top: 0;
+  background: var(--bg);
   z-index: 10;
+}
+
+/* Sticky header only where there's room for it. On phones it steals reading
+   space and overlaps the article, so it scrolls away with the page. */
+@media (min-width: 48rem) {
+  .site-header {
+    position: sticky;
+    top: 0;
+  }
+
+  /* The translucent blur treatment only where the header actually floats,
+     and only in browsers that can render the blur. */
+  @supports (backdrop-filter: blur(8px)) {
+    .site-header {
+      background: color-mix(in srgb, var(--bg) 85%, transparent);
+      backdrop-filter: blur(8px);
+    }
+  }
 }
 
 .site-header .inner {
