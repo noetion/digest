@@ -19,6 +19,8 @@ logger = logging.getLogger(__name__)
 
 # Clusters below this score are dropped in code, not just in the prompt.
 MIN_SIGNIFICANCE = 4
+# Real duplicate coverage is 2-4 outlets; larger clusters are topic buckets.
+MAX_CLUSTER_MEMBERS = 4
 
 # Static, byte-identical system prompt -> automatic prefix caching across runs.
 TRIAGE_SYSTEM_PROMPT = """\
@@ -27,10 +29,13 @@ build software in the AI era. You receive a numbered list of candidate articles
 (headline, source, short preview).
 
 Your tasks:
-1. Cluster entries that cover the SAME underlying news event into one cluster.
-   Multiple outlets reporting the same launch, funding round, or policy move
-   belong together. Separate clusters when the news event is different, even
-   if the same company is involved.
+1. Cluster entries ONLY when multiple outlets report the SAME specific news
+   event (same product launch, funding round, court ruling, or policy
+   announcement). Different companies making different announcements are ALWAYS
+   separate clusters, even on the same day or about the same broad topic (e.g.
+   "AI agents" or "big tech AI"). Different announcements from the same
+   company are also separate clusters. Never group articles because they share
+   a theme, sector, or keyword.
 2. Set ai_relevant to true when the story meaningfully affects people who build
    with AI: models, training or inference tooling, chips and compute for AI
    workloads, AI infrastructure and datacenters, developer-facing AI products
@@ -55,6 +60,23 @@ def build_triage_input(entries: list[FeedEntry]) -> str:
     for i, entry in enumerate(entries):
         lines.append(f"[{i}] ({entry.source}) {entry.title}\n{entry.preview(80)}")
     return "\n\n".join(lines)
+
+
+def split_oversized_clusters(raw: list[StoryCluster]) -> list[StoryCluster]:
+    """Split topic-bucket clusters into singletons before ranking."""
+    split: list[StoryCluster] = []
+    for cluster in raw:
+        if len(cluster.entry_indices) <= MAX_CLUSTER_MEMBERS:
+            split.append(cluster)
+            continue
+        logger.warning(
+            "Splitting oversized cluster (%d members, score %d)",
+            len(cluster.entry_indices),
+            cluster.significance,
+        )
+        for idx in cluster.entry_indices:
+            split.append(cluster.model_copy(update={"entry_indices": [idx]}))
+    return split
 
 
 def select_clusters(
@@ -112,6 +134,8 @@ def triage(
     if result is None:
         raise RuntimeError("Triage returned no parsed output")
 
-    clusters = select_clusters(result.clusters, entries, max_stories)
+    clusters = select_clusters(
+        split_oversized_clusters(result.clusters), entries, max_stories
+    )
     logger.info("Triage selected %d/%d clusters", len(clusters), len(result.clusters))
     return clusters

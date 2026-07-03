@@ -1,7 +1,13 @@
 from __future__ import annotations
 
 from digest.models import FeedEntry, StoryCluster
-from digest.triage import MIN_SIGNIFICANCE, TRIAGE_SYSTEM_PROMPT, select_clusters
+from digest.triage import (
+    MAX_CLUSTER_MEMBERS,
+    MIN_SIGNIFICANCE,
+    TRIAGE_SYSTEM_PROMPT,
+    select_clusters,
+    split_oversized_clusters,
+)
 
 
 def _entry(i: int, domain: str = "example.com") -> FeedEntry:
@@ -68,3 +74,20 @@ def test_invalid_and_duplicate_indices_are_dropped() -> None:
 
 def test_prompt_mentions_ai_relevant_gate() -> None:
     assert "ai_relevant" in TRIAGE_SYSTEM_PROMPT
+
+
+def test_prompt_forbids_theme_clustering() -> None:
+    assert "Never group articles because they share" in TRIAGE_SYSTEM_PROMPT
+
+
+def test_split_oversized_cluster_into_singletons() -> None:
+    mega = _cluster(list(range(MAX_CLUSTER_MEMBERS + 2)), significance=8)
+    split = split_oversized_clusters([mega])
+    assert len(split) == MAX_CLUSTER_MEMBERS + 2
+    assert all(len(c.entry_indices) == 1 for c in split)
+    assert {c.significance for c in split} == {8}
+
+
+def test_split_leaves_small_clusters_alone() -> None:
+    small = _cluster([0, 1, 2], significance=7)
+    assert split_oversized_clusters([small]) == [small]
