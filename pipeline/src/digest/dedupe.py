@@ -30,15 +30,35 @@ def url_hash(url: str) -> str:
     return hashlib.sha256(canonicalize_url(url).encode()).hexdigest()[:16]
 
 
+def _load_state(path: Path) -> dict[str, str]:
+    """Load seen-url state, tolerating UTF-16 files (common when edited on Windows)."""
+    raw = path.read_bytes()
+    if raw.startswith(b"\xff\xfe") or raw.startswith(b"\xfe\xff"):
+        logger.warning("Seen state at %s is UTF-16; will rewrite as UTF-8 on save", path)
+        text = raw.decode("utf-16")
+    else:
+        try:
+            text = raw.decode("utf-8")
+        except UnicodeDecodeError:
+            logger.warning("Unreadable seen state at %s, starting fresh", path)
+            return {}
+    try:
+        loaded = json.loads(text)
+    except json.JSONDecodeError:
+        logger.warning("Corrupt seen state at %s, starting fresh", path)
+        return {}
+    if not isinstance(loaded, dict):
+        logger.warning("Invalid seen state at %s (not an object), starting fresh", path)
+        return {}
+    return loaded
+
+
 class SeenState:
     def __init__(self, path: Path) -> None:
         self.path = path
         self._state: dict[str, str] = {}
         if path.exists():
-            try:
-                self._state = json.loads(path.read_text(encoding="utf-8"))
-            except json.JSONDecodeError:
-                logger.warning("Corrupt seen state at %s, starting fresh", path)
+            self._state = _load_state(path)
 
     def is_seen(self, url: str) -> bool:
         return url_hash(url) in self._state

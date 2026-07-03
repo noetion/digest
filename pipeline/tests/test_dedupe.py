@@ -54,3 +54,13 @@ def test_corrupt_state_starts_fresh(tmp_path: Path) -> None:
     path.write_text("{not json", encoding="utf-8")
     state = SeenState(path)
     assert not state.is_seen("https://example.com/a")
+
+
+def test_utf16_state_loads_and_rewrites_as_utf8(tmp_path: Path) -> None:
+    path = tmp_path / "seen.json"
+    path.write_bytes('{"abc123": "2026-07-02"}\n'.encode("utf-16"))
+    state = SeenState(path)
+    assert state._state == {"abc123": "2026-07-02"}
+    state.save()
+    assert path.read_bytes()[:1] == b"{"
+    assert SeenState(path)._state == {"abc123": "2026-07-02"}
