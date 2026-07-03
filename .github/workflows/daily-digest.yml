@@ -2,11 +2,10 @@ name: Daily Digest
 
 on:
   schedule:
-    # Primary run. GitHub cron can be delayed or occasionally skipped, so a
-    # second attempt fires 90 minutes later; the pipeline's idempotency guard
-    # makes it a no-op when the first run already published.
-    - cron: "0 6 * * *"
-    - cron: "30 7 * * *"
+    # Primary + retry. GitHub cron is best-effort and often drops jobs queued
+    # exactly on the hour or half-hour (peak load). Use :17/:47 UTC instead.
+    - cron: "17 6 * * *"
+    - cron: "47 7 * * *"
   workflow_dispatch:
 
 concurrency:
