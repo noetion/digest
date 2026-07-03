@@ -48,9 +48,6 @@ def test_slop_vocabulary_warns_but_passes(
     assert "groundbreaking" in caplog.text
 
 
-def test_foreign_source_urls_block(sample_digest: Digest) -> None:
-    allowed = [{url for url in story.source_urls} for story in sample_digest.stories]
-    allowed[0].add("https://example.com/acme-chip")
-    sample_digest.stories[1].source_urls.append("https://example.com/not-in-cluster")
-    with pytest.raises(QualityGateError, match="not from its cluster"):
-        check_quality(sample_digest, allowed_urls_per_story=allowed)
+def test_story_count_mismatch_blocks(sample_digest: Digest) -> None:
+    with pytest.raises(QualityGateError, match="expected 4"):
+        check_quality(sample_digest, expected_story_count=4)

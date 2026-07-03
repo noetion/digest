@@ -21,9 +21,9 @@ from .extract import enrich_with_full_text
 from .feeds import fetch_all_feeds
 from .models import FeedEntry, StoryCluster
 from .publish import crosspost_to_devto
-from .quality import check_quality
+from .quality import QualityGateError, check_quality
 from .render import write_post
-from .synthesize import synthesize
+from .synthesize import attach_cluster_sources, synthesize
 from .triage import triage
 
 logger = logging.getLogger(__name__)
@@ -107,18 +107,22 @@ def run() -> int:
     # --- LLM stage B: synthesis ---
     date_str = today.strftime("%A, %B %d, %Y")
     digest = synthesize(client, date_str, winners, remapped, tracker)
-    allowed_urls = [{winners[i].url for i in cluster.entry_indices} for cluster in remapped]
-    check_quality(digest, allowed_urls_per_story=allowed_urls)
+    try:
+        digest = attach_cluster_sources(digest, winners, remapped)
+    except ValueError as exc:
+        raise QualityGateError(str(exc)) from exc
+    check_quality(digest, expected_story_count=len(remapped))
 
     # --- Render + state ---
     md_path, json_path = write_post(digest, today, content_dir)
     logger.info("Wrote %s and %s", md_path, json_path)
 
     if not settings.dry_run:
-        # Mark every candidate seen (not just winners): rejected stories were
-        # considered and shouldn't be re-triaged tomorrow.
-        for entry in candidates:
-            state.mark_seen(entry.url, today)
+        # Only mark articles from selected clusters as seen. Rejected candidates
+        # stay eligible for tomorrow's digest.
+        for cluster in clusters:
+            for idx in cluster.entry_indices:
+                state.mark_seen(candidates[idx].url, today)
         state.prune(today)
         state.save()
         crosspost_to_devto(digest, today, settings.site_url, settings.dev_to_api_key)

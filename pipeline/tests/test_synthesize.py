@@ -1,10 +1,13 @@
 from __future__ import annotations
 
+import pytest
+
 from digest.models import Digest, FeedEntry, StoryCluster
 from digest.synthesize import (
     SYNTHESIS_SYSTEM_PROMPT,
     _dominant_domain,
     _pick_primary,
+    attach_cluster_sources,
     scrub_digest,
 )
 
@@ -67,6 +70,43 @@ def test_scrub_digest_removes_em_dashes(sample_digest: Digest) -> None:
 def test_scrub_digest_leaves_clean_text_alone(sample_digest: Digest) -> None:
     before = sample_digest.model_dump_json()
     assert before == scrub_digest(sample_digest).model_dump_json()
+
+
+def test_attach_cluster_sources_assigns_from_clusters(sample_digest: Digest) -> None:
+    entries = [
+        FeedEntry(
+            title="Primary",
+            url="https://a.com/1",
+            source="a.com",
+            topic="ai",
+        ),
+        FeedEntry(
+            title="Corroborating",
+            url="https://b.com/2",
+            source="b.com",
+            topic="ai",
+        ),
+    ]
+    clusters = [
+        StoryCluster(entry_indices=[0, 1], ai_relevant=True, significance=8, reason="t"),
+    ]
+    sample_digest.stories = sample_digest.stories[:1]
+    sample_digest.stories[0].source_urls = ["https://wrong.example/hallucinated"]
+
+    attach_cluster_sources(sample_digest, entries, clusters)
+
+    assert sample_digest.stories[0].source_urls == ["https://a.com/1", "https://b.com/2"]
+
+
+def test_attach_cluster_sources_rejects_count_mismatch(sample_digest: Digest) -> None:
+    entries = [
+        FeedEntry(title="One", url="https://a.com/1", source="a.com", topic="ai"),
+    ]
+    clusters = [
+        StoryCluster(entry_indices=[0], ai_relevant=True, significance=8, reason="t"),
+    ]
+    with pytest.raises(ValueError, match="3 stories for 1 clusters"):
+        attach_cluster_sources(sample_digest, entries, clusters)
 
 
 def test_system_prompt_bans_em_dashes() -> None:

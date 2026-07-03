@@ -40,8 +40,6 @@ Editorial rules (non-negotiable):
 - what_happened: the facts, 1-2 tight sentences.
 - why_it_matters: the practical/technical impact for engineers, 1-2 sentences.
 - outlook: context or what to watch next, 1 sentence.
-- source_urls: ONLY URLs explicitly listed for that story block (Primary source
-  and Corroborating coverage). Never cite a URL from a different story block.
 - topic_tag: exactly one of: ai, chips, startups, big-tech, dev-tools, policy.
 - title: must name the day's theme, not just the date. Format: "The Morning
   Build for <Month D, YYYY>: <the day's theme in a few concrete words>".
@@ -170,6 +168,21 @@ def scrub_digest(digest: Digest) -> Digest:
         story.what_happened = _scrub_text(story.what_happened)
         story.why_it_matters = _scrub_text(story.why_it_matters)
         story.outlook = _scrub_text(story.outlook)
+    return digest
+
+
+def attach_cluster_sources(
+    digest: Digest,
+    entries: list[FeedEntry],
+    clusters: list[StoryCluster],
+) -> Digest:
+    """Assign source URLs from triage clusters. The LLM must not choose sources."""
+    if len(digest.stories) != len(clusters):
+        raise ValueError(
+            f"synthesis returned {len(digest.stories)} stories for {len(clusters)} clusters"
+        )
+    for story, cluster in zip(digest.stories, clusters, strict=True):
+        story.source_urls = sorted({entries[i].url for i in cluster.entry_indices})
     return digest
 
 
