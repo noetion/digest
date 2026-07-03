@@ -15,7 +15,8 @@ from .models import Digest
 
 logger = logging.getLogger(__name__)
 
-MIN_STORIES = 3
+ABS_MIN_STORIES = 2  # never publish a one-story digest
+MIN_STORIES = 3  # target; thin news days may publish fewer
 MIN_FIELD_CHARS = 40
 MIN_HEADLINE_CHARS = 20
 MIN_NARRATION_WORDS = 100
@@ -61,8 +62,15 @@ def check_quality(digest: Digest, *, expected_story_count: int | None = None) ->
             f"synthesis returned {len(digest.stories)} stories, expected {expected_story_count}"
         )
 
-    if len(digest.stories) < MIN_STORIES:
-        problems.append(f"only {len(digest.stories)} stories (minimum {MIN_STORIES})")
+    required = MIN_STORIES
+    if expected_story_count is not None and expected_story_count < MIN_STORIES:
+        required = ABS_MIN_STORIES
+    if len(digest.stories) < required:
+        problems.append(f"only {len(digest.stories)} stories (minimum {required})")
+    elif len(digest.stories) < MIN_STORIES:
+        logger.warning(
+            "Thin digest: %d stories (target %d)", len(digest.stories), MIN_STORIES
+        )
 
     if len(digest.title.strip()) < MIN_HEADLINE_CHARS:
         problems.append(f"title too short: {digest.title!r}")

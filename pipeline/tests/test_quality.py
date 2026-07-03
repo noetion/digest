@@ -18,6 +18,17 @@ def test_too_few_stories_blocks(sample_digest: Digest) -> None:
         check_quality(sample_digest)
 
 
+def test_thin_digest_passes_when_expected(sample_digest: Digest) -> None:
+    sample_digest.stories = sample_digest.stories[:2]
+    check_quality(sample_digest, expected_story_count=2)
+
+
+def test_thin_digest_still_blocks_one_story(sample_digest: Digest) -> None:
+    sample_digest.stories = sample_digest.stories[:1]
+    with pytest.raises(QualityGateError, match="only 1 stories"):
+        check_quality(sample_digest, expected_story_count=1)
+
+
 def test_empty_bullet_blocks(sample_digest: Digest) -> None:
     sample_digest.stories[0].why_it_matters = "Big."
     with pytest.raises(QualityGateError, match="why_it_matters too short"):

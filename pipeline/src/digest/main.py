@@ -21,7 +21,7 @@ from .extract import enrich_with_full_text
 from .feeds import fetch_all_feeds
 from .models import FeedEntry, StoryCluster
 from .publish import crosspost_to_devto
-from .quality import QualityGateError, check_quality
+from .quality import ABS_MIN_STORIES, QualityGateError, check_quality
 from .render import write_post
 from .synthesize import attach_cluster_sources, synthesize
 from .triage import triage
@@ -102,6 +102,13 @@ def run() -> int:
     if not remapped:
         logger.error("All winning articles failed extraction; aborting.")
         return 1
+    if len(remapped) < ABS_MIN_STORIES:
+        logger.warning(
+            "Only %d stories after extraction (need %d); skipping digest.",
+            len(remapped),
+            ABS_MIN_STORIES,
+        )
+        return 0
     logger.info("Extracted full text for %d winning articles", len(winners))
 
     # --- LLM stage B: synthesis ---
