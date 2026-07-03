@@ -40,11 +40,6 @@ FEEDS: tuple[Feed, ...] = (
         topic="ai",
     ),
     Feed(
-        name="The Verge",
-        url="https://www.theverge.com/rss/index.xml",
-        topic="big-tech",
-    ),
-    Feed(
         name="Ars Technica AI",
         url="https://arstechnica.com/ai/feed/",
         topic="ai",
@@ -78,16 +73,6 @@ FEEDS: tuple[Feed, ...] = (
         name="Google AI Blog",
         url="https://blog.google/technology/ai/rss/",
         topic="ai",
-    ),
-    Feed(
-        name="IEEE Spectrum AI",
-        url="https://spectrum.ieee.org/feeds/topic/artificial-intelligence.rss",
-        topic="ai",
-    ),
-    Feed(
-        name="Tom's Hardware AI",
-        url="https://www.tomshardware.com/feeds/tag/artificial-intelligence",
-        topic="chips",
     ),
 )
 
