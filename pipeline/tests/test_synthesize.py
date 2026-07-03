@@ -8,7 +8,7 @@ from digest.synthesize import (
     _dominant_domain,
     _pick_primary,
     attach_cluster_sources,
-    capped_source_urls,
+    source_urls_for_story,
     scrub_digest,
 )
 
@@ -99,7 +99,43 @@ def test_attach_cluster_sources_assigns_from_clusters(sample_digest: Digest) -> 
     assert sample_digest.stories[0].source_urls == ["https://a.com/1", "https://b.com/2"]
 
 
-def test_capped_source_urls_limits_mega_cluster() -> None:
+def test_source_urls_for_story_single_article() -> None:
+    entries = [
+        FeedEntry(
+            title="Only",
+            url="https://example.com/article",
+            source="example.com",
+            topic="ai",
+            full_text="word " * 50,
+        )
+    ]
+    assert source_urls_for_story(entries, dominant=None) == ["https://example.com/article"]
+
+
+def test_source_urls_for_story_two_articles() -> None:
+    entries = [
+        FeedEntry(
+            title="Primary",
+            url="https://a.com/1",
+            source="a.com",
+            topic="ai",
+            full_text="word " * 50,
+        ),
+        FeedEntry(
+            title="Also",
+            url="https://b.com/2",
+            source="b.com",
+            topic="ai",
+            full_text="word " * 40,
+        ),
+    ]
+    assert source_urls_for_story(entries, dominant=None) == [
+        "https://a.com/1",
+        "https://b.com/2",
+    ]
+
+
+def test_source_urls_for_story_caps_at_three() -> None:
     entries = [
         FeedEntry(
             title=f"Story {i}",
@@ -110,7 +146,7 @@ def test_capped_source_urls_limits_mega_cluster() -> None:
         )
         for i in range(6)
     ]
-    urls = capped_source_urls(entries, dominant=None)
+    urls = source_urls_for_story(entries, dominant=None)
     assert len(urls) == 3
     assert "https://ieee.org/article" in urls
 

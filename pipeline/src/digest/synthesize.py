@@ -19,7 +19,7 @@ from .models import Digest, FeedEntry, StoryCluster
 
 logger = logging.getLogger(__name__)
 
-# Published bylines: one primary article plus up to two corroborating outlets.
+# Published bylines mirror synthesis input: 1 primary, up to 2 corroborating (max 3).
 MAX_SOURCE_URLS = 3
 
 # Static, byte-identical system prompt -> automatic prefix caching across runs.
@@ -118,19 +118,15 @@ def _pick_primary(members: list[FeedEntry], dominant: str | None) -> FeedEntry:
     return longest
 
 
-def capped_source_urls(
+MAX_SOURCE_URLS = 3  # hard ceiling; a lone article publishes one URL
+
+
+def _story_sources(
     members: list[FeedEntry],
     dominant: str | None,
-    *,
-    max_urls: int = MAX_SOURCE_URLS,
-) -> list[str]:
-    """Primary URL plus up to two corroborating outlets, sorted for display."""
-    if not members:
-        return []
+) -> tuple[FeedEntry, list[FeedEntry]]:
+    """Primary article plus up to two corroborating outlets fed to synthesis."""
     primary = _pick_primary(members, dominant)
-    urls = [primary.url]
-    if len(urls) >= max_urls:
-        return urls
     others = [m for m in members if m is not primary]
     others.sort(
         key=lambda m: (
@@ -138,9 +134,13 @@ def capped_source_urls(
             -len(m.full_text),
         ),
     )
-    for member in others[: max_urls - len(urls)]:
-        urls.append(member.url)
-    return sorted(urls)
+    return primary, others[: MAX_SOURCE_URLS - 1]
+
+
+def source_urls_for_story(members: list[FeedEntry], dominant: str | None) -> list[str]:
+    """URLs for the primary and corroborating articles synthesis actually sees."""
+    primary, corroborating = _story_sources(members, dominant)
+    return sorted({primary.url, *(c.url for c in corroborating)})
 
 
 def build_synthesis_input(
@@ -158,14 +158,13 @@ def build_synthesis_input(
     blocks = [f"Today's date: {date_str}", f"Number of stories: {len(clusters)}"]
     for n, cluster in enumerate(clusters, start=1):
         members = [entries[i] for i in cluster.entry_indices]
-        primary = _pick_primary(members, dominant)
+        primary, corroborating = _story_sources(members, dominant)
         block = [
             f"--- STORY {n} ---",
             f"Editor's note: {cluster.reason}",
             f"Primary source: {primary.title} ({primary.source})",
             f"URL: {primary.url}",
         ]
-        corroborating = [m for m in members if m is not primary]
         if corroborating:
             block.append("Corroborating coverage:")
             block.extend(f"- {m.title} ({m.source}) {m.url}" for m in corroborating)
@@ -212,14 +211,7 @@ def attach_cluster_sources(
     dominant = _dominant_domain(entries, clusters)
     for story, cluster in zip(digest.stories, clusters, strict=True):
         members = [entries[i] for i in cluster.entry_indices]
-        story.source_urls = capped_source_urls(members, dominant)
-        if len(members) > len(story.source_urls):
-            logger.info(
-                "Capped sources for %r: %d cluster members -> %d URLs",
-                story.headline,
-                len(members),
-                len(story.source_urls),
-            )
+        story.source_urls = source_urls_for_story(members, dominant)
     return digest
 
 
