@@ -15,7 +15,7 @@ from .models import Digest
 
 logger = logging.getLogger(__name__)
 
-MIN_STORIES = 2
+MIN_STORIES = 3
 MIN_FIELD_CHARS = 40
 MIN_HEADLINE_CHARS = 20
 MIN_NARRATION_WORDS = 100

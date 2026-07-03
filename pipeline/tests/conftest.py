@@ -37,6 +37,20 @@ def sample_digest() -> Digest:
                 source_urls=["https://example.com/openlab"],
                 topic_tag="ai",
             ),
+            Story(
+                headline="EU publishes final implementation timeline for AI Act audits",
+                what_happened=(
+                    "The EU released the enforcement schedule for AI Act conformity audits, "
+                    "with the first deadlines for general-purpose models landing next March."
+                ),
+                why_it_matters=(
+                    "Teams shipping models into the EU now have concrete compliance dates "
+                    "to plan documentation and evaluation work against."
+                ),
+                outlook="Member-state regulators publish detailed audit guidance next quarter.",
+                source_urls=["https://example.com/eu-ai-act"],
+                topic_tag="policy",
+            ),
         ],
         narration_script=(
             "Good morning, it's Thursday July second. Two stories worth your time today. "

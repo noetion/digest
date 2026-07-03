@@ -33,26 +33,26 @@ Your tasks:
 1. Cluster entries that cover the SAME underlying story (e.g. the same launch,
    paper, funding round, or incident reported by multiple outlets) into one
    cluster. Entries about different stories must never share a cluster.
-2. Set ai_relevant to true only if the story materially affects the AI
-   ecosystem: models, training or inference tooling, chips and compute,
-   infrastructure and power, developer-facing AI products, AI policy and
-   regulation, or how teams build and ship software in the AI era. General
-   tech news with no AI angle (gadget launches, entertainment, unrelated
-   business news) gets ai_relevant false.
+2. Set ai_relevant to true if the story touches the AI ecosystem: models,
+   training or inference tooling, chips and compute, infrastructure and power,
+   developer-facing AI products, AI policy and regulation, or how teams build
+   and ship software in the AI era. A general tech story with a meaningful AI
+   angle counts as true. Set it false only when the story has no real AI
+   connection (gadget refreshes, entertainment, unrelated business news).
 3. Score each cluster's significance from 1-10 using one question: would
-   someone who builds software act differently because of this? A 8-10 story
-   changes what they build with or how (major model/tooling releases, big
-   capability or pricing shifts, consequential policy). A 4-7 story informs
-   decisions without demanding action (infrastructure moves, funding with
-   technical substance, notable research). A 1-3 story is background noise:
-   rumor, celebrity, consumer gadget refreshes, opinion pieces, incremental
-   corporate news.
+   someone who builds software care about this? A 8-10 story changes what
+   they build with or how (major model/tooling releases, big capability or
+   pricing shifts, consequential policy). A 4-7 story informs decisions or is
+   worth a builder's awareness (infrastructure moves, funding with technical
+   substance, notable research, significant industry developments). A 1-3
+   story is background noise: rumor, celebrity, consumer gadget refreshes,
+   opinion pieces, incremental corporate news.
 4. Give a one-line reason per cluster.
 
-Only return clusters that are plausible digest material (significance 4 or
-higher). Omit the rest entirely; do not list every candidate. No candidate may
-appear in more than one cluster. Order clusters by significance, highest
-first.
+Return EVERY cluster with significance 4 or higher; the pipeline picks the
+final digest, so do not pre-select or trim the list yourself. Omit only clear
+noise (significance 3 or lower). No candidate may appear in more than one
+cluster. Order clusters by significance, highest first.
 """
 
 
@@ -68,21 +68,22 @@ def select_clusters(
     entries: list[FeedEntry],
     max_stories: int,
 ) -> list[StoryCluster]:
-    """Validate and filter the model's clusters: drop invalid/duplicate indices,
-    non-AI stories, and anything under the significance floor; keep the top
-    max_stories by score. Every keep/cut decision is logged so the GitHub
-    Actions log doubles as an audit trail."""
+    """Validate and filter the model's clusters: drop invalid/duplicate indices
+    and anything under the significance floor, then keep the top max_stories.
+
+    AI-relevant clusters take priority regardless of score; non-AI tech
+    stories are eligible but only fill slots left over after every AI story.
+    Every keep/cut decision is logged so the GitHub Actions log doubles as an
+    audit trail."""
     valid_range = range(len(entries))
     used: set[int] = set()
     clusters: list[StoryCluster] = []
-    for cluster in sorted(raw, key=lambda c: c.significance, reverse=True):
+    ordered = sorted(raw, key=lambda c: (not c.ai_relevant, -c.significance))
+    for cluster in ordered:
         indices = [i for i in cluster.entry_indices if i in valid_range and i not in used]
         if not indices:
             continue
         headline = entries[indices[0]].title
-        if not cluster.ai_relevant:
-            logger.info("Triage CUT (not AI-relevant, %d): %s", cluster.significance, headline)
-            continue
         if cluster.significance < MIN_SIGNIFICANCE:
             logger.info("Triage CUT (score %d): %s", cluster.significance, headline)
             continue
@@ -92,7 +93,11 @@ def select_clusters(
         used.update(indices)
         clusters.append(cluster.model_copy(update={"entry_indices": indices}))
         logger.info(
-            "Triage KEPT (%d): %s | %s", cluster.significance, headline, cluster.reason
+            "Triage KEPT (%d%s): %s | %s",
+            cluster.significance,
+            "" if cluster.ai_relevant else ", non-AI",
+            headline,
+            cluster.reason,
         )
     return clusters
 

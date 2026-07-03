@@ -12,8 +12,8 @@ def test_frontmatter_fields(sample_digest: Digest) -> None:
     frontmatter = md.split("---")[1]
     assert 'title: "The Morning Build' in frontmatter
     assert "date: 2026-07-02" in frontmatter
-    assert "tags: [ai, chips]" in frontmatter
-    assert "storyCount: 2" in frontmatter
+    assert "tags: [ai, chips, policy]" in frontmatter
+    assert "storyCount: 3" in frontmatter
     assert "audio: null" in frontmatter
     assert "https://example.com/acme-chip" in frontmatter
 
@@ -21,10 +21,10 @@ def test_frontmatter_fields(sample_digest: Digest) -> None:
 def test_body_structure(sample_digest: Digest) -> None:
     md = render_markdown(sample_digest, date(2026, 7, 2))
     body = md.split("---", 2)[2]
-    assert body.count("## ") == 2
-    assert body.count("**What happened:**") == 2
-    assert body.count("**Why it matters:**") == 2
-    assert body.count("**Outlook:**") == 2
+    assert body.count("## ") == 3
+    assert body.count("**What happened:**") == 3
+    assert body.count("**Why it matters:**") == 3
+    assert body.count("**Outlook:**") == 3
     # Source links render with bare domains as text
     assert "[example.com](https://example.com/acme-chip)" in body
 
