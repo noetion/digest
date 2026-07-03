@@ -83,7 +83,10 @@ def test_prompt_forbids_theme_clustering() -> None:
 def test_prompt_targets_builder_mix_with_tier_b_context() -> None:
     assert "Tier A" in TRIAGE_SYSTEM_PROMPT
     assert "Tier B" in TRIAGE_SYSTEM_PROMPT
-    assert "consumer hardware pricing" in TRIAGE_SYSTEM_PROMPT
+    assert "true ONLY for Tier A or Tier B" in TRIAGE_SYSTEM_PROMPT
+    assert "Microsoft, Amazon" in TRIAGE_SYSTEM_PROMPT
+    assert "smart glasses" in TRIAGE_SYSTEM_PROMPT
+    assert "mostly A" in TRIAGE_SYSTEM_PROMPT
 
 
 def test_split_oversized_cluster_into_singletons() -> None:

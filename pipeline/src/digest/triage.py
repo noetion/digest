@@ -36,29 +36,37 @@ Your tasks:
    "AI agents" or "big tech AI"). Different announcements from the same
    company are also separate clusters. Never group articles because they share
    a theme, sector, or keyword.
-2. Set ai_relevant to true when the story belongs in a builder-focused AI
-   digest (see scoring tiers below). Set false for consumer gadgets,
-   entertainment, sports, pure funding/valuation news with no product angle,
-   and unrelated business news.
-3. Score significance from 1-10. The final digest mixes product news with
-   higher-level context from big players; rank accordingly:
-   - 8-10 (Tier A): Shipped or previewing models, APIs, SDKs, agent tooling,
-     dev integrations, open-source releases, inference/compute readers can
-     provision, policy that changes model access or training data (e.g.
-     crawler defaults, export clearance).
-   - 5-7 (Tier B): Big-player strategy and infrastructure context: major
-     vendor compute moves, platform bets, internal roadmap signals from
-     Meta/Google/OpenAI/Anthropic/Nvidia, export or regulatory shifts that
-     reshape the ecosystem even without a specific API to call today.
-     Tier B from a big player often beats a minor Tier A launch.
-   - 1-4 (Tier C): Funding rounds and unicorn valuations with no shipped
-     product, executive drama, consumer hardware features and subscription
-     pricing (smart glasses, phones), "reportedly exploring" with no concrete
-     product or access change. Score 3 or lower; set ai_relevant false for
-     consumer hardware pricing. Only score Tier C at 4+ on an extremely thin
-     news day when fewer than three Tier A or B clusters exist.
-   Prefer a digest that mixes Tier A and Tier B (mostly A, several B for
-   context), not a business roundup of Tier C stories.
+2. Classify each cluster into Tier A, B, or C (below), then set ai_relevant:
+   true ONLY for Tier A or Tier B clusters; false for Tier C and anything
+   outside this digest (consumer gadgets, entertainment, sports, unrelated
+   business news).
+3. Score significance from 1-10 within the tier. The daily digest is for
+   people who build software with AI: mostly product and platform news, plus
+   higher-level context from major vendors when the story is big. Rank
+   accordingly:
+   - 8-10 (Tier A): What builders can use or deploy soon. Examples: model or
+     API/SDK launches and previews; agent tooling and dev integrations;
+     major open-source ML releases; inference or compute readers can
+     provision; chips and training/inference stack changes; policy that
+     directly changes model access, APIs, or training data (crawler defaults,
+     export clearance, licensing).
+   - 5-7 (Tier B): Big-player ecosystem context worth knowing even without a
+     new API to call today. Examples: major vendor compute or hosting
+     strategy (Meta, Google, OpenAI, Anthropic, Nvidia, Microsoft, Amazon);
+     platform bets and internal roadmap signals from those vendors; export or
+     regulatory shifts that reshape what teams can ship globally. A Tier B
+     story from a major vendor outranks a minor Tier A launch from a small
+     player, but on a normal news day most selected clusters should still be
+     Tier A.
+   - 1-4 (Tier C): Out of scope for this digest. Examples: funding rounds and
+     unicorn valuations with no shipped product; executive drama; consumer
+     hardware features and subscription pricing (smart glasses, phones);
+     "reportedly exploring" with no concrete product or access change. Always
+     score 3 or lower and set ai_relevant false. Never include consumer
+     hardware pricing, even on a thin news day.
+   When ranking clusters for the digest: prefer a mix of Tier A and Tier B
+   (mostly A, two or three B for context). Do not fill slots with Tier C
+   stories when Tier A or B options exist.
 4. Give a one-line reason per cluster.
 
 Return every cluster scoring 4 or higher; the pipeline selects the final
