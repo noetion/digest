@@ -1,0 +1,61 @@
+{
+  "title": "The Morning Build for July 3, 2026: Vertical AI, Compute Sales, Desktop Agents, Model Releases, and Publisher Controls",
+  "intro": "Large tech vendors are rearranging how AI reaches developers and customers: from Google shipping new local and multimodal models to Meta testing a compute-resale business, a desktop agent rollout on macOS, internal slowdowns on agent timelines, and Cloudflare tightening crawler defaults for publishers.",
+  "meta_description": "Today: Google’s June AI releases, Meta eyed compute resale, Gemini Spark on Mac, Meta agent setbacks, and Cloudflare crawler defaults affecting training data.",
+  "stories": [
+    {
+      "headline": "Google rolls out Gemma 4 12B, Gemini 3.5 Flash features, and new multimodal APIs in June update",
+      "what_happened": "Google announced June AI updates including Gemma 4 12B, a 12-billion-parameter model that runs locally on 16 GB of memory; Gemini 3.5 Flash with integrated computer use and agent improvements; Nano Banana 2 Lite and Gemini Omni Flash in API preview; plus Gemini 3.5 Live Translate and device updates tied to Android 17 and new Pixel features.",
+      "why_it_matters": "Engineers gain a local 12B model (Gemma 4 12B) pitched for on-device reasoning and privacy, new agent-capable APIs for long-horizon automation, and native multimodal/video model previews that affect how teams architect edge, on-device, and cloud inference pipelines.",
+      "outlook": "Watch developer documentation and pricing for Gemini Omni Flash and Nano Banana 2 Lite as Google moves these models into public and enterprise previews.",
+      "source_urls": [
+        "https://blog.google/innovation-and-ai/technology/ai/google-ai-updates-june-2026/",
+        "https://techcrunch.com/2026/07/02/mark-zuckerberg-tells-staff-that-ai-agents-havent-progressed-as-quickly-as-hed-hoped/",
+        "https://www.wired.com/story/anthropic-added-a-new-security-measure-to-get-back-into-the-trump-administrations-good-graces/"
+      ],
+      "topic_tag": "ai"
+    },
+    {
+      "headline": "Meta explores selling excess AI compute and hosting models as a cloud offering",
+      "what_happened": "Reports say Meta is planning a Meta Compute business to sell access to unused AI compute capacity and host models for customers, potentially mirroring CoreWeave and AWS models, and led by senior infrastructure and AI executives.",
+      "why_it_matters": "If executed, external access to Meta's data center capacity and hosted models would add another supplier of AI infrastructure and model hosting, affecting procurement options and pricing dynamics for teams that rent GPU/accelerator time or deploy third-party hosted models.",
+      "outlook": "Track announcements from Meta about service scope, pricing, and which models will be offered, since Bloomberg and TechCrunch reports frame this as a planning-stage initiative.",
+      "source_urls": [
+        "https://techcrunch.com/2026/07/01/meta-like-spacex-looks-to-turn-excess-ai-compute-into-cash/"
+      ],
+      "topic_tag": "big-tech"
+    },
+    {
+      "headline": "Gemini Spark desktop agent arrives on macOS with app integrations and custom Model Context Protocol",
+      "what_happened": "Google launched Gemini Spark on macOS beta for Google AI Ultra subscribers in the U.S., adding file access, integrations with Google Tasks and Keep, third-party apps, real-time topic tracking, and support for a custom Model Context Protocol for app connections.",
+      "why_it_matters": "Developers building desktop automations can use Spark to read local files, connect via MCP to apps, and trigger multi-step flows; this changes integration points for agent-driven workflows and suggests new extension hooks for app vendors.",
+      "outlook": "Expect MCP documentation and broader availability beyond U.S. AI Ultra subscribers to determine how third-party apps and internal tools will integrate with Spark at scale.",
+      "source_urls": [
+        "https://techcrunch.com/2026/07/01/gemini-spark-googles-agentic-assistant-is-now-available-on-mac/"
+      ],
+      "topic_tag": "dev-tools"
+    },
+    {
+      "headline": "Meta says agent development has lagged internal timelines, CEO acknowledges slower progress",
+      "what_happened": "Mark Zuckerberg told staff that Meta's agent systems have not accelerated as expected and that a corporate restructuring did not go as cleanly as planned; Meta executives project more tangible results in three to six months while internal leaders dispute the scope of the remark.",
+      "why_it_matters": "Teams evaluating agent offerings should note Meta's public recognition of slower agent progress, which may affect product roadmaps, release timing, and resource allocation for agent-dependent integrations.",
+      "outlook": "Watch for Meta model updates and benchmark announcements, including claims about the next models codenamed Avocado and Watermelon, which company execs say are in active development.",
+      "source_urls": [
+        "https://arstechnica.com/tech-policy/2026/07/after-spooking-trump-into-safety-testing-anthropic-ai-models-get-global-release/",
+        "https://the-decoder.com/metas-ai-agent-push-is-moving-slower-than-zuckerberg-planned/"
+      ],
+      "topic_tag": "big-tech"
+    },
+    {
+      "headline": "Cloudflare will block mixed-use crawlers on ad pages by default starting September 15, 2026",
+      "what_happened": "Cloudflare announced default settings that will block mixed-use crawlers from pages that host ads starting September 15, 2026, applying to new customers, new sites, and existing free customers, and introduced publisher tools like Pay Per Use and partnerships with Ceramic.ai and You.com to let publishers charge for AI use.",
+      "why_it_matters": "Model providers and teams that crawl the open web for training or agent data will face changed defaults and will need clear bot separation or opt-in arrangements with publishers, potentially adding operational and licensing steps for content acquisition.",
+      "outlook": "Engineering and legal teams should track Cloudflare guidance and partner integrations to design crawler behavior and publisher agreements before the September 15 deadline.",
+      "source_urls": [
+        "https://techcrunch.com/2026/07/01/cloudflares-new-policy-pushes-ai-companies-to-pay-for-publishers-content/"
+      ],
+      "topic_tag": "policy"
+    }
+  ],
+  "narration_script": "Google published a broad June AI update, and the details matter for engineers. Gemma 4 12B is a 12-billion-parameter model that Google says runs locally on 16 gigabytes of memory, and Gemini 3.5 Flash adds integrated computer use for agent workflows. Google also previewed Nano Banana 2 Lite and Gemini Omni Flash for image and multimodal video workflows, and rolled out device and translation features tied to Android 17 and new Pixel capabilities. These releases change how teams balance on-device inference, privacy, and cloud inference for long-running automation. Next, Meta is reported to be building a Meta Compute unit to sell excess data center capacity and host models for customers. The plan, if it ships, would add another supplier of raw AI compute and hosted models, which could affect procurement and pricing for teams that rent accelerator time. Google’s Gemini Spark expanded to macOS in beta for Google AI Ultra subscribers, adding local file access, integrations with Tasks and Keep, third-party services, real-time topic tracking, and a custom Model Context Protocol for app connections. That rollout gives desktop automation developers new hooks for multi-step tasks and app-level integrations. Internally at Meta, Mark Zuckerberg told staff that agent development has not accelerated as expected and that a restructuring did not go as cleanly as planned; company leaders say model work is ongoing and that more tangible results are expected in the next three to six months. Engineering teams relying on Meta agent timelines should account for that acknowledged delay. Finally, Cloudflare will change default crawler behavior on September 15, 2026, blocking mixed-use crawlers from ad pages unless site owners opt in, and it is expanding Pay Per Use partnerships with Ceramic.ai and You.com so publishers can be paid when their content is used. Model builders that crawl the web for training or agent data will need to separate crawler intents, adopt Cloudflare’s tools, or negotiate publisher access. That is the technical roundup for today. Check vendor docs and developer previews for the exact API, pricing, and integration details mentioned in these announcements."
+}
