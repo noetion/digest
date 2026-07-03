@@ -8,6 +8,7 @@ from digest.synthesize import (
     _dominant_domain,
     _pick_primary,
     attach_cluster_sources,
+    capped_source_urls,
     scrub_digest,
 )
 
@@ -96,6 +97,43 @@ def test_attach_cluster_sources_assigns_from_clusters(sample_digest: Digest) -> 
     attach_cluster_sources(sample_digest, entries, clusters)
 
     assert sample_digest.stories[0].source_urls == ["https://a.com/1", "https://b.com/2"]
+
+
+def test_capped_source_urls_limits_mega_cluster() -> None:
+    entries = [
+        FeedEntry(
+            title=f"Story {i}",
+            url=f"https://{'ieee.org' if i == 0 else f'outlet{i}.com'}/article",
+            source="ieee.org" if i == 0 else f"outlet{i}.com",
+            topic="ai",
+            full_text=" ".join(["word"] * (100 - i * 10)),
+        )
+        for i in range(6)
+    ]
+    urls = capped_source_urls(entries, dominant=None)
+    assert len(urls) == 3
+    assert "https://ieee.org/article" in urls
+
+
+def test_attach_cluster_sources_caps_mega_cluster(sample_digest: Digest) -> None:
+    entries = [
+        FeedEntry(
+            title=f"Story {i}",
+            url=f"https://site{i}.com/article",
+            source=f"site{i}.com",
+            topic="ai",
+            full_text="word " * (50 - i),
+        )
+        for i in range(5)
+    ]
+    clusters = [
+        StoryCluster(entry_indices=list(range(5)), ai_relevant=True, significance=8, reason="t"),
+    ]
+    sample_digest.stories = sample_digest.stories[:1]
+
+    attach_cluster_sources(sample_digest, entries, clusters)
+
+    assert len(sample_digest.stories[0].source_urls) == 3
 
 
 def test_attach_cluster_sources_rejects_count_mismatch(sample_digest: Digest) -> None:

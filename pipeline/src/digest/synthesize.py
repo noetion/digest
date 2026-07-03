@@ -19,6 +19,9 @@ from .models import Digest, FeedEntry, StoryCluster
 
 logger = logging.getLogger(__name__)
 
+# Published bylines: one primary article plus up to two corroborating outlets.
+MAX_SOURCE_URLS = 3
+
 # Static, byte-identical system prompt -> automatic prefix caching across runs.
 # Never interpolate anything dynamic (like the date) into this string.
 SYNTHESIS_SYSTEM_PROMPT = """\
@@ -115,6 +118,31 @@ def _pick_primary(members: list[FeedEntry], dominant: str | None) -> FeedEntry:
     return longest
 
 
+def capped_source_urls(
+    members: list[FeedEntry],
+    dominant: str | None,
+    *,
+    max_urls: int = MAX_SOURCE_URLS,
+) -> list[str]:
+    """Primary URL plus up to two corroborating outlets, sorted for display."""
+    if not members:
+        return []
+    primary = _pick_primary(members, dominant)
+    urls = [primary.url]
+    if len(urls) >= max_urls:
+        return urls
+    others = [m for m in members if m is not primary]
+    others.sort(
+        key=lambda m: (
+            _domain(m.url) == _domain(primary.url),
+            -len(m.full_text),
+        ),
+    )
+    for member in others[: max_urls - len(urls)]:
+        urls.append(member.url)
+    return sorted(urls)
+
+
 def build_synthesis_input(
     date_str: str,
     entries: list[FeedEntry],
@@ -181,8 +209,17 @@ def attach_cluster_sources(
         raise ValueError(
             f"synthesis returned {len(digest.stories)} stories for {len(clusters)} clusters"
         )
+    dominant = _dominant_domain(entries, clusters)
     for story, cluster in zip(digest.stories, clusters, strict=True):
-        story.source_urls = sorted({entries[i].url for i in cluster.entry_indices})
+        members = [entries[i] for i in cluster.entry_indices]
+        story.source_urls = capped_source_urls(members, dominant)
+        if len(members) > len(story.source_urls):
+            logger.info(
+                "Capped sources for %r: %d cluster members -> %d URLs",
+                story.headline,
+                len(members),
+                len(story.source_urls),
+            )
     return digest
 
 
