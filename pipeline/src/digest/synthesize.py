@@ -40,7 +40,8 @@ Editorial rules (non-negotiable):
 - what_happened: the facts, 1-2 tight sentences.
 - why_it_matters: the practical/technical impact for engineers, 1-2 sentences.
 - outlook: context or what to watch next, 1 sentence.
-- source_urls: only URLs given for that story.
+- source_urls: ONLY URLs explicitly listed for that story block (Primary source
+  and Corroborating coverage). Never cite a URL from a different story block.
 - topic_tag: exactly one of: ai, chips, startups, big-tech, dev-tools, policy.
 - title: must name the day's theme, not just the date. Format: "The Morning
   Build for <Month D, YYYY>: <the day's theme in a few concrete words>".

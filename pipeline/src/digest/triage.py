@@ -8,6 +8,8 @@ Full-text extraction happens only for the winners.
 from __future__ import annotations
 
 import logging
+import re
+from urllib.parse import urlsplit
 
 from openai import OpenAI
 
@@ -20,6 +22,21 @@ logger = logging.getLogger(__name__)
 # Clusters below this score are dropped in code, not just in the prompt, so a
 # thin news day produces a shorter digest instead of padded filler.
 MIN_SIGNIFICANCE = 4
+# No more than this many clusters whose primary outlet is the same domain.
+MAX_CLUSTERS_PER_DOMAIN = 2
+MERGE_KEYWORD_OVERLAP = 0.5
+
+_STOPWORDS = frozenset(
+    {
+        "a", "an", "and", "are", "as", "at", "be", "but", "by", "for", "from", "has", "have",
+        "he", "her", "his", "in", "into", "is", "it", "its", "of", "on", "or", "that", "the",
+        "their", "they", "this", "to", "was", "were", "will", "with", "after", "before",
+        "over", "under", "about", "when", "where", "while", "who", "why", "how", "not", "out",
+        "up", "all", "any", "can", "may", "new", "now", "one", "two", "says", "said", "report",
+        "reports", "reported", "than", "more", "most", "other", "some", "such", "them", "these",
+        "those", "very", "what", "your", "our",
+    }
+)
 
 # Static, byte-identical system prompt -> automatic prefix caching across runs.
 # Never interpolate anything dynamic into this string.
@@ -30,9 +47,14 @@ founders. You receive a numbered list of candidate articles (headline, source,
 short preview).
 
 Your tasks:
-1. Cluster entries that cover the SAME underlying story (e.g. the same launch,
-   paper, funding round, or incident reported by multiple outlets) into one
-   cluster. Entries about different stories must never share a cluster.
+1. Cluster entries that cover the SAME underlying story into one cluster.
+   Merge aggressively when multiple outlets report the same news: the same
+   product launch, funding round, policy move, or corporate initiative
+   (e.g. Meta building a cloud business to sell spare AI compute reported by
+   TechCrunch and The Decoder must be ONE cluster, not two). Separate
+   clusters only when the news event is genuinely different: a product launch
+   is not the same story as executive commentary or a quarterly earnings
+   beat, even if the same company is involved.
 2. Set ai_relevant to true if the story touches the AI ecosystem: models,
    training or inference tooling, chips and compute, infrastructure and power,
    developer-facing AI products, AI policy and regulation, or how teams build
@@ -63,6 +85,72 @@ def build_triage_input(entries: list[FeedEntry]) -> str:
     return "\n\n".join(lines)
 
 
+def _cluster_keywords(entries: list[FeedEntry], indices: list[int]) -> set[str]:
+    words: set[str] = set()
+    for i in indices:
+        for token in re.findall(r"[a-z0-9]{3,}", entries[i].title.lower()):
+            if token not in _STOPWORDS:
+                words.add(token)
+    return words
+
+
+def _keyword_overlap(a: set[str], b: set[str]) -> float:
+    if not a or not b:
+        return 0.0
+    shared = len(a & b)
+    # Jaccard misses same-story headlines with different framing; containment
+    # catches "Meta sells spare compute" vs "Meta follows SpaceX to sell compute".
+    jaccard = shared / len(a | b)
+    containment = shared / min(len(a), len(b))
+    return max(jaccard, containment)
+
+
+def _cluster_domain(entries: list[FeedEntry], indices: list[int]) -> str:
+    """Best guess at the primary outlet for a cluster (longest preview wins)."""
+    best = max(indices, key=lambda i: len(entries[i].preview(80)))
+    return urlsplit(entries[best].url).netloc.removeprefix("www.")
+
+
+def merge_duplicate_clusters(
+    raw: list[StoryCluster],
+    entries: list[FeedEntry],
+    overlap_threshold: float = MERGE_KEYWORD_OVERLAP,
+) -> list[StoryCluster]:
+    """Merge clusters the model split that clearly cover the same story."""
+    merged: list[StoryCluster] = []
+    for cluster in raw:
+        indices = [i for i in cluster.entry_indices if i < len(entries)]
+        if not indices:
+            continue
+        keywords = _cluster_keywords(entries, indices)
+        headline = entries[indices[0]].title
+
+        combined = False
+        for pos, existing in enumerate(merged):
+            existing_indices = existing.entry_indices
+            overlap = _keyword_overlap(keywords, _cluster_keywords(entries, existing_indices))
+            if overlap < overlap_threshold:
+                continue
+            new_indices = list(dict.fromkeys(existing_indices + indices))
+            keep_existing_reason = existing.significance >= cluster.significance
+            merged[pos] = StoryCluster(
+                entry_indices=new_indices,
+                ai_relevant=existing.ai_relevant or cluster.ai_relevant,
+                significance=max(existing.significance, cluster.significance),
+                reason=existing.reason if keep_existing_reason else cluster.reason,
+            )
+            logger.info(
+                "Triage MERGE (%.0f%% overlap): %s",
+                overlap * 100,
+                headline,
+            )
+            combined = True
+            break
+        if not combined:
+            merged.append(cluster.model_copy(update={"entry_indices": indices}))
+    return merged
+
+
 def select_clusters(
     raw: list[StoryCluster],
     entries: list[FeedEntry],
@@ -78,6 +166,7 @@ def select_clusters(
     valid_range = range(len(entries))
     used: set[int] = set()
     clusters: list[StoryCluster] = []
+    domain_counts: dict[str, int] = {}
     ordered = sorted(raw, key=lambda c: (not c.ai_relevant, -c.significance))
     for cluster in ordered:
         indices = [i for i in cluster.entry_indices if i in valid_range and i not in used]
@@ -87,10 +176,15 @@ def select_clusters(
         if cluster.significance < MIN_SIGNIFICANCE:
             logger.info("Triage CUT (score %d): %s", cluster.significance, headline)
             continue
+        domain = _cluster_domain(entries, indices)
+        if domain_counts.get(domain, 0) >= MAX_CLUSTERS_PER_DOMAIN:
+            logger.info("Triage CUT (domain cap %s): %s", domain, headline)
+            continue
         if len(clusters) >= max_stories:
             logger.info("Triage CUT (over limit, %d): %s", cluster.significance, headline)
             continue
         used.update(indices)
+        domain_counts[domain] = domain_counts.get(domain, 0) + 1
         clusters.append(cluster.model_copy(update={"entry_indices": indices}))
         logger.info(
             "Triage KEPT (%d%s): %s | %s",
@@ -129,6 +223,12 @@ def triage(
     if result is None:
         raise RuntimeError("Triage returned no parsed output")
 
-    clusters = select_clusters(result.clusters, entries, max_stories)
-    logger.info("Triage selected %d/%d clusters", len(clusters), len(result.clusters))
+    merged = merge_duplicate_clusters(result.clusters, entries)
+    clusters = select_clusters(merged, entries, max_stories)
+    logger.info(
+        "Triage selected %d/%d clusters (%d after merge)",
+        len(clusters),
+        len(result.clusters),
+        len(merged),
+    )
     return clusters

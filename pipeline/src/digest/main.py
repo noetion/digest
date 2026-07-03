@@ -107,7 +107,8 @@ def run() -> int:
     # --- LLM stage B: synthesis ---
     date_str = today.strftime("%A, %B %d, %Y")
     digest = synthesize(client, date_str, winners, remapped, tracker)
-    check_quality(digest)
+    allowed_urls = [{winners[i].url for i in cluster.entry_indices} for cluster in remapped]
+    check_quality(digest, allowed_urls_per_story=allowed_urls)
 
     # --- Render + state ---
     md_path, json_path = write_post(digest, today, content_dir)

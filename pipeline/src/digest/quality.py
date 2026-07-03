@@ -52,12 +52,31 @@ def _story_fields(digest: Digest) -> list[tuple[str, str]]:
     return fields
 
 
-def check_quality(digest: Digest) -> None:
+def check_quality(
+    digest: Digest,
+    allowed_urls_per_story: list[set[str]] | None = None,
+) -> None:
     """Raise QualityGateError for publish-blocking problems; log style warnings."""
     problems: list[str] = []
 
     if len(digest.stories) < MIN_STORIES:
         problems.append(f"only {len(digest.stories)} stories (minimum {MIN_STORIES})")
+
+    if allowed_urls_per_story is not None:
+        if len(allowed_urls_per_story) != len(digest.stories):
+            problems.append(
+                f"cluster count ({len(allowed_urls_per_story)}) != story count "
+                f"({len(digest.stories)})"
+            )
+        else:
+            for n, (story, allowed) in enumerate(
+                zip(digest.stories, allowed_urls_per_story, strict=True), start=1
+            ):
+                invalid = [url for url in story.source_urls if url not in allowed]
+                if invalid:
+                    problems.append(
+                        f"story {n} cites URLs not from its cluster: {invalid}"
+                    )
 
     if len(digest.title.strip()) < MIN_HEADLINE_CHARS:
         problems.append(f"title too short: {digest.title!r}")
