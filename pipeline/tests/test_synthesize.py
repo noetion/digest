@@ -96,26 +96,22 @@ def test_attach_cluster_sources_assigns_from_clusters(sample_digest: Digest) -> 
 
     attach_cluster_sources(sample_digest, entries, clusters)
 
-    assert sample_digest.stories[0].source_urls == ["https://a.com/1", "https://b.com/2"]
+    assert sample_digest.stories[0].source_urls == ["https://a.com/1"]
 
 
-def test_capped_source_urls_limits_mega_cluster() -> None:
+def test_capped_source_urls_returns_single_url() -> None:
     entries = [
         FeedEntry(
-            title=f"Story {i}",
-            url=f"https://{'ieee.org' if i == 0 else f'outlet{i}.com'}/article",
-            source="ieee.org" if i == 0 else f"outlet{i}.com",
+            title="Only",
+            url="https://example.com/article",
+            source="example.com",
             topic="ai",
-            full_text=" ".join(["word"] * (100 - i * 10)),
         )
-        for i in range(6)
     ]
-    urls = capped_source_urls(entries, dominant=None)
-    assert len(urls) == 3
-    assert "https://ieee.org/article" in urls
+    assert capped_source_urls(entries, dominant=None) == ["https://example.com/article"]
 
 
-def test_attach_cluster_sources_caps_mega_cluster(sample_digest: Digest) -> None:
+def test_attach_cluster_sources_uses_single_url(sample_digest: Digest) -> None:
     entries = [
         FeedEntry(
             title=f"Story {i}",
@@ -133,7 +129,7 @@ def test_attach_cluster_sources_caps_mega_cluster(sample_digest: Digest) -> None
 
     attach_cluster_sources(sample_digest, entries, clusters)
 
-    assert len(sample_digest.stories[0].source_urls) == 3
+    assert sample_digest.stories[0].source_urls == ["https://site0.com/article"]
 
 
 def test_attach_cluster_sources_rejects_count_mismatch(sample_digest: Digest) -> None:

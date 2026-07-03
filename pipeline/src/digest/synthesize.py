@@ -19,9 +19,6 @@ from .models import Digest, FeedEntry, StoryCluster
 
 logger = logging.getLogger(__name__)
 
-# Published bylines: one primary article plus up to two corroborating outlets.
-MAX_SOURCE_URLS = 3
-
 # Static, byte-identical system prompt -> automatic prefix caching across runs.
 # Never interpolate anything dynamic (like the date) into this string.
 SYNTHESIS_SYSTEM_PROMPT = """\
@@ -121,26 +118,12 @@ def _pick_primary(members: list[FeedEntry], dominant: str | None) -> FeedEntry:
 def capped_source_urls(
     members: list[FeedEntry],
     dominant: str | None,
-    *,
-    max_urls: int = MAX_SOURCE_URLS,
 ) -> list[str]:
-    """Primary URL plus up to two corroborating outlets, sorted for display."""
+    """One article per story; return that article's URL."""
+    del dominant  # singleton clusters; kept for call-site stability
     if not members:
         return []
-    primary = _pick_primary(members, dominant)
-    urls = [primary.url]
-    if len(urls) >= max_urls:
-        return urls
-    others = [m for m in members if m is not primary]
-    others.sort(
-        key=lambda m: (
-            _domain(m.url) == _domain(primary.url),
-            -len(m.full_text),
-        ),
-    )
-    for member in others[: max_urls - len(urls)]:
-        urls.append(member.url)
-    return sorted(urls)
+    return [members[0].url]
 
 
 def build_synthesis_input(
@@ -213,12 +196,10 @@ def attach_cluster_sources(
     for story, cluster in zip(digest.stories, clusters, strict=True):
         members = [entries[i] for i in cluster.entry_indices]
         story.source_urls = capped_source_urls(members, dominant)
-        if len(members) > len(story.source_urls):
-            logger.info(
-                "Capped sources for %r: %d cluster members -> %d URLs",
+        if len(cluster.entry_indices) > 1:
+            logger.warning(
+                "Multi-article cluster for %r; using first URL only",
                 story.headline,
-                len(members),
-                len(story.source_urls),
             )
     return digest
 
