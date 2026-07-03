@@ -39,6 +39,18 @@ def sample_digest() -> Digest:
             ),
         ],
         narration_script=(
-            "Good morning. Two stories today. First, Acme shipped a new inference chip..."
+            "Good morning, it's Thursday July second. Two stories worth your time today. "
+            "First up, chips. Acme announced the A100X, a three nanometer inference "
+            "accelerator carrying one hundred ninety two gigabytes of HBM4 memory. The "
+            "company claims twice the performance per watt of its previous generation. "
+            "That matters because inference cost dominates the economics of serving "
+            "large language models in production, so a real efficiency jump of that "
+            "size cuts the bill for high volume workloads. Volume availability is "
+            "slated for the fourth quarter. Second, open models. OpenLab published "
+            "full weights, the training recipe, and evaluation results for its "
+            "seventy billion parameter model under Apache two point zero. Engineers "
+            "get a commercially usable frontier class base model with no research "
+            "only restrictions. Expect community fine tuned variants within weeks. "
+            "That's the briefing. Back tomorrow morning."
         ),
     )

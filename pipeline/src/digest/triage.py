@@ -34,8 +34,10 @@ Your tasks:
    Deprioritize: rumor, celebrity, consumer gadget refreshes, opinion pieces.
 3. Give a one-line reason per cluster.
 
-Return every candidate in at most one cluster. Order clusters by significance,
-highest first.
+Only return clusters that are plausible digest material (significance 4 or
+higher). Omit the rest entirely; do not list every candidate. No candidate may
+appear in more than one cluster. Order clusters by significance, highest
+first.
 """
 
 
@@ -57,7 +59,10 @@ def triage(
     response = client.responses.parse(
         model=TRIAGE_MODEL,
         reasoning={"effort": "minimal"},
-        max_output_tokens=2000,
+        # Generous cap: a truncated structured output fails to parse and kills
+        # the run. nano output is $0.40/M, so the headroom costs fractions of
+        # a cent at worst.
+        max_output_tokens=6000,
         input=[
             {"role": "system", "content": TRIAGE_SYSTEM_PROMPT},
             {"role": "user", "content": build_triage_input(entries)},

@@ -35,7 +35,7 @@ const label = TOPIC_LABELS[tag!] ?? tag;
         {
           entries.map((d) => (
             <li class="archive-item">
-              <a href={`/digest/${d.id}/`}>
+              <a href={`/digest/${d.id}/`} data-astro-reload>
                 <span class="date">{shortDate(d.data.date)}</span>
                 <div class="title">{d.data.title}</div>
                 <p class="desc">{d.data.description}</p>

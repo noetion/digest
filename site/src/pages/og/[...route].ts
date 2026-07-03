@@ -25,6 +25,12 @@ export const { getStaticPaths, GET } = OGImageRoute({
     ],
     border: { color: [56, 189, 248], width: 14, side: "inline-start" },
     padding: 72,
+    // Vendored fonts: the default fetches from api.fontsource.org on every
+    // build, which makes deploys fail whenever that API hiccups.
+    fonts: [
+      "./src/fonts/noto-sans-latin-400-normal.ttf",
+      "./src/fonts/noto-sans-latin-700-normal.ttf",
+    ],
     font: {
       title: { size: 64, weight: "Bold", color: [232, 234, 237], lineHeight: 1.15 },
       description: { size: 30, weight: "Normal", color: [154, 160, 171] },

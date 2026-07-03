@@ -1,0 +1,22 @@
+---
+import Base from "../layouts/Base.astro";
+import { SITE_NAME } from "../lib/site";
+---
+
+<Base
+  title={`Page not found | ${SITE_NAME}`}
+  description="That page doesn't exist. Head back to today's briefing or browse the archive."
+>
+  <div class="wrap">
+    <section class="digest">
+      <h1>404: nothing here</h1>
+      <p style="color: var(--text-muted)">
+        That page doesn't exist, or the briefing you're after was removed.
+      </p>
+      <p>
+        <a href="/">Read today's briefing &rarr;</a><br />
+        <a href="/archive/">Browse the archive &rarr;</a>
+      </p>
+    </section>
+  </div>
+</Base>

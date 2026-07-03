@@ -19,12 +19,39 @@ from .costs import CostTracker
 from .dedupe import SeenState, filter_unseen
 from .extract import enrich_with_full_text
 from .feeds import fetch_all_feeds
+from .models import FeedEntry, StoryCluster
 from .publish import crosspost_to_devto
+from .quality import check_quality
 from .render import write_post
 from .synthesize import synthesize
 from .triage import triage
 
 logger = logging.getLogger(__name__)
+
+
+def remap_clusters(
+    clusters: list[StoryCluster],
+    candidates: list[FeedEntry],
+    extracted: list[FeedEntry],
+) -> list[StoryCluster]:
+    """Re-map cluster indices from the candidate list onto the extracted list.
+
+    Extraction can drop entries (paywalls, empty bodies), which shifts the
+    positions of everything after the dropped entry, so members are matched by
+    URL rather than by arithmetic on the original indices. Clusters left empty
+    are dropped.
+    """
+    extracted_pos = {e.url: i for i, e in enumerate(extracted)}
+    remapped: list[StoryCluster] = []
+    for cluster in clusters:
+        kept = [
+            extracted_pos[candidates[i].url]
+            for i in cluster.entry_indices
+            if candidates[i].url in extracted_pos
+        ]
+        if kept:
+            remapped.append(cluster.model_copy(update={"entry_indices": kept}))
+    return remapped
 
 
 def run() -> int:
@@ -68,21 +95,10 @@ def run() -> int:
 
     # --- Full-text extraction, winners only ---
     winner_indices = sorted({i for c in clusters for i in c.entry_indices})
-    index_map = {old: new for new, old in enumerate(winner_indices)}
     winners = enrich_with_full_text(
         [candidates[i] for i in winner_indices], settings.max_article_words
     )
-    # Re-map cluster indices onto the extracted list, dropping failed extractions.
-    extracted_urls = {e.url for e in winners}
-    remapped = []
-    for cluster in clusters:
-        kept = [
-            index_map[i]
-            for i in cluster.entry_indices
-            if candidates[i].url in extracted_urls
-        ]
-        if kept:
-            remapped.append(cluster.model_copy(update={"entry_indices": kept}))
+    remapped = remap_clusters(clusters, candidates, winners)
     if not remapped:
         logger.error("All winning articles failed extraction; aborting.")
         return 1
@@ -91,6 +107,7 @@ def run() -> int:
     # --- LLM stage B: synthesis ---
     date_str = today.strftime("%A, %B %d, %Y")
     digest = synthesize(client, date_str, winners, remapped, tracker)
+    check_quality(digest)
 
     # --- Render + state ---
     md_path, json_path = write_post(digest, today, content_dir)

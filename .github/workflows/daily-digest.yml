@@ -2,7 +2,11 @@ name: Daily Digest
 
 on:
   schedule:
+    # Primary run. GitHub cron can be delayed or occasionally skipped, so a
+    # second attempt fires 90 minutes later; the pipeline's idempotency guard
+    # makes it a no-op when the first run already published.
     - cron: "0 6 * * *"
+    - cron: "30 7 * * *"
   workflow_dispatch:
 
 concurrency:
@@ -48,6 +52,8 @@ jobs:
             echo "Nothing to commit (already published today)."
           else
             git commit -m "digest: $(date -u +%F)"
+            # main may have moved while the pipeline ran; rebase our commit on top.
+            git pull --rebase origin main
             git push
           fi
 

@@ -20,8 +20,8 @@ def _item(title: str, link: str, pubdate: str = "") -> str:
 
 def test_fresh_entries_kept_and_stale_dropped() -> None:
     now = datetime(2026, 7, 2, 12, 0, tzinfo=UTC)
-    fresh = (now - timedelta(hours=3)).strftime("%a, %d %b %Y %H:%M:%S GMT")
-    stale = (now - timedelta(hours=30)).strftime("%a, %d %b %Y %H:%M:%S GMT")
+    fresh = (now - timedelta(hours=30)).strftime("%a, %d %b %Y %H:%M:%S GMT")
+    stale = (now - timedelta(hours=60)).strftime("%a, %d %b %Y %H:%M:%S GMT")
     raw = _rss(
         _item("Fresh story", "https://example.com/fresh", fresh)
         + _item("Stale story", "https://example.com/stale", stale)

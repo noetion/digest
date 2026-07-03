@@ -16,7 +16,10 @@ from .models import FeedEntry
 logger = logging.getLogger(__name__)
 
 TIMEOUT = httpx.Timeout(connect=10.0, read=20.0, write=10.0, pool=10.0)
-FRESH_WINDOW = timedelta(hours=24)
+# 48h rather than 24h: dedup state already prevents repeats, and the wider
+# window means a failed run's stories still make the next day's digest
+# instead of being lost forever.
+FRESH_WINDOW = timedelta(hours=48)
 
 
 @retry(stop=stop_after_attempt(3), wait=wait_exponential(multiplier=1, max=15), reraise=True)
