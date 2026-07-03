@@ -32,6 +32,7 @@ class Feed(BaseModel):
 
 
 # Category pages are NOT feeds; these are the actual RSS endpoints.
+# Probe freshness: python scripts/probe_feeds.py
 FEEDS: tuple[Feed, ...] = (
     Feed(
         name="TechCrunch AI",
@@ -44,13 +45,13 @@ FEEDS: tuple[Feed, ...] = (
         topic="big-tech",
     ),
     Feed(
-        name="Ars Technica",
-        url="https://feeds.arstechnica.com/arstechnica/index",
-        topic="big-tech",
+        name="Ars Technica AI",
+        url="https://arstechnica.com/ai/feed/",
+        topic="ai",
     ),
     Feed(
-        name="VentureBeat AI",
-        url="https://venturebeat.com/category/ai/feed/",
+        name="VentureBeat",
+        url="https://venturebeat.com/feed/",
         topic="ai",
     ),
     Feed(
@@ -64,14 +65,29 @@ FEEDS: tuple[Feed, ...] = (
         topic="ai",
     ),
     Feed(
-        name="Ars Technica AI",
-        url="https://arstechnica.com/ai/feed/",
+        name="MIT Technology Review AI",
+        url="https://www.technologyreview.com/topic/artificial-intelligence/feed",
         topic="ai",
     ),
     Feed(
-        name="The Register AI",
-        url="https://www.theregister.com/software/ai_ml/headlines.atom",
+        name="Wired AI",
+        url="https://www.wired.com/feed/tag/ai/latest/rss",
         topic="ai",
+    ),
+    Feed(
+        name="Google AI Blog",
+        url="https://blog.google/technology/ai/rss/",
+        topic="ai",
+    ),
+    Feed(
+        name="IEEE Spectrum AI",
+        url="https://spectrum.ieee.org/feeds/topic/artificial-intelligence.rss",
+        topic="ai",
+    ),
+    Feed(
+        name="Tom's Hardware AI",
+        url="https://www.tomshardware.com/feeds/tag/artificial-intelligence",
+        topic="chips",
     ),
 )
 

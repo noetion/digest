@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from digest.main import remap_clusters
+from digest.main import cluster_member_urls, remap_clusters
 from digest.models import FeedEntry, StoryCluster
 
 
@@ -48,3 +48,12 @@ def test_remap_drops_cluster_when_all_members_fail() -> None:
 
 def test_remap_empty_when_nothing_extracted() -> None:
     assert remap_clusters([_cluster([0])], CANDIDATES, []) == []
+
+
+def test_cluster_member_urls_from_remapped_only() -> None:
+    winners = [CANDIDATES[1], CANDIDATES[5]]
+    remapped = [_cluster([0]), _cluster([1])]
+    assert cluster_member_urls(remapped, winners) == [
+        "https://example.com/1",
+        "https://example.com/5",
+    ]

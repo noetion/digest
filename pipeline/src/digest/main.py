@@ -29,6 +29,14 @@ from .triage import triage
 logger = logging.getLogger(__name__)
 
 
+def cluster_member_urls(
+    clusters: list[StoryCluster],
+    entries: list[FeedEntry],
+) -> list[str]:
+    """URLs for articles in the given clusters (used for seen-state updates)."""
+    return [entries[idx].url for cluster in clusters for idx in cluster.entry_indices]
+
+
 def remap_clusters(
     clusters: list[StoryCluster],
     candidates: list[FeedEntry],
@@ -104,7 +112,8 @@ def run() -> int:
         return 1
     if len(remapped) < ABS_MIN_STORIES:
         logger.warning(
-            "Only %d stories after extraction (need %d); skipping digest.",
+            "Only %d stories after extraction (need %d); skipping digest. "
+            "Seen state not updated.",
             len(remapped),
             ABS_MIN_STORIES,
         )
@@ -125,11 +134,10 @@ def run() -> int:
     logger.info("Wrote %s and %s", md_path, json_path)
 
     if not settings.dry_run:
-        # Only mark articles from selected clusters as seen. Rejected candidates
-        # stay eligible for tomorrow's digest.
-        for cluster in clusters:
-            for idx in cluster.entry_indices:
-                state.mark_seen(candidates[idx].url, today)
+        # Only mark URLs from clusters that actually published. Rejected
+        # candidates and failed extractions stay eligible for the next run.
+        for url in cluster_member_urls(remapped, winners):
+            state.mark_seen(url, today)
         state.prune(today)
         state.save()
         crosspost_to_devto(digest, today, settings.site_url, settings.dev_to_api_key)

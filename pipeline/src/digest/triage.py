@@ -31,11 +31,14 @@ Your tasks:
    Multiple outlets reporting the same launch, funding round, or policy move
    belong together. Separate clusters when the news event is different, even
    if the same company is involved.
-2. Set ai_relevant to true only when the story is about the AI ecosystem:
-   models, training or inference tooling, chips and compute, AI infrastructure,
-   developer-facing AI products, or AI-specific policy and regulation. General
-   tech, statistics, consumer gadgets, entertainment, and unrelated business
-   news gets ai_relevant false.
+2. Set ai_relevant to true when the story meaningfully affects people who build
+   with AI: models, training or inference tooling, chips and compute for AI
+   workloads, AI infrastructure and datacenters, developer-facing AI products
+   and APIs, AI-specific policy, and closely adjacent news (semiconductor or
+   cloud moves clearly driven by AI demand, major ML open-source releases,
+   platform changes engineers use to ship AI features). General consumer
+   gadgets, entertainment, sports, and unrelated business news gets
+   ai_relevant false.
 3. Score each cluster's significance from 1-10: would someone who builds
    software in the AI era care about this? 8-10 changes what they build with
    or how. 4-7 is worth awareness. 1-3 is noise.
