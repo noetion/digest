@@ -36,17 +36,29 @@ Your tasks:
    "AI agents" or "big tech AI"). Different announcements from the same
    company are also separate clusters. Never group articles because they share
    a theme, sector, or keyword.
-2. Set ai_relevant to true when the story meaningfully affects people who build
-   with AI: models, training or inference tooling, chips and compute for AI
-   workloads, AI infrastructure and datacenters, developer-facing AI products
-   and APIs, AI-specific policy, and closely adjacent news (semiconductor or
-   cloud moves clearly driven by AI demand, major ML open-source releases,
-   platform changes engineers use to ship AI features). General consumer
-   gadgets, entertainment, sports, and unrelated business news gets
-   ai_relevant false.
-3. Score each cluster's significance from 1-10: would someone who builds
-   software in the AI era care about this? 8-10 changes what they build with
-   or how. 4-7 is worth awareness. 1-3 is noise.
+2. Set ai_relevant to true when the story belongs in a builder-focused AI
+   digest (see scoring tiers below). Set false for consumer gadgets,
+   entertainment, sports, pure funding/valuation news with no product angle,
+   and unrelated business news.
+3. Score significance from 1-10. The final digest mixes product news with
+   higher-level context from big players; rank accordingly:
+   - 8-10 (Tier A): Shipped or previewing models, APIs, SDKs, agent tooling,
+     dev integrations, open-source releases, inference/compute readers can
+     provision, policy that changes model access or training data (e.g.
+     crawler defaults, export clearance).
+   - 5-7 (Tier B): Big-player strategy and infrastructure context: major
+     vendor compute moves, platform bets, internal roadmap signals from
+     Meta/Google/OpenAI/Anthropic/Nvidia, export or regulatory shifts that
+     reshape the ecosystem even without a specific API to call today.
+     Tier B from a big player often beats a minor Tier A launch.
+   - 1-4 (Tier C): Funding rounds and unicorn valuations with no shipped
+     product, executive drama, consumer hardware features and subscription
+     pricing (smart glasses, phones), "reportedly exploring" with no concrete
+     product or access change. Score 3 or lower; set ai_relevant false for
+     consumer hardware pricing. Only score Tier C at 4+ on an extremely thin
+     news day when fewer than three Tier A or B clusters exist.
+   Prefer a digest that mixes Tier A and Tier B (mostly A, several B for
+   context), not a business roundup of Tier C stories.
 4. Give a one-line reason per cluster.
 
 Return every cluster scoring 4 or higher; the pipeline selects the final

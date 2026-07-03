@@ -80,6 +80,12 @@ def test_prompt_forbids_theme_clustering() -> None:
     assert "Never group articles because they share" in TRIAGE_SYSTEM_PROMPT
 
 
+def test_prompt_targets_builder_mix_with_tier_b_context() -> None:
+    assert "Tier A" in TRIAGE_SYSTEM_PROMPT
+    assert "Tier B" in TRIAGE_SYSTEM_PROMPT
+    assert "consumer hardware pricing" in TRIAGE_SYSTEM_PROMPT
+
+
 def test_split_oversized_cluster_into_singletons() -> None:
     mega = _cluster(list(range(MAX_CLUSTER_MEMBERS + 2)), significance=8)
     split = split_oversized_clusters([mega])
