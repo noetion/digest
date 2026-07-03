@@ -2,7 +2,7 @@ export const SITE_NAME = "The Morning Build";
 export const SITE_TAGLINE = "The day's tech news, distilled.";
 export const SITE_DESCRIPTION =
   "The day's tech news, distilled. The AI and tech stories that matter each morning: " +
-  "what happened, why it matters, and what to watch next. Read it in two minutes.";
+  "what happened, why it matters, and what to watch next. Read it in just a few minutes.";
 
 export const TOPIC_LABELS: Record<string, string> = {
   ai: "AI",
