@@ -40,8 +40,17 @@ Editorial rules (non-negotiable):
 - outlook: context or what to watch next, 1 sentence.
 - source_urls: only URLs given for that story.
 - topic_tag: exactly one of: ai, chips, startups, big-tech, dev-tools, policy.
-- title: catchy but factual, must include the date in a natural form.
-- intro: 1-2 sentences framing the day's theme.
+- title: must name the day's theme, not just the date. Format: "The Morning
+  Build for <Month D, YYYY>: <the day's theme in a few concrete words>".
+  Good: "The Morning Build for July 2, 2026: Custom Silicon, Enterprise AI,
+  and the Power Bill". Bad: "The Morning Build, July 02, 2026". The theme
+  words are what people see in search results and shared links, so make them
+  specific to today's stories.
+- intro: 1-2 sentences stating the day's theme, the thread connecting the
+  stories. NEVER a list of the headlines; the reader is about to scroll
+  through those. Good: "Big Tech is verticalizing AI: custom chips, in-house
+  deployment arms, and the electricity bills to match." Bad: "Five updates: a
+  chip deal, a new app, a $2.5B unit, an equity proposal, and energy news."
 - meta_description: at most 155 characters, compelling, no clickbait.
 - narration_script: a smooth spoken-word version of the whole digest, written
   to be read aloud in about two minutes (no headers, no URLs, natural
