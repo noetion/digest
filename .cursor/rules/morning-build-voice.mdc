@@ -1,0 +1,27 @@
+---
+description: The Morning Build voice and focus — read project rules before any copy or prompt edit
+alwaysApply: true
+---
+
+# The Morning Build: stay focused on project rules
+
+Before editing user-facing copy, marketing text, LLM prompts, or digest content, read the style rules in `pipeline/src/digest/synthesize.py` (`SYNTHESIS_SYSTEM_PROMPT` and `SLOP_PATTERNS` in `quality.py`). Site copy, docs, and ads follow the same voice as published digests. Do not treat marketing as a separate "generic polished English" register.
+
+## Non-negotiable style (all Morning Build text)
+
+- **No em dashes** (the `—` character) and no double hyphens as dash substitutes. Use commas, colons, periods, or restructure.
+- **No slop vocabulary** listed in the synthesis prompt (delve, unlock, landscape, crucial, etc.).
+- **No formulaic AI openers** ("In a move that...", "It's worth noting...").
+- **Concrete over adjectives.** Numbers and facts over hype.
+
+## Before writing or editing copy
+
+1. Grep or read existing project voice rules — do not rely on default LLM prose patterns.
+2. Match surrounding file tone and structure (e.g. comma lists like "matter, nothing else", not new rhetorical shapes).
+3. Reconcile public copy with pipeline reality: use soft language ("handful", "at most five") not fixed counts unless they match `ABS_MIN_STORIES` through `max_stories`. Target is 3-5; floor is 2 on quiet days.
+
+## Focus discipline
+
+- Minimize scope; do not drift into unrelated edits.
+- When changing copy, change only what the task requires.
+- If a constraint exists in the codebase, apply it everywhere that constraint applies — not only inside the pipeline module where it was defined.
