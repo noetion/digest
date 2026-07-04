@@ -27,7 +27,7 @@ Key design decisions:
 
 - **Token efficiency:** triage sees only headlines + 80-word previews; full text is extracted and trimmed (~1,800 words max) only for winning stories; the static system prompts are byte-identical across runs so OpenAI's prompt caching bills them at ~90% off; `reasoning_effort` and `max_output_tokens` are capped. Typical cost: **$0.01–0.03/run**, with a hard `DAILY_COST_CAP_USD` abort guard.
 - **Structured outputs, not markdown-by-LLM:** the model fills a Pydantic schema; Python renders markdown deterministically. The JSON saved next to each post is the canonical artifact that future email and audio features will consume.
-- **Failure isolation:** a dead feed or unparseable article logs a warning and is skipped; a Dev.to failure is non-fatal; CI opens a GitHub issue on pipeline failure.
+- **Failure isolation:** a dead feed or unparseable article logs a warning and is skipped; a Dev.to failure is non-fatal; CI opens a GitHub issue on pipeline failure. A retry cron runs ~90 minutes after the primary only if today's digest is not already on `main`.
 
 ## Local setup
 
@@ -38,7 +38,7 @@ Prerequisites: Python 3.12+, [uv](https://docs.astral.sh/uv/), Node 20+.
 cd pipeline
 uv sync
 copy ..\.env.example ..\pipeline\.env   # then fill in OPENAI_API_KEY
-uv run pytest                            # 29 tests, all offline
+uv run pytest                            # 69 tests, all offline
 
 # Dry run: full pipeline, writes to ./out/ instead of the site, no publishing
 # (set DRY_RUN=true in .env first)
@@ -60,7 +60,7 @@ npm run dev                              # http://localhost:4321
 4. **Add repository secrets** (Settings → Secrets and variables → Actions → Secrets):
    - `OPENAI_API_KEY` (required)
    - `DEV_TO_API_KEY` (optional — enables cross-posting)
-5. Done. The workflow in `.github/workflows/daily-digest.yml` runs daily at 06:00 UTC (or trigger it manually from the Actions tab). Each run commits the new digest, which triggers the site deploy.
+5. Done. The workflow in `.github/workflows/daily-digest.yml` runs on a daily schedule (primary **03:17 UTC**, retry **04:47 UTC** — about **04:15** and **05:45 UK** in BST, **03:15** and **04:45 UK** in GMT). GitHub's cron is best-effort and may delay runs; the retry is a failsafe and skips immediately if today's digest is already committed. You can also trigger a run manually from the Actions tab. Each successful run commits the new digest, which triggers the site deploy.
 
 ## Configuration
 

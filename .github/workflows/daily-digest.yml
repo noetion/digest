@@ -2,10 +2,12 @@ name: Daily Digest
 
 on:
   schedule:
-    # Primary + retry. GitHub cron is best-effort and often drops jobs queued
-    # exactly on the hour or half-hour (peak load). Use :17/:47 UTC instead.
-    - cron: "17 6 * * *"
-    - cron: "47 7 * * *"
+    # ~04:00 UK (BST, UTC+1): primary 03:17 UTC, retry 04:47 UTC (~05:45 UK).
+    # In GMT (winter) that's 03:17 / 04:47 UK. Use :17/:47 to avoid on-the-hour
+    # GitHub queue spikes. Schedule is best-effort; the retry is a failsafe only
+    # if today's digest is not already on main (see precheck step below).
+    - cron: "17 3 * * *"
+    - cron: "47 4 * * *"
   workflow_dispatch:
 
 concurrency:
@@ -24,17 +26,32 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
+      - name: Skip if today's digest already published
+        id: precheck
+        run: |
+          digest="site/src/content/digests/$(date -u +%F).md"
+          if [ -f "$digest" ]; then
+            echo "Digest for $(date -u +%F) already on main; retry not needed."
+            echo "skip=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "No digest for $(date -u +%F); running pipeline."
+            echo "skip=false" >> "$GITHUB_OUTPUT"
+          fi
+
       - name: Install uv
+        if: steps.precheck.outputs.skip != 'true'
         uses: astral-sh/setup-uv@v5
         with:
           enable-cache: true
           cache-dependency-glob: pipeline/uv.lock
 
       - name: Install dependencies
+        if: steps.precheck.outputs.skip != 'true'
         working-directory: pipeline
         run: uv sync --frozen
 
       - name: Run pipeline
+        if: steps.precheck.outputs.skip != 'true'
         working-directory: pipeline
         env:
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
@@ -43,6 +60,7 @@ jobs:
         run: uv run python -m digest.main
 
       - name: Commit and push digest
+        if: steps.precheck.outputs.skip != 'true'
         run: |
           git config user.name "digest-bot"
           git config user.email "actions@users.noreply.github.com"
