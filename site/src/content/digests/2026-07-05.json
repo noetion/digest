@@ -1,0 +1,48 @@
+{
+  "title": "The Morning Build for July 5, 2026: Industry AI in the Wild, Litigation, European Labs, Search Agents, and Drug R&D",
+  "intro": "Today’s stories show AI pushing from research into operational and legal settings: a startup demands disclosure from studios in a copyright suit, a European decacorn maps enterprise deployment and open-weight plans, a new benchmark shows when search agents break, and an AI lab moves into drug discovery.",
+  "meta_description": "AI moves from models to practice: discovery demands in litigation, Mistral’s enterprise and open-weight plans, DiscoBench for search agents, and Anthropic’s drug R&D.",
+  "stories": [
+    {
+      "headline": "Midjourney asks court to force studios to disclose internal AI usage and prompts",
+      "what_happened": "In its latest filing, Midjourney asked a judge to require Disney, Universal and Warner Bros. to produce documentation on their internal generative AI use, including prompts and outputs, arguing the studios are withholding documents that would support Midjourney’s defenses. A prior ruling required studios to disclose AI usage only when it produced consumer-facing videos and images; Midjourney seeks to overturn that limitation.",
+      "why_it_matters": "If the court orders broader disclosure, developer-facing records about prompts, training sources, and internal AI workflows could become discoverable in infringement cases, setting a precedent for what industry AI documentation must be retained and shared. That would affect how teams log model inputs, outputs, and provenance during development and deployment.",
+      "outlook": "Watch the judge’s decision on the scope of discovery, since it may set document-retention and disclosure expectations for companies using generative models.",
+      "source_urls": [
+        "https://techcrunch.com/2026/07/04/midjourney-wants-hollywood-studios-to-reveal-the-details-of-their-ai-usage/"
+      ],
+      "topic_tag": "policy"
+    },
+    {
+      "headline": "Mistral outlines enterprise deployments, Forge customization, and an open-weight model for July access",
+      "what_happened": "TechCrunch reports Mistral is focused on deploying models and an agent platform for enterprise customers, offering custom-model training via Forge, and plans to open early access to an open-weight model in July; the company disclosed ARR above $400 million and said it expects to surpass $1 billion in ARR this year. Mistral has acquired Koyeb, announced a €4 billion data center investment plan, and maintains partnerships with Microsoft and Nvidia.",
+      "why_it_matters": "Engineers building on Mistral should expect a hybrid strategy: open-weight models and edge-optimized variants alongside enterprise deployment and hosted infrastructure, which affects choices around on-prem versus cloud hosting, model weights availability, and integration with customer data for fine-tuning.",
+      "outlook": "Track the July early-access release to confirm whether Mistral publishes open weights and to evaluate Forge’s interfaces and deployment constraints for enterprise fine-tuning.",
+      "source_urls": [
+        "https://techcrunch.com/2026/07/04/what-is-mistral-ai-everything-to-know-about-the-openai-competitor/"
+      ],
+      "topic_tag": "startups"
+    },
+    {
+      "headline": "DiscoBench shows search agents fail by not asking clarifying questions, not by search calls",
+      "what_happened": "Researchers from Tencent Hunyuan and Tsinghua released DiscoBench, a 211-task benchmark with 463 ambiguous points that evaluates whether agents detect ambiguity, ask follow-ups, or keep searching; tests across eleven recent models found top end-to-end accuracy below 50 percent, with Doubao Seed 2.0 Pro at 43.1 percent and Gemini 3.1 Pro at 40.8 percent. The benchmark uses Tavily for search and Gemini 3 Flash as an LLM user simulator.",
+      "why_it_matters": "The results show retrieval-heavy agents still fail when they do not turn uncertainty into user interaction; engineering agent workflows should add explicit ambiguity detection and follow-up strategies rather than increasing tool calls alone, since repeated searching can worsen outcomes.",
+      "outlook": "Evaluate agent designs against DiscoBench-style ambiguity checkpoints and measure both detection F1 and useful-question follow-through, not just per-step search accuracy.",
+      "source_urls": [
+        "https://the-decoder.com/ai-search-agents-dont-fail-at-searching-they-fail-at-asking-the-right-questions-when-queries-get-ambiguous/"
+      ],
+      "topic_tag": "dev-tools"
+    },
+    {
+      "headline": "Anthropic starts in-house drug discovery programs targeting neglected diseases to build science AI",
+      "what_happened": "Anthropic announced it will run its own preclinical drug development programs for neglected diseases, presenting the plan during a Claude Science event and giving examples where Claude Science helped spot a viral contamination and analyze 100 rare genetic diseases. Anthropic framed the move as aligned with its nonprofit mission and as a way to build better science models and tools.",
+      "why_it_matters": "For engineers and researchers, Anthropic’s internal drug programs mean the company will generate proprietary biomedical datasets and modeling workflows that could influence its science-focused models and tooling; this signals deeper vertical use of large models in preclinical research.",
+      "outlook": "Monitor Anthropic’s publications and tool releases from Claude Science for reproducible benchmarks, datasets, or APIs that teams can adopt or validate against.",
+      "source_urls": [
+        "https://the-decoder.com/anthropic-launches-its-own-drug-discovery-programs-to-tackle-diseases-big-pharma-considers-unprofitable/"
+      ],
+      "topic_tag": "ai"
+    }
+  ],
+  "narration_script": "Midjourney filed to force Disney, Universal and Warner Bros. to disclose their internal use of generative AI, including prompts and outputs, arguing that a prior court limit requiring disclosure only for consumer-facing material lets the studios withhold documents that would support Midjourney’s defenses. The studios’ lead counsel called the request a fishing expedition and said their aim is to stop unauthorized copying of characters. The court’s decision on discovery scope could change what development records companies must retain and when prompts and model outputs become discoverable. Next step: the judge’s ruling on whether internal AI usage is within scope. \n\nMistral continues to pursue a mixed open and enterprise strategy, TechCrunch reports. The company says it deploys models and an agent platform for customers, offers Forge for custom training on customer data, disclosed ARR above $400 million with a path to over $1 billion, and plans early access to an open-weight model in July. Mistral has acquired Koyeb, announced a €4 billion data-center investment plan, and holds strategic partnerships with Microsoft and Nvidia. Engineers should prepare for both open-weight releases and hosted enterprise integrations; watch the July release to confirm weight availability and Forge’s deployment model. \n\nA new benchmark, DiscoBench, shows why many search agents fail: not because they cannot call search, but because they do not ask clarifying questions when queries are ambiguous. The benchmark contains 211 tasks and 463 ambiguous points, uses Tavily for search and Gemini 3 Flash as a user simulator, and tested eleven recent models, with top end-to-end scores under 50 percent. The authors found that repeated searching without user interaction often worsens results, and that guided prompts raise ambiguity detection but do not fully restore end-to-end accuracy. Engineers building agents should add explicit ambiguity detection and measured follow-up strategies, and evaluate both detection F1 and question quality. \n\nAnthropic announced it will run in-house preclinical drug discovery programs for neglected diseases, presenting the plan at a Claude Science event and describing use cases where Claude Science flagged a viral contamination and screened 100 rare genetic diseases for candidates. Anthropic frames the work as aligned with its mission and as a way to build better science models and tooling. For practitioners, this means Anthropic will generate new biomedical modeling workflows and datasets to watch for, and teams should monitor future releases from Claude Science for reproducible tools and benchmarks."
+}
