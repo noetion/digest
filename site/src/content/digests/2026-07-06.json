@@ -1,0 +1,50 @@
+{
+  "title": "The Morning Build for July 6, 2026: Mechanical Turk Sunsetting, Station F Scaling, Enterprise Model Controls, FCA Arms Race",
+  "intro": "Today’s stories show institutions adjusting to AI at scale: a legacy crowdsourcing platform stopping new signups, a European accelerator pushing commercialization, firms locking down third-party models, and a regulator asking for new powers.",
+  "meta_description": "AWS closes Mechanical Turk to new customers; Station F scales a revenue-first AI accelerator; firms ban external models; UK regulator warns of an AI 'arms race'.",
+  "stories": [
+    {
+      "headline": "AWS stops accepting new customers for Mechanical Turk, existing users remain supported",
+      "what_happened": "Amazon announced Mechanical Turk will close to new customers on July 30, 2026; existing customers can continue using the service and Amazon does not plan to add new features.",
+      "why_it_matters": "Researchers and engineers who relied on Mechanical Turk for human annotation must not onboard new projects there and should plan alternative annotation pipelines or vendors because Amazon will not expand the service.",
+      "outlook": "Watch for announcements from Amazon about an eventual full shutdown or migration options, and for third-party annotation services pitching replacements.",
+      "source_urls": [
+        "https://techcrunch.com/2026/07/05/amazon-will-stop-accepting-new-customers-for-mechanical-turk/",
+        "https://the-decoder.com/amazon-sunsets-mechanical-turk-the-original-artificial-artificial-intelligence/"
+      ],
+      "topic_tag": "big-tech"
+    },
+    {
+      "headline": "Station F expands F/ai accelerator with new partners to push startups toward €1M revenue targets",
+      "what_happened": "Station F plans a second F/ai cohort in September, adding partners including Eleven Labs, Nebius, Rippling, OpenRouter, HubSpot, and GitHub; the program targets €1 million revenue per startup within six months.",
+      "why_it_matters": "Engineers at European AI startups gain faster access to partner integrations, potential equity investors, and commercialization support, which can shorten time-to-revenue compared with more research-focused accelerators.",
+      "outlook": "Track cohort outcomes and follow funding and revenue metrics from the second batch to assess whether Station F’s commercialization target holds.",
+      "source_urls": [
+        "https://techcrunch.com/2026/07/06/station-f-ramps-up-as-a-launchpad-for-europes-hottest-ai-startups/"
+      ],
+      "topic_tag": "startups"
+    },
+    {
+      "headline": "Alibaba reportedly bans employees from using Claude Code as firms tighten internal AI tool policies",
+      "what_happened": "Reporting indicates Alibaba has prohibited employees from using Anthropic’s Claude Code; Mistral CEO Arthur Mensch warned companies against relying on closed models in a related public post.",
+      "why_it_matters": "Engineering teams that used Claude Code or other external models for internal workflows may need to switch tools or request exemptions while their companies formalize permissible-model policies and data controls.",
+      "outlook": "Expect more enterprise bans or restricted-use policies and vendor reviews as firms weigh data exposure and control over model weights.",
+      "source_urls": [
+        "https://techcrunch.com/2026/07/04/alibaba-reportedly-bans-employees-from-using-claude-code/",
+        "https://the-decoder.com/mistral-ceo-mensch-says-proprietary-ai-models-give-labs-a-front-row-seat-to-your-business-processes/"
+      ],
+      "topic_tag": "big-tech"
+    },
+    {
+      "headline": "UK regulator says it is in an 'arms race' to keep up with AI in financial services and recommends a near-term review",
+      "what_happened": "FCA executive Sheldon Mills said regulators need greater powers to monitor AI use in financial services and recommended the FCA carry out a review within three to six months of AI models used for financial advice and services.",
+      "why_it_matters": "Teams deploying AI for personal finance or automated recommendations should expect regulatory scrutiny, possible new rules, and reviews assessing whether services sit inside or outside FCA jurisdiction.",
+      "outlook": "Watch for the FCA-commissioned report publication and any follow-up consultations that could define compliance requirements for model use in finance.",
+      "source_urls": [
+        "https://arstechnica.com/ai/2026/07/uk-regulator-warns-of-arms-race-to-keep-up-with-ai-use-in-financial-services/"
+      ],
+      "topic_tag": "policy"
+    }
+  ],
+  "narration_script": "Amazon will stop accepting new customers for Mechanical Turk on July 30, 2026. Existing customers can keep using the service, but Amazon says it does not plan to add new features. If your team used Mechanical Turk to onboard annotation work, do not start new projects there and begin lining up alternative vendors or internal pipelines. Station F in Paris is scaling its F/ai accelerator and plans a second cohort this September. The program adds partners including Eleven Labs, Nebius, Rippling, OpenRouter, HubSpot, and GitHub and targets about one million euros in revenue per startup within six months. For engineers at European startups, that means faster partner access and a focus on commercialization metrics rather than purely research milestones. Separately, enterprise model controls are tightening. Reporting says Alibaba has banned employees from using Anthropic’s Claude Code. Mistral’s CEO Arthur Mensch publicly argued firms should avoid depending on closed models and store their data in open systems or build their own models. If your project uses third-party models for internal workflows, expect policy reviews and potential tool changes while companies formalize data and model access rules. Finally, UK financial regulator senior official Sheldon Mills told the Financial Times regulators are in an arms race to keep up with AI in finance. The FCA recommends a review in the next three to six months to examine AI-driven services that may sit outside current regulation and to assess consumer harm risks. Teams building finance-facing models should prepare for increased regulatory scrutiny and possible new compliance requirements. That is the Morning Build for July 6, 2026."
+}
