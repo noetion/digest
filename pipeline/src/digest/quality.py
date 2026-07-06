@@ -15,6 +15,8 @@ from .models import Digest
 
 logger = logging.getLogger(__name__)
 
+_EM_DASH = re.compile("\u2014")
+
 ABS_MIN_STORIES = 2  # never publish a one-story digest
 MIN_STORIES = 3  # target; thin news days may publish fewer
 MIN_FIELD_CHARS = 40
@@ -29,9 +31,57 @@ SLOP_PATTERNS = re.compile(
     r"revolutioni\w+|groundbreaking|cutting.edge|seamless\w*|"
     r"paradigm|elevate|empower|harness\w*|leverag\w+|"
     r"crucial|pivotal|it'?s worth noting|it'?s important to note|"
-    r"at the end of the day|look no further|in the world of|in the realm of"
+    r"at the end of the day|look no further|in the world of|in the realm of|"
+    r"bifurcat\w*|along two axes"
     r")\b",
     re.IGNORECASE,
+)
+
+# Vague outlook hedges the synthesis prompt bans; warn on outlook fields only.
+OUTLOOK_FILLER_PATTERNS = re.compile(
+    r"(?i)^("
+    r"watch\s+for|"
+    r"watch\s+whether|"
+    r"watch\s+if|"
+    r"watch\s+how\s+(?:the\s+)?industry|"
+    r"track\s+|"
+    r"monitor\s+|"
+    r"follow\s+|"
+    r"expect\s+other|"
+    r"it\s+remains\s+to\s+be\s+seen|"
+    r"only\s+time\s+will\s+tell|"
+    r"independent\s+(?:benchmark\s+)?verification\s+will\s+be\s+required|"
+    r"this\s+could\s+change\s+how|"
+    r"this\s+is\s+(?:a\s+)?significant\s+development"
+    r")"
+)
+
+OUTLOOK_TAIL_FILLER = re.compile(
+    r"(?i)\b(?:verification to watch|remain the next external verification to watch)\b"
+)
+
+_INTRO_COUNT_WORDS = {
+    "one": 1,
+    "two": 2,
+    "three": 3,
+    "four": 4,
+    "five": 5,
+    "six": 6,
+}
+_INTRO_EXPLICIT_COUNT = re.compile(
+    r"(?i)\b(one|two|three|four|five|six)\s+(?:\w+\s+){0,4}"
+    r"(?:moves|stories|updates|headlines|things|developments)\b"
+)
+
+# Role-specific instructions mis-framed as outlook; warn only.
+OUTLOOK_INSTRUCTION_PATTERNS = re.compile(
+    r"(?i)^("
+    r"have\s+(?:marketing|legal|your\s+team)|"
+    r"if\s+your\s+(?:product|partnership|roadmap)|"
+    r"map\s+.+\s+to\s+your\s+(?:ci/?cd|release\s+checklist)|"
+    r"audit\s+(?:current\s+)?(?:points\s+of\s+contact|contracts)|"
+    r"follow\s+commits"
+    r")"
 )
 
 
@@ -89,6 +139,10 @@ def check_quality(digest: Digest, *, expected_story_count: int | None = None) ->
             f"narration script too short ({len(digest.narration_script.split())} words)"
         )
 
+    for name, value in [("title", digest.title), *_story_fields(digest)]:
+        if _EM_DASH.search(value):
+            problems.append(f"{name} contains em dash after scrub")
+
     if problems:
         raise QualityGateError("Digest failed quality gate: " + "; ".join(problems))
 
@@ -97,3 +151,34 @@ def check_quality(digest: Digest, *, expected_story_count: int | None = None) ->
     for name, value in [("title", digest.title), *_story_fields(digest)]:
         for match in SLOP_PATTERNS.finditer(value):
             logger.warning("Slop vocabulary in %s: %r", name, match.group(0))
+
+    for n, story in enumerate(digest.stories, start=1):
+        if OUTLOOK_FILLER_PATTERNS.search(story.outlook.strip()):
+            logger.warning(
+                "Generic outlook filler in story %d outlook: %r",
+                n,
+                story.outlook[:80],
+            )
+        if OUTLOOK_INSTRUCTION_PATTERNS.search(story.outlook.strip()):
+            logger.warning(
+                "Outlook reads like instructions in story %d: %r",
+                n,
+                story.outlook[:80],
+            )
+        if OUTLOOK_TAIL_FILLER.search(story.outlook):
+            logger.warning(
+                "Passive outlook tail in story %d: %r",
+                n,
+                story.outlook[:80],
+            )
+
+    intro_count = _INTRO_EXPLICIT_COUNT.search(digest.intro)
+    if intro_count:
+        stated = _INTRO_COUNT_WORDS.get(intro_count.group(1).lower())
+        if stated is not None and stated != len(digest.stories):
+            logger.warning(
+                "Intro count mismatch (%d claimed, %d stories): %r",
+                stated,
+                len(digest.stories),
+                digest.intro[:80],
+            )

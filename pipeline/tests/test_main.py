@@ -1,6 +1,8 @@
 from __future__ import annotations
 
-from digest.main import cluster_member_urls, remap_clusters
+from unittest.mock import patch
+
+from digest.main import cluster_member_urls, extract_selected_clusters, remap_clusters
 from digest.models import FeedEntry, StoryCluster
 
 
@@ -57,3 +59,32 @@ def test_cluster_member_urls_from_remapped_only() -> None:
         "https://example.com/1",
         "https://example.com/5",
     ]
+
+
+def _with_text(entry: FeedEntry) -> FeedEntry:
+    return entry.model_copy(update={"full_text": f"Body for {entry.url}"})
+
+
+def test_extract_backfill_promotes_next_ranked_cluster() -> None:
+    ranked = [
+        _cluster([0]),
+        _cluster([1]),
+        _cluster([2]),
+        _cluster([3]),
+        _cluster([4]),
+        _cluster([5]),
+    ]
+
+    def fake_enrich(entries: list[FeedEntry], _max_words: int) -> list[FeedEntry]:
+        return [_with_text(e) for e in entries if e.url != CANDIDATES[1].url]
+
+    with patch("digest.main.enrich_with_full_text", side_effect=fake_enrich):
+        winners, published = extract_selected_clusters(
+            ranked, CANDIDATES, max_stories=5, max_words=1000
+        )
+
+    assert len(published) == 5
+    published_urls = {winners[c.entry_indices[0]].url for c in published}
+    assert CANDIDATES[1].url not in published_urls
+    assert CANDIDATES[5].url in published_urls
+    assert len(winners) == 5

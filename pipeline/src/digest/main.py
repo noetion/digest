@@ -62,6 +62,53 @@ def remap_clusters(
     return remapped
 
 
+def _headline_for_cluster(cluster: StoryCluster, candidates: list[FeedEntry]) -> str:
+    for idx in cluster.entry_indices:
+        if idx < len(candidates):
+            return candidates[idx].title
+    return "?"
+
+
+def extract_selected_clusters(
+    ranked: list[StoryCluster],
+    candidates: list[FeedEntry],
+    max_stories: int,
+    max_words: int,
+) -> tuple[list[FeedEntry], list[StoryCluster]]:
+    """Extract ranked clusters in order; backfill from reserve when extract fails."""
+    winners: list[FeedEntry] = []
+    extracted_urls: set[str] = set()
+    published: list[StoryCluster] = []
+
+    for rank_pos, cluster in enumerate(ranked):
+        if len(published) >= max_stories:
+            break
+        members = [candidates[i] for i in cluster.entry_indices]
+        to_fetch = [m for m in members if m.url not in extracted_urls]
+        if to_fetch:
+            for entry in enrich_with_full_text(to_fetch, max_words):
+                extracted_urls.add(entry.url)
+                winners.append(entry)
+        remapped = remap_clusters([cluster], candidates, winners)
+        if not remapped:
+            logger.warning(
+                "Extract SKIP (no usable text): %s",
+                _headline_for_cluster(cluster, candidates),
+            )
+            continue
+        label = "BACKFILL" if rank_pos >= max_stories else "KEPT"
+        logger.info(
+            "Extract %s (%d/%d): %s",
+            label,
+            len(published) + 1,
+            max_stories,
+            _headline_for_cluster(cluster, candidates),
+        )
+        published.append(remapped[0])
+
+    return winners, published
+
+
 def run() -> int:
     logging.basicConfig(
         level=logging.INFO,
@@ -107,14 +154,14 @@ def run() -> int:
         logger.warning("Triage selected no stories; skipping digest.")
         return 0
 
-    # --- Full-text extraction, winners only ---
-    winner_indices = sorted({i for c in clusters for i in c.entry_indices})
-    winners = enrich_with_full_text(
-        [candidates[i] for i in winner_indices], settings.max_article_words
+    winners, remapped = extract_selected_clusters(
+        clusters,
+        candidates,
+        settings.max_stories,
+        settings.max_article_words,
     )
-    remapped = remap_clusters(clusters, candidates, winners)
     if not remapped:
-        logger.error("All winning articles failed extraction; aborting.")
+        logger.error("All ranked articles failed extraction; aborting.")
         return 1
     if len(remapped) < ABS_MIN_STORIES:
         logger.warning(
@@ -124,6 +171,12 @@ def run() -> int:
             ABS_MIN_STORIES,
         )
         return 0
+    if len(remapped) < settings.max_stories:
+        logger.warning(
+            "Published %d/%d stories after extract backfill exhausted reserve",
+            len(remapped),
+            settings.max_stories,
+        )
     logger.info("Extracted full text for %d winning articles", len(winners))
 
     # --- LLM stage B: synthesis ---

@@ -45,6 +45,23 @@ class StoryCluster(BaseModel):
     reason: str = Field(description="One line on why this story matters")
 
 
+class ClusterGroup(BaseModel):
+    """Pass-1 output: duplicate coverage grouped by event (no scores)."""
+
+    entry_indices: list[int] = Field(description="Indices into the candidate list")
+    event: str = Field(description="One-line label for the shared news event")
+
+
+class ClusterResult(BaseModel):
+    clusters: list[ClusterGroup]
+
+
+class ScoreResult(BaseModel):
+    """Pass-2 output: one scored singleton per article."""
+
+    clusters: list[StoryCluster]
+
+
 class TriageResult(BaseModel):
     clusters: list[StoryCluster]
 

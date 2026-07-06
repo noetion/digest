@@ -8,6 +8,7 @@ not temperature (reasoning models don't support it).
 from __future__ import annotations
 
 import logging
+import re
 from collections import Counter
 from urllib.parse import urlsplit
 
@@ -15,6 +16,7 @@ from openai import OpenAI
 
 from .config import SYNTHESIS_MODEL
 from .costs import CostTracker
+from .event_match import cluster_is_coherent
 from .models import Digest, FeedEntry, StoryCluster
 
 logger = logging.getLogger(__name__)
@@ -40,30 +42,138 @@ Editorial rules (non-negotiable):
   explicitly frames as expectation or plan.
 - No sensationalism. No exclamation marks.
 - headline: written like a searchable news headline (specific, active voice).
+  Write license names with a space (Apache 2.0, MIT), never Apache: 2.0. Write
+  memory footprints as under 300GB, not sub-300GB or sub: 300GB.
 - what_happened: the facts, 1-2 tight sentences.
 - why_it_matters: the practical/technical impact for engineers, 1-2 sentences.
-- outlook: context or what to watch next, 1 sentence.
+- outlook: one sentence on what to look for next in this story: a named date,
+  fiscal period, ship window, trial window, filing, public milestone, hiring
+  signal, benchmark result, or follow-on move the source sets up. Write for a
+  general software-engineering reader, not a niche role or employer context.
+  Core rules (always apply):
+  - Name a concrete forward signal grounded in the source. The reader should
+    know what datapoint or milestone comes next without rereading the story.
+  - Look-ahead, not homework: state what is ahead in the news, not instructions
+    for marketing, legal, partnerships, or org-specific audits.
+  - Ground in sources only. No vague industry punditry.
+  How to make it useful (not generic or preachy):
+  - Prefer milestones anyone following the story can watch: fiscal-year updates,
+    remaining layoff tranches, Frontier hiring moves, OpenRouter trial windows,
+    conference sessions, regulatory deadlines, third-party benchmark releases.
+  - Use a number, product name, or date from the story when the source provides
+    one. Specificity is what makes it helpful.
+  - Do not assume the reader works in a special function (Xbox partner manager,
+    ad buyer, compliance lead). Do not open with "If your roadmap…" or "Have
+    marketing and legal…"
+  Good: "Fiscal-year 2027 updates will show the remaining expected cuts and how
+  Microsoft's Frontier Company investments translate into staffing and product
+  changes."
+  Good: "The two-week OpenRouter Hy3 window is the first public check on whether
+  Tencent's reliability and serving-cost claims hold outside internal tests."
+  Good: "Artificial Analysis and vendor coding benchmarks are the next public
+  check on whether Hy3's agent and long-context claims hold outside Tencent's
+  internal tests."
+  Good: "July 2026 quota renewals will show whether Zhipu keeps ZCode's elevated
+  token limits or rolls them back after the launch window."
+  Good: "Expedia's VB Transform session on July 14 at 11:10 a.m. PT should spell
+  out which Agentic Release tollgates are already automated in the SDLC."
+  Good: "The FCA-commissioned report due this week starts a three- to six-month
+  review window that could redraw which consumer AI finance apps sit in scope."
+  Good: "Cloudflare's September 15, 2026 ad-page defaults will show how many
+  training and agent crawlers get reclassified under BotBase."
+  Good: "The next commits on the published Command and Conquer iOS repo should
+  show whether the logged iPad memory crashes are fixed."
+  Bad: "Watch for independent benchmark updates such as Artificial Analysis."
+  Bad: "Track subscriber quota expirations through July 2026 to see whether Zhipu
+  keeps the elevated quotas."
+  Bad: "Monitor Cloudflare's BotBase rollout and the September 15 enforcement
+  date to measure traffic pattern changes."
+  Bad: "If your product or partnership roadmap depends on Xbox teams or studio
+  relationships, audit current points of contact and contracts now."
+  Bad: "Have marketing and legal review your next AI-assisted UX or ad and run a
+  cross-platform sentiment test before broad ad buys."
+  Bad: "Watch whether vendors blur the line with infrastructure providers." (vague)
+  Bad: "Track comparative performance versus Claude Code on real workflows." (empty)
+  Bad: "Expect other large operators to publish similar guardrails." (generic)
+  Bad: "Follow commits and the published engineering log on the project's GitHub
+  repo for the next stability fixes." (instructional)
+  Bad: "...Artificial Analysis remain the next external verification to watch."
+  (passive tail)
+  Start outlook with the milestone itself (date, report, deadline, benchmark name,
+  repo update, quota renewal), not Watch for, Track, Monitor, or Follow.
 - topic_tag: exactly one of: ai, chips, startups, big-tech, dev-tools, policy.
 - title: must name the day's theme, not just the date. Format: "The Morning
-  Build for <Month D, YYYY>: <the day's theme in a few concrete words>".
+  Build for <Month D, YYYY>: <theme that makes an engineer keep reading>".
+  The theme appears in RSS, search, and shared links. Your job is to earn the
+  click in one line: specific enough to trust, lively enough to care, never
+  breathless or tabloid.
+  Core rules (always apply):
+  - Plain English a busy engineer scans in two seconds: company names, numbers,
+    licenses, or tension. No jargon slugs or abstract noun stacks.
+  - At least one recognizable proper noun from today's stories is required; two
+    or more is better when they fit.
+  - Do not use coined compound phrases ("model-agent split") or vague stacks
+    ("agent coding pushes"), or comma-lists of abstract jargon.
+  How to make it engaging (not dramatic):
+  - Lead with what CHANGED today: a ship, a cut, a license, a policy flip, a
+    new product name. Static labels ("AI updates") bore; verbs and numbers hook.
+  - Create quiet tension: contrast, stakes, or a question the stories answer.
+    Good tension uses facts ("models vs. agents", "4,800 roles", "Apache 2.0"),
+    not hype words ("explosive", "massive", "unprecedented", "shocking").
+  - Name real companies or products readers recognize. Proper nouns carry weight.
+  - Use active, concrete phrasing. Write like a sharp morning briefing, not a
+    filing index or a LinkedIn thought-leadership post.
+  - Three beats max after the colon: lead hook, second story anchor, optional
+    third. Each beat should be scannable (roughly 3-6 words).
+  - Reflect the stories actually in the digest. If a major platform or layoff
+    story is included (Vercel, Microsoft, Expedia, Cloudflare), name it in the
+    title beats; do not list only model vendors when platform news is present.
   Good: "The Morning Build for July 2, 2026: Custom Silicon, Enterprise AI,
-  and the Power Bill". Bad: "The Morning Build, July 02, 2026". The theme
-  words are what people see in search results and shared links, so make them
-  specific to today's stories.
-- intro: 1-2 sentences stating the day's theme, the thread connecting the
-  stories. NEVER a list of the headlines; the reader is about to scroll
-  through those. Good: "Big Tech is verticalizing AI: custom chips, in-house
-  deployment arms, and the electricity bills to match." Bad: "Five updates: a
-  chip deal, a new app, a $2.5B unit, an equity proposal, and energy news."
-- meta_description: at most 155 characters, compelling, no clickbait.
+  and the Power Bill" (concrete, slightly unexpected third beat).
+  Good: "The Morning Build for July 6, 2026: Vercel Splits Models from Agents,
+  Hy3 Goes Apache, Microsoft Cuts 4,800" (verbs, names, a number).
+  Good: "The Morning Build for March 12, 2026: OpenAI Codex Tier Changes,
+  EU Export Rules, and the Layoffs Behind AI Bets" (stakes without screaming).
+  Bad: "The Morning Build, July 02, 2026" (date only, no reason to open).
+  Bad: "The Morning Build for July 6, 2026: model-agent split, open-weight Hy3,
+  and agent coding pushes" (coined jargon, no hook, reads like a slug).
+  Bad: "The Morning Build for July 6, 2026: The AI Revolution Heats Up as
+  Tech Giants Battle for Agent Supremacy!!!" (hype, no facts, sensational).
+  Bad: "The Morning Build for July 6, 2026: Five Things You Missed While
+  You Slept" (clickbait, no substance).
+  Bad: "The Morning Build for July 6, 2026: Tencent's Apache Hy3, Zhipu's
+  ZCode, and Microsoft's 4,800 Cuts" when the digest also includes Google
+  opt-out or Expedia (title omits major stories that appear in the body).
+  No exclamation marks. No "you won't believe", "everything changed",
+  "game-changing day", or empty superlatives.
+- intro: 1-2 sentences stating the day's theme and the thread connecting ALL
+  stories in this digest. NEVER a list of the headlines; the reader is about
+  to scroll through those. Every story must appear in the intro, either by
+  name or by a clear grouped phrase (e.g. "open-weight models from Tencent
+  and Zhipu; Microsoft's cuts; Google's training opt-out; and Expedia's
+  agent-release gates"). NEVER use an explicit count ("three platform moves",
+  "five updates") unless that number equals the exact story count you were
+  given. Plain English; no academic framing ("bifurcating along two
+  axes", "along two vectors", "paradigm shift"). Good: "Big Tech is verticalizing
+  AI: custom chips, in-house deployment arms, and the electricity bills to
+  match." Bad: "Three platform moves today matter for engineers..." when the
+  digest has five stories including Google policy and FCA review. Bad: "Five
+  updates: a chip deal, a new app..." (headline list). Bad: "Open-weight models
+  and agent platforms are bifurcating along two axes."
+- meta_description: at most 155 characters, compelling, no clickbait. Lead with
+  the strongest hook (company name, number, or product), not a vague summary.
+  Use the same engaged-but-sober voice as the title so someone scanning RSS
+  wants the next sentence.
 - narration_script: a smooth spoken-word version of the whole digest, written
   to be read aloud in about two minutes (no headers, no URLs, natural
-  transitions between stories).
+  transitions between stories). State forward milestones plainly; do not tell
+  listeners to watch or follow a repo.
 
 Style rules (equally non-negotiable). Write like a seasoned human newsletter
 editor, never like an AI assistant:
-- NEVER use em dashes (the — character) or double hyphens. Restructure the
-  sentence, or use a comma, colon, or period instead.
+- NEVER use em dashes (the — character) or double hyphens as dash substitutes.
+  Restructure the sentence, or use a comma, colon, or period instead. En dashes
+  (the – character) are fine in numeric ranges and compounds (e.g. GLM-5.2–based).
 - Never use these words or their variants: delve, dive into, unpack, unleash,
   unlock, supercharge, game-changer, game-changing, revolutionize,
   revolutionary, groundbreaking, cutting-edge, seamless, seamlessly, robust,
@@ -174,14 +284,70 @@ def build_synthesis_input(
     return "\n\n".join(blocks)
 
 
+# Glued hyphens from em-dash scrub or model output (not valid compounds).
+_LICENSE_NAMES = r"Apache|MIT|BSD|GPL|LGPL|AGPL|Mozilla"
+_UNDER_BEFORE_DIGIT = re.compile(
+    r"\b(sub|under|approx|about)(?:\u2014|-|:)(\d)",
+    re.IGNORECASE,
+)
+_LICENSE_COLON = re.compile(
+    rf"\b({_LICENSE_NAMES}): (\d)",
+    re.IGNORECASE,
+)
+_GLUE_HYPHEN_DIGIT = re.compile(r"(?<![.\d])([a-z]{3,})-(\d)")
+_GLUE_HYPHEN_QUALIFIER = re.compile(
+    r"\b(\w+)-(recommended|required|sometimes|practices|optional)\b",
+    re.IGNORECASE,
+)
+
+
+def _scrub_em_dash_before_digit(text: str) -> str:
+    text = _UNDER_BEFORE_DIGIT.sub(r"under \2", text)
+    text = re.sub(
+        rf"\b({_LICENSE_NAMES})\u2014(\d+\.?\d*)",
+        r"\1 \2",
+        text,
+        flags=re.IGNORECASE,
+    )
+
+    def repl(match: re.Match[str]) -> str:
+        word = match.group(1)
+        digit = match.group(2)
+        lower = word.lower()
+        if lower in {"sub", "under", "approx", "about"}:
+            return f"under {digit}"
+        if re.fullmatch(_LICENSE_NAMES, word, re.IGNORECASE):
+            return f"{word} {digit}"
+        return f"{word}: {digit}"
+
+    return re.sub(r"(\w)\u2014(\d)", repl, text)
+
+
+def _fix_scrub_artifacts(text: str) -> str:
+    """Repair colon glitches from em-dash scrub (licenses, memory shorthand)."""
+    text = _LICENSE_COLON.sub(r"\1 \2", text)
+    text = _UNDER_BEFORE_DIGIT.sub(r"under \2", text)
+    return text
+
+
+def _fix_glued_hyphens(text: str) -> str:
+    """Repair word-digit and word-qualifier hyphens that are not real compounds."""
+    text = _UNDER_BEFORE_DIGIT.sub(r"under \2", text)
+    text = _GLUE_HYPHEN_DIGIT.sub(r"\1: \2", text)
+    text = _GLUE_HYPHEN_QUALIFIER.sub(r"\1, \2", text)
+    return _fix_scrub_artifacts(text)
+
+
 def _scrub_text(text: str) -> str:
     """Remove em dashes the model slips through despite the prompt.
 
-    A spaced em dash becomes a comma pause; an unspaced one (rare) becomes a
-    plain hyphen so compound words survive.
+    Spaced em dashes become comma pauses. Unspaced em dashes before digits become
+    under/colon/space depending on context. En dashes are left intact.
     """
     text = text.replace(" \u2014 ", ", ").replace("\u2014 ", ", ").replace(" \u2014", ", ")
-    return text.replace("\u2014", "-")
+    text = _scrub_em_dash_before_digit(text)
+    text = text.replace("\u2014", ", ")
+    return _fix_glued_hyphens(text)
 
 
 def scrub_digest(digest: Digest) -> Digest:
@@ -211,6 +377,12 @@ def attach_cluster_sources(
     dominant = _dominant_domain(entries, clusters)
     for story, cluster in zip(digest.stories, clusters, strict=True):
         members = [entries[i] for i in cluster.entry_indices]
+        if not cluster_is_coherent(cluster, entries):
+            headline = members[0].title if members else "?"
+            raise ValueError(
+                f"incoherent source cluster for {headline!r}: "
+                "members do not describe the same event"
+            )
         story.source_urls = source_urls_for_story(members, dominant)
     return digest
 

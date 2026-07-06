@@ -1,26 +1,24 @@
 from __future__ import annotations
 
-from digest.models import FeedEntry, StoryCluster
+from digest.editorial import MIN_SIGNIFICANCE, select_clusters
+from digest.models import ClusterGroup, FeedEntry, StoryCluster
 from digest.triage import (
-    MAX_CLUSTER_MEMBERS,
-    MIN_SIGNIFICANCE,
-    TRIAGE_SYSTEM_PROMPT,
-    replace_repriced_clusters,
-    select_clusters,
-    split_oversized_clusters,
+    SCORE_SYSTEM_PROMPT,
+    merge_cluster_scores,
+    normalize_cluster_groups,
 )
 
 
-def _entry(i: int, domain: str = "example.com") -> FeedEntry:
+def _entry(i: int, domain: str = "example.com", topic: str = "ai") -> FeedEntry:
     return FeedEntry(
         title=f"Story {i}",
         url=f"https://{domain}/article/{i}",
         source=domain,
-        topic="ai",
+        topic=topic,
     )
 
 
-ENTRIES = [_entry(i) for i in range(8)]
+ENTRIES = [_entry(i, domain=f"outlet{i}.com") for i in range(8)]
 
 
 def _cluster(
@@ -34,26 +32,38 @@ def _cluster(
     )
 
 
+def _score_map(clusters: list[StoryCluster]) -> dict[int, StoryCluster]:
+    return {c.entry_indices[0]: c for c in clusters if len(c.entry_indices) == 1}
+
+
 def test_keeps_top_clusters_by_significance() -> None:
     raw = [_cluster([0], 5), _cluster([1], 9), _cluster([2], 7)]
     selected = select_clusters(raw, ENTRIES, max_stories=2)
     assert [c.significance for c in selected] == [9, 7]
 
 
-def test_non_ai_clusters_are_dropped() -> None:
+def test_tier_a_reserved_before_tier_b() -> None:
+    raw = [
+        _cluster([0], 6),
+        _cluster([1], 6),
+        _cluster([2], 9),
+        _cluster([3], 8),
+        _cluster([4], 7),
+    ]
+    selected = select_clusters(raw, ENTRIES, max_stories=3)
+    assert {c.significance for c in selected} == {9, 8, 7}
+
+
+def test_score_five_kept_even_when_ai_relevant_false() -> None:
     raw = [_cluster([0], 9, ai_relevant=False), _cluster([1], 5)]
     selected = select_clusters(raw, ENTRIES, max_stories=5)
+    assert [c.entry_indices for c in selected] == [[0], [1]]
+
+
+def test_tier_c_ai_relevant_false_dropped_at_four() -> None:
+    raw = [_cluster([0], 4, ai_relevant=False), _cluster([1], 5)]
+    selected = select_clusters(raw, ENTRIES, max_stories=5)
     assert [c.entry_indices for c in selected] == [[1]]
-
-
-def test_non_ai_never_fills_slots() -> None:
-    raw = [
-        _cluster([0], 9, ai_relevant=False),
-        _cluster([1], 4),
-        _cluster([2], 5),
-    ]
-    selected = select_clusters(raw, ENTRIES, max_stories=2)
-    assert [c.entry_indices for c in selected] == [[2], [1]]
 
 
 def test_enforces_significance_floor() -> None:
@@ -73,60 +83,58 @@ def test_invalid_and_duplicate_indices_are_dropped() -> None:
     assert [c.entry_indices for c in selected] == [[0]]
 
 
-def test_prompt_mentions_ai_relevant_gate() -> None:
-    assert "ai_relevant" in TRIAGE_SYSTEM_PROMPT
-
-
-def test_prompt_forbids_theme_clustering() -> None:
-    assert "Never group articles because they share" in TRIAGE_SYSTEM_PROMPT
-    assert "four entry indices" in TRIAGE_SYSTEM_PROMPT
-
-
-def test_prompt_targets_builder_mix_with_tier_b_context() -> None:
-    assert "Tier A" in TRIAGE_SYSTEM_PROMPT
-    assert "Tier B" in TRIAGE_SYSTEM_PROMPT
-    assert "true ONLY for Tier A or Tier B" in TRIAGE_SYSTEM_PROMPT
-    assert "Microsoft, Amazon" in TRIAGE_SYSTEM_PROMPT
-    assert "smart glasses" in TRIAGE_SYSTEM_PROMPT
-    assert "mostly A" in TRIAGE_SYSTEM_PROMPT
-    assert "Codex" in TRIAGE_SYSTEM_PROMPT
-    assert "accelerators" in TRIAGE_SYSTEM_PROMPT
-
-
-def test_triage_input_includes_topic_tag() -> None:
-    from digest.triage import build_triage_input
-
-    entry = FeedEntry(
-        title="GPT-5.6 Sol Ultra will be in Codex",
-        url="https://example.com/a",
-        source="Hacker News",
-        topic="dev-tools",
-    )
-    text = build_triage_input([entry])
-    assert "dev-tools" in text
-    assert "Codex" in text
-
-
-def test_oversized_cluster_flags_repriced_indices_not_inherited_metadata() -> None:
-    mega = _cluster(list(range(MAX_CLUSTER_MEMBERS + 2)), significance=4, ai_relevant=False)
-    small = _cluster([7], significance=8)
-    kept, repriced = split_oversized_clusters([small, mega])
-    assert kept == [small]
-    assert repriced == frozenset(range(MAX_CLUSTER_MEMBERS + 2))
-
-
-def test_replace_repriced_clusters_swaps_bucket_singletons() -> None:
-    repriced = frozenset({0, 1, 2})
-    bucket_singletons = [
-        _cluster([i], significance=4, ai_relevant=False) for i in repriced
+def test_dev_tools_wins_tie_over_policy() -> None:
+    entries = [
+        FeedEntry(title="Policy story", url="https://a", source="A", topic="policy"),
+        FeedEntry(title="Dev tools story", url="https://b", source="B", topic="dev-tools"),
     ]
-    replacements = [_cluster([0], significance=8), _cluster([2], significance=6)]
-    merged = replace_repriced_clusters(bucket_singletons, repriced, replacements)
-    assert [c.entry_indices for c in merged] == [[0], [2]]
+    raw = [_cluster([0], 6), _cluster([1], 6)]
+    selected = select_clusters(raw, entries, max_stories=1)
+    assert selected[0].entry_indices == [1]
 
 
-def test_split_leaves_small_clusters_alone() -> None:
-    small = _cluster([0, 1, 2], significance=7)
-    kept, repriced = split_oversized_clusters([small])
-    assert kept == [small]
-    assert repriced == frozenset()
+def test_score_prompt_targets_builder_tiers() -> None:
+    assert "Tier A" in SCORE_SYSTEM_PROMPT
+    assert "Codex" in SCORE_SYSTEM_PROMPT
+    assert "FULL 1-10" in SCORE_SYSTEM_PROMPT
+    assert "platform-scale vendors" in SCORE_SYSTEM_PROMPT
+    assert "Microsoft, Google, Meta, Amazon" in SCORE_SYSTEM_PROMPT
+    assert "production ML" not in SCORE_SYSTEM_PROMPT or "agent orchestration" in SCORE_SYSTEM_PROMPT
+
+
+def test_normalize_cluster_groups_fills_missing_indices() -> None:
+    groups = [ClusterGroup(entry_indices=[1, 2], event="shared")]
+    assert normalize_cluster_groups(groups, 4) == [[1, 2], [0], [3]]
+
+
+def test_merge_keeps_duplicate_group_with_best_member_score() -> None:
+    groups = [ClusterGroup(entry_indices=[0, 1], event="Mechanical Turk sunset")]
+    scored = _score_map([_cluster([0], 6), _cluster([1], 9)])
+    merged = merge_cluster_scores(groups, scored, n_entries=2)
+    assert len(merged) == 1
+    assert merged[0].entry_indices == [0, 1]
+    assert merged[0].significance == 9
+
+
+def test_merge_dissolves_oversized_group_into_singletons() -> None:
+    groups = [ClusterGroup(entry_indices=[0, 1, 2, 3, 4], event="AI news bucket")]
+    scored = _score_map(
+        [
+            _cluster([0], 3, ai_relevant=False),
+            _cluster([1], 8),
+            _cluster([4], 7),
+        ]
+    )
+    merged = merge_cluster_scores(groups, scored, n_entries=5)
+    assert [c.entry_indices for c in merged] == [[0], [1], [4]]
+
+
+def test_merge_uses_best_scorer_metadata() -> None:
+    groups = [ClusterGroup(entry_indices=[0, 1], event="shared")]
+    scored = {
+        0: _cluster([0], 5, ai_relevant=True),
+        1: _cluster([1], 8, ai_relevant=True),
+    }
+    merged = merge_cluster_scores(groups, scored, n_entries=2)
+    assert merged[0].significance == 8
+    assert merged[0].reason == "test"

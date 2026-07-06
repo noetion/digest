@@ -63,9 +63,79 @@ def test_scrub_digest_removes_em_dashes(sample_digest: Digest) -> None:
     scrubbed = scrub_digest(sample_digest)
 
     assert scrubbed.intro == "New silicon, and it ships this quarter."
-    assert scrubbed.stories[0].why_it_matters == "Cheaper inference-full stop."
+    assert scrubbed.stories[0].why_it_matters == "Cheaper inference, full stop."
     dumped = scrubbed.model_dump_json()
     assert "\u2014" not in dumped
+
+
+def test_scrub_digest_fixes_unspaced_em_dash_before_digit(sample_digest: Digest) -> None:
+    sample_digest.stories[0].outlook = (
+        "Use the stated scale\u20146 million daily deployments as the baseline."
+    )
+
+    scrubbed = scrub_digest(sample_digest)
+
+    assert "scale: 6 million" in scrubbed.stories[0].outlook
+    assert "scale-6" not in scrubbed.stories[0].outlook
+
+
+def test_scrub_digest_fixes_sub_memory_shorthand(sample_digest: Digest) -> None:
+    sample_digest.stories[0].why_it_matters = (
+        "Hy3's sub\u2014300GB FP8 footprint lowers serving memory."
+    )
+
+    scrubbed = scrub_digest(sample_digest)
+
+    assert "under 300GB" in scrubbed.stories[0].why_it_matters
+    assert "sub: 300" not in scrubbed.stories[0].why_it_matters
+
+
+def test_scrub_digest_fixes_apache_license_em_dash(sample_digest: Digest) -> None:
+    sample_digest.stories[0].headline = (
+        "Tencent releases Apache\u20142.0 Hy3 open-weight model"
+    )
+
+    scrubbed = scrub_digest(sample_digest)
+
+    assert "Apache 2.0" in scrubbed.stories[0].headline
+    assert "Apache: 2.0" not in scrubbed.stories[0].headline
+
+
+def test_scrub_digest_fixes_apache_colon_artifact(sample_digest: Digest) -> None:
+    sample_digest.stories[0].headline = "Tencent releases Apache: 2.0 Hy3 model"
+
+    scrubbed = scrub_digest(sample_digest)
+
+    assert scrubbed.stories[0].headline == "Tencent releases Apache 2.0 Hy3 model"
+
+
+def test_scrub_digest_fixes_unspaced_em_dash_between_words(sample_digest: Digest) -> None:
+    sample_digest.stories[0].what_happened = (
+        "Expedia added Agentic Release tollgates\u2014recommended checks in the SDLC."
+    )
+
+    scrubbed = scrub_digest(sample_digest)
+
+    assert "tollgates, recommended" in scrubbed.stories[0].what_happened
+
+
+def test_scrub_digest_fixes_glued_qualifier_hyphens(sample_digest: Digest) -> None:
+    sample_digest.stories[0].what_happened = (
+        "Expedia added tollgates-recommended checks and rollback controls-practices."
+    )
+
+    scrubbed = scrub_digest(sample_digest)
+
+    assert "tollgates, recommended" in scrubbed.stories[0].what_happened
+    assert "controls, practices" in scrubbed.stories[0].what_happened
+
+
+def test_scrub_digest_preserves_en_dashes_in_compounds(sample_digest: Digest) -> None:
+    sample_digest.stories[0].headline = "ZCode: GLM-5.2\u2013based coding agent"
+
+    scrubbed = scrub_digest(sample_digest)
+
+    assert scrubbed.stories[0].headline == "ZCode: GLM-5.2\u2013based coding agent"
 
 
 def test_scrub_digest_leaves_clean_text_alone(sample_digest: Digest) -> None:
@@ -76,13 +146,13 @@ def test_scrub_digest_leaves_clean_text_alone(sample_digest: Digest) -> None:
 def test_attach_cluster_sources_assigns_from_clusters(sample_digest: Digest) -> None:
     entries = [
         FeedEntry(
-            title="Primary",
+            title="Tencent releases Hy3 open-source model",
             url="https://a.com/1",
             source="a.com",
             topic="ai",
         ),
         FeedEntry(
-            title="Corroborating",
+            title="Tencent Apache-licensed Hy3 takes on GLM-5.2",
             url="https://b.com/2",
             source="b.com",
             topic="ai",
@@ -185,3 +255,20 @@ def test_attach_cluster_sources_rejects_count_mismatch(sample_digest: Digest) ->
 
 def test_system_prompt_bans_em_dashes() -> None:
     assert "em dash" in SYNTHESIS_SYSTEM_PROMPT.lower()
+    assert "en dashes" in SYNTHESIS_SYSTEM_PROMPT.lower()
+    assert "fine in numeric ranges" in SYNTHESIS_SYSTEM_PROMPT.lower()
+    assert "model-agent split" in SYNTHESIS_SYSTEM_PROMPT
+    assert "agent coding pushes" in SYNTHESIS_SYSTEM_PROMPT
+    assert "Never start outlook with" not in SYNTHESIS_SYSTEM_PROMPT
+    assert "what to look for next" in SYNTHESIS_SYSTEM_PROMPT.lower()
+    assert "bifurcat" in SYNTHESIS_SYSTEM_PROMPT.lower()
+    assert "Reflect the stories actually" in SYNTHESIS_SYSTEM_PROMPT
+    assert "Every story must appear in the intro" in SYNTHESIS_SYSTEM_PROMPT
+    assert "Three platform moves today matter" in SYNTHESIS_SYSTEM_PROMPT
+    assert "Fiscal-year 2027" in SYNTHESIS_SYSTEM_PROMPT
+    assert "Have marketing and legal" in SYNTHESIS_SYSTEM_PROMPT
+    assert "plain english" in SYNTHESIS_SYSTEM_PROMPT.lower()
+    assert "recognizable proper noun" in SYNTHESIS_SYSTEM_PROMPT
+    assert "not a vague summary" in SYNTHESIS_SYSTEM_PROMPT
+    assert "quiet tension" in SYNTHESIS_SYSTEM_PROMPT
+    assert "what CHANGED today" in SYNTHESIS_SYSTEM_PROMPT

@@ -1,0 +1,87 @@
+from __future__ import annotations
+
+from digest.event_match import (
+    cluster_is_coherent,
+    refine_cluster_groups,
+    split_incoherent_clusters,
+    titles_same_event,
+)
+from digest.models import ClusterGroup, FeedEntry, StoryCluster
+
+
+def _entry(title: str, url: str = "https://example.com/a", topic: str = "ai") -> FeedEntry:
+    return FeedEntry(title=title, url=url, source="Example", topic=topic)
+
+
+def test_hy3_headlines_are_same_event() -> None:
+    decoder = "Tencent releases Hy3 open-source model that allegedly matches models up to five times its active size"
+    vb = "Tencent's Apache-licensed Hy3 takes on GLM-5.2 at half the size and wins everywhere except coding"
+    assert titles_same_event(decoder, vb)
+
+
+def test_mechanical_turk_headlines_are_same_event() -> None:
+    a = "Amazon sunsets Mechanical Turk, the original artificial artificial intelligence"
+    b = "Amazon will stop accepting new customers for Mechanical Turk"
+    assert titles_same_event(a, b)
+
+
+def test_unrelated_microsoft_and_regulator_are_not_same_event() -> None:
+    ms = "Microsoft lays off nearly 5000 employees across Xbox and commercial sales"
+    fca = "UK regulator warns of arms race to keep up with AI use in financial services"
+    assert not titles_same_event(ms, fca)
+
+
+def test_claude_stories_do_not_merge() -> None:
+    tracker = "Secret Claude tracker shocks users after Anthropic anti-surveillance stance"
+    cnc = "Claude Code and Fable 5 ported Command and Conquer to native iOS in a few hours"
+    zcode = "Zhipu AI launches ZCode to challenge Claude Code and OpenAI Codex at a fraction of the cost"
+    assert not titles_same_event(tracker, cnc)
+    assert not titles_same_event(tracker, zcode)
+    assert not titles_same_event(cnc, zcode)
+
+
+def test_refine_merges_split_hy3_groups() -> None:
+    entries = [
+        _entry(
+            "Tencent releases Hy3 open-source model",
+            "https://the-decoder.com/hy3",
+        ),
+        _entry(
+            "Tencent's Apache-licensed Hy3 takes on GLM-5.2",
+            "https://venturebeat.com/hy3",
+        ),
+        _entry("Microsoft layoffs", "https://techcrunch.com/ms"),
+    ]
+    groups = [
+        ClusterGroup(entry_indices=[0], event="Tencent Hy3 open source"),
+        ClusterGroup(entry_indices=[1], event="Hy3 enterprise deployment"),
+        ClusterGroup(entry_indices=[2], event="Microsoft layoffs"),
+    ]
+    refined = refine_cluster_groups(groups, entries, max_members=4)
+    assert len(refined) == 2
+    hy3 = next(g for g in refined if 0 in g.entry_indices)
+    assert hy3.entry_indices == [0, 1]
+
+
+def test_split_incoherent_cluster() -> None:
+    entries = [
+        _entry("Secret Claude tracker shocks users", "https://a"),
+        _entry("Claude Code ported C&C to iOS", "https://b"),
+        _entry("Zhipu ZCode challenges Codex", "https://c"),
+    ]
+    bad = StoryCluster(
+        entry_indices=[0, 1, 2],
+        ai_relevant=True,
+        significance=6,
+        reason="test",
+    )
+    assert not cluster_is_coherent(bad, entries)
+    split = split_incoherent_clusters([bad], entries)
+    assert len(split) == 3
+    assert [c.entry_indices for c in split] == [[0], [1], [2]]
+
+
+def test_unrelated_fca_and_hy3_are_not_same_event() -> None:
+    fca = "UK regulator warns of arms race to keep up with AI use in financial services"
+    hy3 = "Tencent releases Hy3 open-source model that allegedly matches models up to five times its active size"
+    assert not titles_same_event(fca, hy3)

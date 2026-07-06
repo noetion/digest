@@ -7,6 +7,7 @@ from __future__ import annotations
 
 import logging
 import re
+from html import unescape
 
 import httpx
 import trafilatura
@@ -19,7 +20,10 @@ logger = logging.getLogger(__name__)
 
 TIMEOUT = httpx.Timeout(connect=10.0, read=20.0, write=10.0, pool=10.0)
 
+_HTML_TAG = re.compile(r"<[^>]+>")
 _SENTENCE_END = re.compile(r"[.!?…]['\")\]]?\s*$")
+# Skip link-only RSS snippets; VentureBeat-style summaries are well above this.
+MIN_FALLBACK_WORDS = 15
 
 
 @retry(stop=stop_after_attempt(3), wait=wait_exponential(multiplier=1, max=15), reraise=True)
@@ -74,17 +78,31 @@ def extract_article(url: str, max_words: int) -> str:
     return trim_text(text, max_words)
 
 
+def rss_summary_fallback(entry: FeedEntry, max_words: int) -> str:
+    """Use the RSS summary when full-page extraction fails (e.g. rate limits)."""
+    text = " ".join(unescape(_HTML_TAG.sub(" ", entry.summary)).split())
+    if len(text.split()) < MIN_FALLBACK_WORDS:
+        return ""
+    return trim_text(text, max_words)
+
+
 def enrich_with_full_text(entries: list[FeedEntry], max_words: int) -> list[FeedEntry]:
-    """Populate full_text on each entry; drop entries whose extraction fails/comes back empty."""
+    """Populate full_text on each entry; drop entries with no usable text."""
     enriched: list[FeedEntry] = []
     for entry in entries:
+        text = ""
         try:
             text = extract_article(entry.url, max_words)
         except Exception:
-            logger.warning("Extraction failed for %s, skipping", entry.url, exc_info=True)
-            continue
+            logger.warning(
+                "Extraction failed for %s, trying RSS summary", entry.url, exc_info=True
+            )
         if not text:
-            logger.warning("Empty extraction for %s, skipping", entry.url)
+            text = rss_summary_fallback(entry, max_words)
+            if text:
+                logger.info("Using RSS summary fallback for %s", entry.url)
+        if not text:
+            logger.warning("No extractable text for %s, skipping", entry.url)
             continue
         enriched.append(entry.model_copy(update={"full_text": text}))
     return enriched

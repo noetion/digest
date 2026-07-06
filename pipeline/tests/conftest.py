@@ -23,7 +23,10 @@ def sample_digest() -> Digest:
                 why_it_matters=(
                     "Cheaper inference changes deployment economics for high-volume LLM workloads."
                 ),
-                outlook="Volume availability is slated for Q4; cloud partners are unannounced.",
+                outlook=(
+                    "Q4 volume availability and cloud partner pricing will show "
+                    "whether the perf-per-watt claims hold at production scale."
+                ),
                 source_urls=["https://example.com/acme-chip", "https://other.com/acme"],
                 topic_tag="chips",
             ),
@@ -33,7 +36,10 @@ def sample_digest() -> Digest:
                     "OpenLab published weights, training recipe, and evals for its 70B model."
                 ),
                 why_it_matters="Engineers get a commercially usable frontier-class base model.",
-                outlook="Fine-tuned variants are expected from the community within weeks.",
+                outlook=(
+                    "Community fine-tuned variants and independent eval reruns "
+                    "over the next few weeks will test the base model claims."
+                ),
                 source_urls=["https://example.com/openlab"],
                 topic_tag="ai",
             ),

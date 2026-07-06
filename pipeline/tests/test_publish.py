@@ -40,7 +40,7 @@ def test_crosspost_failure_is_non_fatal(sample_digest: Digest, monkeypatch) -> N
 
 def test_triage_input_uses_preview_not_full_text() -> None:
     from digest.models import FeedEntry
-    from digest.triage import build_triage_input
+    from digest.triage import build_score_input
 
     entry = FeedEntry(
         title="Big story",
@@ -49,6 +49,6 @@ def test_triage_input_uses_preview_not_full_text() -> None:
         topic="ai",
         full_text=" ".join(["word"] * 500),
     )
-    text = build_triage_input([entry])
+    text = build_score_input([entry], [0])
     # Preview is capped at 80 words; the full 500-word text must never be sent to triage.
     assert text.count("word") == 80
