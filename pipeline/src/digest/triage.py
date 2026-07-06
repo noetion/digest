@@ -48,11 +48,15 @@ Your tasks:
    higher-level context from major vendors when the story is big. Rank
    accordingly:
    - 8-10 (Tier A): What builders can use or deploy soon. Examples: model or
-     API/SDK launches and previews; agent tooling and dev integrations;
-     major open-source ML releases; inference or compute readers can
-     provision; chips and training/inference stack changes; policy that
-     directly changes model access, APIs, or training data (crawler defaults,
-     export clearance, licensing).
+     API/SDK launches and previews; new model tiers or modes in Codex,
+     Copilot, Claude Code, Cursor, or major coding APIs (including limited
+     previews and "coming to Codex/API" announcements); agent tooling and
+     dev integrations; major open-source ML releases; inference or compute
+     readers can provision; chips and training/inference stack changes;
+     policy that directly changes model access, APIs, or training data
+     (crawler defaults, export clearance, licensing). Headlines naming a
+     model version plus Codex, API, SDK, or agent tooling are Tier A even
+     when the RSS preview is thin or the headline says "will be".
    - 5-7 (Tier B): Big-player ecosystem context worth knowing even without a
      new API to call today. Examples: major vendor compute or hosting
      strategy (Meta, Google, OpenAI, Anthropic, Nvidia, Microsoft, Amazon);
@@ -62,14 +66,16 @@ Your tasks:
      player, but on a normal news day most selected clusters should still be
      Tier A.
    - 1-4 (Tier C): Out of scope for this digest. Examples: funding rounds and
-     unicorn valuations with no shipped product; executive drama; consumer
-     hardware features and subscription pricing (smart glasses, phones);
-     "reportedly exploring" with no concrete product or access change. Always
-     score 3 or lower and set ai_relevant false. Never include consumer
-     hardware pricing, even on a thin news day.
+     unicorn valuations with no shipped product; startup accelerators and
+     incubator cohort announcements without a shipped product or API; executive
+     drama; consumer hardware features and subscription pricing (smart glasses,
+     phones); "reportedly exploring" with no concrete product or access change. Always score 3 or lower and set ai_relevant false. Never
+     include consumer hardware pricing, even on a thin news day.
    When ranking clusters for the digest: prefer a mix of Tier A and Tier B
-   (mostly A, two or three B for context). Do not fill slots with Tier C
-   stories when Tier A or B options exist.
+   (mostly A, two or three B for context). Model, API, and dev-tool releases
+   from major labs outrank accelerators, legacy platform sunsets, and generic
+   policy commentary unless the policy directly changes what builders can
+   ship. Do not fill slots with Tier C stories when Tier A or B options exist.
 4. Give a one-line reason per cluster.
 
 Return every cluster scoring 4 or higher; the pipeline selects the final
@@ -91,12 +97,16 @@ for Tier A or Tier B; false for Tier C and out-of-scope stories (consumer
 gadgets, entertainment, sports, unrelated business news).
 
 Score significance 1-10:
-- 8-10 (Tier A): model/API launches, agent tooling, open-source ML, chips,
-  inference/compute readers can use, policy that changes model access.
+- 8-10 (Tier A): model/API launches; new tiers or modes in Codex, Copilot,
+  Claude Code, Cursor, or major coding APIs (including "coming to Codex/API");
+  agent tooling; open-source ML; chips; inference/compute readers can use;
+  policy that changes model access. Thin or headline-only previews do not
+  downgrade these — score from the headline.
 - 5-7 (Tier B): major vendor ecosystem moves (OpenAI, Anthropic, Google,
   Microsoft, Meta, Nvidia, Amazon), export/regulatory shifts.
-- 1-4 (Tier C): funding with no product, executive drama, consumer hardware,
-  vague "reportedly exploring". Score 3 or lower and ai_relevant false.
+- 1-4 (Tier C): funding with no product; accelerators without shipped APIs;
+  executive drama; consumer hardware; vague "reportedly exploring". Score 3
+  or lower and ai_relevant false.
 
 Return one cluster per article that scores 4 or higher. Omit only clear noise.
 """
@@ -105,7 +115,9 @@ Return one cluster per article that scores 4 or higher. Omit only clear noise.
 def build_triage_input(entries: list[FeedEntry]) -> str:
     lines = ["Candidate articles:"]
     for i, entry in enumerate(entries):
-        lines.append(f"[{i}] ({entry.source}) {entry.title}\n{entry.preview(80)}")
+        lines.append(
+            f"[{i}] ({entry.source}, {entry.topic}) {entry.title}\n{entry.preview(80)}"
+        )
     return "\n\n".join(lines)
 
 
@@ -115,7 +127,9 @@ def build_reclassify_input(entries: list[FeedEntry], indices: list[int]) -> str:
     ]
     for sub_i, entry_i in enumerate(indices):
         entry = entries[entry_i]
-        lines.append(f"[{sub_i}] ({entry.source}) {entry.title}\n{entry.preview(80)}")
+        lines.append(
+            f"[{sub_i}] ({entry.source}, {entry.topic}) {entry.title}\n{entry.preview(80)}"
+        )
     return "\n\n".join(lines)
 
 

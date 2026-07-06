@@ -89,6 +89,22 @@ def test_prompt_targets_builder_mix_with_tier_b_context() -> None:
     assert "Microsoft, Amazon" in TRIAGE_SYSTEM_PROMPT
     assert "smart glasses" in TRIAGE_SYSTEM_PROMPT
     assert "mostly A" in TRIAGE_SYSTEM_PROMPT
+    assert "Codex" in TRIAGE_SYSTEM_PROMPT
+    assert "accelerators" in TRIAGE_SYSTEM_PROMPT
+
+
+def test_triage_input_includes_topic_tag() -> None:
+    from digest.triage import build_triage_input
+
+    entry = FeedEntry(
+        title="GPT-5.6 Sol Ultra will be in Codex",
+        url="https://example.com/a",
+        source="Hacker News",
+        topic="dev-tools",
+    )
+    text = build_triage_input([entry])
+    assert "dev-tools" in text
+    assert "Codex" in text
 
 
 def test_oversized_cluster_flags_repriced_indices_not_inherited_metadata() -> None:

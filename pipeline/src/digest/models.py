@@ -2,9 +2,13 @@
 
 from __future__ import annotations
 
+import re
 from datetime import datetime
+from html import unescape
 
 from pydantic import BaseModel, Field
+
+_HTML_TAG = re.compile(r"<[^>]+>")
 
 
 class FeedEntry(BaseModel):
@@ -21,7 +25,13 @@ class FeedEntry(BaseModel):
     def preview(self, words: int = 80) -> str:
         """Headline-stage preview used by triage (never the full text)."""
         base = self.full_text or self.summary
-        return " ".join(base.split()[:words])
+        text = unescape(_HTML_TAG.sub(" ", base))
+        text = " ".join(text.split())
+        if not self.full_text and len(text.split()) < 10:
+            # HN and similar feeds often ship link-only summaries; triage must
+            # rely on the headline rather than treating the entry as noise.
+            return "(No useful RSS preview — score from headline and source.)"
+        return " ".join(text.split()[:words])
 
 
 class StoryCluster(BaseModel):
