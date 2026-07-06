@@ -5,6 +5,7 @@ from digest.triage import (
     MAX_CLUSTER_MEMBERS,
     MIN_SIGNIFICANCE,
     TRIAGE_SYSTEM_PROMPT,
+    replace_repriced_clusters,
     select_clusters,
     split_oversized_clusters,
 )
@@ -78,6 +79,7 @@ def test_prompt_mentions_ai_relevant_gate() -> None:
 
 def test_prompt_forbids_theme_clustering() -> None:
     assert "Never group articles because they share" in TRIAGE_SYSTEM_PROMPT
+    assert "four entry indices" in TRIAGE_SYSTEM_PROMPT
 
 
 def test_prompt_targets_builder_mix_with_tier_b_context() -> None:
@@ -89,14 +91,26 @@ def test_prompt_targets_builder_mix_with_tier_b_context() -> None:
     assert "mostly A" in TRIAGE_SYSTEM_PROMPT
 
 
-def test_split_oversized_cluster_into_singletons() -> None:
-    mega = _cluster(list(range(MAX_CLUSTER_MEMBERS + 2)), significance=8)
-    split = split_oversized_clusters([mega])
-    assert len(split) == MAX_CLUSTER_MEMBERS + 2
-    assert all(len(c.entry_indices) == 1 for c in split)
-    assert {c.significance for c in split} == {8}
+def test_oversized_cluster_flags_repriced_indices_not_inherited_metadata() -> None:
+    mega = _cluster(list(range(MAX_CLUSTER_MEMBERS + 2)), significance=4, ai_relevant=False)
+    small = _cluster([7], significance=8)
+    kept, repriced = split_oversized_clusters([small, mega])
+    assert kept == [small]
+    assert repriced == frozenset(range(MAX_CLUSTER_MEMBERS + 2))
+
+
+def test_replace_repriced_clusters_swaps_bucket_singletons() -> None:
+    repriced = frozenset({0, 1, 2})
+    bucket_singletons = [
+        _cluster([i], significance=4, ai_relevant=False) for i in repriced
+    ]
+    replacements = [_cluster([0], significance=8), _cluster([2], significance=6)]
+    merged = replace_repriced_clusters(bucket_singletons, repriced, replacements)
+    assert [c.entry_indices for c in merged] == [[0], [2]]
 
 
 def test_split_leaves_small_clusters_alone() -> None:
     small = _cluster([0, 1, 2], significance=7)
-    assert split_oversized_clusters([small]) == [small]
+    kept, repriced = split_oversized_clusters([small])
+    assert kept == [small]
+    assert repriced == frozenset()

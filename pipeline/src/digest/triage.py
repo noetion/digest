@@ -14,6 +14,7 @@ from openai import OpenAI
 from .config import TRIAGE_MODEL
 from .costs import CostTracker
 from .models import FeedEntry, StoryCluster, TriageResult
+from .quality import ABS_MIN_STORIES
 
 logger = logging.getLogger(__name__)
 
@@ -35,7 +36,9 @@ Your tasks:
    separate clusters, even on the same day or about the same broad topic (e.g.
    "AI agents" or "big tech AI"). Different announcements from the same
    company are also separate clusters. Never group articles because they share
-   a theme, sector, or keyword.
+   a theme, sector, or keyword. HARD LIMIT: a cluster may contain at most
+   four entry indices. If articles are not the same event, use singleton
+   clusters (one index each).
 2. Classify each cluster into Tier A, B, or C (below), then set ai_relevant:
    true ONLY for Tier A or Tier B clusters; false for Tier C and anything
    outside this digest (consumer gadgets, entertainment, sports, unrelated
@@ -74,6 +77,30 @@ digest. Omit only clear noise (3 or lower). No candidate in more than one
 cluster. Order by significance, highest first.
 """
 
+# Used when the model returns a theme bucket (>4 members). Bucket-level
+# ai_relevant/significance is unreliable, so each article is re-scored alone.
+RECLASSIFY_SYSTEM_PROMPT = """\
+You are the wire editor for "The Morning Build", a daily digest for people who
+build software in the AI era.
+
+Each article must be its own cluster: exactly one entry index per cluster.
+Never group multiple articles.
+
+Classify each cluster into Tier A, B, or C, then set ai_relevant true ONLY
+for Tier A or Tier B; false for Tier C and out-of-scope stories (consumer
+gadgets, entertainment, sports, unrelated business news).
+
+Score significance 1-10:
+- 8-10 (Tier A): model/API launches, agent tooling, open-source ML, chips,
+  inference/compute readers can use, policy that changes model access.
+- 5-7 (Tier B): major vendor ecosystem moves (OpenAI, Anthropic, Google,
+  Microsoft, Meta, Nvidia, Amazon), export/regulatory shifts.
+- 1-4 (Tier C): funding with no product, executive drama, consumer hardware,
+  vague "reportedly exploring". Score 3 or lower and ai_relevant false.
+
+Return one cluster per article that scores 4 or higher. Omit only clear noise.
+"""
+
 
 def build_triage_input(entries: list[FeedEntry]) -> str:
     lines = ["Candidate articles:"]
@@ -82,21 +109,116 @@ def build_triage_input(entries: list[FeedEntry]) -> str:
     return "\n\n".join(lines)
 
 
-def split_oversized_clusters(raw: list[StoryCluster]) -> list[StoryCluster]:
-    """Split topic-bucket clusters into singletons before ranking."""
+def build_reclassify_input(entries: list[FeedEntry], indices: list[int]) -> str:
+    lines = [
+        "Re-classify each article individually (one cluster per article):",
+    ]
+    for sub_i, entry_i in enumerate(indices):
+        entry = entries[entry_i]
+        lines.append(f"[{sub_i}] ({entry.source}) {entry.title}\n{entry.preview(80)}")
+    return "\n\n".join(lines)
+
+
+def remap_cluster_indices(
+    clusters: list[StoryCluster], index_map: dict[int, int]
+) -> list[StoryCluster]:
+    """Map local reclassify indices back onto the full candidate list."""
+    remapped: list[StoryCluster] = []
+    for cluster in clusters:
+        indices = [index_map[i] for i in cluster.entry_indices if i in index_map]
+        if indices:
+            remapped.append(cluster.model_copy(update={"entry_indices": indices}))
+    return remapped
+
+
+def split_oversized_clusters(
+    raw: list[StoryCluster],
+) -> tuple[list[StoryCluster], frozenset[int]]:
+    """Split topic-bucket clusters; return indices that need reclassification."""
     split: list[StoryCluster] = []
+    repriced: set[int] = set()
     for cluster in raw:
         if len(cluster.entry_indices) <= MAX_CLUSTER_MEMBERS:
             split.append(cluster)
             continue
         logger.warning(
-            "Splitting oversized cluster (%d members, score %d)",
+            "Oversized cluster (%d members, score %d, ai_relevant=%s); "
+            "will reclassify each article individually",
             len(cluster.entry_indices),
             cluster.significance,
+            cluster.ai_relevant,
         )
-        for idx in cluster.entry_indices:
-            split.append(cluster.model_copy(update={"entry_indices": [idx]}))
-    return split
+        repriced.update(cluster.entry_indices)
+    return split, frozenset(repriced)
+
+
+def replace_repriced_clusters(
+    clusters: list[StoryCluster],
+    repriced: frozenset[int],
+    replacements: list[StoryCluster],
+) -> list[StoryCluster]:
+    """Drop bucket-derived singletons and substitute per-article scores."""
+    kept = [
+        c
+        for c in clusters
+        if not (len(c.entry_indices) == 1 and c.entry_indices[0] in repriced)
+    ]
+    return kept + replacements
+
+
+def reclassify_entries(
+    client: OpenAI,
+    entries: list[FeedEntry],
+    indices: list[int],
+    tracker: CostTracker,
+) -> list[StoryCluster]:
+    """Score articles individually after a failed theme-bucket cluster."""
+    if not indices:
+        return []
+    tracker.check_budget()
+    index_map = {sub_i: orig_i for sub_i, orig_i in enumerate(indices)}
+    response = client.responses.parse(
+        model=TRIAGE_MODEL,
+        reasoning={"effort": "minimal"},
+        max_output_tokens=6000,
+        input=[
+            {"role": "system", "content": RECLASSIFY_SYSTEM_PROMPT},
+            {"role": "user", "content": build_reclassify_input(entries, indices)},
+        ],
+        text_format=TriageResult,
+    )
+    tracker.record(TRIAGE_MODEL, response.usage)
+    result = response.output_parsed
+    if result is None:
+        raise RuntimeError("Reclassify triage returned no parsed output")
+    return remap_cluster_indices(result.clusters, index_map)
+
+
+def run_triage_selection(
+    client: OpenAI,
+    entries: list[FeedEntry],
+    raw_clusters: list[StoryCluster],
+    max_stories: int,
+    tracker: CostTracker,
+) -> list[StoryCluster]:
+    """Split, reclassify bucket mistakes, select, then fall back if still empty."""
+    split, repriced = split_oversized_clusters(raw_clusters)
+    if repriced:
+        replacements = reclassify_entries(client, entries, sorted(repriced), tracker)
+        split = replace_repriced_clusters(split, repriced, replacements)
+
+    clusters = select_clusters(split, entries, max_stories)
+    if not clusters and len(entries) >= ABS_MIN_STORIES:
+        logger.warning(
+            "Triage selected 0 clusters with %d candidates; "
+            "individual reclassify fallback",
+            len(entries),
+        )
+        individuals = reclassify_entries(
+            client, entries, list(range(len(entries))), tracker
+        )
+        clusters = select_clusters(individuals, entries, max_stories)
+    return clusters
 
 
 def select_clusters(
@@ -154,8 +276,6 @@ def triage(
     if result is None:
         raise RuntimeError("Triage returned no parsed output")
 
-    clusters = select_clusters(
-        split_oversized_clusters(result.clusters), entries, max_stories
-    )
+    clusters = run_triage_selection(client, entries, result.clusters, max_stories, tracker)
     logger.info("Triage selected %d/%d clusters", len(clusters), len(result.clusters))
     return clusters

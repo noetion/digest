@@ -98,6 +98,12 @@ def run() -> int:
     tracker = CostTracker(cap_usd=settings.daily_cost_cap_usd)
     clusters = triage(client, candidates, settings.max_stories, tracker)
     if not clusters:
+        if len(candidates) >= ABS_MIN_STORIES:
+            logger.error(
+                "Triage selected no stories from %d candidates; aborting.",
+                len(candidates),
+            )
+            return 1
         logger.warning("Triage selected no stories; skipping digest.")
         return 0
 
