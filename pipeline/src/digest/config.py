@@ -74,6 +74,11 @@ FEEDS: tuple[Feed, ...] = (
         url="https://blog.google/technology/ai/rss/",
         topic="ai",
     ),
+    Feed(
+        name="Anthropic News",
+        url="https://www.anthropic.com/news/rss",
+        topic="ai",
+    ),
 )
 
 USER_AGENT = (

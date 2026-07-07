@@ -24,6 +24,41 @@ logger = logging.getLogger(__name__)
 # Published bylines mirror synthesis input: 1 primary, up to 2 corroborating (max 3).
 MAX_SOURCE_URLS = 3
 
+# First-party vendor/research posts beat news coverage in the same cluster.
+_FIRST_PARTY_DOMAINS = frozenset(
+    {
+        "anthropic.com",
+        "openai.com",
+        "blog.google",
+        "ai.googleblog.com",
+        "deepmind.google",
+        "research.google",
+        "ai.meta.com",
+        "about.fb.com",
+        "microsoft.com",
+        "blogs.microsoft.com",
+        "research.microsoft.com",
+        "nvidia.com",
+        "developer.nvidia.com",
+    }
+)
+
+# Known news aggregators — never first-party even if URL path looks editorial.
+_NEWS_OUTLET_DOMAINS = frozenset(
+    {
+        "venturebeat.com",
+        "techcrunch.com",
+        "arstechnica.com",
+        "theverge.com",
+        "wired.com",
+        "the-decoder.com",
+        "technologyreview.com",
+        "theregister.com",
+        "ieee.org",
+        "spectrum.ieee.org",
+    }
+)
+
 # Static, byte-identical system prompt -> automatic prefix caching across runs.
 # Never interpolate anything dynamic (like the date) into this string.
 SYNTHESIS_SYSTEM_PROMPT = """\
@@ -33,6 +68,9 @@ engineers and AI practitioners.
 You receive today's date and the top stories of the day. Each story has a
 primary source text plus optional corroborating headlines. Write the daily
 digest, filling the provided schema exactly.
+
+When the primary source is an official vendor research or product post, anchor
+the headline and what_happened on that source, not secondary news coverage.
 
 Editorial rules (non-negotiable):
 - Voice: sharp, technical, zero fluff. Written for engineers, not general
@@ -198,10 +236,20 @@ def _domain(url: str) -> str:
     return urlsplit(url).netloc.removeprefix("www.")
 
 
+def _is_first_party(entry: FeedEntry) -> bool:
+    """True for vendor research posts and official company blogs."""
+    domain = _domain(entry.url)
+    if domain in _NEWS_OUTLET_DOMAINS:
+        return False
+    if domain in _FIRST_PARTY_DOMAINS:
+        return True
+    return any(domain.endswith(f".{suffix}") for suffix in _FIRST_PARTY_DOMAINS)
+
+
 def _dominant_domain(entries: list[FeedEntry], clusters: list[StoryCluster]) -> str | None:
     """The domain that would supply the primary text for more than one story."""
     counts = Counter(
-        _domain(max((entries[i] for i in c.entry_indices), key=lambda e: len(e.full_text)).url)
+        _domain(_pick_primary([entries[i] for i in c.entry_indices], None).url)
         for c in clusters
     )
     domain, n = counts.most_common(1)[0]
@@ -209,26 +257,26 @@ def _dominant_domain(entries: list[FeedEntry], clusters: list[StoryCluster]) -> 
 
 
 def _pick_primary(members: list[FeedEntry], dominant: str | None) -> FeedEntry:
-    """Longest extraction wins, unless a near-equal alternative (>= 70% of the
-    longest text) comes from a less-represented outlet. One outlet dominating
-    every byline reads as a single-source digest even when the stories are
-    right, so ties break toward source diversity, never at the cost of
-    substance."""
-    longest = max(members, key=lambda e: len(e.full_text))
-    if dominant is None or _domain(longest.url) != dominant:
+    """Prefer official first-party posts; otherwise longest extraction wins.
+
+    When one outlet dominates the digest, near-equal alternates (>= 70% text
+    length) from other outlets break ties for source diversity.
+    """
+    first_party = [m for m in members if _is_first_party(m)]
+    pool = first_party if first_party else members
+
+    longest = max(pool, key=lambda e: len(e.full_text))
+    if first_party or dominant is None or _domain(longest.url) != dominant:
         return longest
     threshold = 0.7 * len(longest.full_text)
     alternates = [
         m
-        for m in members
+        for m in pool
         if _domain(m.url) != dominant and len(m.full_text) >= threshold
     ]
     if alternates:
         return max(alternates, key=lambda e: len(e.full_text))
     return longest
-
-
-MAX_SOURCE_URLS = 3  # hard ceiling; a lone article publishes one URL
 
 
 def _story_sources(
@@ -250,7 +298,13 @@ def _story_sources(
 def source_urls_for_story(members: list[FeedEntry], dominant: str | None) -> list[str]:
     """URLs for the primary and corroborating articles synthesis actually sees."""
     primary, corroborating = _story_sources(members, dominant)
-    return sorted({primary.url, *(c.url for c in corroborating)})
+    seen: set[str] = set()
+    ordered: list[str] = []
+    for url in [primary.url, *(c.url for c in corroborating)]:
+        if url not in seen:
+            seen.add(url)
+            ordered.append(url)
+    return ordered
 
 
 def build_synthesis_input(

@@ -56,6 +56,45 @@ def test_pick_primary_no_dominant_domain_takes_longest() -> None:
     assert _pick_primary(members, None) is members[0]
 
 
+def test_pick_primary_prefers_vendor_research_over_longer_coverage() -> None:
+    research = FeedEntry(
+        title="Anthropic global workspace research",
+        url="https://www.anthropic.com/research/global-workspace",
+        source="anthropic.com",
+        topic="ai",
+        full_text="word " * 30,
+    )
+    coverage = FeedEntry(
+        title="Coverage: Anthropic J-lens paper",
+        url="https://venturebeat.com/technology/anthropic-j-lens",
+        source="venturebeat.com",
+        topic="ai",
+        full_text="word " * 200,
+    )
+    assert _pick_primary([research, coverage], None) is research
+
+
+def test_source_urls_list_primary_first() -> None:
+    research = FeedEntry(
+        title="Anthropic global workspace research",
+        url="https://www.anthropic.com/research/global-workspace",
+        source="anthropic.com",
+        topic="ai",
+        full_text="word " * 30,
+    )
+    coverage = FeedEntry(
+        title="Coverage: Anthropic J-lens paper",
+        url="https://venturebeat.com/technology/anthropic-j-lens",
+        source="venturebeat.com",
+        topic="ai",
+        full_text="word " * 200,
+    )
+    assert source_urls_for_story([research, coverage], dominant=None) == [
+        "https://www.anthropic.com/research/global-workspace",
+        "https://venturebeat.com/technology/anthropic-j-lens",
+    ]
+
+
 def test_scrub_digest_removes_em_dashes(sample_digest: Digest) -> None:
     sample_digest.intro = "New silicon \u2014 and it ships this quarter."
     sample_digest.stories[0].why_it_matters = "Cheaper inference\u2014full stop."
