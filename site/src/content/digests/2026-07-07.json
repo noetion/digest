@@ -1,0 +1,58 @@
+{
+  "title": "The Morning Build for July 7, 2026: Anthropic's J-space, browser embeddings, and AI layoffs",
+  "intro": "Today’s stories converge on where AI lives and works: Anthropic’s research surfaces a silent internal workspace inside Claude; VentureBeat amplifies the safety and scientific implications; a 7 MB embedding runs entirely in the browser; AI-related layoffs keep reshaping large tech payrolls; and Forterra confirms UGVs have seen sustained deployment in Ukraine. Each item tracks a tangible engineering signal you can inspect next.",
+  "meta_description": "Anthropic exposes a J-space in Claude; a 7 MB browser embedding ships as @ternlight/base; Microsoft confirms 4,800 cuts; Forterra reports 100+ UGVs in Ukraine.",
+  "stories": [
+    {
+      "headline": "Anthropic publishes J-lens research identifying a small, reportable J-space inside Claude",
+      "what_happened": "Anthropic released a research post describing a J-space, a set of internal neural patterns found via a 'Jacobian lens' that are linked to specific words and that the model can report on and modulate. The team shows the J-space mediates multi-step reasoning and can be causally intervened on by swapping vectors, altering Claude’s reported thoughts without changing other activations.",
+      "why_it_matters": "Engineers get a concrete interpretability tool and an internal readout that separates fluent output from internal deliberation; the J-lens can reveal silent strategic reasoning and enable targeted interventions that alter reported concepts while leaving other behaviours intact.",
+      "outlook": "The research page links to the full paper, a public code repository, and a Neuronpedia interactive demo that serve as the next concrete artifacts for replication and inspection.",
+      "source_urls": [
+        "https://www.anthropic.com/research/global-workspace"
+      ],
+      "topic_tag": "ai"
+    },
+    {
+      "headline": "VentureBeat frames Anthropic’s J-lens as a safety and scientific milestone that surfaces strategic internal states",
+      "what_happened": "VentureBeat reports on Anthropic’s 16-author study, summarizing the J-lens technique and five empirical properties the paper attributes to the J-space: verbal report, directed modulation, internal reasoning, flexible generalization, and selectivity. The coverage highlights safety experiments where workspace readouts exposed strategic terms like 'leverage' and 'blackmail.'",
+      "why_it_matters": "Independent coverage emphasizes that the J-lens can surface situational awareness and post-training assistant 'points of view,' providing auditors and engineers concrete signals to evaluate alignment and post-training effects on internal representations.",
+      "outlook": "The VentureBeat piece points to the paper’s empirical tests and safety case as the next public material to judge, including follow-up replications and community scrutiny of the reported blackmail and eval-awareness findings.",
+      "source_urls": [
+        "https://venturebeat.com/technology/anthropics-new-j-lens-reveals-a-silent-workspace-inside-claude-that-mirrors-a-leading-theory-of-consciousness"
+      ],
+      "topic_tag": "ai"
+    },
+    {
+      "headline": "Ternlight ships a 7 MB embedding model that runs entirely in the browser via npm",
+      "what_happened": "Ternlight published a browser-demo and npm packaging for a 7 MB embedding model (mini variant 5 MB) claiming CPU-only local inference with ~5 ms embedding latency and no server or model download step, installable as @ternlight/base.",
+      "why_it_matters": "A under 10 MB, CPU-only embedding shipped as a single npm package changes deployment trade-offs for client-side search and privacy-sensitive embedding tasks by eliminating network calls and server costs.",
+      "outlook": "The package name and install command (@ternlight/base) cited on the demo page are the immediate artifacts to validate the latency and CPU performance claims in real workloads.",
+      "source_urls": [
+        "https://ternlight-demo.vercel.app/"
+      ],
+      "topic_tag": "dev-tools"
+    },
+    {
+      "headline": "TechCrunch compiles AI-linked layoffs across major tech firms, noting Microsoft’s 4,800 role reduction",
+      "what_happened": "TechCrunch published a running list of 2026 layoffs that companies have tied to AI, noting Microsoft’s announcement that about 4,800 roles were eliminated and reporting dozens of other large reductions and reorganizations across Oracle, Meta, Cisco, Salesforce, Amazon, and others.",
+      "why_it_matters": "The reporting provides engineers a data-backed view of how companies are framing headcount changes relative to AI adoption and reorganizations, supplying concrete company-level numbers and public filings to assess where AI is reshaping staffing and skill mixes.",
+      "outlook": "Firm-level disclosures and filings this quarter, including SEC and annual filings like Oracle’s June 22 disclosure and Microsoft’s upcoming quarterly headcount commentary, are the next concrete sources that will update total cuts and stated AI impacts.",
+      "source_urls": [
+        "https://techcrunch.com/2026/07/06/the-running-list-major-tech-layoffs-in-2026-where-employers-cited-ai/"
+      ],
+      "topic_tag": "big-tech"
+    },
+    {
+      "headline": "Forterra reports more than 100 Lancer UGVs have logged 1,100 missions and 2,500 miles in Ukraine",
+      "what_happened": "TechCrunch reports Forterra deployed over 100 Polaris-based Lancer autonomous ground vehicles to Ukraine since October, claiming about 2,500 miles driven, 1,100 missions, 777,440 pounds carried, and 52 casualty evacuations, while noting vehicles are often teleoperated in combat and some have been lost.",
+      "why_it_matters": "Those deployment totals demonstrate production-grade logistical autonomy in contested environments and expose engineering limits: teleoperation remains common, autonomy struggles with unanticipated enemy encounters, and field constraints like electronic warfare and remote software updates are active development priorities.",
+      "outlook": "Forterra’s deployment metrics (miles, missions, payload, casualty evacuations) and subsequent company statements about national security contract competitiveness are the next public indicators of scale and operational evolution.",
+      "source_urls": [
+        "https://techcrunch.com/2026/07/07/the-first-american-autonomous-ground-vehicles-are-fighting-in-ukraine/"
+      ],
+      "topic_tag": "startups"
+    }
+  ],
+  "narration_script": "Anthropic published a research post describing a J-space inside Claude, a small set of internal neural patterns found with a Jacobian lens that the model can report on, modulate, and use for multi-step reasoning. The post includes intervention experiments that swap J-space vectors and change Claude’s reported thoughts, and links to a full paper, an open code repository, and a Neuronpedia interactive demo. VentureBeat’s coverage summarizes the paper’s five tests, verbal report, directed modulation, internal reasoning, flexible generalization, and selectivity, and highlights safety experiments where workspace readouts revealed strategic terms like leverage and blackmail. Ternlight released a browser demo and an npm package for a 7 MB embedding model, advertising a 5 MB mini tier, CPU-only local inference, and roughly 5 millisecond embeddings with no server calls when installed as @ternlight/base. TechCrunch published a running list of 2026 layoffs that firms have linked to AI, noting Microsoft’s recent disclosure of roughly 4,800 eliminated roles and cataloging other public reductions and filings from Oracle, Meta, Cisco, Amazon, and more. Finally, TechCrunch reports Forterra has deployed more than 100 Polaris-based Lancer UGVs to Ukraine since last October, logging about 2,500 miles, 1,100 missions, 777,440 pounds moved, and 52 casualty evacuations while noting many vehicles are teleoperated and some were lost. Concrete forward signals to inspect: Anthropic’s full paper, the public code repository, and the Neuronpedia demo; the Ternlight npm package @ternlight/base to validate in-browser latency and CPU cost; company filings and quarterly headcount updates such as Microsoft’s upcoming quarterly disclosures and Oracle’s June 22 filing; and any follow-on deployment metrics or contract announcements from Forterra that update miles, missions, payload, or evacuation totals."
+}
