@@ -20,6 +20,7 @@ from .config import TRIAGE_MODEL
 from .costs import CostTracker
 from .editorial import SELECTION_RESERVE_DEPTH, rank_selection_candidates
 from .event_match import (
+    MAX_EVENT_CLUSTER_MEMBERS,
     refine_cluster_groups,
     singleton_groups,
     split_incoherent_clusters,
@@ -33,7 +34,7 @@ from .models import (
 
 logger = logging.getLogger(__name__)
 
-MAX_CLUSTER_MEMBERS = 4
+MAX_CLUSTER_MEMBERS = MAX_EVENT_CLUSTER_MEMBERS
 
 SCORE_SYSTEM_PROMPT = """\
 You are the wire editor for "The Morning Build", a daily digest for people who

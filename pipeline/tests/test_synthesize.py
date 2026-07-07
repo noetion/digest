@@ -224,7 +224,11 @@ def test_source_urls_for_story_caps_at_three() -> None:
 def test_attach_cluster_sources_caps_mega_cluster(sample_digest: Digest) -> None:
     entries = [
         FeedEntry(
-            title=f"Story {i}",
+            title=(
+                "Tencent releases Hy3 open-source model"
+                if i == 0
+                else f"Coverage: Tencent's Hy3 model update from outlet {i}"
+            ),
             url=f"https://site{i}.com/article",
             source=f"site{i}.com",
             topic="ai",

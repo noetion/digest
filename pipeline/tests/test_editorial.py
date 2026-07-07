@@ -380,3 +380,25 @@ def test_expedia_beats_game_port_demo_at_same_score() -> None:
     titles = [entries[c.entry_indices[0]].title for c in selected]
     assert any("Expedia" in t for t in titles)
     assert not any("Command & Conquer" in t for t in titles)
+
+
+def test_selection_merges_same_event_singletons() -> None:
+    entries = [
+        _entry(
+            "Anthropic finds a reportable internal workspace in Claude using a J-lens",
+            "ai",
+            "anthropic.com",
+        ),
+        _entry(
+            "Coverage: Anthropic's J-lens paper reframes safety monitoring inside Claude",
+            "ai",
+            "venturebeat.com",
+        ),
+        _entry("Tencent releases Hy3 open-source model", "ai", "tencent.com"),
+    ]
+    raw = [_cluster([0], 9), _cluster([1], 8), _cluster([2], 7)]
+    selected = select_clusters(raw, entries, max_stories=5)
+    assert len(selected) == 2
+    anthropic = next(c for c in selected if 0 in c.entry_indices)
+    assert anthropic.entry_indices == [0, 1]
+    assert anthropic.significance == 9

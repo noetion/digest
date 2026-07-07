@@ -17,6 +17,7 @@ from openai import OpenAI
 from .config import CONTENT_DIR, DRY_RUN_OUT_DIR, SEEN_STATE_PATH, load_settings
 from .costs import CostTracker
 from .dedupe import SeenState, filter_unseen
+from .event_match import assert_unique_event_clusters
 from .extract import enrich_with_full_text
 from .feeds import fetch_all_feeds
 from .models import FeedEntry, StoryCluster
@@ -178,6 +179,11 @@ def run() -> int:
             settings.max_stories,
         )
     logger.info("Extracted full text for %d winning articles", len(winners))
+
+    try:
+        assert_unique_event_clusters(remapped, winners)
+    except ValueError as exc:
+        raise QualityGateError(str(exc)) from exc
 
     # --- LLM stage B: synthesis ---
     date_str = today.strftime("%A, %B %d, %Y")

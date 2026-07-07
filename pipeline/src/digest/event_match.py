@@ -15,6 +15,19 @@ from .models import ClusterGroup, FeedEntry, StoryCluster
 
 logger = logging.getLogger(__name__)
 
+MAX_EVENT_CLUSTER_MEMBERS = 4
+
+_COVERAGE_PREFIX = re.compile(
+    r"^(?:coverage|analysis|explainer|recap|roundup|watch|deep\s+dive|opinion)\s*:\s*",
+    re.IGNORECASE,
+)
+
+# Hyphenated research/product IDs (j-lens, co-pilot-style names, versioned slugs).
+_COMPOUND_SIGNATURE = re.compile(
+    r"\b[a-z0-9]{1,8}[-_][a-z0-9][a-z0-9\-]*",
+    re.IGNORECASE,
+)
+
 _GENERIC_TOKENS = frozenset(
     {
         "the",
@@ -112,6 +125,10 @@ _GENERIC_TOKENS = frozenset(
         "user",
         "secret",
         "native",
+        "story",
+        "stories",
+        "update",
+        "updates",
     }
 )
 
@@ -145,24 +162,38 @@ _EVENT_SIGNATURE = re.compile(
 _TOKEN = re.compile(r"[a-z0-9]+")
 
 
+def _normalize_title(title: str) -> str:
+    """Strip editorial prefixes so coverage headlines compare to primaries."""
+    return _COVERAGE_PREFIX.sub("", title.strip()).strip()
+
+
 def _title_tokens(title: str) -> set[str]:
     return {
         w
-        for w in _TOKEN.findall(title.lower())
+        for w in _TOKEN.findall(_normalize_title(title).lower())
         if len(w) >= 2 and w not in _GENERIC_TOKENS
     }
 
 
+def _compound_signatures(title: str) -> set[str]:
+    normalized = _normalize_title(title).lower()
+    return {m.group().replace("_", "-") for m in _COMPOUND_SIGNATURE.finditer(normalized)}
+
+
 def _event_signatures(title: str) -> set[str]:
-    return {m.group().lower().replace(" ", "") for m in _EVENT_SIGNATURE.finditer(title)}
+    normalized = _normalize_title(title)
+    sigs = {m.group().lower().replace(" ", "") for m in _EVENT_SIGNATURE.finditer(normalized)}
+    sigs |= _compound_signatures(normalized)
+    return sigs
 
 
-def _distinctive_overlap(ta: set[str], tb: set[str]) -> set[str]:
-    return {w for w in (ta & tb) if len(w) >= 5 and w not in _VENDOR_ONLY}
+def _distinctive_overlap(ta: set[str], tb: set[str], *, min_len: int = 4) -> set[str]:
+    return {w for w in (ta & tb) if len(w) >= min_len and w not in _VENDOR_ONLY}
 
 
 def titles_same_event(a: str, b: str) -> bool:
     """True when two headlines cover the same specific news event."""
+    a, b = _normalize_title(a), _normalize_title(b)
     sig_a, sig_b = _event_signatures(a), _event_signatures(b)
     if sig_a & sig_b:
         return True
@@ -180,7 +211,36 @@ def titles_same_event(a: str, b: str) -> bool:
         return False
 
     union = ta | tb
-    return len(overlap) / len(union) >= 0.4 and len(distinctive) >= 1
+    return len(overlap) / len(union) >= 0.4 and len(distinctive) >= 2
+
+
+def clusters_share_event(
+    left: StoryCluster,
+    right: StoryCluster,
+    entries: list[FeedEntry],
+) -> bool:
+    """True when any headline in left matches any headline in right."""
+    for i in left.entry_indices:
+        for j in right.entry_indices:
+            if i < len(entries) and j < len(entries):
+                if titles_same_event(entries[i].title, entries[j].title):
+                    return True
+    return False
+
+
+def assert_unique_event_clusters(
+    clusters: list[StoryCluster],
+    entries: list[FeedEntry],
+) -> None:
+    """Raise when two selected clusters would publish the same news event."""
+    for i in range(len(clusters)):
+        for j in range(i + 1, len(clusters)):
+            if clusters_share_event(clusters[i], clusters[j], entries):
+                left = entries[clusters[i].entry_indices[0]].title
+                right = entries[clusters[j].entry_indices[0]].title
+                raise ValueError(
+                    f"Duplicate event in selected clusters: {left!r} vs {right!r}"
+                )
 
 
 def cluster_is_coherent(cluster: StoryCluster, entries: list[FeedEntry]) -> bool:

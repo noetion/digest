@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 from digest.event_match import (
+    assert_unique_event_clusters,
     cluster_is_coherent,
     refine_cluster_groups,
     split_incoherent_clusters,
@@ -85,3 +86,55 @@ def test_unrelated_fca_and_hy3_are_not_same_event() -> None:
     fca = "UK regulator warns of arms race to keep up with AI use in financial services"
     hy3 = "Tencent releases Hy3 open-source model that allegedly matches models up to five times its active size"
     assert not titles_same_event(fca, hy3)
+
+
+def test_primary_research_and_coverage_are_same_event() -> None:
+    primary = (
+        "Anthropic finds a small, reportable internal workspace in Claude "
+        "using a J-lens on global workspace dynamics"
+    )
+    coverage = (
+        "Coverage: Anthropic's J-lens paper reframes safety monitoring "
+        "inside Claude's silent workspace"
+    )
+    assert titles_same_event(primary, coverage)
+
+
+def test_refine_merges_primary_and_coverage_groups() -> None:
+    entries = [
+        _entry(
+            "Anthropic finds a reportable internal workspace in Claude using a J-lens",
+            "https://anthropic.com/research/global-workspace",
+        ),
+        _entry(
+            "Coverage: Anthropic's J-lens paper reframes safety monitoring inside Claude",
+            "https://venturebeat.com/anthropic-j-lens",
+        ),
+        _entry("Microsoft layoffs", "https://techcrunch.com/ms"),
+    ]
+    groups = [
+        ClusterGroup(entry_indices=[0], event="Anthropic J-lens"),
+        ClusterGroup(entry_indices=[1], event="Coverage Anthropic J-lens"),
+        ClusterGroup(entry_indices=[2], event="Microsoft layoffs"),
+    ]
+    refined = refine_cluster_groups(groups, entries, max_members=4)
+    assert len(refined) == 2
+    anthropic = next(g for g in refined if 0 in g.entry_indices)
+    assert anthropic.entry_indices == [0, 1]
+
+
+def test_assert_unique_event_clusters_raises_on_duplicates() -> None:
+    entries = [
+        _entry("Anthropic J-lens workspace in Claude", "https://anthropic.com/a"),
+        _entry("Coverage: Anthropic J-lens workspace in Claude", "https://vb.com/a"),
+    ]
+    clusters = [
+        StoryCluster(entry_indices=[0], ai_relevant=True, significance=8, reason="a"),
+        StoryCluster(entry_indices=[1], ai_relevant=True, significance=7, reason="b"),
+    ]
+    try:
+        assert_unique_event_clusters(clusters, entries)
+    except ValueError as exc:
+        assert "Duplicate event" in str(exc)
+    else:
+        raise AssertionError("expected ValueError")

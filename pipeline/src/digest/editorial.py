@@ -10,6 +10,7 @@ from __future__ import annotations
 import logging
 import re
 
+from .event_match import MAX_EVENT_CLUSTER_MEMBERS, clusters_share_event
 from .models import FeedEntry, StoryCluster
 
 logger = logging.getLogger(__name__)
@@ -323,6 +324,28 @@ def rank_selection_candidates(
         if not indices:
             return False
         headline = _headline(cluster, entries)
+        candidate = cluster.model_copy(update={"entry_indices": indices})
+        for pos, existing in enumerate(selected):
+            if clusters_share_event(existing, candidate, entries):
+                merged_indices = sorted(set(existing.entry_indices + indices))
+                if len(merged_indices) > MAX_EVENT_CLUSTER_MEMBERS:
+                    logger.info(
+                        "Triage CUT (same event, member cap): %s",
+                        headline,
+                    )
+                    return False
+                selected[pos] = existing.model_copy(
+                    update={
+                        "entry_indices": merged_indices,
+                        "significance": max(
+                            existing.significance, cluster.significance
+                        ),
+                        "ai_relevant": existing.ai_relevant or cluster.ai_relevant,
+                    }
+                )
+                used.update(indices)
+                logger.info("Triage MERGE (same event): %s", headline)
+                return True
         raw = editorial_raw_significance(cluster, entries)
         effective = effective_significance(cluster, entries)
         if is_consumer_beta_noise(headline):
