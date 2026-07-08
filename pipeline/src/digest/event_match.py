@@ -10,6 +10,7 @@ from __future__ import annotations
 
 import logging
 import re
+from urllib.parse import urlsplit
 
 from .models import ClusterGroup, FeedEntry, StoryCluster
 
@@ -161,6 +162,135 @@ _EVENT_SIGNATURE = re.compile(
 )
 _TOKEN = re.compile(r"[a-z0-9]+")
 
+_FIRST_PARTY_DOMAINS = frozenset(
+    {
+        "anthropic.com",
+        "openai.com",
+        "blog.google",
+        "ai.googleblog.com",
+        "deepmind.google",
+        "research.google",
+        "ai.meta.com",
+        "about.fb.com",
+        "microsoft.com",
+        "blogs.microsoft.com",
+        "research.microsoft.com",
+        "nvidia.com",
+        "developer.nvidia.com",
+    }
+)
+
+_NEWS_OUTLET_DOMAINS = frozenset(
+    {
+        "venturebeat.com",
+        "techcrunch.com",
+        "arstechnica.com",
+        "the-verge.com",
+        "theverge.com",
+        "wired.com",
+        "the-decoder.com",
+        "technologyreview.com",
+        "theregister.com",
+        "ieee.org",
+        "spectrum.ieee.org",
+    }
+)
+
+_DOMAIN_VENDOR: dict[str, str] = {
+    "anthropic.com": "anthropic",
+    "openai.com": "openai",
+    "blog.google": "google",
+    "ai.googleblog.com": "google",
+    "deepmind.google": "google",
+    "research.google": "google",
+    "ai.meta.com": "meta",
+    "about.fb.com": "meta",
+    "microsoft.com": "microsoft",
+    "blogs.microsoft.com": "microsoft",
+    "research.microsoft.com": "microsoft",
+    "nvidia.com": "nvidia",
+    "developer.nvidia.com": "nvidia",
+}
+
+
+def _domain(url: str) -> str:
+    return urlsplit(url).netloc.removeprefix("www.")
+
+
+def _is_first_party_url(url: str) -> bool:
+    domain = _domain(url)
+    if domain in _FIRST_PARTY_DOMAINS:
+        return True
+    return any(domain.endswith(f".{suffix}") for suffix in _FIRST_PARTY_DOMAINS)
+
+
+def _is_news_outlet_url(url: str) -> bool:
+    domain = _domain(url)
+    if domain in _NEWS_OUTLET_DOMAINS:
+        return True
+    return any(domain.endswith(f".{suffix}") for suffix in _NEWS_OUTLET_DOMAINS)
+
+
+def _vendor_for_first_party(url: str) -> str | None:
+    domain = _domain(url)
+    if domain in _DOMAIN_VENDOR:
+        return _DOMAIN_VENDOR[domain]
+    for suffix, vendor in _DOMAIN_VENDOR.items():
+        if domain.endswith(f".{suffix}"):
+            return vendor
+    return None
+
+
+def _url_path_tokens(url: str) -> set[str]:
+    path = urlsplit(url).path.lower().strip("/")
+    tokens: set[str] = set()
+    for segment in path.split("/"):
+        if segment in {"research", "blog", "news", "technology", "engineering"}:
+            continue
+        tokens |= _title_tokens(segment.replace("-", " "))
+        tokens |= _compound_signatures(segment)
+        for part in re.split(r"[-_]", segment):
+            if len(part) >= 4 and part not in _GENERIC_TOKENS:
+                tokens.add(part)
+    return tokens
+
+
+def _entry_match_tokens(entry: FeedEntry) -> set[str]:
+    tokens = _title_tokens(entry.title)
+    tokens |= _url_path_tokens(entry.url)
+    preview = entry.preview(120)
+    if preview and "no useful rss preview" not in preview.lower():
+        tokens |= _title_tokens(preview)
+    return tokens
+
+
+def _title_mentions_vendor(title: str, vendor: str) -> bool:
+    return any(token == vendor or token.startswith(vendor) for token in _title_tokens(title))
+
+
+def _primary_coverage_same_event(primary: FeedEntry, coverage: FeedEntry) -> bool:
+    """Vendor research/blog post paired with news coverage of the same release."""
+    if not _is_first_party_url(primary.url) or not _is_news_outlet_url(coverage.url):
+        return False
+    vendor = _vendor_for_first_party(primary.url)
+    if vendor is None or not _title_mentions_vendor(coverage.title, vendor):
+        return False
+    primary_tokens = _entry_match_tokens(primary)
+    coverage_tokens = _entry_match_tokens(coverage)
+    distinctive = _distinctive_overlap(primary_tokens, coverage_tokens)
+    if len(distinctive) >= 2:
+        return True
+    if len(distinctive) >= 1:
+        return True
+    return False
+
+
+def entries_same_event(a: FeedEntry, b: FeedEntry) -> bool:
+    """True when two feed entries cover the same specific news event."""
+    if titles_same_event(a.title, b.title):
+        return True
+    return _primary_coverage_same_event(a, b) or _primary_coverage_same_event(b, a)
+
 
 def _normalize_title(title: str) -> str:
     """Strip editorial prefixes so coverage headlines compare to primaries."""
@@ -219,11 +349,11 @@ def clusters_share_event(
     right: StoryCluster,
     entries: list[FeedEntry],
 ) -> bool:
-    """True when any headline in left matches any headline in right."""
+    """True when any member in left matches any member in right."""
     for i in left.entry_indices:
         for j in right.entry_indices:
             if i < len(entries) and j < len(entries):
-                if titles_same_event(entries[i].title, entries[j].title):
+                if entries_same_event(entries[i], entries[j]):
                     return True
     return False
 
@@ -248,8 +378,8 @@ def cluster_is_coherent(cluster: StoryCluster, entries: list[FeedEntry]) -> bool
     indices = [i for i in cluster.entry_indices if i < len(entries)]
     if len(indices) <= 1:
         return True
-    anchor = entries[indices[0]].title
-    return all(titles_same_event(anchor, entries[i].title) for i in indices[1:])
+    anchor = entries[indices[0]]
+    return all(entries_same_event(anchor, entries[i]) for i in indices[1:])
 
 
 def split_incoherent_clusters(
@@ -281,7 +411,7 @@ def _groups_share_event(
     for i in left.entry_indices:
         for j in right.entry_indices:
             if i < len(entries) and j < len(entries):
-                if titles_same_event(entries[i].title, entries[j].title):
+                if entries_same_event(entries[i], entries[j]):
                     return True
     return False
 

@@ -43,6 +43,25 @@ _FIRST_PARTY_DOMAINS = frozenset(
     }
 )
 
+# Tie-break when two news outlets cover the same event (higher = preferred primary).
+_OUTLET_QUALITY: dict[str, int] = {
+    "the-decoder.com": 3,
+    "arstechnica.com": 3,
+    "spectrum.ieee.org": 3,
+    "technologyreview.com": 2,
+    "wired.com": 2,
+    "techcrunch.com": 1,
+    "venturebeat.com": 0,
+}
+
+
+def _outlet_quality(url: str) -> int:
+    return _OUTLET_QUALITY.get(_domain(url), 1)
+
+
+def _primary_rank(entry: FeedEntry) -> tuple[int, int]:
+    return (len(entry.full_text), _outlet_quality(entry.url))
+
 # Known news aggregators — never first-party even if URL path looks editorial.
 _NEWS_OUTLET_DOMAINS = frozenset(
     {
@@ -265,7 +284,7 @@ def _pick_primary(members: list[FeedEntry], dominant: str | None) -> FeedEntry:
     first_party = [m for m in members if _is_first_party(m)]
     pool = first_party if first_party else members
 
-    longest = max(pool, key=lambda e: len(e.full_text))
+    longest = max(pool, key=_primary_rank)
     if first_party or dominant is None or _domain(longest.url) != dominant:
         return longest
     threshold = 0.7 * len(longest.full_text)
@@ -275,7 +294,7 @@ def _pick_primary(members: list[FeedEntry], dominant: str | None) -> FeedEntry:
         if _domain(m.url) != dominant and len(m.full_text) >= threshold
     ]
     if alternates:
-        return max(alternates, key=lambda e: len(e.full_text))
+        return max(alternates, key=_primary_rank)
     return longest
 
 

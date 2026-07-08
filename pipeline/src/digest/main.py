@@ -8,9 +8,10 @@ cross-post. CI commits the rendered files, which triggers the site deploy.
 from __future__ import annotations
 
 import logging
+import os
 import sys
 import time
-from datetime import UTC, datetime
+from datetime import UTC, date, datetime
 
 from openai import OpenAI
 
@@ -28,6 +29,17 @@ from .synthesize import attach_cluster_sources, synthesize
 from .triage import triage
 
 logger = logging.getLogger(__name__)
+
+
+def _target_date() -> date:
+    raw = os.environ.get("DIGEST_DATE", "").strip()
+    if raw:
+        return date.fromisoformat(raw)
+    return datetime.now(tz=UTC).date()
+
+
+def _allow_overwrite() -> bool:
+    return os.environ.get("DIGEST_OVERWRITE", "").strip().lower() in {"1", "true", "yes"}
 
 
 def cluster_member_urls(
@@ -118,11 +130,11 @@ def run() -> int:
     )
     start = time.monotonic()
     settings = load_settings()
-    today = datetime.now(tz=UTC).date()
+    today = _target_date()
     content_dir = DRY_RUN_OUT_DIR if settings.dry_run else CONTENT_DIR
 
-    # Idempotency guard: exit cleanly if today's digest already exists.
-    if (CONTENT_DIR / f"{today.isoformat()}.md").exists() and not settings.dry_run:
+    digest_path = CONTENT_DIR / f"{today.isoformat()}.md"
+    if digest_path.exists() and not settings.dry_run and not _allow_overwrite():
         logger.info("Digest for %s already published; nothing to do.", today)
         return 0
 

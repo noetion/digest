@@ -3,6 +3,7 @@ from __future__ import annotations
 from digest.event_match import (
     assert_unique_event_clusters,
     cluster_is_coherent,
+    entries_same_event,
     refine_cluster_groups,
     split_incoherent_clusters,
     titles_same_event,
@@ -10,8 +11,13 @@ from digest.event_match import (
 from digest.models import ClusterGroup, FeedEntry, StoryCluster
 
 
-def _entry(title: str, url: str = "https://example.com/a", topic: str = "ai") -> FeedEntry:
-    return FeedEntry(title=title, url=url, source="Example", topic=topic)
+def _entry(
+    title: str,
+    url: str = "https://example.com/a",
+    topic: str = "ai",
+    summary: str = "",
+) -> FeedEntry:
+    return FeedEntry(title=title, url=url, source="Example", topic=topic, summary=summary)
 
 
 def test_hy3_headlines_are_same_event() -> None:
@@ -138,3 +144,40 @@ def test_assert_unique_event_clusters_raises_on_duplicates() -> None:
         assert "Duplicate event" in str(exc)
     else:
         raise AssertionError("expected ValueError")
+
+
+def test_production_anthropic_titles_merge_via_entry_match() -> None:
+    primary = _entry(
+        "A global workspace in language models",
+        "https://www.anthropic.com/research/global-workspace",
+        summary="Anthropic introduces the J-space and J-lens inside Claude.",
+    )
+    coverage = _entry(
+        "Anthropic's new J-lens reveals a silent workspace inside Claude",
+        "https://venturebeat.com/technology/anthropics-new-j-lens-reveals-a-silent-workspace-inside-claude-that-mirrors-a-leading-theory-of-consciousness",
+    )
+    assert not titles_same_event(primary.title, coverage.title)
+    assert entries_same_event(primary, coverage)
+
+
+def test_refine_merges_production_anthropic_groups() -> None:
+    entries = [
+        _entry(
+            "A global workspace in language models",
+            "https://www.anthropic.com/research/global-workspace",
+        ),
+        _entry(
+            "Anthropic's new J-lens reveals a silent workspace inside Claude",
+            "https://venturebeat.com/technology/anthropics-new-j-lens",
+        ),
+        _entry("Microsoft layoffs", "https://techcrunch.com/ms"),
+    ]
+    groups = [
+        ClusterGroup(entry_indices=[0], event="Anthropic global workspace"),
+        ClusterGroup(entry_indices=[1], event="VB Anthropic J-lens"),
+        ClusterGroup(entry_indices=[2], event="Microsoft layoffs"),
+    ]
+    refined = refine_cluster_groups(groups, entries, max_members=4)
+    assert len(refined) == 2
+    anthropic = next(g for g in refined if 0 in g.entry_indices)
+    assert anthropic.entry_indices == [0, 1]
