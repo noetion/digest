@@ -3,6 +3,8 @@ from __future__ import annotations
 from digest.event_match import (
     assert_unique_event_clusters,
     cluster_is_coherent,
+    cluster_should_merge_with,
+    coerce_coherent_clusters,
     entries_same_event,
     refine_cluster_groups,
     split_incoherent_clusters,
@@ -181,3 +183,54 @@ def test_refine_merges_production_anthropic_groups() -> None:
     assert len(refined) == 2
     anthropic = next(g for g in refined if 0 in g.entry_indices)
     assert anthropic.entry_indices == [0, 1]
+
+
+def test_openai_gpt_live_coverage_merges_via_news_outlets() -> None:
+    decoder = _entry(
+        "OpenAI releases new voice models for more natural live conversations",
+        "https://the-decoder.com/chatgpt-can-now-listen-and-talk-at-the-same-time",
+    )
+    vb = _entry(
+        "OpenAI launches GPT Live, a full-duplex voice upgrade that lets ChatGPT talk more like a person",
+        "https://venturebeat.com/technology/openai-launches-gpt-live-a-full-duplex-voice-upgrade",
+    )
+    assert entries_same_event(decoder, vb)
+
+
+def test_cluster_should_merge_with_uses_anchor_not_transitive_chain() -> None:
+    entries = [
+        _entry("OpenAI releases new voice models for more natural live conversations", "https://a"),
+        _entry("OpenAI launches GPT Live voice upgrade", "https://b"),
+        _entry("Unrelated robotics startup ChatGPT moment", "https://c"),
+    ]
+    anchor_cluster = StoryCluster(
+        entry_indices=[0, 1],
+        ai_relevant=True,
+        significance=8,
+        reason="openai voice",
+    )
+    robotics = StoryCluster(
+        entry_indices=[2],
+        ai_relevant=True,
+        significance=7,
+        reason="robotics",
+    )
+    assert cluster_is_coherent(anchor_cluster, entries)
+    assert not cluster_should_merge_with(anchor_cluster, robotics, entries)
+
+
+def test_coerce_incoherent_cluster_keeps_anchor_only() -> None:
+    entries = [
+        _entry("OpenAI voice models", "https://a"),
+        _entry("Claude Code ported C&C to iOS", "https://b"),
+    ]
+    bad = StoryCluster(
+        entry_indices=[0, 1],
+        ai_relevant=True,
+        significance=8,
+        reason="bad merge",
+    )
+    coerced = coerce_coherent_clusters([bad], entries)
+    assert len(coerced) == 1
+    assert coerced[0].entry_indices == [0]
+    assert cluster_is_coherent(coerced[0], entries)

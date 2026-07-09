@@ -154,6 +154,7 @@ _EVENT_SIGNATURE = re.compile(
     r"\b(?:"
     r"hy\d+|"
     r"gpt[\d.\-]+|"
+    r"gpt[\s-]?live|"
     r"glm[\d.\-]+|"
     r"sol[\s-]?ultra|"
     r"mechanical[\s-]?turk"
@@ -268,6 +269,23 @@ def _title_mentions_vendor(title: str, vendor: str) -> bool:
     return any(token == vendor or token.startswith(vendor) for token in _title_tokens(title))
 
 
+def _news_outlets_same_event(a: FeedEntry, b: FeedEntry) -> bool:
+    """Two news outlets covering the same vendor product launch."""
+    if not (_is_news_outlet_url(a.url) and _is_news_outlet_url(b.url)):
+        return False
+    ta, tb = _entry_match_tokens(a), _entry_match_tokens(b)
+    if not ((ta & _VENDOR_ONLY) & (tb & _VENDOR_ONLY)):
+        return False
+    distinctive = _distinctive_overlap(ta, tb)
+    if len(distinctive) >= 2:
+        return True
+    sig_a = _event_signatures(a.title) | _compound_signatures(a.url)
+    sig_b = _event_signatures(b.title) | _compound_signatures(b.url)
+    if sig_a & sig_b:
+        return True
+    return len(distinctive) >= 1
+
+
 def _primary_coverage_same_event(primary: FeedEntry, coverage: FeedEntry) -> bool:
     """Vendor research/blog post paired with news coverage of the same release."""
     if not _is_first_party_url(primary.url) or not _is_news_outlet_url(coverage.url):
@@ -288,6 +306,8 @@ def _primary_coverage_same_event(primary: FeedEntry, coverage: FeedEntry) -> boo
 def entries_same_event(a: FeedEntry, b: FeedEntry) -> bool:
     """True when two feed entries cover the same specific news event."""
     if titles_same_event(a.title, b.title):
+        return True
+    if _news_outlets_same_event(a, b):
         return True
     return _primary_coverage_same_event(a, b) or _primary_coverage_same_event(b, a)
 
@@ -358,6 +378,20 @@ def clusters_share_event(
     return False
 
 
+def cluster_should_merge_with(
+    existing: StoryCluster,
+    candidate: StoryCluster,
+    entries: list[FeedEntry],
+) -> bool:
+    """True when candidate matches the existing cluster anchor (no transitive chaining)."""
+    existing_indices = [i for i in existing.entry_indices if i < len(entries)]
+    candidate_indices = [i for i in candidate.entry_indices if i < len(entries)]
+    if not existing_indices or not candidate_indices:
+        return False
+    anchor = entries[existing_indices[0]]
+    return any(entries_same_event(anchor, entries[j]) for j in candidate_indices)
+
+
 def assert_unique_event_clusters(
     clusters: list[StoryCluster],
     entries: list[FeedEntry],
@@ -365,9 +399,13 @@ def assert_unique_event_clusters(
     """Raise when two selected clusters would publish the same news event."""
     for i in range(len(clusters)):
         for j in range(i + 1, len(clusters)):
-            if clusters_share_event(clusters[i], clusters[j], entries):
-                left = entries[clusters[i].entry_indices[0]].title
-                right = entries[clusters[j].entry_indices[0]].title
+            ai = clusters[i].entry_indices[0] if clusters[i].entry_indices else -1
+            aj = clusters[j].entry_indices[0] if clusters[j].entry_indices else -1
+            if ai < 0 or aj < 0 or ai >= len(entries) or aj >= len(entries):
+                continue
+            if entries_same_event(entries[ai], entries[aj]):
+                left = entries[ai].title
+                right = entries[aj].title
                 raise ValueError(
                     f"Duplicate event in selected clusters: {left!r} vs {right!r}"
                 )
@@ -401,6 +439,27 @@ def split_incoherent_clusters(
         for i in cluster.entry_indices:
             split.append(cluster.model_copy(update={"entry_indices": [i]}))
     return split
+
+
+def coerce_coherent_clusters(
+    clusters: list[StoryCluster],
+    entries: list[FeedEntry],
+) -> list[StoryCluster]:
+    """Keep story count stable by dropping non-anchor members from bad clusters."""
+    coerced: list[StoryCluster] = []
+    for cluster in clusters:
+        if cluster_is_coherent(cluster, entries):
+            coerced.append(cluster)
+            continue
+        anchor = cluster.entry_indices[0]
+        headline = entries[anchor].title if anchor < len(entries) else "?"
+        logger.warning(
+            "Coercing incoherent cluster to anchor-only (%d members): %s",
+            len(cluster.entry_indices),
+            headline[:80],
+        )
+        coerced.append(cluster.model_copy(update={"entry_indices": [anchor]}))
+    return coerced
 
 
 def _groups_share_event(

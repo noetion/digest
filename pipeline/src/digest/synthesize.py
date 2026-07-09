@@ -16,7 +16,7 @@ from openai import OpenAI
 
 from .config import SYNTHESIS_MODEL
 from .costs import CostTracker
-from .event_match import cluster_is_coherent
+from .event_match import cluster_is_coherent, coerce_coherent_clusters
 from .models import Digest, FeedEntry, StoryCluster
 
 logger = logging.getLogger(__name__)
@@ -447,8 +447,9 @@ def attach_cluster_sources(
         raise ValueError(
             f"synthesis returned {len(digest.stories)} stories for {len(clusters)} clusters"
         )
-    dominant = _dominant_domain(entries, clusters)
-    for story, cluster in zip(digest.stories, clusters, strict=True):
+    coerced = coerce_coherent_clusters(clusters, entries)
+    dominant = _dominant_domain(entries, coerced)
+    for story, cluster in zip(digest.stories, coerced, strict=True):
         members = [entries[i] for i in cluster.entry_indices]
         if not cluster_is_coherent(cluster, entries):
             headline = members[0].title if members else "?"

@@ -10,7 +10,7 @@ from __future__ import annotations
 import logging
 import re
 
-from .event_match import MAX_EVENT_CLUSTER_MEMBERS, clusters_share_event
+from .event_match import MAX_EVENT_CLUSTER_MEMBERS, cluster_should_merge_with
 from .models import FeedEntry, StoryCluster
 
 logger = logging.getLogger(__name__)
@@ -326,7 +326,7 @@ def rank_selection_candidates(
         headline = _headline(cluster, entries)
         candidate = cluster.model_copy(update={"entry_indices": indices})
         for pos, existing in enumerate(selected):
-            if clusters_share_event(existing, candidate, entries):
+            if cluster_should_merge_with(existing, candidate, entries):
                 merged_indices = sorted(set(existing.entry_indices + indices))
                 if len(merged_indices) > MAX_EVENT_CLUSTER_MEMBERS:
                     logger.info(
