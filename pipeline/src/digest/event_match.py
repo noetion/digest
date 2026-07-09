@@ -265,6 +265,37 @@ def _entry_match_tokens(entry: FeedEntry) -> set[str]:
     return tokens
 
 
+_VENDOR_PRODUCT_TOKENS: dict[str, frozenset[str]] = {
+    "anthropic": frozenset({"fable", "sonnet", "claude", "opus"}),
+    "openai": frozenset({"chatgpt", "codex", "dalle", "sora"}),
+}
+
+
+def _vendor_subject(title: str) -> str | None:
+    tokens = _title_tokens(title)
+    for vendor in _VENDOR_ONLY:
+        if vendor in tokens:
+            return vendor
+    return None
+
+
+def _cross_vendor_product_confusion(
+    a: str,
+    b: str,
+    distinctive: set[str],
+) -> bool:
+    """Block merges where one headline is vendor news and the other only cites its product."""
+    va, vb = _vendor_subject(a), _vendor_subject(b)
+    if va and vb and va != vb:
+        return True
+    for vendor, products in _VENDOR_PRODUCT_TOKENS.items():
+        if not (distinctive & products):
+            continue
+        if (va == vendor) != (vb == vendor):
+            return True
+    return False
+
+
 def _title_mentions_vendor(title: str, vendor: str) -> bool:
     return any(token == vendor or token.startswith(vendor) for token in _title_tokens(title))
 
@@ -354,6 +385,8 @@ def titles_same_event(a: str, b: str) -> bool:
 
     distinctive = _distinctive_overlap(ta, tb)
     if len(distinctive) >= 2:
+        if _cross_vendor_product_confusion(a, b, distinctive):
+            return False
         return True
 
     overlap = ta & tb
@@ -361,7 +394,9 @@ def titles_same_event(a: str, b: str) -> bool:
         return False
 
     union = ta | tb
-    return len(overlap) / len(union) >= 0.4 and len(distinctive) >= 2
+    if len(overlap) / len(union) >= 0.4 and len(distinctive) >= 2:
+        return not _cross_vendor_product_confusion(a, b, distinctive)
+    return False
 
 
 def clusters_share_event(

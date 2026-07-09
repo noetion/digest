@@ -234,3 +234,28 @@ def test_coerce_incoherent_cluster_keeps_anchor_only() -> None:
     assert len(coerced) == 1
     assert coerced[0].entry_indices == [0]
     assert cluster_is_coherent(coerced[0], entries)
+
+
+def test_gpt56_benchmark_does_not_merge_anthropic_fable_story() -> None:
+    gpt56_work = _entry(
+        "OpenAI pairs its GPT-5.6 public rollout with ChatGPT Work, a new agent that handles entire workflows",
+        "https://the-decoder.com/openai-pairs-its-gpt-5-6-public-rollout-with-chatgpt-work-a-new-agent-that-handles-entire-workflows/",
+    )
+    gpt56_bench = _entry(
+        "GPT-5.6-Sol nearly matches Fable 5 on aggregated benchmarks at one-third the cost",
+        "https://the-decoder.com/gpt-5-6-sol-nearly-matches-fable-5-on-aggregated-benchmarks-at-one-third-the-cost/",
+    )
+    anthropic = _entry(
+        "Anthropic's fix for Fable 5's high cost is turning it into a manager that delegates to Sonnet 5",
+        "https://the-decoder.com/anthropics-fix-for-fable-5s-high-cost-is-turning-it-into-a-manager-that-delegates-to-sonnet-5/",
+    )
+    assert entries_same_event(gpt56_work, gpt56_bench)
+    assert not entries_same_event(gpt56_bench, anthropic)
+    assert not entries_same_event(gpt56_work, anthropic)
+    cluster = StoryCluster(
+        entry_indices=[0, 1, 2],
+        ai_relevant=True,
+        significance=8,
+        reason="gpt-5.6",
+    )
+    assert not cluster_is_coherent(cluster, [gpt56_work, gpt56_bench, anthropic])

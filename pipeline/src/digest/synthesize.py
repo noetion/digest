@@ -16,7 +16,7 @@ from openai import OpenAI
 
 from .config import SYNTHESIS_MODEL
 from .costs import CostTracker
-from .event_match import cluster_is_coherent, coerce_coherent_clusters
+from .event_match import cluster_is_coherent, coerce_coherent_clusters, entries_same_event
 from .models import Digest, FeedEntry, StoryCluster
 
 logger = logging.getLogger(__name__)
@@ -326,6 +326,25 @@ def source_urls_for_story(members: list[FeedEntry], dominant: str | None) -> lis
     return ordered
 
 
+def _anchor_matched_members(
+    cluster: StoryCluster,
+    entries: list[FeedEntry],
+) -> list[FeedEntry]:
+    """Cluster members that describe the same event as the anchor headline."""
+    if not cluster.entry_indices:
+        return []
+    anchor_idx = cluster.entry_indices[0]
+    if anchor_idx >= len(entries):
+        return []
+    anchor = entries[anchor_idx]
+    members = [
+        entries[i]
+        for i in cluster.entry_indices
+        if i < len(entries) and entries_same_event(anchor, entries[i])
+    ]
+    return members or [anchor]
+
+
 def build_synthesis_input(
     date_str: str,
     entries: list[FeedEntry],
@@ -340,7 +359,7 @@ def build_synthesis_input(
     dominant = _dominant_domain(entries, clusters)
     blocks = [f"Today's date: {date_str}", f"Number of stories: {len(clusters)}"]
     for n, cluster in enumerate(clusters, start=1):
-        members = [entries[i] for i in cluster.entry_indices]
+        members = _anchor_matched_members(cluster, entries)
         primary, corroborating = _story_sources(members, dominant)
         block = [
             f"--- STORY {n} ---",
@@ -450,7 +469,7 @@ def attach_cluster_sources(
     coerced = coerce_coherent_clusters(clusters, entries)
     dominant = _dominant_domain(entries, coerced)
     for story, cluster in zip(digest.stories, coerced, strict=True):
-        members = [entries[i] for i in cluster.entry_indices]
+        members = _anchor_matched_members(cluster, entries)
         if not cluster_is_coherent(cluster, entries):
             headline = members[0].title if members else "?"
             raise ValueError(
