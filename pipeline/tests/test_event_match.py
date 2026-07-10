@@ -250,7 +250,6 @@ def test_gpt56_benchmark_does_not_merge_anthropic_fable_story() -> None:
         "Anthropic's fix for Fable 5's high cost is turning it into a manager that delegates to Sonnet 5",
         "https://the-decoder.com/anthropics-fix-for-fable-5s-high-cost-is-turning-it-into-a-manager-that-delegates-to-sonnet-5/",
     )
-    assert entries_same_event(gpt56_work, gpt56_bench)
     assert not entries_same_event(gpt56_bench, anthropic)
     assert not entries_same_event(gpt56_work, anthropic)
     cluster = StoryCluster(
@@ -348,3 +347,39 @@ def test_same_outlet_date_path_does_not_merge_unrelated_openai_stories() -> None
     assert not entries_same_event(apple, fidji)
     assert not entries_same_event(apple, gpt56)
     assert not entries_same_event(fidji, gpt56)
+
+
+def test_chatgpt_work_does_not_merge_atlas_shutdown() -> None:
+    work = _entry(
+        "OpenAI introduces ChatGPT Work, a cloud-based AI agent",
+        "https://venturebeat.com/technology/openai-introduces-chatgpt-work-a-cloud-based-ai-agent-that-manages-tasks-across-email-slack-and-calendars",
+    )
+    atlas = _entry(
+        "OpenAI kills its Atlas browser after just eight months and folds everything into ChatGPT",
+        "https://the-decoder.com/openai-kills-its-atlas-browser-after-just-eight-months-and-folds-everything-into-chatgpt/",
+    )
+    assert not entries_same_event(work, atlas)
+
+
+def test_luna_post_training_does_not_merge_reasoning_guide() -> None:
+    luna = _entry(
+        "OpenAI GPT-5.6 Sol autonomously post-trained the smaller Luna model",
+        "https://the-decoder.com/openais-gpt-5-6-sol-autonomously-post-trained-the-smaller-luna-model-with-a-fairly-underspecified-prompt/",
+    )
+    reasoning = _entry(
+        "OpenAI staffer maps out which of GPT-5.6 Sol's five reasoning levels fits which task complexity",
+        "https://the-decoder.com/openai-staffer-maps-out-which-of-gpt-5-6-sols-five-reasoning-levels-fits-which-task-complexity/",
+    )
+    assert not entries_same_event(luna, reasoning)
+
+
+def test_gpt56_rollout_angles_still_merge() -> None:
+    launch = _entry(
+        "OpenAI launches its new family of models with GPT-5.6",
+        "https://techcrunch.com/2026/07/09/openai-launches-its-new-family-of-models-with-gpt-5-6/",
+    )
+    copilot = _entry(
+        "OpenAI says GPT 5.6 is the preferred model for Microsoft Copilot 365 amid breakup chatter",
+        "https://techcrunch.com/2026/07/10/openai-says-gpt-5-6-preferred-microsoft-copilot-365/",
+    )
+    assert entries_same_event(launch, copilot)

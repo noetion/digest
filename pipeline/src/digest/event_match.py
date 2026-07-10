@@ -270,10 +270,60 @@ _VENDOR_PRODUCT_TOKENS: dict[str, frozenset[str]] = {
     "anthropic": frozenset({"fable", "sonnet", "claude", "opus"}),
     "openai": frozenset({"chatgpt", "codex", "dalle", "sora"}),
 }
+_VENDOR_PRODUCT_ONLY = frozenset().union(*_VENDOR_PRODUCT_TOKENS.values())
+
+_ROLLOUT_MARKERS = frozenset(
+    {
+        "launch",
+        "launches",
+        "released",
+        "rollout",
+        "introduces",
+        "introduced",
+        "announces",
+        "announced",
+        "ships",
+        "shipped",
+        "preferred",
+        "copilot",
+        "partnership",
+        "unveils",
+        "unveiled",
+        "debuts",
+    }
+)
+
+_GENERIC_PATH_SIGNATURE = re.compile(
+    r"^gpt-\d|^glm-\d|^claude-\d|^grok-\d|^fable-\d|^sonnet-\d",
+    re.IGNORECASE,
+)
 
 
 def _vendors_in_title(title: str) -> set[str]:
     return _title_tokens(title) & _VENDOR_ONLY
+
+
+def _is_generic_model_sig(sig: str) -> bool:
+    normalized = sig.lower().replace(".", "-")
+    return bool(_GENERIC_PATH_SIGNATURE.match(normalized))
+
+
+def _meaningful_event_signatures(text: str) -> set[str]:
+    return {sig for sig in _event_signatures(text) if not _is_generic_model_sig(sig)}
+
+
+def _headline_is_rollout_angle(title: str) -> bool:
+    raw = {w for w in _TOKEN.findall(_normalize_title(title).lower()) if len(w) >= 2}
+    return bool(raw & _ROLLOUT_MARKERS)
+
+
+def _substantive_overlap(ta: set[str], tb: set[str]) -> set[str]:
+    return _distinctive_overlap(ta, tb) - _VENDOR_PRODUCT_ONLY
+
+
+def _meaningful_path_signatures(url: str) -> set[str]:
+    sigs = _url_path_event_signatures(url)
+    return {sig for sig in sigs if not _is_generic_model_sig(sig)}
 
 
 def _vendor_subject(title: str) -> str | None:
@@ -340,7 +390,15 @@ def _shared_vendor_model_release(a: FeedEntry, b: FeedEntry) -> bool:
     if not (vendors_a & vendors_b):
         return False
     distinctive = _distinctive_overlap(_title_tokens(a.title), _title_tokens(b.title))
-    return not _cross_vendor_product_confusion(a.title, b.title, distinctive)
+    if _cross_vendor_product_confusion(a.title, b.title, distinctive):
+        return False
+    rollout_a = _headline_is_rollout_angle(a.title)
+    rollout_b = _headline_is_rollout_angle(b.title)
+    if rollout_a and rollout_b:
+        return True
+    if rollout_a or rollout_b:
+        return False
+    return len(_substantive_overlap(_title_tokens(a.title), _title_tokens(b.title))) >= 2
 
 
 def _title_mentions_vendor(title: str, vendor: str) -> bool:
@@ -354,11 +412,11 @@ def _news_outlets_same_event(a: FeedEntry, b: FeedEntry) -> bool:
     ta, tb = _entry_match_tokens(a), _entry_match_tokens(b)
     if not ((ta & _VENDOR_ONLY) & (tb & _VENDOR_ONLY)):
         return False
-    distinctive = _distinctive_overlap(ta, tb)
+    distinctive = _substantive_overlap(ta, tb)
     if len(distinctive) >= 2:
         return True
-    sig_a = _event_signatures(a.title) | _url_path_event_signatures(a.url)
-    sig_b = _event_signatures(b.title) | _url_path_event_signatures(b.url)
+    sig_a = _meaningful_event_signatures(a.title) | _meaningful_path_signatures(a.url)
+    sig_b = _meaningful_event_signatures(b.title) | _meaningful_path_signatures(b.url)
     if sig_a & sig_b:
         return True
     return len(distinctive) >= 1
@@ -430,7 +488,7 @@ def _distinctive_overlap(ta: set[str], tb: set[str], *, min_len: int = 4) -> set
 def titles_same_event(a: str, b: str) -> bool:
     """True when two headlines cover the same specific news event."""
     a, b = _normalize_title(a), _normalize_title(b)
-    sig_a, sig_b = _event_signatures(a), _event_signatures(b)
+    sig_a, sig_b = _meaningful_event_signatures(a), _meaningful_event_signatures(b)
     if sig_a & sig_b:
         return True
 

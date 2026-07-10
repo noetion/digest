@@ -19,8 +19,7 @@
       "why_it_matters": "ChatGPT Work shifts ChatGPT from Q&A to an execution platform available across web and mobile, expanding the model’s data surface (email, Slack, repos, calendars) and integrating action capabilities that change operational risk profiles and enterprise security considerations.",
       "outlook": "Rollout begins to Pro, Enterprise, and Edu users immediately, with expansion to Plus and Business subscribers over the next few days as stated by OpenAI.",
       "source_urls": [
-        "https://venturebeat.com/technology/openai-introduces-chatgpt-work-a-cloud-based-ai-agent-that-manages-tasks-across-email-slack-and-calendars",
-        "https://the-decoder.com/openai-kills-its-atlas-browser-after-just-eight-months-and-folds-everything-into-chatgpt/"
+        "https://venturebeat.com/technology/openai-introduces-chatgpt-work-a-cloud-based-ai-agent-that-manages-tasks-across-email-slack-and-calendars"
       ],
       "topic_tag": "ai"
     },
@@ -30,8 +29,7 @@
       "why_it_matters": "If internal claims are accurate, Sol’s ability to adapt and run training workflows shortens the hands-on researcher time for model adaptation and raises engineering questions about tooling, CI for training jobs, and safeguards around automated training steps.",
       "outlook": "OpenAI’s internal RSI benchmark and the relative rankings it publishes will be the next observable signal for how Sol’s autonomous research claims compare across subsequent model updates or public presentations of evaluation methodology.",
       "source_urls": [
-        "https://the-decoder.com/openais-gpt-5-6-sol-autonomously-post-trained-the-smaller-luna-model-with-a-fairly-underspecified-prompt/",
-        "https://the-decoder.com/openai-staffer-maps-out-which-of-gpt-5-6-sols-five-reasoning-levels-fits-which-task-complexity/"
+        "https://the-decoder.com/openais-gpt-5-6-sol-autonomously-post-trained-the-smaller-luna-model-with-a-fairly-underspecified-prompt/"
       ],
       "topic_tag": "ai"
     },
