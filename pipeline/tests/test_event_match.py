@@ -302,3 +302,31 @@ def test_merge_duplicate_event_clusters_folds_selected() -> None:
     openai = next(c for c in merged if 0 in c.entry_indices or 1 in c.entry_indices)
     assert openai.entry_indices == [0, 1]
     assert_unique_event_clusters(merged, entries)
+
+
+def test_full_text_preview_does_not_false_match_unrelated_openai_stories() -> None:
+    apple = _entry(
+        "Apple sues OpenAI over alleged trade secret theft",
+        "https://techcrunch.com/apple-sues-openai",
+        summary="",
+    )
+    apple = apple.model_copy(
+        update={
+            "full_text": (
+                "OpenAI GPT-5.6 Sol reasoning trade secret Siri ChatGPT lawsuit Apple filed "
+                "today alleging OpenAI stole proprietary integration methods."
+            )
+        }
+    )
+    gpt56 = _entry(
+        "OpenAI staffer maps out which of GPT-5.6 Sol's five reasoning levels fits which task complexity",
+        "https://the-decoder.com/openai-staffer-maps-out-which-of-gpt-5-6-sols-five-reasoning-levels-fits-which-task-complexity/",
+    )
+    gpt56 = gpt56.model_copy(
+        update={
+            "full_text": (
+                "OpenAI staffer explains GPT-5.6 Sol reasoning levels for different task complexity."
+            )
+        }
+    )
+    assert not entries_same_event(apple, gpt56)

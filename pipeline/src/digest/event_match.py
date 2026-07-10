@@ -257,11 +257,9 @@ def _url_path_tokens(url: str) -> set[str]:
 
 
 def _entry_match_tokens(entry: FeedEntry) -> set[str]:
+    """Headline and URL tokens for event matching (never full article text)."""
     tokens = _title_tokens(entry.title)
     tokens |= _url_path_tokens(entry.url)
-    preview = entry.preview(120)
-    if preview and "no useful rss preview" not in preview.lower():
-        tokens |= _title_tokens(preview)
     return tokens
 
 
@@ -493,10 +491,11 @@ def merge_duplicate_event_clusters(
             combined = sorted(set(existing.entry_indices + cluster.entry_indices))
             if len(combined) > MAX_EVENT_CLUSTER_MEMBERS:
                 logger.info(
-                    "Skipping duplicate merge (member cap): %s",
+                    "Dropping duplicate cluster (member cap): %s",
                     entries[bi].title[:80],
                 )
-                continue
+                absorbed = True
+                break
             logger.info(
                 "Merging duplicate event cluster: %s",
                 entries[bi].title[:80],
