@@ -271,12 +271,15 @@ _VENDOR_PRODUCT_TOKENS: dict[str, frozenset[str]] = {
 }
 
 
+def _vendors_in_title(title: str) -> set[str]:
+    return _title_tokens(title) & _VENDOR_ONLY
+
+
 def _vendor_subject(title: str) -> str | None:
-    tokens = _title_tokens(title)
-    for vendor in _VENDOR_ONLY:
-        if vendor in tokens:
-            return vendor
-    return None
+    vendors = _vendors_in_title(title)
+    if not vendors:
+        return None
+    return next(iter(sorted(vendors)))
 
 
 def _cross_vendor_product_confusion(
@@ -285,15 +288,58 @@ def _cross_vendor_product_confusion(
     distinctive: set[str],
 ) -> bool:
     """Block merges where one headline is vendor news and the other only cites its product."""
-    va, vb = _vendor_subject(a), _vendor_subject(b)
-    if va and vb and va != vb:
+    va, vb = _vendors_in_title(a), _vendors_in_title(b)
+    if va and vb and not (va & vb):
         return True
     for vendor, products in _VENDOR_PRODUCT_TOKENS.items():
         if not (distinctive & products):
             continue
-        if (va == vendor) != (vb == vendor):
+        if (vendor in va) != (vendor in vb):
             return True
     return False
+
+
+_MODEL_ID = re.compile(
+    r"\b(gpt|claude|gemini|glm|grok|fable|sonnet|opus|hy|sol|chatgpt)[\s\-_.]*(\d+(?:[.\-]\d+)?)",
+    re.IGNORECASE,
+)
+
+
+def _model_ids_from_text(text: str) -> set[str]:
+    ids: set[str] = set()
+    for match in _MODEL_ID.finditer(text.lower()):
+        family = match.group(1).lower()
+        if family == "chatgpt":
+            family = "gpt"
+        version = match.group(2).replace(".", "-")
+        ids.add(f"{family}-{version}")
+    return ids
+
+
+def _url_path_event_signatures(url: str) -> set[str]:
+    """Product/event signatures from URL path only (not the outlet domain)."""
+    path = urlsplit(url).path
+    sigs = _event_signatures(path)
+    sigs |= _compound_signatures(path)
+    return sigs
+
+
+def _shared_vendor_model_release(a: FeedEntry, b: FeedEntry) -> bool:
+    """Same vendor shipping the same model version, covered from different angles."""
+    ids_a = _model_ids_from_text(a.title) | _model_ids_from_text(urlsplit(a.url).path)
+    ids_b = _model_ids_from_text(b.title) | _model_ids_from_text(urlsplit(b.url).path)
+    if not (ids_a & ids_b):
+        return False
+    vendors_a = {v for v in _VENDOR_ONLY if _title_mentions_vendor(a.title, v)} | (
+        _entry_match_tokens(a) & _VENDOR_ONLY
+    )
+    vendors_b = {v for v in _VENDOR_ONLY if _title_mentions_vendor(b.title, v)} | (
+        _entry_match_tokens(b) & _VENDOR_ONLY
+    )
+    if not (vendors_a & vendors_b):
+        return False
+    distinctive = _distinctive_overlap(_title_tokens(a.title), _title_tokens(b.title))
+    return not _cross_vendor_product_confusion(a.title, b.title, distinctive)
 
 
 def _title_mentions_vendor(title: str, vendor: str) -> bool:
@@ -310,8 +356,8 @@ def _news_outlets_same_event(a: FeedEntry, b: FeedEntry) -> bool:
     distinctive = _distinctive_overlap(ta, tb)
     if len(distinctive) >= 2:
         return True
-    sig_a = _event_signatures(a.title) | _compound_signatures(a.url)
-    sig_b = _event_signatures(b.title) | _compound_signatures(b.url)
+    sig_a = _event_signatures(a.title) | _url_path_event_signatures(a.url)
+    sig_b = _event_signatures(b.title) | _url_path_event_signatures(b.url)
     if sig_a & sig_b:
         return True
     return len(distinctive) >= 1
@@ -337,6 +383,8 @@ def _primary_coverage_same_event(primary: FeedEntry, coverage: FeedEntry) -> boo
 def entries_same_event(a: FeedEntry, b: FeedEntry) -> bool:
     """True when two feed entries cover the same specific news event."""
     if titles_same_event(a.title, b.title):
+        return True
+    if _shared_vendor_model_release(a, b):
         return True
     if _news_outlets_same_event(a, b):
         return True
@@ -425,6 +473,46 @@ def cluster_should_merge_with(
         return False
     anchor = entries[existing_indices[0]]
     return any(entries_same_event(anchor, entries[j]) for j in candidate_indices)
+
+
+def merge_duplicate_event_clusters(
+    clusters: list[StoryCluster],
+    entries: list[FeedEntry],
+) -> list[StoryCluster]:
+    """Fold selected clusters that cover the same event into one published story."""
+    merged: list[StoryCluster] = []
+    for cluster in clusters:
+        absorbed = False
+        for pos, existing in enumerate(merged):
+            ai = existing.entry_indices[0] if existing.entry_indices else -1
+            bi = cluster.entry_indices[0] if cluster.entry_indices else -1
+            if ai < 0 or bi < 0 or ai >= len(entries) or bi >= len(entries):
+                continue
+            if not entries_same_event(entries[ai], entries[bi]):
+                continue
+            combined = sorted(set(existing.entry_indices + cluster.entry_indices))
+            if len(combined) > MAX_EVENT_CLUSTER_MEMBERS:
+                logger.info(
+                    "Skipping duplicate merge (member cap): %s",
+                    entries[bi].title[:80],
+                )
+                continue
+            logger.info(
+                "Merging duplicate event cluster: %s",
+                entries[bi].title[:80],
+            )
+            merged[pos] = existing.model_copy(
+                update={
+                    "entry_indices": combined,
+                    "significance": max(existing.significance, cluster.significance),
+                    "ai_relevant": existing.ai_relevant or cluster.ai_relevant,
+                }
+            )
+            absorbed = True
+            break
+        if not absorbed:
+            merged.append(cluster)
+    return merged
 
 
 def assert_unique_event_clusters(

@@ -18,7 +18,11 @@ from openai import OpenAI
 from .config import CONTENT_DIR, DRY_RUN_OUT_DIR, SEEN_STATE_PATH, load_settings
 from .costs import CostTracker
 from .dedupe import SeenState, filter_unseen
-from .event_match import assert_unique_event_clusters, coerce_coherent_clusters
+from .event_match import (
+    assert_unique_event_clusters,
+    coerce_coherent_clusters,
+    merge_duplicate_event_clusters,
+)
 from .extract import enrich_with_full_text
 from .feeds import fetch_all_feeds
 from .models import FeedEntry, StoryCluster
@@ -192,6 +196,7 @@ def run() -> int:
         )
     logger.info("Extracted full text for %d winning articles", len(winners))
 
+    remapped = merge_duplicate_event_clusters(remapped, winners)
     remapped = coerce_coherent_clusters(remapped, winners)
 
     try:

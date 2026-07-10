@@ -6,6 +6,7 @@ from digest.event_match import (
     cluster_should_merge_with,
     coerce_coherent_clusters,
     entries_same_event,
+    merge_duplicate_event_clusters,
     refine_cluster_groups,
     split_incoherent_clusters,
     titles_same_event,
@@ -259,3 +260,45 @@ def test_gpt56_benchmark_does_not_merge_anthropic_fable_story() -> None:
         reason="gpt-5.6",
     )
     assert not cluster_is_coherent(cluster, [gpt56_work, gpt56_bench, anthropic])
+
+
+def test_same_outlet_domain_does_not_false_merge_unrelated_stories() -> None:
+    layoffs = _entry(
+        "Microsoft lays off nearly 5000 employees across Xbox",
+        "https://the-decoder.com/microsoft-layoffs-xbox",
+    )
+    chips = _entry(
+        "Meta will begin production of its MTIA AI chips in September",
+        "https://the-decoder.com/meta-mtia-chips-september",
+    )
+    assert not entries_same_event(layoffs, chips)
+
+
+def test_gpt56_launch_angles_merge_across_outlets() -> None:
+    launch = _entry(
+        "OpenAI launches its new family of models with GPT-5.6",
+        "https://the-decoder.com/openai-launches-its-new-family-of-models-with-gpt-5-6",
+    )
+    copilot = _entry(
+        "OpenAI says GPT 5.6 is the preferred model for Microsoft Copilot 365 amid breakup chatter",
+        "https://techcrunch.com/2026/07/10/openai-says-gpt-5-6-preferred-microsoft-copilot-365",
+    )
+    assert entries_same_event(launch, copilot)
+
+
+def test_merge_duplicate_event_clusters_folds_selected() -> None:
+    entries = [
+        _entry("OpenAI launches GPT-5.6", "https://a"),
+        _entry("OpenAI GPT 5.6 preferred for Copilot", "https://b"),
+        _entry("Meta MTIA chips", "https://c"),
+    ]
+    clusters = [
+        StoryCluster(entry_indices=[0], ai_relevant=True, significance=8, reason="a"),
+        StoryCluster(entry_indices=[1], ai_relevant=True, significance=7, reason="b"),
+        StoryCluster(entry_indices=[2], ai_relevant=True, significance=6, reason="c"),
+    ]
+    merged = merge_duplicate_event_clusters(clusters, entries)
+    assert len(merged) == 2
+    openai = next(c for c in merged if 0 in c.entry_indices or 1 in c.entry_indices)
+    assert openai.entry_indices == [0, 1]
+    assert_unique_event_clusters(merged, entries)
