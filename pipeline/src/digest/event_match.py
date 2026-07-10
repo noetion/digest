@@ -162,6 +162,7 @@ _EVENT_SIGNATURE = re.compile(
     re.IGNORECASE,
 )
 _TOKEN = re.compile(r"[a-z0-9]+")
+_DATE_PATH_SEGMENT = re.compile(r"^(?:20\d{2}|\d{1,2})$")
 
 _FIRST_PARTY_DOMAINS = frozenset(
     {
@@ -247,6 +248,8 @@ def _url_path_tokens(url: str) -> set[str]:
     tokens: set[str] = set()
     for segment in path.split("/"):
         if segment in {"research", "blog", "news", "technology", "engineering"}:
+            continue
+        if _DATE_PATH_SEGMENT.match(segment):
             continue
         tokens |= _title_tokens(segment.replace("-", " "))
         tokens |= _compound_signatures(segment)
@@ -415,7 +418,13 @@ def _event_signatures(title: str) -> set[str]:
 
 
 def _distinctive_overlap(ta: set[str], tb: set[str], *, min_len: int = 4) -> set[str]:
-    return {w for w in (ta & tb) if len(w) >= min_len and w not in _VENDOR_ONLY}
+    return {
+        w
+        for w in (ta & tb)
+        if len(w) >= min_len
+        and w not in _VENDOR_ONLY
+        and not _DATE_PATH_SEGMENT.match(w)
+    }
 
 
 def titles_same_event(a: str, b: str) -> bool:

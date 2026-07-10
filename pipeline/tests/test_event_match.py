@@ -330,3 +330,21 @@ def test_full_text_preview_does_not_false_match_unrelated_openai_stories() -> No
         }
     )
     assert not entries_same_event(apple, gpt56)
+
+
+def test_same_outlet_date_path_does_not_merge_unrelated_openai_stories() -> None:
+    apple = _entry(
+        "Apple sues OpenAI over alleged trade secret theft",
+        "https://techcrunch.com/2026/07/10/apple-sues-openai-over-alleged-trade-secret-theft/",
+    )
+    fidji = _entry(
+        "Fidji Simo steps down from OpenAI's No. 2 role",
+        "https://techcrunch.com/2026/07/09/fidji-simo-steps-down-from-openais-no-2-role/",
+    )
+    gpt56 = _entry(
+        "OpenAI launches its new family of models with GPT-5.6",
+        "https://techcrunch.com/2026/07/09/openai-launches-its-new-family-of-models-with-gpt-5-6/",
+    )
+    assert not entries_same_event(apple, fidji)
+    assert not entries_same_event(apple, gpt56)
+    assert not entries_same_event(fidji, gpt56)
