@@ -1,0 +1,61 @@
+{
+  "title": "The Morning Build for July 11, 2026: Meta's Muse Spark, Muse Image Opt-Out, OpenAI Fixes, Bun’s Rust Rewrite, and SK Hynix IPO",
+  "intro": "Today’s stories cluster around platform engineering decisions and their operational fallout: Meta launched Muse Spark 1.1 and rolled Muse Image into Instagram with an opt-out fight; OpenAI is patching ChatGPT Work after UX and cost problems; Bun’s codebase moved from Zig to Rust with Anthropic’s help; and SK Hynix completed a $26.5B U.S. IPO that ties into U.S. fab talks.",
+  "meta_description": "Meta ships Muse Spark 1.1 and Muse Image opt-out, OpenAI promises a patch next week, Bun rewrites to Rust with Claude Fable 5, and SK Hynix raises $26.5B.",
+  "stories": [
+    {
+      "headline": "Meta launches Muse Spark 1.1 for agentic coding with per-token pricing",
+      "what_happened": "Meta publicly released Muse Spark 1.1, a multimodal model positioned for multistep agentic coding, planning, tool use, and enterprise workflows. Meta plans to charge $1.25 per million input tokens and $4.25 per million output tokens, and CEO Mark Zuckerberg posted that the model is strong at agentic performance and that \"more to come soon.\"",
+      "why_it_matters": "Engineers building agentic workflows get a new multimodal model option that Meta positions specifically for tool orchestration and large migrations, with explicit per-token pricing that sits near Anthropic and OpenAI rates. The availability changes procurement and cost comparisons for large-code automation and enterprise deployments.",
+      "outlook": "\"More to come soon,\" Meta said about additional models, making future Meta model releases the next concrete milestone to watch.",
+      "source_urls": [
+        "https://techcrunch.com/2026/07/09/meta-enters-the-crowded-ai-coding-battle-with-muse-spark-1-1/",
+        "https://the-decoder.com/metas-muse-spark-1-1-outperforms-glm-5-2-in-coding-and-costs-slightly-less/"
+      ],
+      "topic_tag": "ai"
+    },
+    {
+      "headline": "Muse Image lets users generate images from public Instagram posts, Instagram adds opt-out toggle",
+      "what_happened": "Meta launched Muse Image, which can generate and edit images using photos from public Instagram accounts when those accounts are tagged; private accounts and accounts under 18 are excluded. Instagram added a user setting under Profile > Sharing and reuse to toggle off \"Allow people to use your content on Instagram with AI features on Meta\" for posts and reels.",
+      "why_it_matters": "The feature changes the default reuse scope for public content and forces product and privacy engineers to treat public-profile media as a potential training or generation input unless users opt out. The setting provides a technical opt-out path but does not notify users when their public content is reused.",
+      "outlook": "July 10, 2026 coverage reported that Meta removed a controversial AI feature after backlash, making the company’s immediate post-launch policy changes and removals the next concrete public milestone to follow.",
+      "source_urls": [
+        "https://techcrunch.com/2026/07/09/how-to-stop-metas-ai-image-generator-from-using-your-instagram-photos/",
+        "https://techcrunch.com/2026/07/10/meta-removes-controversial-ai-feature-on-instagram-after-backlash/"
+      ],
+      "topic_tag": "policy"
+    },
+    {
+      "headline": "OpenAI admits ChatGPT Work rollout issues and promises sidebar and metrics fixes next week",
+      "what_happened": "OpenAI acknowledged user complaints about ChatGPT Work and GPT-5.6 Sol, including confusing desktop UI changes, unclear usage and billing impacts, and regressions in multi-agent workflows. The company reset usage limits for Codex and ChatGPT Work, adjusted defaults, and said a larger update restoring sidebar chats and projects and clearer usage metrics will arrive next week.",
+      "why_it_matters": "Teams relying on multi-agent workflows or high-reasoning model settings face immediate UX and cost-control risk because default settings pushed expensive compute and usage limits were not visible. The promised update affects how engineers and SREs will track usage, choose models, and configure persistence-related system prompts.",
+      "outlook": "OpenAI said a bigger update restoring sidebar chats, projects, and clearer usage metrics will ship next week, making that release the next concrete milestone to validate the fixes.",
+      "source_urls": [
+        "https://the-decoder.com/openai-admits-it-didnt-get-everything-quite-right-with-chatgpt-work-launch-and-scrambles-to-fix-ux-and-costs/",
+        "https://arstechnica.com/ai/2026/07/openai-wants-its-new-tool-to-do-your-work-for-you-and-with-you/"
+      ],
+      "topic_tag": "dev-tools"
+    },
+    {
+      "headline": "Bun rewrites from Zig to Rust using Anthropic Claude Fable 5, ships canary v1.4.0",
+      "what_happened": "Bun’s codebase was rewritten from Zig to Rust, with developer Jarred Sumner reporting about 64 pre-release Claude Fable 5 instances producing over one million lines of code in 11 days. The API bill was roughly $165,000. Bun v1.4.0 is available as a canary release and the update fixes 128 bugs while running about 2 to 5 percent faster.",
+      "why_it_matters": "The migration shows an operational decision to prefer Rust’s compile-time safety over Zig after persistent memory errors, and it demonstrates a high-cost, high-throughput LLM-assisted engineering workflow producing a canary-quality release. Engineers should note the production tradeoffs between language safety, LLM-assisted output volume, and evaluation costs.",
+      "outlook": "Bun v1.4.0 is available now as a canary release, making the canary availability itself the immediate milestone for testing the Rust rewrite in real projects.",
+      "source_urls": [
+        "https://the-decoder.com/bun-ditches-zig-for-rust-with-help-from-claude-fable-5-writes-over-a-million-lines-of-code-in-11-days/"
+      ],
+      "topic_tag": "dev-tools"
+    },
+    {
+      "headline": "SK Hynix raises $26.5B in U.S. IPO as U.S. officials press for domestic fabs",
+      "what_happened": "SK Hynix completed a $26.5 billion U.S. American depositary share offering, selling 177.9 million ADRs at $149 each and beginning Nasdaq trading under temporary ticker SKHYV. The offering funds a new South Korea fab, a packaging facility, and EUV scanners. U.S. Commerce officials are urging SK Hynix and Samsung to build fabs in the United States, and Micron announced a $250 billion U.S. manufacturing investment.",
+      "why_it_matters": "The capital raise and U.S. trade-level pressure both affect global HBM supply that AI GPU builders rely on; SK Hynix’s funding for fabs and EUV equipment targets capacity growth that matters for GPU memory availability and lead times. Engineers planning procurement and hardware roadmaps should expect ongoing supply-side changes tied to these investments.",
+      "outlook": "Regular trading and the official ticker change to SKHY begins Monday, July 13, 2026, making the Nasdaq listing transition the next concrete market milestone to observe.",
+      "source_urls": [
+        "https://techcrunch.com/2026/07/10/sk-hynix-raises-26-5b-in-the-biggest-foreign-ipo-in-us-history-is-urged-to-build-new-us-fabs/"
+      ],
+      "topic_tag": "chips"
+    }
+  ],
+  "narration_script": "Meta released Muse Spark 1.1, a multimodal model targeted at agentic coding and orchestration, and published per-token pricing of $1.25 per million input tokens and $4.25 per million output tokens. CEO Mark Zuckerberg said the model is strong at tool use and that there is \"more to come soon,\" which Meta framed as additional model releases on its roadmap. On Instagram, Meta also launched Muse Image, which can generate and edit images using public profile posts when those accounts are tagged. Instagram added an opt-out toggle under Profile, Sharing and reuse, labeled \"Allow people to use your content on Instagram with AI features on Meta,\" but coverage on July 10 reported that Meta removed a controversial AI feature after backlash. OpenAI acknowledged problems from the ChatGPT Work and GPT-5.6 Sol rollout, including a confusing desktop overhaul, unclear usage limits, and regressions in multi-agent workflows. OpenAI reset usage caps, adjusted defaults, and said a larger update that restores sidebar chats and projects and shows clearer usage metrics will ship next week. OpenAI also addressed reports of destructive automated deletions tied to certain persistence-focused system prompts. The JavaScript runtime Bun was fully rewritten from Zig to Rust using Anthropic’s pre-release Claude Fable 5, with about 64 model instances producing over one million lines of code in 11 days at an API cost of roughly $165,000. Bun v1.4.0 is available as a canary release, fixes 128 bugs, and runs about 2 to 5 percent faster. Finally, SK Hynix raised $26.5 billion in a U.S. ADR offering, began trading under temporary ticker SKHYV, and said proceeds will fund a new South Korea fab, a packaging facility, and EUV scanners. U.S. officials urged chipmakers to build fabs in the United States, and Micron announced a $250 billion U.S. investment; regular Nasdaq trading and the ticker change to SKHY will begin Monday, July 13, 2026."
+}
