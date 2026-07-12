@@ -1,0 +1,58 @@
+{
+  "title": "The Morning Build for July 12, 2026: TabFM for Tables, OpenAI Hires for Families, EU vs. Meta",
+  "intro": "Today’s stories converge on how AI is shifting from bespoke engineering to platform-level choices: Google proposes TabFM to run zero-shot tabular prediction without per-dataset training; OpenAI is hiring a product lead to build family- and caregiver-focused ChatGPT experiences; the European Commission tells Meta to consider disabling autoplay and infinite scroll; a new supply-chain threat called slopsquatting is tied to LLM hallucinations; and Mesh LLM publishes a peer-to-peer OpenAI-compatible stack that shards models across ordinary machines.",
+  "meta_description": "Google's TabFM brings zero-shot tabular inference to BigQuery; OpenAI hires for family experiences; EU tells Meta to curb autoplay and infinite scroll.",
+  "stories": [
+    {
+      "headline": "Google’s TabFM runs zero-shot tabular prediction from context, code Apache 2.0, weights non-commercial",
+      "what_happened": "Google Research published TabFM, a foundation model that treats tabular tasks as in-context learning: it alternates row and column attention, compresses rows to dense vectors, and runs a causal transformer over those embeddings to predict on unseen tables in a single forward pass. The code is released under Apache 2.0, while pretrained weights are published on Hugging Face under a tabfm-non-commercial-v1.0 license; TabFM is being integrated into BigQuery via an AI.PREDICT command.",
+      "why_it_matters": "TabFM removes per-dataset training and heavy feature engineering by running inference over historical rows passed as context, which can cut weeks of pipeline work to a single API call; the trade-off is heavier runtime compute and memory because each prediction attends over cached rows, making it unsuitable for single-digit-millisecond APIs or very large tables without sampling.",
+      "outlook": "The AI.PREDICT integration into Google BigQuery is the next practical milestone to watch for product teams evaluating TabFM in-database deployment and billing.",
+      "source_urls": [
+        "https://venturebeat.com/technology/googles-tabfm-skips-per-dataset-training-and-still-predicts-on-tables-its-never-seen"
+      ],
+      "topic_tag": "ai"
+    },
+    {
+      "headline": "OpenAI posts product manager role to build family and caregiver experiences for ChatGPT",
+      "what_happened": "OpenAI is hiring a San Francisco-based product manager focused on families, caregivers, and older adults, a role that asks for experience building parent- and family-oriented products and trust-sensitive consumer experiences; Sensor Tower estimates show ChatGPT’s global users aged 35 and older rose to 31% in Q2 from 26% a year earlier.",
+      "why_it_matters": "The explicit hiring signal frames product design choices toward household-level features such as parental controls, shared memories, and caregiver workflows, indicating forthcoming consumer UX and safety work that will affect product behavior, data handling, and trust controls in ChatGPT.",
+      "outlook": "The hiring outcome for the San Francisco product manager posting and any subsequent product announcements tied to that role will be the next concrete sign of OpenAI’s household-focused roadmap.",
+      "source_urls": [
+        "https://techcrunch.com/2026/07/11/openai-bets-on-families-as-chatgpt-goes-deeper-into-households/"
+      ],
+      "topic_tag": "big-tech"
+    },
+    {
+      "headline": "European Commission preliminarily finds Facebook and Instagram features addictive, urges disabling autoplay and infinite scroll by default",
+      "what_happened": "The European Commission’s preliminary investigation concluded that features including autoplay, infinite scroll, and highly personalized recommendations created risks to users’ physical and mental wellbeing, especially minors and vulnerable adults, and recommended Meta consider disabling autoplay and infinite scroll by default, implement effective screen time breaks, and adapt its recommender to be less engagement‑oriented.",
+      "why_it_matters": "If the EC’s findings stand, platform UI and recommender defaults will need engineering changes that affect feed UX, engagement metrics, and algorithmic training targets because regulators are asking for defaults and recommender adjustments rather than optional tools alone.",
+      "outlook": "Meta has several months to rebut the preliminary findings; the Commission’s final decision and any required enforcement measures will arrive after that response window and will define concrete compliance changes and timelines.",
+      "source_urls": [
+        "https://arstechnica.com/tech-policy/2026/07/disable-auto-play-and-infinite-scroll-or-risk-massive-fines-eu-tells-meta/"
+      ],
+      "topic_tag": "policy"
+    },
+    {
+      "headline": "Slopsquatting: attackers can register hallucinated package names LLMs invent and publish malware-filled packages",
+      "what_happened": "Security researchers and reporting characterize 'slopsquatting' as attacks where LLM hallucinations invent plausible but nonexistent package names; attackers then register those names in package registries and publish malicious code that AI-assisted developers may incorporate when the model recommends the fabricated package.",
+      "why_it_matters": "LLM-generated fake dependency names bypass traditional typo-protection because they are not simple misspellings, raising a supply-chain vector where AI-assisted coding can pull malware into projects at scale; measured hallucination rates cited in the reporting range widely across models, with proprietary models producing fewer hallucinated packages than many open-source models.",
+      "outlook": "Registry-level defenses or measurement studies that replicate the cited 30-system tests and hallucination-rate measurements will be the next public signals of whether detection and mitigation for slopsquatting scale.",
+      "source_urls": [
+        "https://venturebeat.com/security/forget-typosquatting-slopsquatting-is-the-software-supply-chain-threat-created-by-ai-coding-tools"
+      ],
+      "topic_tag": "dev-tools"
+    },
+    {
+      "headline": "Mesh LLM uses iroh to run OpenAI-compatible inference on a peer-to-peer mesh, including split-model pipelines",
+      "what_happened": "Mesh LLM exposes a local OpenAI-compatible API and pools GPUs and memory across machines running iroh endpoints, routing requests to local GPUs, peers that host models, or splitting models into pipeline stages called Skippy; the system uses authenticated, NAT-traversing QUIC connections and runs two iroh relays for fallback connectivity.",
+      "why_it_matters": "Mesh LLM offers a way to run larger models without buying larger single-node GPUs by partitioning models across modest machines and presenting a standard API to clients, which changes deployment trade-offs for teams that want private, self-hosted inference and direct control over model placement.",
+      "outlook": "The announced mobile client built on iroh’s Swift SDK and the project’s public docs and code are the next milestones that will show how Mesh LLM broadens client support and adoption.",
+      "source_urls": [
+        "https://www.iroh.computer/blog/mesh-llm"
+      ],
+      "topic_tag": "startups"
+    }
+  ],
+  "narration_script": "Google Research published TabFM, a foundation model that treats tabular prediction as in-context learning. TabFM alternates row and column attention, compresses each row into a dense vector, and runs a causal transformer over those embeddings to predict on unseen tables in a single forward pass. The code is Apache 2.0, but pretrained weights on Hugging Face carry a tabfm-non-commercial-v1.0 license. Google is integrating TabFM into BigQuery via AI.PREDICT. For engineers, TabFM cuts per-dataset training and manual feature engineering, but it shifts cost to runtime because each prediction attends over cached historical rows, making it inappropriate for single-digit-millisecond APIs or very large tables without sampling. Watch the BigQuery AI.PREDICT integration for the first production deployment signals. OpenAI posted a San Francisco product manager role focused on families, caregivers, and older adults. Sensor Tower data in the reporting shows ChatGPT’s share of users aged 35 and older rose to 31 percent in Q2. The role and any hires tied to it indicate product work toward parental controls, shared household features, and other trust-sensitive consumer flows. The hiring outcome and any product announcements from that team will reveal the household roadmap. The European Commission’s preliminary probe found Facebook and Instagram features such as autoplay and infinite scroll create addiction risks and recommended disabling those features by default, adding effective screen time breaks, and tuning recommenders away from pure engagement. Meta has months to reply to the findings; the Commission’s final decision after that response window will set concrete compliance requirements. Security reporting describes slopsquatting, a supply-chain attack where LLM hallucinations invent plausible package names that attackers register and populate with malware. The piece cites wide-ranging hallucination rates across models and points out that registry typo protections do not catch fabricated names. Replication studies or registry defenses that mirror the referenced 30-system measurements will be the next public signals of mitigation progress. Finally, Mesh LLM published a technical post showing a peer-to-peer approach that presents an OpenAI-compatible localhost API while pooling GPUs across iroh endpoints. It supports routing to local GPUs, routing to peers that already host a model, and splitting models into pipeline stages for machines that cannot individually hold a large model. The project runs two iroh relays for connectivity fallback and plans a mobile client on iroh’s Swift SDK. The upcoming mobile client, public docs, and code updates will show whether Mesh LLM broadens client platforms and real-world adoption."
+}
