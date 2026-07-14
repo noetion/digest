@@ -1,0 +1,60 @@
+{
+  "title": "The Morning Build for July 14, 2026: Waze Adds Gemini, Tracebit’s Prompt-Inject Shield, and SensorFM for Wearables",
+  "intro": "Today's stories focus on practical AI deployments and defenses: Waze is embedding Google’s Gemini into navigation features; Tracebit published prompt-injection tests that sharply reduced agent breaches; Google Research released SensorFM for wearable health signals; Anthropic began rupee pricing for Claude in India; and Apple filed a detailed trade-secrets complaint against OpenAI.",
+  "meta_description": "Waze adds Gemini chat and personalized routes; Tracebit shows context-bombing cuts agent compromises; Google publishes SensorFM wearable model; Anthropic localizes Claude pricing in India; Apple sues OpenAI.",
+  "stories": [
+    {
+      "headline": "Waze integrates Google’s Gemini for conversational search, personalized routes, and motorcycle mode",
+      "what_happened": "Waze added Gemini-powered features that let users conversationally search for destinations, receive personalized route suggestions based on trip history and city traffic patterns, report map updates via natural speech, and enable a new Motorcycle mode with rider-specific shortcuts and hazard detection. The personalized navigation and conversational reporting features are rolling out now globally on Android and iOS; the Gemini destination chat is rolling out to Waze’s beta community globally; Motorcycle mode is rolling out now in Argentina, Brazil, Colombia, Malaysia, Mexico, Peru, and the Philippines.",
+      "why_it_matters": "Engineers building location and navigation services should note Google is pushing Gemini deeper into product-level routing, search, and user-sourced map editing, shifting some query-handling and personalization to an LLM assistant. The features explicitly include opt-outs for personalization and are implemented across Android and iOS clients, implying client and server-side integration points for model-backed search and voice report ingestion.",
+      "outlook": "Waze’s Gemini destination chat rollout to the Waze beta community globally is the immediate deployment milestone to watch for broader availability.",
+      "source_urls": [
+        "https://techcrunch.com/2026/07/13/waze-adds-new-ai-powered-features-and-customization-updates/"
+      ],
+      "topic_tag": "ai"
+    },
+    {
+      "headline": "Tracebit demonstrates 'context bombing' can cut agent takeover rates from 57% to 5% in AWS simulation",
+      "what_happened": "Tracebit reported that embedding prompt-injection strings next to secrets in a simulated AWS environment, what they call context bombing, reduced agents’ success at seizing full account admin from 57% to 5% and complete compromise from 36% to 1% across five models and 152 attack runs; Opus 4.8 fell from 93% admin success to 0% when confronted with a context bomb.",
+      "why_it_matters": "The test shows a defensive use of prompt-injection triggers that elicit model refusal behavior and thereby interrupt agent workflows; this is a concrete mitigation pattern engineers can evaluate for agent threat models that rely on LLMs parsing injected or adjacent secret-like strings.",
+      "outlook": "The Tracebit findings were reported in the researchers’ public post on Monday and that post is the primary record of their 152-run AWS simulation and the reported statistics.",
+      "source_urls": [
+        "https://arstechnica.com/security/2026/07/now-defenders-are-embracing-the-prompt-injection-too/"
+      ],
+      "topic_tag": "ai"
+    },
+    {
+      "headline": "Google Research publishes SensorFM, a foundation model trained on over one trillion minutes of wearable data",
+      "what_happened": "Google Research introduced SensorFM, pretrained on more than one trillion minutes of unlabeled sensor data from five million Fitbit and Pixel Watch users across over 100 countries, and applied it to 35 health and behavioral prediction tasks; SensorFM variants (100k–100M parameters) outperformed supervised baselines on 34 of 35 tasks and improved label efficiency when scaled.",
+      "why_it_matters": "SensorFM shows a reusable representation approach for minute-level wearable data that can reduce labeled-data needs for downstream health predictions and be plugged as a representation layer for task heads or health agents; the model was trained on aggregated minute-level features from PPG, acceleration, skin conductance, skin temperature, and barometric altitude, not raw high-resolution signals.",
+      "outlook": "The Google Research blog post and the open-access arXiv paper are the published artifacts documenting SensorFM’s pretraining scale, model variants, and the 34-of-35 task performance results.",
+      "source_urls": [
+        "https://the-decoder.com/sensorfm/"
+      ],
+      "topic_tag": "ai"
+    },
+    {
+      "headline": "Anthropic begins listing rupee-denominated pricing for Claude in India but has not enabled UPI payments",
+      "what_happened": "Anthropic has started showing local Indian pricing for Claude on its website and mobile apps, listing Claude Pro at ₹2,000 per month billed annually, Claude Max at ₹11,999 per month, and Team plans starting at ₹2,399 per seat per month; the prices include local taxes. Anthropic has not enabled Unified Payments Interface payments, so users must pay by card or through Apple and Google app store billing.",
+      "why_it_matters": "Localized pricing addresses currency-friction in a major usage market, Anthropic reports India accounts for 5.8% of global Claude usage, but the lack of UPI support leaves a payment-integration gap compared with competitors that already support local instant payments, which affects conversion paths for price-sensitive users and enterprise procurement in India.",
+      "outlook": "The Claude rupee pricing listings are live now on Anthropic’s India website and mobile apps, providing an immediate signal of localized pricing availability and current payment limitations.",
+      "source_urls": [
+        "https://techcrunch.com/2026/07/13/anthropic-starts-localizing-claude-pricing-for-india-its-biggest-market-after-the-us/",
+        "https://the-decoder.com/anthropic-extends-free-fable-5-access-for-subscribers-as-openais-gpt-5-6-sol-heats-up-the-pricing-war/"
+      ],
+      "topic_tag": "ai"
+    },
+    {
+      "headline": "Apple files a 41-page trade-secrets complaint alleging coordinated data extraction by OpenAI hires",
+      "what_happened": "Apple’s complaint accuses former Apple employees and OpenAI personnel of exploiting an authentication bug, removing internal hardware parts for interviews, and circumventing exit procedures to extract Apple confidential information; the filing names specific messages and alleges over 400 former Apple employees now work at OpenAI and that misappropriation informed OpenAI’s hardware efforts and supplier approaches.",
+      "why_it_matters": "The complaint lays out detailed operational allegations about employee behavior, internal access, and specific recruitment and exit practices that could shape discovery outcomes, enterprise hiring policies, vendor interactions, and legal exposure for product teams working on hardware or industrial-design-sensitive AI projects.",
+      "outlook": "The Apple complaint was filed on Friday and the discovery process in that lawsuit is the named legal milestone that Apple says will expose additional documents and communications referenced in the filing.",
+      "source_urls": [
+        "https://techcrunch.com/2026/07/13/the-wildest-allegations-in-apples-trade-secrets-lawsuit-against-openai/",
+        "https://arstechnica.com/tech-policy/2026/07/apple-sues-openai-after-ex-engineer-allegedly-used-bug-to-steal-trade-secrets/"
+      ],
+      "topic_tag": "ai"
+    }
+  ],
+  "narration_script": "Waze added Gemini-powered conversational search, personalized routes, and rider-aware Motorcycle mode. Personalized navigation and conversational map-reporting are rolling out now on Android and iOS, and the Gemini destination chat is rolling out to Waze’s beta community globally. Motorcycle mode is live in Argentina, Brazil, Colombia, Malaysia, Mexico, Peru, and the Philippines. The release shows Google embedding its Gemini assistant into route suggestion, voice search, and user-sourced map edits, with opt-out controls for personalization.\n\nSecurity researchers at Tracebit reported a defensive prompt-injection technique they call context bombing. In a simulated AWS environment across five models and 152 attack runs, planting prompt-injection strings adjacent to secrets reduced agents’ full admin takeover rate from 57 percent to 5 percent and complete compromise from 36 percent to 1 percent; the most capable tested agent, Opus 4.8, dropped from 93 percent admin success to zero when confronted with a context bomb. Tracebit published the test results in a Monday post documenting their simulation and statistics.\n\nGoogle Research published SensorFM, a foundation model trained on over one trillion minutes of unlabeled wearable data from five million Fitbit and Pixel Watch users. SensorFM consumes minute-level features from PPG, accelerometer, skin conductance, skin temperature, and barometric altitude. Across four model sizes and scaled pretraining cohorts, the largest SensorFM cut reconstruction error and its representations improved downstream performance, beating supervised baselines on 34 of 35 tasks. Google released a blog post and an open-access arXiv paper describing model variants, the Adaptive and Inherited Masking training method, and clinician evaluations of SensorFM-augmented summaries.\n\nAnthropic began listing rupee-denominated pricing for Claude on its India website and mobile apps, showing Claude Pro at ₹2,000 per month billed annually, Claude Max at ₹11,999 per month, and Team plans starting at ₹2,399 per seat per month; these prices include local taxes. Anthropic has not yet enabled UPI payments, so Indian users must pay by card or through Apple’s and Google’s app stores. Anthropic reports India represents 5.8 percent of Claude’s global usage.\n\nApple filed a 41-page trade-secrets complaint against OpenAI that includes detailed allegations: an authentication bug was allegedly exploited to access internal storage, departing Apple employees were allegedly coached to evade exit procedures, and OpenAI is accused of soliciting physical parts and internal artifacts during hiring. The complaint names specific messages and alleges over 400 former Apple employees now work at OpenAI. Apple says it first raised concerns in February and expects discovery in the lawsuit to produce additional documents and communications.\n\nThose are the five items for today. The primary artifacts to consult are Waze’s TechCrunch report on the Gemini rollout and beta availability, Tracebit’s publicized Monday post summarized by Ars Technica, the SensorFM Google Research paper and Decoder coverage, Anthropic’s India pricing listings reported by TechCrunch, and Apple’s filed complaint as covered in TechCrunch and Ars Technica."
+}
