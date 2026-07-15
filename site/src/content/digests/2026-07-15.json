@@ -1,0 +1,50 @@
+{
+  "title": "The Morning Build for July 15, 2026: OpenAI's Home Speaker, Agent Routers, Apple Lawsuit, and AI Token Billing",
+  "intro": "Today’s stories connect product moves and governance where AI meets production: OpenAI’s leaked screenless, mobile speaker and its public rebuttal to Apple’s trade-secret suit; a production-focused Agent-as-a-Router implementation that cut routing cost 2.6x versus always-Opus baselines; and 1Password launching token-level AI spend visibility ahead of broad availability in fall 2026.",
+  "meta_description": "OpenAI's screenless speaker leak and lawsuit response, ACRouter's 2.6x cost win, and 1Password's AI Spend preview for fall 2026.",
+  "stories": [
+    {
+      "headline": "OpenAI developing a portable, screenless AI speaker with camera, sensors, and moving parts",
+      "what_happened": "The Decoder and corroborating reporting say OpenAI is building a portable, screenless smart speaker that includes a camera, sensors, a rechargeable battery, moving mechanical elements, and an expanded GPT-Live voice mode to enable simultaneous listening and speaking.",
+      "why_it_matters": "Engineers should note this represents OpenAI pushing its models into embodied home devices that combine real-time voice I/O, on-device sensors, and proactive behavior instead of browser- or app-only deployments.",
+      "outlook": "Bloomberg’s plan to unveil the device later this year and OpenAI’s stated release window in 2027 are the concrete milestones to watch, while Apple’s injunction request could affect those timelines.",
+      "source_urls": [
+        "https://the-decoder.com/openais-first-hardware-product-is-a-screenless-ai-speaker-designed-to-feel-alive/",
+        "https://techcrunch.com/2026/07/14/openais-new-flagship-model-deletes-files-on-its-own-people-keep-warning/",
+        "https://techcrunch.com/2026/07/14/openais-first-hardware-device-is-reportedly-a-screenless-speaker-that-can-move/"
+      ],
+      "topic_tag": "ai"
+    },
+    {
+      "headline": "ACRouter treats routing as a learning agent and reports 2.6x cost savings versus Opus-only runs",
+      "what_happened": "VentureBeat summarizes the Agent-as-a-Router paper and ACRouter implementation, which uses a Context-Action-Feedback loop with Memory, Orchestrator, and Verifier components; in CodeRouterBench experiments ACRouter reduced cumulative cost to $13.21 versus $34.02 for always-default Opus, a 2.6x saving on the in-distribution test set.",
+      "why_it_matters": "Model routing implemented as a feedback-driven, memory-backed agent lets production systems learn from execution outcomes instead of relying on static classifiers or heuristics, enabling lower-cost, higher-accuracy routing across heterogeneous model pools for verifiable tasks like code generation.",
+      "outlook": "The project’s open-source GitHub release and published orchestrator model weights on Hugging Face, plus the CodeRouterBench artifacts, are the next concrete checkpoints for adoption and independent benchmarking.",
+      "source_urls": [
+        "https://venturebeat.com/orchestration/acrouter-picks-the-smartest-ai-model-per-task-beating-opus-only-setups-by-2-6x-on-cost"
+      ],
+      "topic_tag": "dev-tools"
+    },
+    {
+      "headline": "OpenAI says Apple’s trade-secret lawsuit lacks evidence and reiterates focus on competition",
+      "what_happened": "TechCrunch reports OpenAI issued a statement saying it is not aware of evidence that Apple’s trade-secret complaint has merit, while Apple filed a 41-page complaint alleging coordinated efforts by former Apple employees and seeking an injunction against OpenAI’s hardware work.",
+      "why_it_matters": "The public responses frame discovery and potential injunctions as the immediate legal vectors that could alter OpenAI’s hardware timeline and staffing scrutiny, which matters for engineers involved in hardware, hires from competitors, or IP controls.",
+      "outlook": "The discovery process in the U.S. District Court for the Northern District of California and Apple’s requested injunction are the explicit legal milestones to follow next.",
+      "source_urls": [
+        "https://techcrunch.com/2026/07/14/openai-pushes-back-on-apple-trade-secret-lawsuit/"
+      ],
+      "topic_tag": "big-tech"
+    },
+    {
+      "headline": "1Password adds AI Spend and Consumption Management to SaaS Manager, public preview now, broad availability planned for fall 2026",
+      "what_happened": "VentureBeat reports 1Password launched AI Spend and Consumption Management in public preview; the feature pulls token-level consumption from vendor admin APIs for Anthropic, Cursor, and OpenAI, normalizes data into a single dashboard, and provides alerts and vendor-level spend limits but does not yet enforce cutoffs.",
+      "why_it_matters": "Organizations get daily, normalized token-level visibility tied to users and teams, which is necessary to reconcile consumption-based AI costs across vendors and to surface agent-driven spikes that traditional per-seat budgets miss.",
+      "outlook": "Public preview is available now and 1Password has named fall 2026 for broad availability; the company also signaled automatic enforcement of spend limits is under active evaluation and will be a product milestone to watch.",
+      "source_urls": [
+        "https://venturebeat.com/security/1password-moves-into-ai-cost-management-betting-that-token-spend-is-the-next-enterprise-budget-crisis"
+      ],
+      "topic_tag": "startups"
+    }
+  ],
+  "narration_script": "OpenAI is reportedly building a portable, screenless smart speaker that includes a camera, sensors, a rechargeable battery, moving mechanical parts, and an expanded GPT-Live voice mode for simultaneous listening and speaking. The Decoder and corroborating reporting say this device is intended to act as a humanlike home companion, and Bloomberg reporting cited by those articles says OpenAI plans an unveiling later this year with a 2027 release window, though Apple’s injunction request could delay those plans. VentureBeat covered a production-focused routing paper and an open-source implementation called ACRouter that treats the router as a memory-backed agent using a Context-Action-Feedback loop. In CodeRouterBench experiments the system recorded $13.21 of cumulative cost across the in-distribution test run versus $34.02 for always-defaulting to Opus, a 2.6x cost reduction, and the researchers published the code and orchestrator weights on GitHub and Hugging Face. TechCrunch reports OpenAI pushed back on Apple’s 41-page trade-secret complaint, saying it is not aware of evidence that the complaint has merit; Apple’s suit alleges coordinated efforts by former Apple employees and requests an injunction, leaving the court’s discovery process as the next legal milestone. Finally, VentureBeat reports 1Password launched AI Spend and Consumption Management in public preview inside its SaaS Manager product. The feature pulls daily token-level consumption from Anthropic, Cursor, and OpenAI, normalizes usage by user, team, vendor and model, and provides alerting and vendor-level spend limits without automatic enforcement for now. 1Password says broad availability is planned for fall 2026 and that automatic enforcement is being evaluated as a future product milestone. These four items connect product launches, legal processes, and production engineering patterns you will see in deploys: hardware timelines tied to litigation, routing systems that learn from execution, and visibility tools for token-driven spend ahead of enforcement."
+}
