@@ -1,0 +1,60 @@
+{
+  "title": "The Morning Build for July 16, 2026: OpenAI Ships a $230 Codex Keyboard, Inkling Goes Open-Weights",
+  "intro": "Today’s items center on where AI is concretely expanding: OpenAI shipped a limited-run Codex keyboard while still facing an Apple lawsuit; an academic used GPT-5.6 Sol to disprove a long-standing statistics conjecture; OpenAI staff funded a super PAC counterweight with a July 15 FEC filing; Thinking Machines released an open-weights multimodal model, Inkling, available for fine-tuning on Tinker; and a maintainer PR now makes Gemma 4 usable on pre-AVX2 CPUs.",
+  "meta_description": "OpenAI sells a $230 Codex keyboard; GPT-5.6 Sol disproves a stat conjecture; Guardrails Alliance FEC filing appears July 15; Inkling open-weights live on Tinker; Gemma 4 CPU PR awaits review.",
+  "stories": [
+    {
+      "headline": "OpenAI launches $230 Codex Micro keyboard as limited-run hardware while Bloomberg details an unreleased screenless device and Apple files suit",
+      "what_happened": "OpenAI released the Codex Micro, a $230 light-up keyboard co-designed with Work Louder that exposes Agent Keys, customizable Command Keys, a joystick, and a dial to set agent reasoning level and integrates with the ChatGPT desktop app; OpenAI described the keyboard as a limited-run collaboration. Bloomberg also reported an unreleased portable, screenless ChatGPT device with moving mechanical elements is in development, and Apple has sued OpenAI alleging theft of confidential information tied to hardware development.",
+      "why_it_matters": "OpenAI is moving from software-first to tangible, branded hardware that surfaces agent controls (status LEDs, reasoning-level dial) and integrates with Codex workflows, which changes how engineers might instrument or test agent interactions at the UI and device-control layer; the Bloomberg-described device and the Apple lawsuit add legal and product-development constraints that could affect hardware timelines and personnel decisions.",
+      "outlook": "Court filings and case milestones in Apple's lawsuit against OpenAI will be the next public legal milestones to watch as they could disclose timing or details tied to OpenAI's hardware work.",
+      "source_urls": [
+        "https://techcrunch.com/2026/07/15/amid-hardware-legal-battle-openai-releases-a-230-keyboard-for-codex/",
+        "https://arstechnica.com/ai/2026/07/openais-first-branded-hardware-is-a-light-up-keyboard/"
+      ],
+      "topic_tag": "ai"
+    },
+    {
+      "headline": "GPT-5.6 Sol reportedly disproves a 30-year-old Benjamini-Hochberg conjecture in about 90 minutes",
+      "what_happened": "University of Pennsylvania statistician Edgar Dobriban used OpenAI's GPT-5.6 Sol Pro to construct a counterexample showing the Benjamini-Hochberg false discovery rate control can fail under correlated, normally distributed two-sided tests; Dobriban reports the model produced the result in roughly 90 minutes and released a preprint and accompanying code and simulations that confirm the counterexample.",
+      "why_it_matters": "A frontier LLM produced a proof-level counterexample quickly where prior human attempts did not, demonstrating that such models can accelerate formal, research-grade problem solving in statistics and produce reproducible artifacts (preprint plus code) for validation.",
+      "outlook": "The author’s preprint and the accompanying code and chat logs are the immediate public artifacts to follow for independent replication and review of the reported counterexample.",
+      "source_urls": [
+        "https://the-decoder.com/gpt-5-6-sol-reportedly-disproves-a-30-year-old-statistics-conjecture-in-90-minutes-after-humans-couldnt-crack-it/"
+      ],
+      "topic_tag": "ai"
+    },
+    {
+      "headline": "OpenAI staff donations surface in Guardrails Alliance fundraising ahead of the super PAC’s July 15 FEC filing",
+      "what_happened": "WIRED reports seven current and one former OpenAI employees have donated to Guardrails Alliance, which launched with $5 million in initial funding and aims to raise $15 million this cycle; the super PAC shared donor names with WIRED ahead of a public FEC filing expected on July 15, and some donors will appear in that filing.",
+      "why_it_matters": "Employee-funded donations highlight internal disagreement at a major AI lab over political spending and regulatory strategy, and the July 15 FEC disclosure will publicly document individual staff-level contributions that previously were known only to reporters and the PAC.",
+      "outlook": "Guardrails Alliance’s public FEC filing on July 15 will list donors and donation amounts disclosed to regulators, providing the next concrete public record of OpenAI staff contributions to the PAC.",
+      "source_urls": [
+        "https://www.wired.com/story/openai-employees-donations-guardrails-alliance-leading-the-future/",
+        "https://www.technologyreview.com/2026/07/15/1140514/meet-gpt-red-an-llm-super-hacker-openai-built-to-make-its-models-safer/"
+      ],
+      "topic_tag": "policy"
+    },
+    {
+      "headline": "Thinking Machines releases Inkling, a 975B-parameter open-weights MoE model with 1M-token context, available for fine-tuning on Tinker",
+      "what_happened": "Thinking Machines published Inkling, a mixture-of-experts transformer with 975 billion total and 41 billion active parameters, pretrained on 45 trillion tokens with multimodal text, image, audio, and video data; Inkling supports up to 1 million token context, offers controllable thinking effort, and is available for fine-tuning on the company’s Tinker platform with an Inkling Playground for developer experimentation.",
+      "why_it_matters": "An open-weights, multimodal 975B MoE with 1M-token context and explicit controllable-effort knobs expands the set of foundation models engineers can customize locally or via Tinker, affecting deployment choices where long context, multimodal reasoning, and fine-tuning accessibility matter.",
+      "outlook": "Tinker's published availability of Inkling for fine-tuning and the Inkling Playground are the immediate product milestones to track for hands-on evaluation and custom checkpoint creation.",
+      "source_urls": [
+        "https://thinkingmachines.ai/news/introducing-inkling/"
+      ],
+      "topic_tag": "ai"
+    },
+    {
+      "headline": "Gemma 4 26B runs at ~5 tokens/sec on a 13-year-old dual Xeon after a CPU-fallback PR; patch awaits maintainer review in ikawrakow/ik_llama.cpp#2138",
+      "what_happened": "A community engineer reports running Gemma 4 26B-A4B (MoE, Q8_0) on a dual Xeon E5-2690 v2 (Ivy Bridge, AVX1 only) at about 5.2 tokens/sec decode and ~16 tokens/sec prompt-eval after patches and build fixes; the write-up links to a branch and a pull request (ikawrakow/ik_llama.cpp#2138) that implements AVX1 fallbacks, graph-builder fixes for fused MoE ops, and CI stubs so the fork builds without AVX2.",
+      "why_it_matters": "The PR and technique show modern MoE models can be engineered to run on pre-AVX2 commodity servers by adding scalar fallbacks, op-split paths, and build fixes, which matters for teams needing local, low-cost inference or offline fallbacks where GPUs are unavailable.",
+      "outlook": "The linked pull request, ikawrakow/ik_llama.cpp#2138, is the next concrete artifact to watch for maintainer review and potential merge that would make the CPU fallback widely available.",
+      "source_urls": [
+        "https://www.neomindlabs.com/2026/06/08/running-gemma-4-26b-at-5-tokens-sec-on-a-13-year-old-xeon-with-no-gpu/"
+      ],
+      "topic_tag": "ai"
+    }
+  ],
+  "narration_script": "OpenAI shipped a $230 Codex Micro keyboard that puts agent status LEDs, command shortcuts, a joystick, and a reasoning-level dial on your desk. The company labels the Micro a limited-run collaboration and integrates it with the ChatGPT desktop app. Bloomberg has separately described an unreleased portable, screenless ChatGPT device with moving mechanical elements that remains in development, and Apple has filed suit alleging misappropriation related to hardware work. The next public legal milestones will be the court filings in Apple’s suit, which could disclose more about OpenAI’s hardware timeline. At the University of Pennsylvania, Edgar Dobriban reports using GPT-5.6 Sol Pro to construct a counterexample to a 1995 conjecture about the Benjamini-Hochberg false discovery rate for correlated, two-sided tests. Dobriban says the model produced the result in about 90 minutes, and he published a preprint plus the code and chat logs that confirm simulations. Those artifacts are the immediate materials for independent replication and review. Inside OpenAI’s politics, WIRED found that seven current and one former OpenAI employees donated to Guardrails Alliance, which shared donor names ahead of an expected FEC filing on July 15; that filing will make individual donations publicly visible. Thinking Machines published Inkling, an open-weights MoE model with 975 billion total and 41 billion active parameters, trained on 45 trillion tokens and supporting up to a 1 million token context. Inkling is multimodal, exposes controllable thinking effort, and is available for fine-tuning today on the company’s Tinker platform with an Inkling Playground for developer experimentation. Finally, a community engineering post documents running Gemma 4 26B on a 2013 dual Xeon E5-2690 v2 at roughly 5 tokens per second after applying CPU fallback patches; the fixes are in a branch and a pull request, ikawrakow/ik_llama.cpp#2138, which is pending maintainer review. That pull request is the concrete next artifact to watch if you need CPU-only MoE inference on pre-AVX2 hardware."
+}
