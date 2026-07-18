@@ -1,0 +1,63 @@
+{
+  "title": "The Morning Build for July 18, 2026: Google Connects Third-Party Apps to Search, Databricks $188B Round, and Agent Safety at Scale",
+  "intro": "Today’s stories center on platform control and operational safety: Google is opening Search AI Mode to direct app integrations; regulators and cities are pressing platform stores over abusive deepfake apps; OpenAI is investigating a destructive GPT-5.6 Full Access bug; Brex open-sourced a transport-layer agent proxy after observing real agent traffic; and Databricks announced a $188 billion valuation while flagging open-weight model cost wins.",
+  "meta_description": "Google opens Search AI Mode to third-party apps; San Francisco orders nudify app removals; OpenAI probes GPT-5.6 file-deletion bug; Brex releases CrabTrap; Databricks valued at $188B.",
+  "stories": [
+    {
+      "headline": "Google opens Search AI Mode to direct third-party app integrations, rolling out in the U.S. this week",
+      "what_happened": "Google announced developers can now securely link apps into Search AI Mode so users can perform actions, like adding Instacart items, saving YouTube Music playlists, or previewing Canva templates, directly from Search. The feature starts rolling out in the U.S. this week and Google says it is working with a range of partners to add more integrations.",
+      "why_it_matters": "Engineers who build consumer and productivity apps can integrate UI actions and state changes directly into Search’s AI Mode, turning Search into a control surface for authenticated third-party flows and increasing reliance on Search as an entry point for app workflows.",
+      "outlook": "This week’s U.S. rollout is the immediate milestone; expect additional partner integrations to be announced in the coming weeks as Google expands supported apps.",
+      "source_urls": [
+        "https://blog.google/products-and-platforms/products/search/connected-apps/",
+        "https://arstechnica.com/gadgets/2026/07/its-official-eu-will-force-google-to-share-search-data-and-open-up-ai-on-android/",
+        "https://the-decoder.com/google-rebrands-notebooklm-as-gemini-notebook-and-opens-its-search-app-to-third-party-integration/"
+      ],
+      "topic_tag": "policy"
+    },
+    {
+      "headline": "OpenAI says GPT-5.6 deleted user files in a few Full Access Mode cases and will post a post-mortem",
+      "what_happened": "Reports say GPT-5.6 erased user files when running in Full Access Mode without sandboxing after the model attempted to overwrite a temporary directory variable ($HOME) and removed the home directory. OpenAI acknowledged the behavior occurs in a small number of cases, said it should not happen even in unprotected mode, and is adding safeguards and doc changes.",
+      "why_it_matters": "The incident shows model-driven agents with full system or file access can perform destructive filesystem actions; engineers building agent runtimes, permission models, and sandboxing must treat persistence and destructive side effects as explicit failure modes rather than improbable edge cases.",
+      "outlook": "OpenAI plans to publish a post-mortem in the coming days that will be the next public source of technical detail and mitigation guidance.",
+      "source_urls": [
+        "https://the-decoder.com/gpt-5-6-is-deleting-user-files-when-given-full-access-and-openai-says-it-shouldnt-but-did/"
+      ],
+      "topic_tag": "ai"
+    },
+    {
+      "headline": "San Francisco orders Apple and Google to remove 13 apps that produce nonconsensual 'nudify' deepfakes from their stores",
+      "what_happened": "San Francisco’s city attorney sent cease-and-desist letters asking Apple and Google to remove 13 face-swap apps that can generate nonconsensual nude images and to stop profiting from their distribution. The letters say the apps violate state law and urged severing business relationships with the app developers.",
+      "why_it_matters": "Platform app stores remain a primary distribution channel for harmful AI image tools; store-level takedowns and tighter review enforcement change the compliance surface engineers must account for when designing image-editing features and app-store metadata.",
+      "outlook": "The immediate forward signal is whether Apple and Google remove the remaining targeted apps and terminate developer accounts as demanded; the city attorney said further legal options will be considered if companies do not comply.",
+      "source_urls": [
+        "https://www.wired.com/story/san-francisco-demands-apple-and-google-delete-ai-nudify-apps-from-app-stores/",
+        "https://the-decoder.com/germany-puts-googles-ai-overviews-and-perplexity-under-media-law-in-first-of-its-kind-ruling/",
+        "https://arstechnica.com/tech-policy/2026/07/apple-google-must-stop-profiting-off-ai-nudify-apps-san-francisco-ag-says/"
+      ],
+      "topic_tag": "policy"
+    },
+    {
+      "headline": "Brex open-sources CrabTrap, a transport-layer HTTP/HTTPS proxy that enforces agent policy and uses an LLM 'judge' for unknown requests",
+      "what_happened": "Brex released CrabTrap, an open-source proxy that routes agent outbound requests through HTTP_PROXY/HTTPS_PROXY, applies deterministic rules, and calls an LLM-as-a-judge for unfamiliar endpoints. Brex bootstrapped policies by shadow-running agents, sampling historical traffic, and producing draft natural-language policies that are then evaluated before deployment.",
+      "why_it_matters": "Operating at the transport layer gives a framework- and API-agnostic enforcement point that can intercept real agent behavior, reduce reliance on SDK-level guardrails, and provide an auditable policy lifecycle; the judge is used on fewer than 3% of requests for a mature agent to limit latency.",
+      "outlook": "Watch the CrabTrap GitHub for follow-on commits that add deeper authentication, SSO, RBAC, escalation workflows, and programmatic policy APIs, which Brex identified as the next areas for community contributions.",
+      "source_urls": [
+        "https://venturebeat.com/orchestration/brex-built-its-ai-agent-policy-by-watching-what-agents-actually-do-not-by-writing-rules-first",
+        "https://techcrunch.com/2026/07/17/vertu-wants-executives-to-pay-6880-for-an-ai-agent-heres-how-it-actually-performs/"
+      ],
+      "topic_tag": "dev-tools"
+    },
+    {
+      "headline": "Databricks announces a new funding round valuing the company at $188 billion and highlights open-weight model cost wins",
+      "what_happened": "Databricks disclosed a funding round that sets its valuation at $188 billion, led by Coatue, and said the round will close later this summer. The company published internal benchmarking showing open models, specifically GLM 5.2, and certain open-source harnesses reduced coding costs for its 3,000 engineers compared with proprietary models.",
+      "why_it_matters": "The funding and published internal benchmarks signal enterprise-scale adoption of open-weight models and attention to harness-level cost and context management, which affects procurement, ML ops, and engineering toolchain decisions around model choice and agent wrappers.",
+      "outlook": "Databricks says the round will close later this summer, which is the near-term milestone that will confirm the announced valuation and finalize investor commitments.",
+      "source_urls": [
+        "https://techcrunch.com/2026/07/17/databricks-hits-188b-valuation-extending-its-run-as-ais-favorite-second-act/"
+      ],
+      "topic_tag": "startups"
+    }
+  ],
+  "narration_script": "Google rolled out a change to Search today. Developers can now link apps into Search AI Mode so users can act on results inside Search, for example adding Instacart items to a cart or saving a playlist to YouTube Music. The feature starts rolling out in the U.S. this week and Google says it will add more partners in the coming weeks. OpenAI confirmed a safety incident in GPT-5.6 where, in a small number of Full Access Mode cases without sandboxing, the model overwrote a temporary directory variable and deleted user files. OpenAI described the occurrence as rare, said it should not happen even in unprotected mode, is updating documentation, adding safeguards, and will publish a post-mortem in the coming days. San Francisco’s city attorney sent cease-and-desist letters to Apple and Google demanding removal of 13 face-swap apps that can produce nonconsensual nude images and urged ending business relationships with those developers. Apple and Google have removed some apps, and the city attorney said further legal options will be considered if the companies do not comply; the near-term signal is whether the remaining targeted apps and developer accounts are removed. Brex published CrabTrap, an open-source HTTP and HTTPS proxy that enforces agent policies at the transport layer. CrabTrap routes outbound agent requests through a proxy, applies deterministic rules, and calls a small LLM judge on unfamiliar requests. Brex built policies by shadow-running agents and sampling historical traffic, and the judge fires on roughly 3 percent of requests for mature agents to limit latency. Brex named SSO, RBAC, escalation workflows, and programmatic policy APIs as the next areas for repo contributions. Finally, Databricks announced a funding round valuing the company at 188 billion dollars, led by Coatue, and said the round will close later this summer. Databricks also published internal benchmarking that found GLM 5.2 and certain open-source harnesses lowered coding costs for its engineering teams compared with proprietary models. That closing this summer is the immediate milestone that will confirm the announced valuation."
+}
