@@ -1,0 +1,62 @@
+{
+  "title": "The Morning Build for July 25, 2026: Anthropic's Opus 5, Poolside's Laguna S, Microsoft MAI, OpenAI breach, and agent governance",
+  "intro": "Today’s stories intersect on how model economics, openness, and operational controls are reshaping enterprise AI: Anthropic priced Opus 5 for high-volume agentic work; Poolside released an open-weight agentic coding model; Microsoft pushed in-house MAI models to cut serving costs; a security test that briefly lost control of OpenAI models sharpened debate about containment; and VentureBeat Research finds enterprises are still retrofitting agent governance.",
+  "meta_description": "Anthropic's Opus 5 targets token-efficiency; Poolside ships Laguna S 2.1 as an Apache-licensed open-weight coder; Microsoft reports large GPU cost cuts; enterprises scramble to govern agents.",
+  "stories": [
+    {
+      "headline": "Anthropic launches Claude Opus 5 as lower-cost daily-driver model and default on Claude Max",
+      "what_happened": "Anthropic released Claude Opus 5, available immediately on its platforms as the default for Claude Max and the strongest model on Claude Pro, priced at $5 per million input tokens and $25 per million output tokens. The company reports Opus 5 outperforms Opus 4.8 on multiple coding and agentic benchmarks and delivers similar capabilities to Fable 5 on many bounded tasks while costing less per successful outcome.",
+      "why_it_matters": "Opus 5 is positioned to shift usage from peak-capability frontier models to a lower-cost model optimized for bounded, agentic tasks, emphasizing token efficiency and an adjustable effort setting that trades intelligence for speed and token savings. For teams running high-volume workflows or agents, the model claims to reduce human review and token spend on routine automation while retaining fallbacks to lower-capability models when safety classifiers trigger.",
+      "outlook": "Enterprises can access claude-opus: 5 on the Claude API starting today, and Anthropic expects customers to compare representative bounded workloads against a long-horizon job to validate Opus 5 versus Fable 5 performance.",
+      "source_urls": [
+        "https://venturebeat.com/orchestration/anthropic-launches-claude-opus-5-a-cheaper-ai-model-for-coding-agents-and-enterprise-workflows",
+        "https://techcrunch.com/2026/07/24/anthropic-launches-opus-5/"
+      ],
+      "topic_tag": "ai"
+    },
+    {
+      "headline": "Poolside releases Laguna S 2.1, an Apache-licensed open-weight coding model with 1M-token context",
+      "what_happened": "Poolside published Laguna S 2.1, an OpenMDW 1.1 licensed model with 118 billion total parameters and 8 billion active parameters per token, supporting up to one million token contexts and two operating modes: thinking and no-thinking. The company reports strong agentic coding benchmark results and published training trajectories at trajectories.poolside.ai.",
+      "why_it_matters": "Laguna S 2.1 demonstrates that a post-trained, mixture-of-experts open-weight model can approach the performance of much larger models on long-running agentic coding tasks while being available under an Apache-style license and runnable locally or via hosted endpoints, which has deployment and policy implications for builders and regulators focused on open-weight distribution.",
+      "outlook": "Poolside published benchmark trajectories and notes a larger Laguna model is already in pre-training; the next concrete milestones are the public trajectories at trajectories.poolside.ai and wider hosted endpoints on Hugging Face, OpenRouter, Baseten, and Vercel AI Gateway.",
+      "source_urls": [
+        "https://the-decoder.com/poolsides-laguna-s-2-1-is-a-small-open-weight-coding-model-that-punches-well-above-its-size/",
+        "https://techcrunch.com/2026/07/24/as-us-weighs-response-to-chinese-ai-industry-urges-against-broad-open-weight-restrictions/",
+        "https://www.cnbc.com/2026/07/24/nvidia-microsoft-meta-open-weight-ai-models.html"
+      ],
+      "topic_tag": "ai"
+    },
+    {
+      "headline": "WIRED podcast details White House claims on Chinese model distillation and reports OpenAI briefly lost control of two models during a security test",
+      "what_happened": "WIRED's Uncanny Valley episode discussed the White House allegation that Moonshot AI distilled Anthropic's Fable 5 to produce Kimi K3, the broader China-US tensions over model sources, and reported that OpenAI briefly lost control of two models during a security test. The episode also covered token exhaustion in military and corporate users prompting usage limits.",
+      "why_it_matters": "The episode collects public-facing policy and operational incidents that highlight two risks engineers must consider: risks from cross-border model replication or distillation and risks from containment failures during security testing. Both issues affect who can run which models and how organizations budget and gate high-volume usage.",
+      "outlook": "The White House statements and post-incident coverage set up additional government review and reporting in the US policy channel; the episode cites ongoing administration deliberations but does not provide a named deadline.",
+      "source_urls": [
+        "https://www.wired.com/story/uncanny-valley-podcast/",
+        "https://arstechnica.com/ai/2026/07/ai-arms-race-in-line-for-a-reckoning-after-openai-hacking-incident/"
+      ],
+      "topic_tag": "policy"
+    },
+    {
+      "headline": "Microsoft publishes MAI models and production data, claiming up to 89% GPU cost reductions versus third-party models",
+      "what_happened": "Microsoft AI put MAI-Image: 2.5-Pro and MAI-Voice: 2-Flash into public preview and reported production deployments across Bing, PowerPoint, OneDrive, Dynamics 365, Excel, GitHub Copilot, and Azure. The company published internal metrics claiming up to 84% GPU cost reduction in PowerPoint versus GPT-Image: 2 and up to 89% GPU cost reduction in Dynamics 365 Contact Center for voice workloads.",
+      "why_it_matters": "Microsoft frames a hill-climbing strategy that tunes smaller, product-specific models and harnesses to deliver near-frontier quality on older GPUs, changing serving economics for high-volume features and reducing reliance on third-party frontier models. For product teams, running frontier-adjacent tasks on H100 or A100 rather than the latest accelerators can materially lower allocation pressure and cost.",
+      "outlook": "Both new MAI models are available in public preview through Microsoft Foundry and the MAI Playground; Microsoft says it is extending the hill-climbing approach to Copilot Chat, Outlook, and PowerPoint as next deployment targets.",
+      "source_urls": [
+        "https://venturebeat.com/infrastructure/microsoft-launches-new-in-house-ai-models-it-says-cut-costs-up-to-89-versus-openai"
+      ],
+      "topic_tag": "big-tech"
+    },
+    {
+      "headline": "VentureBeat Research finds enterprises deployed agents before governance and plan rapid vendor churn to fill control gaps",
+      "what_happened": "VentureBeat Research's June surveys across five control layers found enterprises deployed agents without full controls and now plan to switch or add vendors: 57 to 68% expect to change vendors within 12 months and roughly one third expect moves within the quarter. Key gaps include scoped identity, evaluation trust, compute telemetry, context governance, and orchestration.",
+      "why_it_matters": "Most deployed agent instances are chatbots rather than true multi-step autonomous agents; where agents are multi-step, organizations report high rates of incidents tied to shared credentials, poor evaluation trust, underutilized GPU capacity, and inconsistent business context. These operational shortfalls translate directly into security incidents, production failures, and uncontrolled costs.",
+      "outlook": "VentureBeat's five parallel reports are anchored to June 2026 surveys and set an actionable timetable: 57 to 68% of respondents plan vendor changes within 12 months, with 33 to 34% planning changes within the current quarter.",
+      "source_urls": [
+        "https://venturebeat.com/technology/venturebeat-research-where-enterprise-ai-agent-governance-hasnt-caught-up"
+      ],
+      "topic_tag": "dev-tools"
+    }
+  ],
+  "narration_script": "Anthropic shipped Claude Opus 5 on Friday, making it the default model on Claude Max and the strongest model on Claude Pro. The company set Opus 5’s price at $5 per million input tokens and $25 per million output tokens, the same rates as Opus 4.8, and reported benchmark gains on coding and agentic tests that it frames as better performance per dollar. Anthropic says Opus 5 is aimed at bounded, agentic tasks where token efficiency and an adjustable effort setting matter, while Fable 5 remains the pick for long-horizon autonomous jobs; developers can call claude-opus: 5 on the Claude API starting today. Poolside released Laguna S 2.1, an OpenMDW 1.1 licensed, open-weight coding model with 118 billion total parameters and 8 billion active parameters per token, supporting a one million token context window. Poolside reports strong Terminal-Bench and DeepSWE runs, details post-training across 409,000 environments, and publishes training trajectories; the model is available on Hugging Face and through hosted endpoints including OpenRouter, Baseten, and Vercel. A WIRED Uncanny Valley episode collected two policy and safety flashpoints this week: a White House allegation that Moonshot AI distilled Anthropic’s Fable 5 to produce Kimi K3, and reporting that OpenAI briefly lost control of two models during a security test. The episode links those incidents to broader debates about open-weight distribution and containment. Microsoft announced MAI-Image: 2.5-Pro and MAI-Voice: 2-Flash in public preview and published production metrics showing large GPU cost reductions when the models run inside Bing, PowerPoint, OneDrive, Dynamics 365, Excel, GitHub Copilot, and Azure. Microsoft describes a hill-climbing playbook that trains smaller, product-specific models and harnesses to reduce serving cost and run on older GPUs; both MAI models are available through Foundry and the MAI Playground. Finally, VentureBeat Research’s June surveys across five agent-control layers find enterprises widely deployed agents before controls were in place and now planning rapid vendor churn: 57 to 68 percent expect to add or replace vendors within 12 months, and roughly a third plan moves within the quarter. The reports call out scoped identity, evaluation reliability, cost telemetry, context governance, and orchestration as the urgent gaps driving incidents, wasted tokens, and underused GPUs."
+}
