@@ -1,0 +1,28 @@
+{
+  "title": "The Morning Build for July 29, 2026: Cyera Buys Oasis for $1B, Recursive Signs $410M AWS Compute Deal",
+  "intro": "Two scaling plays for AI infrastructure landed today: Cyera agreed to acquire Oasis Security for about $1 billion to fold non-human identity controls into its data-security stack, and Recursive Superintelligence signed a $410 million multiyear compute pact with AWS to fund its self-improving systems and ship early products this year. Both moves show capital flowing to platform-level controls and large, dedicated compute commitments rather than headcount-led growth.",
+  "meta_description": "Cyera will buy Oasis for about $1B to add agent identity controls; Recursive Superintelligence committed $410M to AWS compute and plans product releases by October 2026.",
+  "stories": [
+    {
+      "headline": "Cyera signs letter of intent to acquire Oasis Security for about $1 billion to add AI-agent identity controls",
+      "what_happened": "Cyera, which recently raised $600 million at a $12 billion valuation and has over $150 million ARR, signed a letter of intent to acquire Oasis Security for approximately $1 billion, to be paid mostly in cash with some Cyera shares. Oasis specializes in non-human identities and monitoring AI-agent behavior and has raised about $195 million since its 2022 founding.",
+      "why_it_matters": "Integrating Oasis adds agent-focused identity and permissioning into Cyera’s unified identity and data security platform, aligning security controls with the increasing number of AI agents that request access to enterprise software and data. The deal continues Cyera’s acquisitive strategy after recent purchases including Ryft and Genie Security, concentrating defensive tooling under one vendor.",
+      "outlook": "Cyera’s post-acquisition integration and platform roadmap will be the next public milestone, following the signed letter of intent announced July 28, 2026, and any definitive agreement and integration timeline the companies publish.",
+      "source_urls": [
+        "https://techcrunch.com/2026/07/28/cyera-agrees-to-acquire-oasis-security-for-1b-to-safeguard-proliferating-ai-agents/"
+      ],
+      "topic_tag": "startups"
+    },
+    {
+      "headline": "Recursive Superintelligence inks $410 million multiyear AWS compute deal to scale self-improving systems",
+      "what_happened": "Recursive Superintelligence announced a $410 million compute agreement with Amazon Web Services, a multiyear deal intended to supply compute capacity as the company pursues open-ended self-improving systems. The company emerged from stealth in May with $650 million in funding and said this compute outlay is the bulk of its fundraising so far.",
+      "why_it_matters": "The deal shifts budget priorities toward large, dedicated compute and co-developed infrastructure rather than headcount, signaling a capital-intensive approach to automate product development via agent and self-improvement workflows. AWS said it will co-develop infrastructure tailored to these needs, giving Recursive access to reserved, possibly specialized resources without AWS taking an equity stake.",
+      "outlook": "Recursive expects to release early user-facing products by October 2026, the specific near-term milestone the company announced for tangible product availability.",
+      "source_urls": [
+        "https://techcrunch.com/2026/07/28/recursive-superintelligence-signs-400-compute-deal-with-amazon/"
+      ],
+      "topic_tag": "ai"
+    }
+  ],
+  "narration_script": "Cyera agreed to acquire Oasis Security for about one billion dollars, signing a letter of intent announced July 28, 2026. Cyera, which raised six hundred million dollars at a twelve billion dollar valuation and reports more than one hundred fifty million dollars in ARR, will pay mostly cash with some shares. Oasis, founded in 2022, focuses on non-human identities and monitoring AI-agent behavior and has raised about one hundred ninety-five million dollars. Cyera plans to fold Oasis’s technology into a unified identity and data security platform, continuing its acquisition path after purchases including Ryft and Genie Security. The next milestone will be any definitive agreement and published integration timeline following the letter of intent. Separately, Recursive Superintelligence signed a four hundred ten million dollar, multiyear compute deal with Amazon Web Services. Recursive emerged from stealth in May with six hundred fifty million dollars in funding and said this compute commitment is the bulk of its fundraising to date. The company described its approach as prioritizing agent and compute count over headcount, and AWS said it will co-develop infrastructure purpose-built for these kinds of companies without taking an equity stake. Recursive said it expects to ship early, tangible user-facing products by October 2026. Both stories emphasize platform-level scaling: Cyera by consolidating agent identity and data controls, and Recursive by locking large-scale, co-developed compute capacity for self-improvement workflows. The immediate public signals to watch are the Cyera-Oasis integration timeline and Recursive’s October product releases."
+}
