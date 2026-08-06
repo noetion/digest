@@ -1,0 +1,54 @@
+{
+  "title": "The Morning Build for August 6, 2026: Meta Ships Muse Code, DeepMind Leadership Shift, Assistant Retirement, Anthropic Chip Deals",
+  "intro": "Today's stories are platform consolidation and hardware commitments: Meta launched Muse Code and Muse Spark 1.2 as a proprietary, harness-integrated coding agent; Google reshuffled DeepMind leadership while Jeff Dean departs; Google will retire Google Assistant on phones as Gemini takes over; and a complex financing structure moves billions of Google TPUs to Anthropic via third-party vehicles. Each story changes who owns models, chips, or the runtime that developers rely on.",
+  "meta_description": "Meta debuts Muse Code and Muse Spark 1.2; DeepMind leadership shifts; Google retires Assistant on Sept 4; Anthropic financing moves $35B in TPUs off Google's books.",
+  "stories": [
+    {
+      "headline": "Meta launches Muse Code beta with persistent async background agents and Muse Spark 1.2",
+      "what_happened": "Meta released Muse Code, a terminal-based, installable coding agent in beta, paired with Muse Spark 1.2, a coding-focused model checkpoint co-trained with the Muse Code harness; Muse Code uses persistent async background agents, parallel isolated git worktrees, and an append-only local event log for replay-exact runs. Meta published benchmark charts showing Muse Spark 1.2 scoring 82.9% on Terminal-Bench 2.1 (second to Anthropic Opus 5) and described a 24-hour long-horizon GPU kernel optimization demo with over 1,000 tool calls.",
+      "why_it_matters": "Engineers get a shipping, terminal-installable agent that keeps session-scoped background agents alive to avoid repeated repo re-exploration, uses isolated worktrees to prevent collisions, and records every model and tool call locally for audit and restart safety, features targeted at long-running, multi-step engineering tasks. Pricing and data terms split access: a standard tier ($1.25 input / $4.25 output per 1M tokens) that Meta says will not be used for training, and a contributor tier ($0.10 / $0.20 per 1M) that requires explicit permission to use prompts and completions for training and enforces much lower rate limits.",
+      "outlook": "Mark Zuckerberg's reply that he will share 'more to share on that soon' about whether Muse Spark or related products will be open-sourced is the explicit next forward signal from Meta; Muse Code is available in beta today and Muse Spark 1.2 is live in the Meta Model API.",
+      "source_urls": [
+        "https://venturebeat.com/orchestration/meta-enters-the-ai-coding-wars-with-muse-spark-1-2-and-muse-code-with-persistent-async-background-agents",
+        "https://research.meta.ai/blog/introducing-muse-code-and-muse-spark-1-2",
+        "https://techcrunch.com/2026/08/05/meta-launches-muse-code-an-ai-agent-for-large-code-bases/"
+      ],
+      "topic_tag": "ai"
+    },
+    {
+      "headline": "Demis Hassabis moves to Chair and Chief Scientist of Alphabet, Koray Kavukcuoglu becomes SVP of Google DeepMind, Jeff Dean departs",
+      "what_happened": "Google announced internal changes: Demis Hassabis will leave day-to-day operational responsibilities to become Chair of Google DeepMind and Chief Scientist of Alphabet; Koray Kavukcuoglu will step up as SVP of Google DeepMind reporting to Sundar Pichai; Jeff Dean is leaving Google after 27 years to launch an independent public benefit corporation with Sanjay Ghemawat.",
+      "why_it_matters": "Leadership changes place Koray, already GDM Chief Technology Officer and Chief AI Architect, in operational control of Gemini model development and Frontier AI research, while Hassabis moves to a strategic advisory role focused on AGI and science; Jeff Dean's departure and new public benefit corporation signal a transfer of long-running technical leadership and potential new external collaboration models between Google and Dean's new organization.",
+      "outlook": "Google cites upcoming model releases including Gemini 4 as part of the DeepMind roadmap, making those scheduled releases and any roadmap updates the next concrete public milestones tied to the new leadership structure.",
+      "source_urls": [
+        "https://blog.google/company-news/inside-google/message-ceo/next-chapter-ai-momentum/",
+        "https://www.wired.com/story/jeff-dean-google-discovery-loop-startup/",
+        "https://the-decoder.com/google-deepmind-loses-both-its-ceo-and-chief-scientist-as-demis-hassabis-and-jeff-dean-step-down-simultaneously/"
+      ],
+      "topic_tag": "big-tech"
+    },
+    {
+      "headline": "Google to retire Google Assistant on phones starting September 4, 2026 as Gemini replaces it",
+      "what_happened": "Google will begin shutting down Google Assistant on Android devices starting September 4, 2026, migrating users to Gemini; the shutdown may take several weeks to complete and also affects devices that depend on phone-based Assistant integration such as smartwatches, headphones, and Android Auto.",
+      "why_it_matters": "Developers and device integrators using Assistant-linked features will need to rely on Gemini APIs and runtime behavior instead of the older Assistant surface, because phone-hosted Assistant support will be removed beginning on the announced date; Google has already migrated most smart home devices to Gemini according to the source.",
+      "outlook": "September 4, 2026 is the stated start of the shutdown window; the multi-week completion timeframe in Google's user notice is the operational milestone to track for when device-level Assistant functionality will be fully replaced by Gemini.",
+      "source_urls": [
+        "https://arstechnica.com/ai/2026/08/google-plans-to-kill-assistant-on-your-phone-on-september-4/",
+        "https://the-decoder.com/google-will-shut-down-google-assistant-starting-september-2026-as-gemini-takes-over-on-android-and-wear-os/"
+      ],
+      "topic_tag": "big-tech"
+    },
+    {
+      "headline": "Financing structure moves roughly $35 billion of Google TPUs to Anthropic via a Compute SPV; Broadcom backstops leases",
+      "what_happened": "According to FT reporting, Google and partners set up a special-purpose vehicle that bought about one gigawatt of TPU hardware for $35 billion in June and leases it to Anthropic; Broadcom provides a backstop covering about $30 billion if Anthropic stops lease payments, and outside investors including Apollo and Blackstone funded the SPV. Google has also guaranteed or backed multiple crypto-miner data center projects to secure power and capacity, and Broadcom filings list $128 billion in purchase commitments through 2028 tied to these arrangements.",
+      "why_it_matters": "Anthropic gains access to Google TPUs and large-scale capacity without direct upfront purchases, while the multi-party financing keeps the hardware and related obligations largely off Google and Broadcom balance sheets; the structure concentrates significant cloud and chip consumption expectations into lease payments and partner guarantees that underwrite Anthropic's growth forecasts.",
+      "outlook": "Broadcom's financial filings listing $128 billion in purchase commitments through 2028 is the explicit forward-facing milestone from the reporting and the near-term public datum to watch for how the financing commitments evolve.",
+      "source_urls": [
+        "https://the-decoder.com/google-moves-billions-in-anthropic-chip-risk-off-its-balance-sheet/",
+        "https://techcrunch.com/2026/08/05/anthropic-is-hiring-an-ai-chip-design-team/"
+      ],
+      "topic_tag": "chips"
+    }
+  ],
+  "narration_script": "Meta released Muse Code in beta today, a terminal-installable coding agent built to run long, multi-step engineering tasks. Muse Code keeps persistent async background agents alive for the session, fans out parallel sub-agents into isolated git worktrees to avoid collisions, and appends every model call, tool run, approval and edit to a local event log so runs are replay-exact and restart-safe. Muse Spark 1.2 is the co-trained model checkpoint behind it, and Meta published benchmark charts showing a solid second-place position on Terminal-Bench 2.1 while admitting Anthropic's Opus leads. Meta is offering a standard API tier that it says will not be used for training, and a deeply discounted contributor tier that requires permission to use your prompts and completions for training; Muse Code requires a payment method even on the contributor tier. Mark Zuckerberg said he will have 'more to share on that soon' about open-sourcing future models. Google announced a leadership transition at DeepMind: Demis Hassabis will hand operational control to Koray Kavukcuoglu and become Chair of Google DeepMind and Chief Scientist of Alphabet, while Koray becomes SVP of Google DeepMind and will oversee Gemini model development and frontier research. Jeff Dean is leaving Google after 27 years to launch an independent public benefit corporation with Sanjay Ghemawat. Google also confirmed a product migration: it will begin shutting down Google Assistant on Android devices starting September 4, 2026, moving phone users and any devices that rely on phone-based Assistant integration over to Gemini; the company says the shutdown may take several weeks to roll out. Finally, reporting shows a multi-party financing structure that moved roughly one gigawatt of Google TPU hardware into service for Anthropic via a Compute SPV that bought about $35 billion of hardware in June, with Broadcom providing a roughly $30 billion backstop and outside investors funding the purchase; Broadcom's filings list $128 billion in purchase commitments through 2028. Those filings and the stated 2028 commitments are the next public datapoints tied to the deal."
+}
