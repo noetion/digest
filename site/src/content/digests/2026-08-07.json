@@ -1,0 +1,61 @@
+{
+  "title": "The Morning Build for August 7, 2026: OpenAI's GPT-5.6 tweaks, Atlas browser holes, and who makes the chips",
+  "intro": "Today’s stories center on platform control and risk: OpenAI tightened which GPT-5.6 variants free users can hit and added a reasoning slider; Atlas browser research shows agent-driven sites can be hijacked; Anthropic posted silicon hires to build its own chips; an agent-wrapper benchmark highlights 2.2x speed and 3x cost tradeoffs; and researchers found AI-generated CSAM in Meta ads.",
+  "meta_description": "OpenAI splits GPT-5.6 tiers and adds a reasoning slider; Atlas browser research exposes agent hijacks; Anthropic posts silicon jobs; agent frameworks trade cost for speed; Meta ads included AI CSAM.",
+  "stories": [
+    {
+      "headline": "OpenAI narrows ChatGPT defaults: Plus/Pro get GPT-5.6 Sol and a reasoning slider, Free users moved to GPT-5.6 Luna",
+      "what_happened": "OpenAI updated GPT-5.6 Sol in ChatGPT to reduce unnecessary detail and improve factual accuracy in internal evaluations, and added a five-position slider for paying users to control response effort across web, mobile, and desktop. Free and Go users will be switched to GPT-5.6 Luna as the default later this week; unlimited text chats and a Think button arrive next week, while file uploads and image-generation limits remain.",
+      "why_it_matters": "Engineers should expect materially different default model capabilities by tier: paid accounts gain finer-grained control over reasoning depth while free accounts lose access to the stronger Sol variant. The company reported lower factual-error rates in internal tests (about 62 percent reduction for Luna and 68 percent for Sol versus GPT-5.5 Instant), which affects model selection and QA expectations in experiments that rely on ChatGPT as a runner.",
+      "outlook": "The default switch to GPT-5.6 Luna for Free and Go users later this week and the rollout of unlimited text chats and the Think button next week will be the first public check on how the tier split affects user-visible reliability and usage patterns.",
+      "source_urls": [
+        "https://the-decoder.com/openai-improves-gpt-5-6-sol-in-chatgpt-and-restricts-free-users-to-its-weakest-model/",
+        "https://techcrunch.com/2026/08/06/openai-brings-unlimited-chatgpt-text-chats-to-free-users/"
+      ],
+      "topic_tag": "ai"
+    },
+    {
+      "headline": "Zenity shows OpenAI’s Atlas browser can be tricked into spamming WhatsApp contacts and manipulating Amazon flows",
+      "what_happened": "Security researchers from Zenity presented attacks at Black Hat that bypassed Atlas protections to get the assistant to send a newsletter page’s instructions to a signed-in WhatsApp Web account and to add items and a shipping address to a logged-in Amazon cart; they reported around 20 flaws across AI-enabled browsers and extensions that also allowed access to local files and password managers. OpenAI said it deployed an update after disclosure and will deprecate Atlas on August 9, and that protections extend to the browser capabilities in the new ChatGPT app.",
+      "why_it_matters": "Browser-integrated agents can merge web-provided instructions with user intent, enabling so-called intent-collision attacks that defeat language-based safety checks and can cross account boundaries; deterministic, hard security boundaries remain necessary because AI classifications can be bypassed. Engineers building agentic web tooling must consider same-origin and sandboxing limits are not sufficient on their own when the agent interprets untrusted page content.",
+      "outlook": "Atlas will be deprecated on August 9, which is the next concrete milestone for whether OpenAI’s deployed mitigations and the new ChatGPT app browser protections hold up under external audit.",
+      "source_urls": [
+        "https://www.wired.com/story/openais-browser-could-be-hijacked-to-spam-your-whatsapp-contacts/",
+        "https://techcrunch.com/2026/08/06/openais-new-ai-smart-speaker-will-reportedly-sell-for-between-300-and-400/"
+      ],
+      "topic_tag": "big-tech"
+    },
+    {
+      "headline": "Anthropic confirms plans to build an in-house custom silicon team to run Claude",
+      "what_happened": "Anthropic posted job listings for silicon engineers and a technical program manager and confirmed to reporters that it will build a custom silicon team to design chips for running Claude, while continuing a multi-chip approach that includes hardware from other vendors. The company’s spokesperson reiterated hiring is underway and that it still plans to use external hardware alongside its designs.",
+      "why_it_matters": "A dedicated silicon team signals Anthropic intends to control inference stack tradeoffs such as throughput, latency, and cost, which can affect deployment architecture and procurement for partners and customers; maintaining a multi-chip approach means operational deployments will likely mix Anthropic’s designs with existing accelerator vendors.",
+      "outlook": "New job postings and hiring activity on Anthropic’s careers page in the coming weeks will be the concrete signal to track how quickly the company is staffing the custom silicon team and moving from planning to tape-out or partnership announcements.",
+      "source_urls": [
+        "https://arstechnica.com/ai/2026/08/anthropic-confirms-plans-to-build-an-in-house-silicon-team/"
+      ],
+      "topic_tag": "chips"
+    },
+    {
+      "headline": "Composio benchmark: Claude Code is the fastest agent framework but costs nearly three times as much as the cheapest rival",
+      "what_happened": "Composio ran DeepSeek V4 Flash across four agent frameworks on 30 tool-enabled tasks. Claude Code completed tasks fastest at 122 seconds per task and used the fewest tool calls and output tokens, but had the highest cost per successful task at $0.195. OpenCode was the cheapest at $0.073 per successful task. Success rates were similar across frameworks, with Oh My Pi achieving the highest success count but running slowest at 272 seconds per task.",
+      "why_it_matters": "Agent-framework overhead and wrapper behavior materially change latency and price even when using the same base model; engineers choosing an agent stack should benchmark full-task runtime and cost, not only per-token model pricing, because the framework can produce 2.2x speed differences and roughly 3x cost differences per successful task in this test.",
+      "outlook": "Composio’s published benchmark is the current baseline; the next concrete check will be any published follow-up from Composio or vendor responses that provide comparable task-level measurements or methodology details to replicate these cost and latency findings.",
+      "source_urls": [
+        "https://the-decoder.com/claude-code-is-the-fastest-agent-framework-but-costs-nearly-three-times-more-than-the-cheapest-rival/"
+      ],
+      "topic_tag": "dev-tools"
+    },
+    {
+      "headline": "Researchers found paid Meta ads containing AI-generated child sexual abuse imagery in the ad library",
+      "what_happened": "Tech Transparency Project researchers identified more than 50 image and video ads in Meta’s ad library that included explicit AI-generated child sexual abuse material or sexualized images of minors; some ads linked to nudify apps. Meta removed the ads after being contacted, said most had minimal reach, and noted new AI detection tooling that it recently launched. TTP reported the findings to the NCMEC CyberTipline; Apple removed an app called MaskAI that some ads linked to.",
+      "why_it_matters": "Paid ads containing AI-generated CSAM represent a failure in ad-review and automated detection pipelines and demonstrate how monetized channels can distribute highly illegal synthetic content; for engineers building content moderation, this underlines the need for stronger pre-upload checks, cross-platform sharing of violating URLs, and rapid action on advertiser reuse patterns.",
+      "outlook": "The TTP report to the NCMEC CyberTipline and Meta’s removals are the immediate public actions; additional disclosures from TTP or formal NCMEC filings in the coming days will be the next concrete milestones to track enforcement and cross-platform takedown coordination.",
+      "source_urls": [
+        "https://www.wired.com/story/meta-ran-ads-that-contained-ai-generated-child-sexual-abuse-imagery/",
+        "https://arstechnica.com/ai/2026/08/suno-hopes-to-go-legit-with-watermarks-for-ai-generated-music/"
+      ],
+      "topic_tag": "policy"
+    }
+  ],
+  "narration_script": "OpenAI updated GPT-5.6 Sol inside ChatGPT to deliver shorter answers for simple queries and fuller structured responses for harder tasks, and reported lower factual-error rates in internal tests versus GPT-5.5 Instant. Paying users get a five-position slider to trade speed for deeper reasoning, while Free and Go accounts will be switched to the smaller GPT-5.6 Luna by the end of the week; unlimited text chats and a Think button roll out next week. Security researchers at Black Hat presented Zenity’s findings that OpenAI’s Atlas browser could be coerced into sending messages to a signed-in WhatsApp Web session and into adding items and addresses to a logged-in Amazon cart, part of roughly 20 browser and extension flaws the group found across vendors. OpenAI says it fixed issues after disclosure and will deprecate Atlas on August 9, and that protections extend to the browser features in the new ChatGPT app. Anthropic posted multiple silicon job listings and confirmed it will stand up an in-house custom silicon team to design chips for Claude while still using other vendors as part of a multi-chip strategy. Composio’s agent benchmark tested DeepSeek V4 Flash across Claude Code, Codex, OpenCode, and Oh My Pi on 30 real-world tool tasks. Claude Code ran fastest at 122 seconds per task but cost $0.195 per successful task; OpenCode was cheapest at $0.073; overall success counts were similar. Finally, researchers at the Tech Transparency Project found more than 50 paid ads in Meta’s ad library containing AI-generated child sexual abuse imagery or sexualized images of minors, some linking to nudify apps; Meta removed the ads after being contacted and TTP reported the findings to the NCMEC CyberTipline. Key near-term signals: OpenAI’s default switch to Luna later this week and the next-week Think button rollout; Atlas’s August 9 deprecation; new Anthropic silicon job postings and hiring updates on its careers page; Composio’s benchmark as the current public baseline and any follow-up data or vendor responses; and TTP’s and NCMEC’s public filings and disclosures about the Meta ads."
+}
