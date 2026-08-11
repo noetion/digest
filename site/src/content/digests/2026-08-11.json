@@ -1,0 +1,62 @@
+{
+  "title": "The Morning Build for August 11, 2026: OpenAI Daybreak Cyber, Meta's Glimmer Goes Apache 2.0, and AWS Bets the Harness",
+  "intro": "Today’s stories converge on where powerful models meet operational control: OpenAI gated a high-capability cyber model behind a vetted Daybreak tier; Meta published an Apache 2.0 30B agent-optimized model that targets local machines; and AWS doubled down on owning the security harness by embedding Continuum into rivals' coding tools and expanding Security Hub Extended. Also: OpenAI completed a $7 billion employee tender and Meta pitched a broader open-weight reboot.",
+  "meta_description": "OpenAI ships GPT-5.6-Cyber inside Daybreak Red; Meta releases Muse Glimmer under Apache 2.0 for local agents; AWS embeds Continuum into Codex and Claude Code.",
+  "stories": [
+    {
+      "headline": "OpenAI launches GPT-5.6-Cyber inside Daybreak Red with reduced refusals and a 95% advanced-cyber benchmark completion",
+      "what_happened": "OpenAI released GPT-5.6-Cyber, a fine-tuned variant of GPT-5.6 Sol trained for advanced cybersecurity tasks and reduced refusals on dual-use requests; OpenAI reports a 95% completion rate on its internal Advanced Cybersecurity Completion Rate benchmark versus 57.3% for GPT-5.5-Cyber and 1.5% for GPT-5.6 Sol. Access requires acceptance into Daybreak Red; Daybreak Blue offers broader, but less permissive, cyber-adjusted access to general models. OpenAI reported that GPT-5.6-Cyber helped find CVE-2026-15903 in V8 and other coordinated disclosures.",
+      "why_it_matters": "Engineers and security teams now have a purpose-built, higher-permissiveness model for exploit development and complex vuln validation, but it is available only through a vetted Daybreak Red path with identity, logging and compliance requirements; Daybreak Blue supplies a less-permissive alternative for common security tasks. OpenAI’s own results show specialization tradeoffs: the Cyber variant improves exploit creation but can produce shorter vulnerability reports than the base Sol model.",
+      "outlook": "September 1, 2026, when Daybreak will require hardware security keys for individual accounts and thus materially change who can access Daybreak models and how they authenticate.",
+      "source_urls": [
+        "https://venturebeat.com/technology/openai-launches-gpt-5-6-cyber-with-reduced-refusals-95-completion-on-advanced-cybersecurity-tasks",
+        "https://the-decoder.com/openai-launches-gpt-5-6-cyber-to-help-defenders-find-vulnerabilities-before-attackers-do/",
+        "https://techcrunch.com/2026/08/10/as-ai-led-attacks-multiply-openai-launches-a-new-cyber-model/"
+      ],
+      "topic_tag": "ai"
+    },
+    {
+      "headline": "Meta releases Muse Glimmer, a 29.6B dense, agent-optimized model under Apache 2.0 for local 24–32GB deployments",
+      "what_happened": "Meta published Muse Glimmer's weights under Apache 2.0 and released quantized 4-bit variants, a DFlash drafter, and a ViT-G/14 perception encoder; Glimmer is a 29.6 billion-parameter dense causal transformer with a stated context length of 131,072+ tokens and multimodal input, and Meta says quantized builds fit within 24–32GB VRAM envelopes.",
+      "why_it_matters": "Developers can run an agent-optimized, multimodal model locally with permissive commercial rights, reducing token costs and keeping sensitive data on-device; Meta reports K-Quant: 17GB and K-Quant-Dynamic quantizations with 1% and 0.2% average benchmark degradations respectively and DFlash speculative decoding that increases token throughput up to 3.1x on an RTX 5090 in Meta's tests.",
+      "outlook": "Availability and performance of Muse Spark 1.2 weights, which Meta said it will release in the next few weeks, will test whether the company follows through on opening its larger Muse stack.",
+      "source_urls": [
+        "https://venturebeat.com/technology/meta-returns-to-open-source-with-muse-glimmer-an-apache-2-0-licensed-30b-parameter-ai-model-optimized-for-agents-available-now",
+        "https://the-decoder.com/meta-returns-to-open-models-with-zuckerbergs-plan-to-out-copy-china-and-sell-compute-by-auction/",
+        "https://techcrunch.com/2026/08/10/metas-new-glimmer-ai-model-offers-a-hint-at-zuckerbergs-personal-intelligence-vision/"
+      ],
+      "topic_tag": "ai"
+    },
+    {
+      "headline": "AWS embeds Continuum into OpenAI Codex and Anthropic Claude Code and expands Security Hub Extended with supply-chain partners",
+      "what_happened": "At Black Hat USA 2026 AWS announced Continuum integrations with OpenAI Codex and Anthropic Claude Code so its Continuum agent-team loop can operate inside those coding environments; AWS also added supply chain protection as the 10th category in Security Hub Extended, partnering with Chainguard and Socket and bringing the curated set to 23 partner solutions across 10 categories.",
+      "why_it_matters": "AWS is positioning its orchestration and security harness as the enterprise control plane regardless of which frontier model performs the scan; Continuum runs multi-model discovery, prioritized contextualization, sandboxed exploit validation, and tested remediation while AWS bills customers a single Continuum price and absorbs underlying token costs.",
+      "outlook": "AWS’s next quarterly earnings report will be the first public financial data point after these Black Hat expansions and will show whether the security push correlates with accelerated enterprise adoption following Q2 2026 revenue disclosures.",
+      "source_urls": [
+        "https://venturebeat.com/security/aws-continuum-integrates-with-openai-codex-and-anthropic-claude-code-in-major-ai-security-push"
+      ],
+      "topic_tag": "big-tech"
+    },
+    {
+      "headline": "OpenAI completed a $7 billion employee tender offer, valuing the company at $852 billion and maintaining its March valuation",
+      "what_happened": "Reports say OpenAI repurchased $7 billion in employee shares at a valuation of $852 billion, matching its March fundraising valuation; the company also filed confidentially with the SEC in June in preparation for a possible IPO later this year, per reporting.",
+      "why_it_matters": "The tender provides employee liquidity while preserving the private valuation; the confidential SEC filing signals IPO readiness but the tender suggests the company may continue to allow internal liquidity instead of immediate public listing as it refines its enterprise strategy.",
+      "outlook": "A potential IPO filing or public offering later in 2026, following the company's confidential June SEC filing and the tender disclosure.",
+      "source_urls": [
+        "https://techcrunch.com/2026/08/10/openai-reportedly-completed-a-7-billion-employee-tender-offer/"
+      ],
+      "topic_tag": "big-tech"
+    },
+    {
+      "headline": "Meta signals an open-weight strategy reboot with Muse Glimmer and a CEO essay committing to open models",
+      "what_happened": "Meta announced a move back toward open-weight models, released Muse Glimmer under Apache 2.0, and Mark Zuckerberg published a long essay describing the company’s AI philosophy; Ars Technica reported Meta intends to open Muse Spark 1.2 weights in the next few weeks.",
+      "why_it_matters": "Meta’s combination of permissive licensing, local-run hardware targets, and a public governance argument represents a deliberate product-and-policy repositioning that could change procurement and deployment choices for teams choosing between closed frontier APIs and on-premise open weights.",
+      "outlook": "Release of Muse Spark 1.2 weights in the next few weeks, which Meta has pledged and which would place a higher-capability Muse model into open circulation if completed.",
+      "source_urls": [
+        "https://arstechnica.com/ai/2026/08/with-new-open-models-meta-pitches-another-reboot-of-its-struggling-ai-strategy/"
+      ],
+      "topic_tag": "big-tech"
+    }
+  ],
+  "narration_script": "OpenAI today launched GPT-5.6-Cyber, a cyber-specialized variant of GPT-5.6 Sol trained to reduce refusals on certain dual-use vulnerability tasks. OpenAI reports a 95 percent completion rate on its internal Advanced Cybersecurity Completion Rate benchmark versus 57.3 percent for GPT-5.5-Cyber and 1.5 percent for unmodified GPT-5.6 Sol. Access to GPT-5.6-Cyber requires Daybreak Red vetting; Daybreak Blue offers a broader but less permissive path. OpenAI also said the model helped discover V8’s CVE-2026-15903 and other coordinated disclosures. The company will require hardware security keys for Daybreak accounts on September 1, 2026. Meta published Muse Glimmer, a 29.6 billion-parameter dense model under Apache 2.0 built for agents and multimodal inputs. Meta shipped full-precision BF16 weights, two 4-bit quantizations, a ViT perception encoder and a DFlash drafter; it says quantized variants target 24 to 32 gigabyte consumer GPUs and report small benchmark degradations in its tests. Meta also claims a 3.1x speculative-decoding throughput gain on an RTX 5090 in its experiments. Meta promised it will release Muse Spark 1.2 weights in the coming weeks. AWS used Black Hat USA to embed its Continuum agent-harness into OpenAI Codex and Anthropic Claude Code and to extend Security Hub Extended by adding a supply-chain category with Chainguard and Socket. Continuum runs discovery, prioritized triage, sandboxed exploit validation, and tested remediation while AWS bills one Continuum price and absorbs token costs. AWS also added GuardDuty and inventory capabilities to detect unregistered or costly agent usage. OpenAI reportedly completed a $7 billion tender to buy employee shares at an $852 billion valuation, matching its March fundraising round; the company filed confidentially with the SEC in June, leaving open the possibility of an IPO later this year. Finally, Meta published a CEO essay laying out a renewed open-weight strategy and repositioned itself toward local, permissively licensed models. The next concrete milestones are clear: Daybreak will require hardware security keys on September 1, 2026; Meta says it will publish Muse Spark 1.2 weights in the next few weeks; and the market will watch AWS’s next quarterly results to see whether its security harness strategy accelerates adoption."
+}
