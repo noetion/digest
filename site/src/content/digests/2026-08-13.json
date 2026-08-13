@@ -1,0 +1,63 @@
+{
+  "title": "The Morning Build for August 13, 2026: Google Pixel 11 Camera Tricks, xAI's Grok 4.6, and the Agent Containment Gap",
+  "intro": "Today’s stories connect through two practical threads: product pushes that embed advanced AI into customer-facing devices and services (Google’s Pixel 11 camera features, SpaceXAI’s Grok 4.6, DeepSeek hosting), and the enterprise challenges of running agentic AI at scale (VentureBeat agentic security research and Google Research’s AMIE clinical video study). Each item shows capabilities shipping or being evaluated, and the operational signals enterprises and engineers must track next.",
+  "meta_description": "Pixel 11 camera features from Google, SpaceXAI’s Grok 4.6 release and pricing, enterprise agent containment gaps, Google Research’s AMIE video study, and an OpenRouter DeepSeek snapshot.",
+  "stories": [
+    {
+      "headline": "Google debuts Pixel 11 camera features including Magic Capture, Instant Night Sight on Tensor G6, and Camera Looks",
+      "what_happened": "At Made by Google ’26 Google announced the Pixel 11 series with new camera capabilities: Magic Capture (two-minute video capture that extracts best frames using Gemini models), Instant Night Sight enabled by the Tensor G6 processor claimed to be 4.5x faster than prior Night Sight, Camera Looks (sensor-level pre-shot styles), and Creator Suite video tools. The Pixel 11 Pro phones support up to 120X Pro Res Zoom and upgraded 48-megapixel sensors with stated light-sensitivity gains (primary: +56%, telephoto: +30%).",
+      "why_it_matters": "Engineers building mobile imaging pipelines and on-device ML should note tighter hardware–model integration: Tensor G6-specific image-processing models enable lower-latency low-light capture, and Gemini powers automated frame selection and on-device editing via Magic Capture. The Pixel camera now pushes compute and model inference into common consumer workflows like teleprompter-driven selfie video and cloud-assisted Pro Stable Video.",
+      "outlook": "Device availability and software rollouts following Made by Google ’26 will be the next concrete milestone for adoption and compatibility work for imaging pipelines and Gemini-dependent features.",
+      "source_urls": [
+        "https://www.wired.com/story/new-camera-tricks-on-google-latest-pixel-11-smartphones/",
+        "https://techcrunch.com/2026/08/12/google-unveils-pixel-11-lineup-new-airtag-rival-and-gemini-features-at-made-by-google-2026/",
+        "https://the-decoder.com/googles-gemini-is-losing-market-share-to-chatgpt-and-claude-according-to-new-market-data/"
+      ],
+      "topic_tag": "big-tech"
+    },
+    {
+      "headline": "SpaceXAI releases Grok 4.6 with longer-context behavior claims, frontier benchmark gains, and tiered token pricing",
+      "what_happened": "SpaceXAI announced Grok 4.6, reporting third-party Artificial Analysis scores that place it alongside GPT-5.6 Sol Max on some metrics and ahead of Grok 4.5; the model targets long-running agents, coding, and knowledge work, and supports up to a 500,000-token context window. SpaceXAI lists API pricing starting at $2 per million input tokens and $6 per million output tokens for prompts below 200,000 tokens, with higher rates applying once requests exceed 200,000 tokens. SpaceXAI also made Grok 4.6 available today in Grok Build, Cursor, and through partners including OpenRouter, Vercel and Cloudflare.",
+      "why_it_matters": "For engineers evaluating agentic workflows, Grok 4.6’s reported improvements on multi-step agent benchmarks and its 500k-token context window matter for tool-harness design, token-cost estimates, and latency planning; the tiered billing that raises per-token rates above 200k tokens directly affects cost modeling for long-context agents and highlights that headline rates do not apply uniformly across long requests.",
+      "outlook": "SpaceXAI’s first-week doubled included usage in Cursor and Grok Build is the immediate signal to measure real-world token consumption, cost-per-workflow, and whether the efficiency observed in benchmark runs carries into production.",
+      "source_urls": [
+        "https://venturebeat.com/technology/spacexai-debuts-grok-4-6-overtaking-kimi-k3s-performance-and-matching-gpt-5-6-sol-for-worlds-third-best-on-artificial-analysis",
+        "https://the-decoder.com/spacexais-grok-4-6-matches-openais-best-model-and-undercuts-it-on-price/"
+      ],
+      "topic_tag": "ai"
+    },
+    {
+      "headline": "VentureBeat Pulse: enterprises enforce runtime permissions but isolate high-risk agents in under 20% of deployments",
+      "what_happened": "A July 2026 VentureBeat Pulse survey of 116 enterprises found 65% enforce scoped permissions at runtime and 56% monitor and log agent activity, yet only 18% isolate high-risk agents in sandboxes; 53% of respondents reported a confirmed agent security incident or near-miss. Credential sharing persists in 63% of fleets, and 74% plan to adopt, add, or replace agent security tooling within 12 months.",
+      "why_it_matters": "The data show a containment gap: observation and enforcement are common but bounding blast radius via isolation and non-shared per-agent identities remains rare, which directly affects incident response, forensics, and the effective risk of credential compromise in agentic systems.",
+      "outlook": "The survey’s procurement signal: 74% of respondents plan tooling changes within 12 months, with 30% planning changes within the next quarter, gives a concrete near-term window where identity and isolation offerings could see increased adoption.",
+      "source_urls": [
+        "https://venturebeat.com/resources/agentic-security-enterprises-enforce-agent-permissions-two-thirds-of-the-time-and-isolate-high-risk-agents-less-than-one-in-five",
+        "https://venturebeat.com/resources/agentic-orchestration-enterprise-ai-organizations-know-how-to-govern-agents-but-still-cant-meter-what-they-cost"
+      ],
+      "topic_tag": "dev-tools"
+    },
+    {
+      "headline": "Google Research demonstrates AMIE, a Gemini-based research system for real-time clinical video consultations",
+      "what_happened": "Google Research and DeepMind demonstrated AMIE, a research medical AI system built on Gemini and Project Astra using a multi-agent architecture that interprets visual and auditory cues, guides virtual physical exams, and reasons diagnostically in real time; a randomized study with simulated consultations and primary care physicians rated AMIE favorably on history taking, diagnostic accuracy, management appropriateness and communication, and patient actors preferred video over text chat.",
+      "why_it_matters": "Engineers working on clinical ML and real-time multimodal systems should note AMIE’s multi-agent design and its use of Gemini for synchronous visual and audio interpretation in simulated randomized settings, highlighting integration and latency considerations for clinical-grade video inference and tool orchestration.",
+      "outlook": "Google Research states that more research is needed before responsible real-world clinical deployment, making the transition from research demonstrations to any real-world clinical deployment the next named milestone.",
+      "source_urls": [
+        "https://blog.google/innovation-and-ai/models-and-research/google-research/amie-video-consultations/",
+        "https://en.andros.dev/blog/ef4968f5/html-over-websockets-real-time-spas-with-barely-any-javascript/"
+      ],
+      "topic_tag": "ai"
+    },
+    {
+      "headline": "OpenRouter DeepSeek V4 Pro snapshot shows provider-hosted model metrics, pricing, and usage signals",
+      "what_happened": "OpenRouter’s DeepSeek V4 Pro 0813 listing provides a provider-hosted model snapshot including observed throughput, latency, time-to-first-token, 30-day success rate, standardized evaluation scores, top public apps sending traffic, and token/request volume trends, and notes that OpenRouter forwards requests directly to the single hosting provider.",
+      "why_it_matters": "For teams integrating third-party models via OpenRouter, the listing demonstrates the operational metadata available to evaluate a hosted model, realized latency, success rates, and app-traffic signals, so engineers can compare real-world performance and operational stability rather than relying solely on vendor claims.",
+      "outlook": "The dated model snapshot (tag 0813) implies the next post-update of OpenRouter’s model metrics will provide the next concrete data point to compare throughput, success rate, and traffic patterns over time.",
+      "source_urls": [
+        "https://openrouter.ai/deepseek/deepseek-v4-pro-0813"
+      ],
+      "topic_tag": "dev-tools"
+    }
+  ],
+  "narration_script": "Google announced the Pixel 11 series at Made by Google ’26, shipping new camera modes that lean on Gemini and a Tensor G6 processor. Magic Capture records two-minute video and uses Gemini to extract high-quality stills; Instant Night Sight, enabled by G6 image models, claims a 4.5 times speedup versus prior Night Sight; Camera Looks applies sensor-level presets before capture; and the Pixel 11 Pro adds up to 120X Pro Res Zoom with upgraded 48-megapixel sensors. Engineers should watch availability and the device software rollouts after Made by Google ’26 to validate feature behavior and compatibility. SpaceXAI released Grok 4.6, positioned for long-running agents and coding work, and published benchmark gains in third-party Artificial Analysis. Grok 4.6 supports a 500,000-token context window, but billing steps up at 200,000 tokens, so long-context cost modeling matters for agent deployments. The first-week doubled included usage in Cursor and Grok Build is the immediate test of token consumption and end-to-end costs. VentureBeat Pulse research of 116 enterprises finds a widening containment gap: 65 percent enforce scoped permissions at runtime and 56 percent monitor agent activity, yet just 18 percent isolate high-risk agents, and 63 percent report credential sharing somewhere in the fleet. More than half have experienced a confirmed incident or near-miss, and 74 percent plan to change agent security tooling within a year, with 30 percent planning changes in the next quarter. That procurement cadence is the near-term window for identity and sandboxing tools to gain traction. Google Research published a Google Research blog post on AMIE, a Gemini- and Project Astra–based research system that demonstrated real-time clinical video consultations in a randomized simulated study; evaluators rated AMIE favorably on diagnostic and communication measures, and patient actors preferred video over text chat. Google says more research is required before any real-world clinical deployment, making responsible deployment the next milestone. Finally, OpenRouter’s DeepSeek V4 Pro 0813 page provides an operational snapshot, throughput, latency, time-to-first-token, 30-day success rates, evaluation scores, and traffic sources, showing the kind of runtime telemetry available for hosted models; the next metric refresh after the 0813 snapshot will be the concrete update engineers can use to reassess performance and stability."
+}
