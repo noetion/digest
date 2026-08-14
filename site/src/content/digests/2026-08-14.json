@@ -1,0 +1,29 @@
+{
+  "title": "The Morning Build for August 14, 2026: OpenAI's Ultrafast Mode and Writer's Palmyra X6 Cut Latency and Cost for Enterprise AI",
+  "intro": "Two enterprise threads dominate today: OpenAI previewed an Ultrafast mode that boosts GPT-5.6 Sol throughput for real-time workflows, and Writer launched Palmyra X6 plus a rebuilt harness and governance tools that it says halve agent costs. Both moves target the operating economics of agentic AI rather than raw capability.",
+  "meta_description": "OpenAI previews Ultrafast for GPT-5.6 Sol at 14x speed; Writer ships Palmyra X6 and a harness it claims cuts agent costs 52% with governance and benchmarks.",
+  "stories": [
+    {
+      "headline": "OpenAI previews Ultrafast mode for GPT-5.6 Sol, claiming 14x throughput",
+      "what_happened": "OpenAI introduced Ultrafast, a preview mode for GPT-5.6 Sol that the company says delivers up to 14x the speed of standard processing and up to 750 output tokens per second; the preview is available to a limited customer set and is powered by a Cerebras partnership.",
+      "why_it_matters": "Ultrafast targets low-latency, high-throughput enterprise workflows cited by OpenAI, incident response, customer support, financial analysis, and e-commerce, enabling more useful work per second without forcing users to pick smaller models for real-time needs.",
+      "outlook": "OpenAI will expand Ultrafast preview access as capacity grows, making the next expansion window the concrete milestone to measure broader availability.",
+      "source_urls": [
+        "https://techcrunch.com/2026/08/13/openai-introduces-ultrafast-a-new-mode-that-makes-gpt-5-6-sol-work-at-14x-the-speed/"
+      ],
+      "topic_tag": "ai"
+    },
+    {
+      "headline": "Writer launches Palmyra X6 and rebuilt harness, says agent costs fall 52% with new pricing",
+      "what_happened": "Writer released Palmyra X6, a 744B-parameter post-trained model based on GLM-5.2 with anchored supervised fine-tuning using 626 synthetic trajectories, and a rebuilt Writer Agent harness plus governance tools; the company reports a 52% average cost reduction, 48% speed improvement, and a 10% quality gain when using X6, and prices X6 at $2 per million input tokens and $8 per million output tokens.",
+      "why_it_matters": "Writer’s claim ties most of the economics to post-training and orchestration: the harness reportedly cuts costs 41% and speeds tasks 44% across models, while the model-level price and governance controls directly change per-task billing and predictable consumption for enterprise deployments.",
+      "outlook": "Writer published a technical report and a Harness Effect research paper alongside the release; those published documents are the next public milestones to validate the company’s benchmarking and methodological claims.",
+      "source_urls": [
+        "https://venturebeat.com/orchestration/writer-says-its-new-palmyra-x6-model-cuts-ai-agent-costs-by-52-as-token-spending-surges",
+        "https://techcrunch.com/2026/08/13/writer-introduces-new-ai-model-and-upgraded-harness-to-contain-token-costs/"
+      ],
+      "topic_tag": "ai"
+    }
+  ],
+  "narration_script": "OpenAI announced Ultrafast, a preview mode for GPT-5.6 Sol that it says runs at 14 times the speed of standard processing and can produce up to 750 output tokens per second. The mode is powered by OpenAI’s Cerebras partnership and is available only to a small set of customers for now. OpenAI framed Ultrafast as aimed at real-time enterprise workflows such as incident response, customer service, financial analysis, and e-commerce, and said it will expand preview access as capacity grows. Writer released Palmyra X6, a 744-billion-parameter model built by post-training GLM-5.2 with an anchored supervised fine-tuning recipe based on 626 synthetic agentic trajectories, and paired it with a rebuilt Writer Agent harness and new governance tools. Writer reports a 52 percent reduction in agent cost, a 48 percent speed improvement, and a 10 percent quality gain when using Palmyra X6, and lists pricing at two dollars per million input tokens and eight dollars per million output tokens. Writer also published a technical report and a Harness Effect paper that document its benchmarking and the claim that the harness alone cuts costs and speeds tasks across multiple models. For OpenAI, the next public milestone is the expansion of Ultrafast preview access as capacity grows. For Writer, the published technical report and Harness Effect paper are the immediate artifacts to inspect if you want to validate the company’s benchmarking and cost claims."
+}
