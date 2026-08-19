@@ -1,0 +1,59 @@
+{
+  "title": "The Morning Build for August 19, 2026: Cursor's Origin, GLM-5.3 API, Block's Berd, Warp Factories, and the Copilot Leak",
+  "intro": "Today’s stories converge on the operational layer around models: Cursor launched Origin as a code-hosting platform built for agents; Z.ai put GLM-5.3 on its API at the same posted token rates as GLM-5.2; Block open-sourced Berd as an Apache 2.0 desktop agent workspace; Warp announced Warp Factories for productionizing agent-driven software factories; and researchers disclosed a Copilot vulnerability that Microsoft has since mitigated and further fixed.",
+  "meta_description": "Cursor debuts Origin hosting; Z.ai launches GLM-5.3 API; Block open-sources Berd (Apache 2.0); Warp ships Warp Factories; Microsoft patches Copilot autorun leak.",
+  "stories": [
+    {
+      "headline": "Cursor launches Origin code hosting in early beta, adds GitHub sync and repo-level agents",
+      "what_happened": "Cursor began rolling out Origin in early beta to paid plans, providing hosted repos, pull requests, code browsing and a GitHub sync that keeps GitHub as the source of truth while showing synced repos in Cursor. Cursor says agents will be integrated into every repo and that agent-native features will ship soon.",
+      "why_it_matters": "Origin moves code hosting and agent workflows into the same product surface, giving teams a single place for repos, PRs and agent interactions and enabling Cursor-hosted repos to run agent actions directly against code. The GitHub sync preserves GitHub as source of truth while letting teams test agent workflows within Cursor without migrating code.",
+      "outlook": "Origin's early beta rollout to paid plans (started in mid-August) and Cursor's announced timeline for shipping the promised agent-native features will be the next concrete signals of how quickly teams can run agent-driven changes from Cursor-hosted repos.",
+      "source_urls": [
+        "https://cursor.com/changelog/origin-code-hosting",
+        "https://techcrunch.com/2026/08/18/cursor-capitalizes-on-github-frustration-launches-rival-hosting-platform/"
+      ],
+      "topic_tag": "dev-tools"
+    },
+    {
+      "headline": "Z.ai makes GLM-5.3 callable on its API at $1.40/$4.40 per million tokens, weights and license date unspecified",
+      "what_happened": "Z.ai has exposed GLM-5.3 on its API at the same posted rates as GLM-5.2: $1.40 per million input tokens and $4.40 per million output tokens, with cached input priced at $0.26 per million and cached-input storage temporarily free. Z.ai says it plans to release the model weights, but provides no date or licensing details.",
+      "why_it_matters": "Teams can call GLM-5.3 through the API immediately at a lower posted per-token price than many premium frontier models, making it an accessible option for testing coding and long-context agent workloads; however, Z.ai's promise to publish weights without a date or license leaves open whether teams can run the model locally or embed it in on-prem workflows.",
+      "outlook": "Z.ai's announced publication date and licensing terms for GLM-5.3 weights will be the next concrete milestone determining whether developers can run GLM-5.3 as open weights or remain API-only.",
+      "source_urls": [
+        "https://venturebeat.com/technology/glm-5-3-hits-the-api-at-1-4-4-4-per-million-tokens"
+      ],
+      "topic_tag": "ai"
+    },
+    {
+      "headline": "Block open-sources Berd (Apache 2.0), a desktop-first agent workspace that pins a Goose backend",
+      "what_happened": "Block published Berd under Apache 2.0 with downloadable macOS, Windows and Linux builds and a public repository at version 0.6.2. Berd is a locally installed desktop app that bundles a pinned Goose backend, stores conversation history locally by default, and exposes providers, skills and agent identities in a persistent project workspace.",
+      "why_it_matters": "Berd gives teams an inspectable, local-first agent workspace that is model- and harness-agnostic while retaining a defined version boundary to its Goose backend; the Apache 2.0 license permits commercial use and redistribution, but Block's repository currently closes external pull requests, preserving a controlled upstream.",
+      "outlook": "The next public Berd release after version 0.6.2 should reveal whether Block begins merging Berd features toward its stated plan of bringing the desktop experience into Buzz and will clarify any future enterprise distribution or commercial support plans.",
+      "source_urls": [
+        "https://venturebeat.com/orchestration/blocks-new-apache-2-0-agent-workspace-berd-works-across-models-and-harnesses-stores-conversation-history-locally"
+      ],
+      "topic_tag": "dev-tools"
+    },
+    {
+      "headline": "Warp launches Warp Factories, an out-of-the-box infra layer for agent-driven software factories",
+      "what_happened": "Warp introduced Warp Factories as a deployable infrastructure layer that assembles agent loops around standard software development phases, triage, specification, implementation, review and verification, and integrates with models, harnesses and tools like Codex, Claude Code, Linear, Jira, Slack and Teams. Warp also includes dashboards to compare configurations, track token spend and run self-improvement loops.",
+      "why_it_matters": "Warp Factories packages common architectural decisions for running agentic software factories so smaller companies can deploy agent-driven development workflows without building the orchestration layer from scratch, and provides metrics and dashboards that make token spend and automation performance comparable across configurations.",
+      "outlook": "Initial Warp customer deployments and the product's published performance metrics, automation percentages and token-spend dashboards, from those early customers will be the first measurable indicators of Warp Factories' effectiveness in production.",
+      "source_urls": [
+        "https://techcrunch.com/2026/08/18/warps-new-system-is-an-out-of-the-box-software-factory-for-ai-development/"
+      ],
+      "topic_tag": "dev-tools"
+    },
+    {
+      "headline": "Researchers forced Microsoft 365 Copilot to reveal an undocumented autorun parameter, Microsoft mitigated and pushed broader fixes",
+      "what_happened": "Security researchers at Varonis used iterative questioning of Copilot to learn internal guardrail details and discovered an undocumented prompt parameter, ?autorun=1 combined with ?q=, that allowed prompts to run automatically when a target clicked a link. Microsoft mitigated the issue in February by stopping ?q= from injecting text into the chatbot input and deployed more comprehensive fixes on Tuesday.",
+      "why_it_matters": "The exploit shows how assistant disclosures about safety behavior can be used to reverse-engineer guardrail inputs and achieve silent autorun of prompts, creating an attack surface for link-based exfiltration; Microsoft’s mitigation and subsequent fixes indicate both the risk and the need for hard-coded input handling in assistant integrations.",
+      "outlook": "Microsoft's published patch notes or security advisory accompanying the Tuesday fixes will be the concrete document to review for the exact behavioral changes and any recommended mitigation steps for third-party integrations that previously relied on chatbot deep links.",
+      "source_urls": [
+        "https://arstechnica.com/security/2026/08/microsoft-copilot-reveals-secret-input-that-allowed-it-to-be-hacked/"
+      ],
+      "topic_tag": "policy"
+    }
+  ],
+  "narration_script": "Cursor launched Origin, a new code-hosting product, rolling it out in early beta to paid plans and adding hosted repos, pull requests, code browsing and a GitHub sync that keeps GitHub as the source of truth. Cursor says agents will be integrated into every repo and that agent-native features will ship soon. The key forward signal is the Origin rollout to paid plans and the timeline Cursor gives for those agent-native features. Z.ai put GLM-5.3 on its API at the same posted token rates as GLM-5.2: $1.40 per million input tokens and $4.40 per million output tokens, with cached-input pricing and temporarily free cached-input storage. Z.ai says it plans to release the model weights, but has not provided a date or license; the announced publication date and licensing terms for GLM-5.3 weights will determine whether teams can run the model locally or must remain API-only. Block published Berd under Apache 2.0 as a desktop-first agent workspace, released builds for macOS, Windows and Linux and tagged the repository at version 0.6.2. Berd bundles a pinned Goose backend, stores conversation history locally by default and exposes providers, skills and agent identities in persistent projects. Block also leaves external pull requests closed, keeping a controlled upstream; the next Berd release after v0.6.2 should show whether Block begins moving Berd functionality into Buzz and clarify enterprise distribution plans. Warp introduced Warp Factories, an infrastructure layer that assembles agent loops around traditional software development stages, integrates with models and harnesses such as Codex and Claude Code and plugs into ticketing and messaging tools. Warp includes dashboards for comparing configurations, tracking token spend and running self-improvement loops; the first customer deployments and published automation and token-spend metrics will be the early production signals. Finally, researchers at Varonis used iterative questioning of Copilot to extract internal guardrail details and discovered an undocumented autorun parameter, ?autorun=1 used with ?q=, that allowed prompts to execute on click. Microsoft mitigated the flaw in February by removing ?q=-based prompt injection and deployed more comprehensive fixes this week. Microsoft’s patch notes or security advisory for the Tuesday fixes will provide the exact behavioral changes for integrators and security teams."
+}
