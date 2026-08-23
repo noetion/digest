@@ -1,0 +1,59 @@
+{
+  "title": "The Morning Build for August 23, 2026: Agent Labs, Vision Models, and a Data-Center Backlash",
+  "intro": "Today’s briefing centers on agent-first engineering and how models, toolchains, and infrastructure are reacting: Inherent’s Faraday agent and Deepseek’s Flash vision model push agent benchmarks; Anthropic deploys Mythos 5 into enterprise security; an open-source harness (Munder Difflin) aims to run clones locally; and public opposition to data centers is rising as Nvidia expands partner deals.",
+  "meta_description": "Inherent's Faraday, Anthropic's Mythos 5 for security, Deepseek's Flash vision, Munder Difflin agent harness, and rising US data-center opposition.",
+  "stories": [
+    {
+      "headline": "Inherent’s Faraday agent reproduces papers using a 27B Qwen 3.6 model, claims outperforming Opus 4.8 and GPT-5.5",
+      "what_happened": "Inherent, a London startup founded by DeepMind alumni, says its Faraday agent reproduced published scientific results and ranked ahead of Anthropic’s Claude Opus 4.8 and OpenAI’s GPT-5.5 on that task while running on Qwen 3.6, a 27 billion-parameter model. The team attributes the result to reinforcement-learning training focused on producing research instincts or 'taste' rather than scaling model size.",
+      "why_it_matters": "Engineers should note the claim that a 27B parameter base (Qwen 3.6) can match or beat much larger frontier models on a structured research task when combined with specialized RL training, which affects trade-offs between model size, training method, and task-specific performance. The company also chose to integrate OpenAI’s GPT-5.5 Codex for coding rather than building its own code model, showing a composable-agent approach.",
+      "outlook": "By the end of 2026, Inherent plans to grow to about 20–25 employees, a concrete hiring milestone that may expand its engineering output and public tests.",
+      "source_urls": [
+        "https://techcrunch.com/2026/08/22/inherent-founded-by-deepmind-alumni-says-its-ai-teammate-just-outperformed-anthropic-and-openai-at-replicating-research/"
+      ],
+      "topic_tag": "startups"
+    },
+    {
+      "headline": "Anthropic runs its Claude Security scanner on its top model Mythos 5, in enterprise public beta",
+      "what_happened": "Anthropic has deployed Claude Security on Claude Mythos 5 to scan codebases for vulnerabilities and suggest patches; the feature is in public beta for Enterprise customers and treats scans as normal token usage. Each finding includes a CWE category, severity rating, and a suggested fix, and human sign-off is required for patches.",
+      "why_it_matters": "Security tooling companies and engineering teams will see Mythos 5 applied behind partner products protecting hospitals, utilities, and banks, implying upgrades to defender tooling without exposing the model broadly to end users. The rollout changes where heavy cyber tasks are run and which model serves as the analysis backend.",
+      "outlook": "The public beta window for Enterprise customers and partner migrations to Mythos 5 are the next concrete milestones to watch for evidence of adoption and integration impact.",
+      "source_urls": [
+        "https://the-decoder.com/anthropic-puts-its-most-powerful-model-claude-mythos-5-to-work-for-cyber-defense/"
+      ],
+      "topic_tag": "ai"
+    },
+    {
+      "headline": "Munder Difflin open-source harness runs always-on 'clones' locally and offers Cloud + Network sandboxes",
+      "what_happened": "Munder Difflin released an MIT-licensed, open-source multi-agent harness that wraps existing agent CLIs and runs on a developer’s laptop by default, keeping code, keys, and personal context local. A paid Cloud + Network plan provides 24/7 clones on dedicated sandbox VMs inside a customer-controlled environment and a shared org knowledge base.",
+      "why_it_matters": "This tooling directly targets agent orchestration and data locality: teams can run persistent, persona-based agents that share a versioned org knowledge base while keeping private keys and personal context on-device, which changes how organizations think about trade-offs between local privacy and always-on automation.",
+      "outlook": "The public GitHub repository and the project’s offered security walkthroughs are the immediate, observable milestones for auditors and engineers validating the code and the Cloud + Network sandbox claims.",
+      "source_urls": [
+        "https://munderdiffl.in/"
+      ],
+      "topic_tag": "dev-tools"
+    },
+    {
+      "headline": "Deepseek publishes V4-Flash-Vision-Exp, a multimodal model that the company says rivals Opus 4.8 on agent benchmarks",
+      "what_happened": "Deepseek released V4-Flash-Vision-Exp, extending its V4-Flash text model with image understanding. On Deepseek’s internal multimodal agent benchmarks the company reports scores close to Opus 4.8. The model supports JPEG, PNG, GIF, and WebP, up to 600 images per request, Files API uploads to 64 MiB, and per-image token costs capped at 384 tokens.",
+      "why_it_matters": "Engineers building visual agent workflows gain a vendor that claims agent-oriented multimodal capability plus integrations with OpenAI’s Chat Completions and Anthropic’s Messages APIs; the Files API and image-size limits (64 MiB uploads, 600 images per request, and token cost caps) are explicit constraints to account for in system design and cost estimates.",
+      "outlook": "Developer uptake of Harness version 0.1.1 (which adds native support for the model) and early usage patterns of the Files API and the model’s image-size and token limits will be the first public signals of real-world integration.",
+      "source_urls": [
+        "https://the-decoder.com/deepseek-releases-experimental-flash-vision-model-that-rivals-opus-4-8-on-agent-benchmarks/"
+      ],
+      "topic_tag": "ai"
+    },
+    {
+      "headline": "US opposition to local data centers rose from 42 percent to 75 percent in one year, survey finds",
+      "what_happened": "A Heatmap News survey reports 75 percent of Americans now oppose building a data center near them, with 61 percent 'strongly opposed'; a year earlier the split was roughly 43 percent in favor and 42 percent opposed. Top public concerns are local power costs, water use, and land use. The surge matches a May Gallup poll that found 71 percent opposed.",
+      "why_it_matters": "Rising local opposition alters the operational and permitting risk profile for large-scale AI infrastructure projects and could affect site selection, timelines, and community engagement costs for cloud and hardware vendors expanding capacity.",
+      "outlook": "Local planning filings and announcements from data-center developers such as the Nvidia–Cloverleaf partnership reported by TechCrunch will be the next concrete public milestones showing whether planned builds proceed or face delays.",
+      "source_urls": [
+        "https://the-decoder.com/data-center-opposition-surged-from-42-to-75-percent-in-just-one-year-survey-finds/",
+        "https://techcrunch.com/2026/08/21/nvidia-partners-with-data-center-developer-cloverleaf/"
+      ],
+      "topic_tag": "big-tech"
+    }
+  ],
+  "narration_script": "Inherent, a London startup founded by DeepMind alumni, says its new Faraday agent reproduced scientific results and outperformed Anthropic’s Opus 4.8 and OpenAI’s GPT-5.5 on that task while running on Qwen 3.6, a 27 billion-parameter model. The team credits reinforcement-learning training to instill research 'taste' rather than sheer model scale, and it plans to expand headcount to about 20 to 25 by the end of 2026. Anthropic is running its Claude Security scanner on its most capable model, Mythos 5, in a public beta for Enterprise customers; scans are normal token usage and each finding includes a CWE category, severity rating, and suggested fix, with humans required to sign off. Anthropic says partners protecting hospitals, utilities, and banks will migrate to Mythos 5. An open-source project called Munder Difflin published an MIT-licensed multi-agent harness that wraps existing agent CLIs and runs locally by default, keeping code, keys, and personal context on the developer’s machine, while offering a Cloud + Network paid plan that runs clones 24/7 in dedicated sandbox VMs inside a customer-controlled environment. Deepseek released V4-Flash-Vision-Exp, an experimental multimodal vision variant the company says nearly matches Opus 4.8 on its internal agent benchmarks; the model accepts up to 600 images per request, supports a Files API with 64 MiB uploads, and caps per-image cost at 384 tokens, and Deepseek published Harness 0.1.1 with native support. Finally, a Heatmap News survey found US opposition to nearby data centers jumped to 75 percent from 42 percent a year ago, with power, water, and land use as top concerns, a trend that aligns with a May Gallup poll. The concrete milestones to watch next are Inherent’s end-of-year headcount growth, Anthropic’s Enterprise public beta and partner migrations to Mythos 5, the Munder Difflin GitHub repo and announced security walkthroughs for the sandbox offering, developer uptake of Deepseek’s Harness 0.1.1 and real-world use of its Files API limits, and local planning filings or announcements tied to Nvidia’s Cloverleaf data center projects."
+}
