@@ -1,0 +1,59 @@
+{
+  "title": "The Morning Build for August 26, 2026: Jalapeño and Groq 3 LPX Benchmark Claims, Perplexity Goes Fully Local, Gemini for Legal Preview",
+  "intro": "Hardware and deployment moves dominate today: OpenAI and Nvidia showed new inference accelerators with benchmark claims, Perplexity launched a fully local agent appliance with Nvidia hardware, and Google published a preview of Gemini for legal work. These stories focus on inference efficiency, local execution, and industry-specific connectors.",
+  "meta_description": "OpenAI and Nvidia released new inference-accelerator results; Perplexity ships a local agent appliance; Google opens Gemini for Legal preview for firms.",
+  "stories": [
+    {
+      "headline": "SemiAnalysis lab benchmarks show OpenAI's Jalapeño leads perf/W vs Blackwell and Rubin A0",
+      "what_happened": "SemiAnalysis published in-lab InferenceX runs supplied by OpenAI showing Jalapeño A0 engineering samples outperform Nvidia Blackwell and earlier GB200 results on tokens per watt and tokens per user for several open models; OpenAI provided the systems and verified runs in person. SemiAnalysis noted no AgentX multiturn/long-context runs were available and that numbers derive from single-token prediction runs.",
+      "why_it_matters": "Engineers get a vendor-verified datapoint that a first-generation, inference-focused ASIC can exceed current GPU perf/W on 8k1k-style workloads, highlighting power-constrained datacenter economics and the impact of hardware-software codesign on token throughput per megawatt.",
+      "outlook": "AgentX-style multiturn and long-context benchmark runs are the next public verification step named by SemiAnalysis to assess real-world agentic serving behavior.",
+      "source_urls": [
+        "https://newsletter.semianalysis.com/p/openai-jalapeno-better-than-nvidia",
+        "https://the-decoder.com/openais-first-custom-chip-jalapeno-reportedly-beats-nvidias-blackwell-and-rubin-in-inference-benchmarks/"
+      ],
+      "topic_tag": "chips"
+    },
+    {
+      "headline": "OpenAI says Jalapeño will deploy in small volumes by end of 2026 with larger rollouts in 2027",
+      "what_happened": "OpenAI showed detailed Jalapeño architecture and benchmark claims at Hot Chips and told press the chip was developed with Broadcom, optimized for minimizing data movement and prefill/communication delays, and estimated small-volume deployment at the end of 2026 with broader deployment in 2027.",
+      "why_it_matters": "Teams planning inference capacity must factor in a potential new supplier and a multigenerational OpenAI platform that targets perf/W and local KV cache placement, which could alter cost and latency trade-offs once deployed.",
+      "outlook": "End of 2026 small-volume deployments transitioning to larger 2027 rollouts is the timeline OpenAI provided for Jalapeño availability.",
+      "source_urls": [
+        "https://techcrunch.com/2026/08/25/openais-jalapeno-chip-is-built-for-fast-inference-at-scale-benchmarks-show/"
+      ],
+      "topic_tag": "chips"
+    },
+    {
+      "headline": "Perplexity and Nvidia ship Portable Computer, a fully local agent appliance running on DGX Spark and RTX machines",
+      "what_happened": "Perplexity launched Portable Computer for Linux today, packaging its Perplexity Computer agent harness, local models (Qwen 3.8 27B and PPLX 27B at launch), inference stack, connectors, and sandboxing to run agents entirely on-device on DGX Spark and RTX GPUs with at least 24GB VRAM; Windows support is scheduled for September and Nemotron Lightning support is coming soon.",
+      "why_it_matters": "Developers and operators get an appliance-style local execution path where token costs are zero on-device, the harness enforces compact prompts and sandboxing, and hybrid escalation to frontier cloud models is explicitly instrumented, changing cost and data-movement trade-offs for agent workloads.",
+      "outlook": "Windows support arriving in September is the named follow-on milestone for broader Desktop adoption.",
+      "source_urls": [
+        "https://venturebeat.com/infrastructure/perplexity-partners-with-nvidia-to-launch-portable-computer-a-fully-local-ai-agent-with-zero-token-costs"
+      ],
+      "topic_tag": "ai"
+    },
+    {
+      "headline": "Google launches Gemini for Legal preview with MCP connectors to iManage, NetDocuments, DocuSign, Everlaw and Thomson Reuters HighQ",
+      "what_happened": "Google Cloud announced Gemini Enterprise for Legal as a preview that links Gemini models to legal systems and specialized services via MCP connectors, enables contract review, legal research, and regulatory tracking while respecting access permissions, and is positioned alongside a same-day financial services package and planned healthcare and life sciences offerings.",
+      "why_it_matters": "Legal and enterprise integrations are now delivered as a previewed, connector-first product that packages pre-built agent 'skills' and third-party connectors, which shortens the integration path for firms that need connectored model access to enterprise document systems.",
+      "outlook": "Healthcare and life sciences versions are stated to be on the way as the next product verticals following the legal and financial services previews.",
+      "source_urls": [
+        "https://the-decoder.com/google-launches-gemini-for-legal-work-to-automate-contracts-and-research/"
+      ],
+      "topic_tag": "big-tech"
+    },
+    {
+      "headline": "Nvidia moves Groq 3 LPX into production and reports 3,400 tok/s on Gemma 4 31B, with caveats on chip counts",
+      "what_happened": "Nvidia announced full production for its Groq 3 LPX inference accelerator and published an Artificial Analysis benchmark showing a rack hitting 3,400 tokens per second on Gemma 4 31B over long contexts; coverage notes the result depends on a multi-chip SRAM-heavy dataflow setup requiring at least 64 LPUs for the reported configuration while Cerebras uses fewer accelerators for the same model.",
+      "why_it_matters": "The LPX design prioritizes high decode throughput via SRAM-local LPUs and rack-level composition, which offers very high token-generation rates for dense models that fit per-rack, but implies different scaling and memory-partition trade-offs compared with large-memory GPU or wafer-scale alternatives.",
+      "outlook": "Nvidia said the LPX will go live later this year, which is the delivery window to watch for availability in cloud and provider offerings.",
+      "source_urls": [
+        "https://the-decoder.com/nvidia-says-its-groq-3-lpx-is-four-times-faster-than-cerebras-but-the-math-is-more-complicated/"
+      ],
+      "topic_tag": "chips"
+    }
+  ],
+  "narration_script": "OpenAI and Nvidia framed today around inference efficiency and where agents run. SemiAnalysis published lab-verified InferenceX runs for OpenAI’s Jalapeño A0, supplied and demonstrated by OpenAI, showing higher tokens per watt and higher tokens per user on several open models compared with available Blackwell and GB200 numbers. Those results were single-token prediction runs and did not include AgentX multiturn, long-context benchmarks, which SemiAnalysis calls the next public verification step. At Hot Chips OpenAI presented architecture details and told press Jalapeño was built with Broadcom to minimize data movement and prefill delays, and estimated small-volume deployment by the end of 2026 with broader rollouts in 2027. Perplexity and Nvidia launched Portable Computer today, shipping on Linux for DGX Spark and RTX machines with 24 gigabytes of VRAM or more. Perplexity packages its agent harness, locally hosted models including Qwen 3.8 27B and PPLX 27B, connectors, and sandboxing so agents can run entirely on-device with zero marginal token cost, and it plans Windows support in September. Google Cloud published Gemini Enterprise for Legal as a preview, using MCP connectors to iManage, NetDocuments, DocuSign, Everlaw, Thomson Reuters HighQ and similar services to automate contract review, research, and regulatory tracking; Google said healthcare and life sciences versions are on the way. Nvidia also moved the Groq 3 LPX into full production and published a rack-level benchmark that hit 3,400 tokens per second on Gemma 4 31B, with coverage pointing out the need for many LPUs per rack and different memory and scaling trade-offs compared with single-accelerator approaches. Taken together, these announcements highlight two concrete shifts engineers will see: new inference-first ASICs claiming higher perf/W at the rack level, and a push to move agentic workloads off public metered endpoints onto local or rack-local hardware and orchestrations. The next public signals are the AgentX-style long-context benchmark results for Jalapeño, the end of 2026 small-volume Jalapeño deployments toward 2027 rollouts, Windows support for Perplexity’s Portable Computer in September, the forthcoming Google healthcare and life sciences verticals, and Nvidia’s LPX availability later this year."
+}
