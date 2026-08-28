@@ -1,0 +1,52 @@
+{
+  "title": "The Morning Build for August 28, 2026: Hugging Face’s Microduck, Anthropic’s Legal Win, Hardware Agent Standard, and a Grok CSAM Lawsuit",
+  "intro": "Today’s stories center on how AI moves off paper and into the world: Hugging Face shipped an open-source robot as acquisition chatter swirls; a federal judge vacated the Pentagon’s blacklist of Anthropic; Anthropic published a Model Hardware Standard for agents to control lab and factory gear; and a lawsuit alleges xAI trained Grok on child sexual abuse material.",
+  "meta_description": "Hugging Face ships a $399 Microduck amid Nvidia buyout reports; judge blocks Pentagon blacklist of Anthropic; Anthropic publishes a Model Hardware Standard; xAI faces a CSAM training lawsuit.",
+  "stories": [
+    {
+      "headline": "Hugging Face ships $399 open-source robot Microduck as reports tie the company to a $13B Nvidia acquisition",
+      "what_happened": "Hugging Face launched Microduck, a 25 cm open-source robot with camera, lidar, and two IMUs, priced at $399 and advertised to ship before Christmas; the SDK, simulation, and full reinforcement-learning training stack are on GitHub. Separately, press reports say Nvidia is set to acquire Hugging Face at a $13 billion valuation.",
+      "why_it_matters": "The Microduck bundles on-device sensors, a deployable RL stack, and open SDKs, making end-to-end physical-robot development reproducible outside large labs; an acquisition by Nvidia, if completed, would concentrate a popular open-model repository under a major infrastructure vendor.",
+      "outlook": "Shipments slated before Christmas are the next concrete milestone for developers to validate the hardware, SDK, and training workflow.",
+      "source_urls": [
+        "https://techcrunch.com/2026/08/27/hugging-face-is-selling-a-cute-399-open-source-duck-robot-microduck/",
+        "https://arstechnica.com/ai/2026/08/report-nvidia-to-acquire-ai-model-repository-hugging-face-for-13-billion/"
+      ],
+      "topic_tag": "big-tech"
+    },
+    {
+      "headline": "Federal judge vacates Pentagon’s supply-chain risk designation of Anthropic and lifts related agency penalties",
+      "what_happened": "U.S. District Judge Rita Lin ruled the February 27 supply-chain risk designation of Anthropic unlawful and vacated the Pentagon decision plus related restrictions by nine agencies, removing Anthropic’s ineligibility for federal contracts imposed by that label.",
+      "why_it_matters": "The ruling restores Anthropic’s legal ability to bid for federal contracts that the designation had blocked and removes cross-agency sanctions, while explicitly leaving the Pentagon free to choose other vendors for classified work.",
+      "outlook": "The Department of Defense is expected to appeal the ruling, which will determine whether the vacatur of the supply-chain designation stands during appellate review.",
+      "source_urls": [
+        "https://www.wired.com/story/a-judge-has-blocked-the-pentagons-attempt-to-blacklist-anthropic/",
+        "https://techcrunch.com/2026/08/28/anthropic-gets-its-first-court-win-over-the-pentagons-supply-chain-risk-label/",
+        "https://the-decoder.com/u-s-court-rules-pentagons-blacklisting-of-anthropic-was-unlawful/"
+      ],
+      "topic_tag": "policy"
+    },
+    {
+      "headline": "Anthropic publishes a Model Hardware Standard to govern how AI agents control lab and factory equipment",
+      "what_happened": "Anthropic released details of a Model Hardware Standard, a set of rules for how AI agents should and should not interact with hardware such as microscopes, liquid-handling instruments, quantum hardware, manufacturing machines, and robot arms; the company said it will work with trusted partners and manufacturers before general availability.",
+      "why_it_matters": "The standard aims to codify interfaces and safety constraints so agents can automate experiments and multi-robot workflows without bespoke integrations, shifting engineering effort from custom adapters to standardized compliance with agent control rules.",
+      "outlook": "Manufacturer integrations and partner development work announced by Anthropic will precede general availability of the standard and serve as the next public milestones for adoption.",
+      "source_urls": [
+        "https://www.wired.com/story/anthropic-standard-ai-agents-coming-to-the-physical-world/",
+        "https://arstechnica.com/ai/2026/08/anthropics-new-hardware-standard-lets-ai-agents-control-the-physical-world/"
+      ],
+      "topic_tag": "dev-tools"
+    },
+    {
+      "headline": "Lawsuit alleges xAI trained Grok on child sexual abuse material and used victim images in training",
+      "what_happened": "A complaint filed Wednesday alleges that xAI’s Grok models were trained on child sexual abuse material (CSAM), including hashed legacy images of a plaintiff and subsequent AI-generated CSAM; the complaint says the plaintiff was notified by the Canadian Centre for Child Protection after AI-generated images depicting her were identified on xAI.",
+      "why_it_matters": "The allegation that model outputs and legacy victim images were used in training raises severe legal and regulatory exposure for model-training pipelines and for operators that store and reuse generated content, with implications for evidence handling and content-moderation practices.",
+      "outlook": "The filed complaint begins litigation and will advance through court proceedings and regulator inquiries, which will reveal what training data and retention practices xAI used.",
+      "source_urls": [
+        "https://arstechnica.com/tech-policy/2026/08/elon-musks-xai-used-child-porn-to-train-grok-models-lawsuit-says/"
+      ],
+      "topic_tag": "policy"
+    }
+  ],
+  "narration_script": "Hugging Face shipped Microduck, a 25 centimeter open-source robot with camera, lidar, and two IMUs, priced at $399 and advertised to ship before Christmas; the SDK, simulation, and full reinforcement-learning training stack are on GitHub. Press reports also link Hugging Face to a possible $13 billion acquisition by Nvidia. The Microduck packages sensors and a deployable RL toolchain meant to let developers train, fine-tune, and redeploy behaviors, and shipping before Christmas is the next concrete check on whether the hardware and software deliver in real-world labs and homes. A federal judge in California vacated the Pentagon’s February 27 supply-chain risk designation of Anthropic and removed related penalties imposed by nine agencies, ruling the designation unlawful and lifting Anthropic’s ineligibility for federal contracts tied to that label. The ruling restores Anthropic’s ability to bid on affected contracts, while the Department of Defense is expected to appeal, which will determine whether the vacatur survives appellate review. Anthropic also published a Model Hardware Standard to specify how AI agents should and should not interact with physical systems such as microscopes, liquid-handling equipment, quantum hardware, manufacturing machines, and robot arms. The company said it will work with trusted partners and manufacturers before making the standard generally available, so announced manufacturer integrations and partner development work are the next milestones to watch for adoption. Finally, a complaint filed Wednesday alleges xAI trained Grok on child sexual abuse material, including legacy hashed images and AI-generated images identified by the Canadian Centre for Child Protection. The complaint initiates litigation and will feed regulator and court inquiries that should disclose what training data, storage, and reuse practices xAI followed. Those are today’s technical signals: Microduck shipments before Christmas, a DoD appeal on Anthropic’s vacatur, Anthropic’s partner integrations for its hardware standard, and the court proceedings in the Grok CSAM complaint."
+}
