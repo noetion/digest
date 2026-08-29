@@ -1,0 +1,60 @@
+{
+  "title": "The Morning Build for August 29, 2026: Open-weights, agent safety, and persistent agents",
+  "intro": "Today’s stories matter for engineers building and operating agentic systems: GLM-5.3 landed as an open-weight release on Hugging Face; Nutanix published a three-layer defense-in-depth architecture for agent security with Intel and Cisco integrations; LAION released the Big Video Dataset for research; Anthropic unveiled a Model Hardware Standard research preview to unify device drivers; and OpenAI is testing a ‘Persistent mode’ for its Codex agents.",
+  "meta_description": "GLM-5.3 goes open-weight on Hugging Face; Nutanix lays out three-layer agent security; LAION ships 10M hours of video; Anthropic's hardware spec preview; OpenAI tests persistent Codex.",
+  "stories": [
+    {
+      "headline": "GLM-5.3 published as open-weight model on Hugging Face with 300k–1M token context support",
+      "what_happened": "Zai-org published GLM-5.3 as an open-weight model on Hugging Face with deployment instructions for Transformers, vLLM, SGLang, and Docker Model Runner. The release specifies evaluation settings including context lengths up to 300,000 tokens and mentions evaluation runs using up to 1,000,000-token windows and max generation lengths up to 163,840 tokens.",
+      "why_it_matters": "Engineers can run and benchmark the exact model artifacts locally or on custom infrastructure and reproduce the publisher’s post-training gains versus GLM-5.2, which the page quantifies across many agent and coding benchmarks. The model’s published deployment paths (vLLM, SGLang, Ascend NPU support, and Docker runner) let teams validate latency, memory, and context-management strategies in their own stack.",
+      "outlook": "Community reproductions and benchmark runs reported on the model’s Hugging Face repo and in third-party evaluations using the author’s evaluation settings (300k–1M token contexts and the specified temperature/top_p/max_new_tokens) will be the first public check on the claimed post-training gains.",
+      "source_urls": [
+        "https://huggingface.co/zai-org/GLM-5.3",
+        "https://techcrunch.com/2026/08/28/open-weight-ai-companies-are-the-valleys-hottest-acquisition-targets/"
+      ],
+      "topic_tag": "ai"
+    },
+    {
+      "headline": "Nutanix lays out a three-layer defense-in-depth architecture for agentic AI with Intel and Cisco integrations",
+      "what_happened": "VentureBeat published a sponsored piece from Nutanix that describes a defense-in-depth architecture for autonomous agents consisting of an infrastructure layer (hardware-rooted trust, confidential computing), a network layer (dynamic policy enforcement and microsegmentation), and a centralized control plane (agent permissions, tool access, runtime visibility). The article highlights integrations with Intel (hardware trust, Xeon 6 AMX), Cisco (secure fabric and integration with Cisco Secure AI Factory), and Nutanix Agent Gateway.",
+      "why_it_matters": "The architecture assigns distinct responsibilities to hardware, network, and control-plane components so security controls scale with agents’ runtime privileges rather than duplicating the same app-level guards. Engineers planning production agent deployments get a concrete mapping of risks to controls: platform attestation and confidential computing for environment integrity; dynamic network identity and microsegmentation to limit east-west agent traffic; and a centralized control plane for permission, token, and tool governance.",
+      "outlook": "Product integrations and partner case studies from Nutanix, Cisco, and Intel cited in the article will be the next concrete artifacts to watch as enterprises move from pilots to broader agent deployments and require demonstrable hardware-rooted trust and control-plane telemetry.",
+      "source_urls": [
+        "https://venturebeat.com/security/the-three-layers-of-agentic-ai-security-a-defense-in-depth-architecture-for-autonomous-agents",
+        "https://venturebeat.com/ai/enterprise-ais-real-risk-isnt-autonomous-agents-its-the-complexity-between-them"
+      ],
+      "topic_tag": "ai"
+    },
+    {
+      "headline": "LAION releases Big Video Dataset: 80M videos, 10M hours, 55M clips and 300M images for research use",
+      "what_happened": "LAION published the Big Video Dataset (BVD) drawn from 1.3 billion video URLs; the team downloaded 80 million videos totaling 10 million hours, extracted 55 million clips with auto-generated video and audio descriptions, and produced 300 million still images. LAION is releasing the dataset and code for research-only use and cites a paper claiming models trained on BVD outperform comparable InternVid-trained models by up to 2.1 percentage points on common video-to-text benchmarks.",
+      "why_it_matters": "The scale and multimodal alignment (video, audio, text) give engineers and researchers a large public corpus to train or finetune video-to-text and multimodal models without commercial licensing from a single vendor, enabling replication of training recipes and benchmarks at larger scale than previously available.",
+      "outlook": "Benchmark and model checkpoints trained on BVD, and independent comparisons to InternVid reported in preprints or conference submissions, will be the first public verification of LAION’s claimed up-to-2.1-point advantage.",
+      "source_urls": [
+        "https://the-decoder.com/laion-drops-massive-open-video-dataset-with-10-million-hours-of-footage-for-ai-research/"
+      ],
+      "topic_tag": "ai"
+    },
+    {
+      "headline": "Anthropic publishes a Model Hardware Standard research preview to unify device drivers for agents",
+      "what_happened": "Anthropic announced the Model Hardware Standard (MHS) research preview, a spec and driver approach that makes devices discoverable in a common format so agents can read and control lab and factory hardware. Anthropic says partners (HHMI Janelia, Genentech, Carnegie Mellon, QuEra) cut integration time from weeks or months to hours or minutes in early tests and that an open-source release is planned later.",
+      "why_it_matters": "MHS provides a single programmatic interface for heterogeneous devices, allowing agents to reuse drivers instead of rebuilding per-integration and enabling orchestration across multiple devices; that reduces integration engineering work and changes the operational surface engineers must test when moving agents into physical environments.",
+      "outlook": "The research preview now and the planned open-source release later are the next milestones; partner outputs from Genentech, Carnegie Mellon, and QuEra presented in Anthropic’s tests will be the immediate artifacts to inspect for real-world integration time and safety trade-offs.",
+      "source_urls": [
+        "https://the-decoder.com/anthropic-wants-to-do-for-physical-hardware-what-its-model-context-protocol-did-for-software/"
+      ],
+      "topic_tag": "ai"
+    },
+    {
+      "headline": "OpenAI testing a Persistent mode for Codex that lets agents continue work across sessions",
+      "what_happened": "Wired reported OpenAI added Persistent mode code to Codex’s command-line tool, which the company confirmed is under test and not broadly rolled out. Persistent mode appears in Codex’s reasoning-effort menu and instructs the agent to continue working until put to sleep, create proactive follow-up tasks, use past user interactions and knowledge of the user across sessions, and message users sparingly. OpenAI says there are no immediate launch plans.",
+      "why_it_matters": "Persistent mode changes the runtime model for agents from short-lived task execution to long-running, stateful workflows that can spawn follow-up actions and consult historical interactions; that raises new engineering questions about token budgets, proactivity limits, sandbox integrity, and alignment safeguards because the agent can operate across sessions and create tasks for itself.",
+      "outlook": "Commits and further changes in the Codex command-line repo, plus any signals that Persistent mode is promoted into Codex desktop, ChatGPT Work, or other product channels, will be the next public indications of broader rollout and operational constraints.",
+      "source_urls": [
+        "https://www.wired.com/story/openai-is-developing-a-persistent-ai-agent/"
+      ],
+      "topic_tag": "ai"
+    }
+  ],
+  "narration_script": "GLM-5.3 is now available as an open-weight model on Hugging Face. The publisher provides deployment instructions for Transformers, vLLM, SGLang, and a Docker Model Runner, and lists evaluation settings that include context windows up to 300,000 tokens and references to runs using up to a 1,000,000-token window and very large max_new_tokens values. The release includes benchmark tables comparing GLM-5.3 to GLM-5.2 and other models, so engineering teams can retrieve the same artifacts and attempt local reproductions under the specified settings. The next public check will be community reproductions and third-party benchmark runs that follow the model’s evaluation configuration. VentureBeat published a Nutanix-sponsored architecture for securing agentic AI with three layers: infrastructure, network, and control plane. The piece maps hardware-rooted trust and confidential computing to environment integrity, dynamic network policy and microsegmentation to governing east-west agent traffic, and a centralized control plane to manage agent permissions, tool access, and token governance. Intel, Cisco, and Nutanix integrations are named as how these layers can be combined in practice. That architecture gives engineers a concrete mapping of where to place attestation, isolation, and runtime policy enforcement as they move agents into production; the next artifacts to watch are product integrations and partner case studies from the companies named. LAION released the Big Video Dataset, built from 80 million downloaded videos totaling 10 million hours, with 55 million extracted clips and 300 million still images. The dataset and code are available for research-only use, and the accompanying paper claims up to a 2.1 percentage-point improvement versus models trained on InternVid for video-to-text tasks. Expect to see training runs, checkpoints, and independent benchmark comparisons published by research groups validating those claims. Anthropic unveiled a Model Hardware Standard research preview that standardizes device drivers so agents can discover and control lab and factory hardware through a single interface. Anthropic reports partner tests at Genentech, Carnegie Mellon, and QuEra where integration time fell from weeks or months to hours or minutes, and where agents generated scripts that could run without the language model in the loop. The company says an open-source release is planned later; the research preview outputs and partner results will be the immediate things to inspect for integration and safety trade-offs. Wired reported that OpenAI is testing a Persistent mode for Codex, added as a reasoning-effort option in the Codex command-line tool. Persistent mode instructs agents to continue working across sessions, create follow-up tasks, and use past user interactions, while limiting actions that alter systems outside the user’s approval. OpenAI confirmed testing but said there are no immediate launch plans. Watch the Codex repo commits and any moves to promote Persistent mode into desktop or enterprise products for signs of broader rollout. That is all for this edition of The Morning Build."
+}
