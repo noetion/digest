@@ -1,0 +1,58 @@
+{
+  "title": "The Morning Build for August 30, 2026: Tencent Hy4 Preview, Nvidia’s Vera Rubin Racks, and Self-Improving AI Labs",
+  "intro": "Today’s stories all show AI systems moving from single models to system-level workflows: Tencent released an open Hy4 preview built for long-context productivity; Nvidia is selling rack-level stacks that orchestrate data around GPUs; Anthropic published a paper showing automated researchers can improve alignment benchmarks; Google Research published WikiSkill for persistent agent memory; and DeepMind expanded Co-Scientist into a closed-loop lab partner.",
+  "meta_description": "Tencent open-sources Hy4 preview with 770B params and 1M+ context; Nvidia shifts focus to rack orchestration; papers from Anthropic, Google Research, and DeepMind show self-improving agents.",
+  "stories": [
+    {
+      "headline": "Tencent open-sources Hy4 preview: 770B total, 49B active params, over 1M-token context",
+      "what_happened": "Tencent released and open-sourced the Hy4 preview, a model described as 770 billion total parameters with 49 billion active parameters and a context window exceeding 1,000,000 tokens; it is available via WorkBuddy and CodeBuddy and by API through Tencent Cloud TokenHub and OpenRouter, with free access on WorkBuddy and CodeBuddy for two weeks and Hy3 extended free until September 30.",
+      "why_it_matters": "Engineers get an open-weight, long-context model with claimed improvements across coding, office productivity, game development, and scientific research, plus API pricing (USD 0.834 per million input tokens, USD 2.501 per million output tokens, USD 0.042 per million cache-hit tokens) to evaluate integration and cost at scale; Tencent also reports internal blind evaluations where Hy4 preview slightly outperformed GLM-5.3 and Kimi K3 on 203 engineering tasks.",
+      "outlook": "Next batch of models in the Hy4 series is expected to roll out soon, per Tencent.",
+      "source_urls": [
+        "https://www.tencent.com/tencent-releases-and-open-sources-tencent-hy4-preview/"
+      ],
+      "topic_tag": "ai"
+    },
+    {
+      "headline": "Nvidia shifts focus beyond GPUs with Vera Rubin racks and Vera CPU for data orchestration",
+      "what_happened": "Reporting around Nvidia’s recent earnings highlights the company rolling out Vera Rubin architecture, a rack-level system that pairs Rubin GPUs with components including the Vera CPU and specialized inference accelerators to reduce data-movement bottlenecks and improve end-to-end efficiency.",
+      "why_it_matters": "For large-scale deployments, the bottleneck is getting memory and flash data to the GPU at the right time; Nvidia says Vera CPU yields multi-fold acceleration in data orchestration operations, which affects tokens-per-watt and overall rack throughput more than raw GPU FLOPS alone.",
+      "outlook": "Nvidia’s next quarterly earnings and accompanying disclosures will be the commercial milestone to watch for adoption details and customer deployment metrics for Vera Rubin racks.",
+      "source_urls": [
+        "https://techcrunch.com/2026/08/29/nvidias-ai-advantage-is-moving-beyond-the-gpu/"
+      ],
+      "topic_tag": "chips"
+    },
+    {
+      "headline": "Anthropic paper demonstrates automated researchers improving alignment benchmarks within hours",
+      "what_happened": "Anthropic published a paper on Automated Alignment Researchers (AAR) that search literature, propose methods, and run 30-minute training cycles; the system improved performance on 10 targeted misalignment benchmarks in every case without degrading overall performance and reportedly outperformed human proposals on average within six hours while costing roughly USD 4 per hour in API inference versus USD 150 per human-researcher hour.",
+      "why_it_matters": "The result shows a practical path to automated, low-cost post-training alignment loops that can iterate quickly on benchmarked failures, meaning teams should expect alignment workflows to become faster and cheaper to run when tied to benchmark suites that reflect desired behaviors.",
+      "outlook": "The paper flags the need to establish and maintain benchmarks and literature the AAR depends on, making future work on benchmark curation and community replication studies the immediate next step for validating AAR results.",
+      "source_urls": [
+        "https://techcrunch.com/2026/08/28/an-anthropic-researcher-just-gave-us-a-peek-at-self-improving-ai/"
+      ],
+      "topic_tag": "ai"
+    },
+    {
+      "headline": "Google Research’s WikiSkill gives agents a persistent wiki and gated skill evolution",
+      "what_happened": "Google Research introduced WikiSkill, a three-layer framework where immutable execution traces feed a persistent Wiki Layer that distills failures and successes into reusable Agent Skills; Skill Proposers suggest changes and a gating validation set rolls back harmful changes while the wiki remains persistent.",
+      "why_it_matters": "WikiSkill materially improves multi-turn agent performance across five benchmarks and lets smaller models close the gap with larger ones by reusing evolved skills; skills transfer across models in some cases, offering a practical route to cumulative agent improvement without continuous model retraining.",
+      "outlook": "Benchmark names used in the study, LiveMath, SpreadSheet, OfficeQA, SealQA, and ALFWorld, are the immediate evaluation checkpoints for seeing if WikiSkill transfers or scales across other models and deployments.",
+      "source_urls": [
+        "https://the-decoder.com/google-gives-ai-agents-their-own-wiki-so-they-can-learn-from-mistakes-and-successes/"
+      ],
+      "topic_tag": "ai"
+    },
+    {
+      "headline": "DeepMind’s Co-Scientist extends to closed-loop lab workflows with verification modules",
+      "what_happened": "DeepMind expanded Co-Scientist from hypothesis generation to a lab-integrated system that plans experiments, programs lab equipment, analyzes results, and drafts manuscripts; in three discipline case studies the system produced experimentally validated outputs and, with verification modules active, reduced fabricated key results to 4 percent in a double-blind study of 150 autonomously generated papers.",
+      "why_it_matters": "Closed-loop control plus verification reduces fabrication and selective reporting compared with baselines; the system produced end-to-end lab pipelines in materials, biology, and a fully autonomous computer science experiment, showing practical constraints and gains when models directly control experimental workflows.",
+      "outlook": "OpenAI’s planned unveiling of an AI agent system this fall, referenced in the reporting, is a near-term external milestone to compare autonomous research capabilities against Co-Scientist’s lab-integrated results.",
+      "source_urls": [
+        "https://the-decoder.com/google-deepminds-ai-co-scientist-now-plans-experiments-runs-lab-equipment-and-writes-scientific-papers/"
+      ],
+      "topic_tag": "ai"
+    }
+  ],
+  "narration_script": "Tencent published and open-sourced the Hy4 preview, a model the company describes as 770 billion total parameters with 49 billion active parameters and a context window exceeding one million tokens. Hy4 preview is available via WorkBuddy and CodeBuddy, and by API through Tencent Cloud TokenHub and OpenRouter; Tencent is offering two weeks of free access on WorkBuddy and CodeBuddy and extended free access to Hy3 through September 30. Tencent reports internal blind evaluations where Hy4 preview slightly outperformed GLM-5.3 and Kimi K3, and it published API pricing for input, output, and cache-hit tokens. Nvidia’s recent earnings coverage shifts the story from standalone GPUs to rack-level systems: the Vera Rubin architecture pairs Rubin GPUs with a Vera CPU and other accelerators to reduce data-movement bottlenecks and improve tokens-per-watt at rack scale. Nvidia says the Vera CPU accelerates data orchestration, which changes how large deployments trade off memory, flash, and compute. Anthropic published a paper on Automated Alignment Researchers that search literature, propose methods, and run short training cycles; the system improved performance on ten targeted misalignment benchmarks in every case, reportedly beating human proposals on average within six hours and costing roughly four dollars per hour in API inference compared with a reported one-hundred-fifty-dollar-per-hour human cost. The paper emphasizes that the approach depends on well-constructed benchmarks and curated literature. Google Research introduced WikiSkill, a three-layer agent framework that stores immutable execution traces, distills them into a persistent wiki of failures and strategies, and evolves reusable skills through a gated validation step. In the paper’s experiments WikiSkill raised agent performance across five named benchmarks, LiveMath, SpreadSheet, OfficeQA, SealQA, and ALFWorld, and smaller models using WikiSkill can match larger models that do not. DeepMind expanded Co-Scientist into a closed-loop research partner that plans experiments, controls equipment, analyzes results, and drafts papers; in three discipline case studies the system produced validated outputs and, with verification modules enabled, reduced fabricated key results to four percent in a double-blind review of 150 generated papers. Across these stories the common thread is system-level engineering: open-weight long-context models, rack orchestration hardware, automated post-training loops, persistent agent memory, and lab-integrated agents. Concrete milestones to watch next are Tencent’s forthcoming Hy4 series releases, Nvidia’s next quarterly earnings and deployment disclosures for Vera Rubin racks, community replication and benchmark work following the Anthropic AAR paper, independent runs on the named WikiSkill benchmarks, and OpenAI’s planned agent unveiling this fall to compare against DeepMind’s Co-Scientist."
+}
