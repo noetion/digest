@@ -1,0 +1,58 @@
+{
+  "title": "The Morning Build for August 31, 2026: Mac minis for agents, U.S. robotics barriers, and robots in data centers",
+  "intro": "Today’s brief ties production-scale robotics and infrastructure moves to how companies deploy and scale AI: labs buying Mac minis to train desktop agents, U.S. tariffs and rules reshaping where drones and humanoids ship, Caterpillar applying mining autonomy lessons to enterprise AI, Meta piloting data-center robots for hardware chores, and Anthropic narrowing effective Claude Code capacity as a temporary boost ends.",
+  "meta_description": "OpenAI and rivals buy Mac minis for agent training; U.S. drone and robot tariffs reshape markets; Meta tests data-center robots; Anthropic trims Claude Code capacity Sept. 14.",
+  "stories": [
+    {
+      "headline": "OpenAI and rival labs buy tens of thousands of Mac minis to train computer-use agents",
+      "what_happened": "The Information reports OpenAI and other AI labs have purchased tens of thousands of Mac minis and Mac Studios to train agents that perform multi-step computer tasks; Anthropic rents Mac minis through AWS and the most powerful Apple models have been sold out for months because of a memory chip shortage.",
+      "why_it_matters": "Apple’s unified memory architecture, solid cooling, and recent demand make Mac minis a practical, compact option for long-running agent-training workloads and for local clustering with tools such as Exo; vendors and labs are treating Macs as an alternative to GPU-first platforms like Nvidia DGX Spark.",
+      "outlook": "Mount Thor, the Apple-based cloud service being built by Peter Voell, is an explicit next product milestone to watch for operational details and commercial availability.",
+      "source_urls": [
+        "https://the-decoder.com/openai-and-rival-ai-labs-are-buying-tens-of-thousands-of-mac-minis-to-train-computer-use-agents/"
+      ],
+      "topic_tag": "ai"
+    },
+    {
+      "headline": "U.S. tightens export and tariff rules on foreign-made drones and advanced robots, shifting global robotics markets",
+      "what_happened": "Washington introduced restrictions on foreign-made advanced robotic systems and announced steep tariffs on imported drones and components, with drone tariffs taking effect in September and additional component tariffs scheduled for 2027.",
+      "why_it_matters": "The measures aim to limit Chinese-made drones and humanoids in U.S. markets, where Chinese manufacturers currently dominate shipments and low-cost scale; this shifts competitive pressure toward regional supply chains and price-sensitive overseas markets.",
+      "outlook": "September, when the announced drone tariffs take effect, is the concrete milestone that will reveal immediate market frictions and where suppliers redirect shipments.",
+      "source_urls": [
+        "https://techcrunch.com/2026/08/30/the-u-s-is-building-barriers-around-drones-and-robots-china-still-has-scale/"
+      ],
+      "topic_tag": "policy"
+    },
+    {
+      "headline": "Caterpillar applies decades of autonomous-mining experience to enterprise AI and field-deployable assistants",
+      "what_happened": "Caterpillar is using autonomy experience from mining to build AI tools for jobsites, including automated haul trucks and the Cat AI Assistant for technicians; the company has about 1.6 million connected assets and more than 16 petabytes of structured data.",
+      "why_it_matters": "Caterpillar is repurposing operational data, fleet management, and remote-command tooling to integrate AI into physical workflows and technician tooling, while planning a $100 million employee training program over five years to scale adoption.",
+      "outlook": "$100 million in training spending over the next five years is the concrete corporate commitment that will unfold through fiscal-year training rollouts and workforce reports.",
+      "source_urls": [
+        "https://techcrunch.com/2026/08/30/caterpillar-is-bringing-to-ai-deployment-what-it-learned-from-automating-mining/"
+      ],
+      "topic_tag": "ai"
+    },
+    {
+      "headline": "Meta tests robotic arms and simple reset bots inside data centers to automate cable swaps and power cycling",
+      "what_happened": "Ars Technica reports Meta is experimenting with robots from vendors including Watney Robotics, Kinova, and ABB to plug cables, reset servers, and power-cycle devices; one simple robot can physically press power buttons on devices such as Mac minis.",
+      "why_it_matters": "If these pilots scale, robots could take on routine physical tasks and reduce headcount on specific maintenance duties; Meta’s experiments include both simple push-button devices and articulated arms for cable and power operations.",
+      "outlook": "Operational pilot results and internal roll-up decisions from Meta’s ongoing tests, as described by current and former workers, are the next internal milestones that will determine whether these robots enter broader data-center operations.",
+      "source_urls": [
+        "https://arstechnica.com/ai/2026/08/inside-metas-push-to-put-robots-to-work-in-data-centers/"
+      ],
+      "topic_tag": "ai"
+    },
+    {
+      "headline": "Anthropic’s Claude Code limits change increases baselines but cuts effective weekly capacity when the temporary boost ends Sept. 14",
+      "what_happened": "Anthropic will increase baseline weekly limits for Pro, Max, Team, and Enterprise plans by 25 percent starting September 14, but because a current temporary 50 percent boost expires that day, users will see a net 17 percent reduction in available weekly capacity compared with the boosted level; Anthropic confirmed the change on X.",
+      "why_it_matters": "Developers and teams using Claude Code should expect a step down in effective weekly capacity on September 14 despite the advertised baseline raise; Anthropic also shipped performance optimizations and an automatic bug-reporting feature for Claude Code.",
+      "outlook": "September 14 is the explicit policy-change date when the temporary 50 percent boost ends and the new 25 percent baseline takes effect.",
+      "source_urls": [
+        "https://the-decoder.com/anthropics-claude-code-limit-change-is-a-raise-on-paper-but-a-cut-in-practice/"
+      ],
+      "topic_tag": "dev-tools"
+    }
+  ],
+  "narration_script": "OpenAI and other labs have bought tens of thousands of Mac minis and Mac Studios to train agents that perform multi-step computer tasks, and Anthropic is renting Mac minis through AWS. Reports say Apple machines are favored for unified memory and cooling, while projects such as Exo and an Apple-focused cloud called Mount Thor are emerging around local Mac clustering. Mount Thor is the explicit product milestone to watch as labs scale Apple-based training infrastructure.  Washington has introduced new restrictions on foreign-made advanced robotic systems and announced steep tariffs on imported drones and components, with the drone tariffs taking effect in September and component tariffs scheduled in 2027. The U.S. moves aim at Chinese-made drones and humanoids, and September’s tariff start will show immediate market impacts and where suppliers redirect shipments.  Caterpillar is bringing expertise from automating mining into broader AI deployment, selling automated haul trucks and site software and running the Cat AI Assistant that technicians use for voice-driven repair procedures. The company reports about 1.6 million connected assets and over 16 petabytes of structured data, and it has committed to spend $100 million over the next five years on employee training in AI and autonomy. That training spend is the concrete multi-year milestone to follow.  Meta is piloting robots inside data centers from multiple vendors, testing articulated arms for power cycling and cable swaps alongside simple devices that can press power buttons on servers and Mac minis. The projects are at the pilot stage and Meta’s internal test results will determine if the robots move into wider operations.  Anthropic will change Claude Code usage limits on September 14. The company will raise baseline limits by 25 percent, but a current temporary 50 percent boost expires that day, producing a net reduction in effective weekly capacity versus the boosted level. Anthropic also shipped performance optimizations and an automatic feedback tool for generating bug reports.  Those are the items in today’s briefing. Key dates to watch are September for the U.S. drone tariffs, September 14 for Anthropic’s Claude Code policy change, and the public availability details for products such as Mount Thor and the various data-center robotics pilots."
+}
