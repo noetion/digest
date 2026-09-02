@@ -1,0 +1,61 @@
+{
+  "title": "The Morning Build for September 2, 2026: Anthropic's Fable 5.1, OpenAI Astra, and hybrid/local AI moves",
+  "intro": "Today’s stories focus on model capability and deployment shifts: Anthropic released Claude Fable 5.1 and Mythos 5.1 with lower token costs and expanded enterprise safeguards; OpenAI previewed Astra and restricted its cyber-capable features to Daybreak partners; Nvidia invested $3.5 billion in MediaTek to keep custom chips compatible with Nvidia data-center fabric; OpenAI’s desktop Codex/ChatGPT app bundles a full LibreOffice runtime; and Perplexity launched a hybrid agent that routes sensitive work to local Apple silicon models.",
+  "meta_description": "Anthropic ships Fable 5.1 with cost and research gains; OpenAI limits cyber-capable Astra to Daybreak partners; Nvidia backs MediaTek for NVLink Fusion; Perplexity launches hybrid local/cloud agent.",
+  "stories": [
+    {
+      "headline": "Anthropic releases Claude Fable 5.1 and Mythos 5.1 with lower token costs and expanded enterprise safeguards",
+      "what_happened": "Anthropic published Claude Fable 5.1 (generally available) and Claude Mythos 5.1 (trusted-access), stating they are the same model with different safeguards and showing benchmark gains across coding, knowledge work, and agentic research. Fable 5.1 reduces estimated cost by about 25% for typical token-billed workloads and up to approximately 45% for highly agentic workloads by lowering cache-read pricing; Enterprise Frontier Safeguards (EFS) will let enterprise customers store data in customer-controlled cloud infrastructure and EFS phases begin later this fall, with zero data retention available to eligible customers until EFS ships.",
+      "why_it_matters": "Engineers get a model that Anthropic reports is materially faster and cheaper on agentic coding and research benchmarks, with integrated options for zero data retention and a customer-controlled EFS architecture that separates stored inputs from Anthropic’s cloud. The published benchmark table and reported GPU optimizations (up to 2.5x speedups on seven open-source biology models) imply potential cost and turnaround improvements for computational research and performance-sensitive model tooling.",
+      "outlook": "Enterprise Frontier Safeguards (EFS) rollout, which Anthropic says begins in phases later this fall, will show whether customer-hosted storage and zero-retention options are broadly available.",
+      "source_urls": [
+        "https://www.anthropic.com/claude-fable-and-mythos-5-1",
+        "https://venturebeat.com/technology/anthropics-claude-fable-5-1-and-mythos-5-1-arrive-with-a-75-cost-reduction-for-fable-cache-reads",
+        "https://the-decoder.com/anthropics-claude-fable-5-1-promises-better-coding-and-research-at-up-to-45-percent-less/"
+      ],
+      "topic_tag": "ai"
+    },
+    {
+      "headline": "OpenAI says Astra reaches its ‘critical’ cyber threshold and will restrict advanced capabilities to Daybreak partners at launch",
+      "what_happened": "OpenAI briefed reporters that Astra is the first model the company rates as having critical cybersecurity abilities because it can independently find and exploit previously unknown vulnerabilities; OpenAI plans to publicly release a version soon while advanced cyber capabilities will be available only to Daybreak Blue early-access partners at launch.",
+      "why_it_matters": "Security teams and platform engineers must account for models that can autonomously chain exploits; OpenAI also described new mitigation layers, including a misalignment monitor that can flag or pause actions and which may sometimes slow legitimate workflows when triggered.",
+      "outlook": "OpenAI’s Daybreak Blue early-access launch, where partners including infrastructure vendors will get the less-restricted Astra, is the immediate milestone for seeing how operational controls perform in production at partner scale.",
+      "source_urls": [
+        "https://www.wired.com/story/openai-astra-first-ai-model-with-critical-cyber-abilities/",
+        "https://techcrunch.com/2026/09/01/open-ais-astra-model-is-on-the-way-and-very-good-at-breaking-into-computer-systems/"
+      ],
+      "topic_tag": "ai"
+    },
+    {
+      "headline": "Nvidia invests $3.5 billion in MediaTek to fold MediaTek custom ASICs into NVLink Fusion rack-scale infrastructure",
+      "what_happened": "Nvidia is investing $3.5 billion in MediaTek and will let MediaTek adopt Nvidia’s NVLink Fusion ecosystem so MediaTek-designed chips can interoperate with Nvidia data-center infrastructure; MediaTek says its custom data-center ASIC business expects $2 billion in revenue in 2026.",
+      "why_it_matters": "The deal signals Nvidia’s strategy to preserve its rack-scale and NVLink-based data-center standard while enabling third-party custom silicon to plug into that fabric, which affects hardware architects and procurement teams planning for heterogeneous racks that mix Nvidia GPUs and third-party ASICs.",
+      "outlook": "MediaTek’s stated 2026 revenue target of $2 billion for its custom data-center ASIC business will be a concrete indicator of initial customer traction for MediaTek chips compatible with Nvidia’s NVLink Fusion.",
+      "source_urls": [
+        "https://techcrunch.com/2026/08/31/nvidias-3-5b-mediatek-bet-reveals-its-plan-for-tackling-big-techs-ai-chip-buildout/"
+      ],
+      "topic_tag": "chips"
+    },
+    {
+      "headline": "OpenAI’s Codex/ChatGPT desktop app bundles a full LibreOffice runtime in its codex-primary-runtime cache",
+      "what_happened": "Researcher Simon Willison inspected his Codex (rebranded to ChatGPT) desktop app cache and found a codex-primary-runtime folder containing a full Python, Node.js, Poppler, git, and a complete LibreOffice installation; the app includes plugin skills pointing to those local binaries.",
+      "why_it_matters": "Bundling full native runtimes and binaries lets the desktop app run document workflows and local tooling without external dependencies, which affects local integration, disk usage, and security review processes for teams installing the app.",
+      "outlook": "Simon Willison’s discovery, dated September 1, 2026, establishes the installed codex-primary-runtime as the baseline to verify in future desktop app updates or audits of the ChatGPT/Codex runtime footprint.",
+      "source_urls": [
+        "https://simonwillison.net/2026/Sep/1/codex-libreoffice/"
+      ],
+      "topic_tag": "dev-tools"
+    },
+    {
+      "headline": "Perplexity launches hybrid compute for Computer, routing sensitive subtasks to local Apple-silicon models",
+      "what_happened": "Perplexity launched hybrid compute in its agent platform Computer so a cloud frontier model can split a task and delegate sensitive subtasks to a local subagent on Apple silicon Macs via a Privacy Gate classifier; the feature is available today to enterprise opt-ins, and Pro and Max subscribers on Apple silicon Macs running macOS 15 or later, and Perplexity recommends at least 32GB unified memory for higher-tier local models.",
+      "why_it_matters": "Engineers building agent workflows can now design tasks that keep private inputs on-device while outsourcing public research and heavy reasoning to cloud models, changing cost profiles (local tokens free; cloud orchestration metered) and introducing an on-device classifier (the Privacy Gate) as a new point of trust and audit in the stack.",
+      "outlook": "Perplexity said Windows and Linux support will arrive later, and the enterprise device-level audit logs and organization-wide sensitivity policies will be the next concrete additions to watch as the rollout continues.",
+      "source_urls": [
+        "https://venturebeat.com/orchestration/your-files-stay-put-perplexitys-hybrid-ai-keeps-confidential-data-off-the-cloud"
+      ],
+      "topic_tag": "ai"
+    }
+  ],
+  "narration_script": "Anthropic published Claude Fable 5.1 and Claude Mythos 5.1. The two are the same model with different safeguards; Fable 5.1 is generally available and Anthropic reports about a 25 percent cost reduction on typical token-billed workloads and up to roughly 45 percent for highly agentic use by lowering cache-read pricing. Anthropic also announced Enterprise Frontier Safeguards, which will let customers keep stored inputs in cloud infrastructure they control, and said EFS phases begin later this fall. The company published benchmark results showing gains across agentic coding, knowledge work, and scientific research, and reported GPU optimizations that sped seven open-source biology models by up to 2.5 times. OpenAI briefed reporters about Astra, which it says reaches its internal threshold for critical cyber capabilities because it can find and exploit previously unknown vulnerabilities. OpenAI plans to release a public version soon while restricting advanced cyber features at launch to Daybreak Blue partners. The company described a new misalignment monitor and said partners will get a less-restricted Astra so infrastructure vendors can harden defenses. Nvidia announced a $3.5 billion investment in MediaTek. Under the deal MediaTek will adopt Nvidia’s NVLink Fusion technologies so MediaTek-designed custom chips can interoperate with Nvidia rack-scale infrastructure. MediaTek told reporters it expects its custom data-center ASIC business to generate about $2 billion in revenue in 2026. Researcher Simon Willison inspected the Codex, now ChatGPT, desktop app cache and found a codex-primary-runtime totaling about 1.7 gigabytes that contains full Python and Node.js runtimes, native binaries for Poppler and git, and a complete LibreOffice installation, with plugins that point the app to those local binaries. Perplexity launched hybrid compute for its agent platform Computer so a cloud frontier model can split tasks and delegate sensitive subtasks to a local subagent on Apple silicon Macs. The system uses a Privacy Gate classifier on-device to flag PII and let the user choose whether flagged portions run locally; it is available today for enterprise opt-ins and Pro and Max subscribers on Apple silicon Macs running macOS 15 or later, and Perplexity recommends at least 32 gigabytes of unified memory for higher-tier local models. Perplexity also said Windows and Linux support will come later. That is the Morning Build for September 2, 2026."
+}
