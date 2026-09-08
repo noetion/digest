@@ -1,0 +1,59 @@
+{
+  "title": "The Morning Build for September 8, 2026: GPT-6 Astra Beats Portal, AI Drug Signs, and VDDK Removal",
+  "intro": "Today’s stories touch developer-facing AI wins and infrastructure friction: GPT-6 Astra completed a full Portal playthrough, an AI-designed drug shows age-clock changes and enters Phase III, political and local backlash reshapes data-center debates, Broadcom removed public VDDK downloads affecting migrations, and authors are contesting publisher claims in the $1.5B Anthropic settlement.",
+  "meta_description": "GPT-6 Astra runs Portal end-to-end; AI drug rentosertib shifts aging clocks; Broadcom pulls VDDK downloads; Anthropic settlement payment disputes rise.",
+  "stories": [
+    {
+      "headline": "GPT-6 Astra completed a full Portal playthrough autonomously in under 24 hours",
+      "what_happened": "A user reported that GPT-6 Astra navigated the entire game Portal and reached the credits without human input after the initial goal, taking about 23 hours and 43 minutes. The run used MCP and a modified SourcePauseTool so the agent receives screenshots, position, and camera angle, chooses inputs during pauses, then resumes the game; code and documentation are on GitHub.",
+      "why_it_matters": "This is a concrete demonstration of a single LLM-driven agent completing a complex, multi-step task end to end, with explicit tooling to pause the environment and feed visual and state context to the model. Engineers building agents or human-in-the-loop pipelines can study the posted code and integration pattern for visual-state sampling and action insertion.",
+      "outlook": "Updates or follow-up runs posted to the GitHub repository and additional logs or videos from the same author will be the next public milestones to confirm reproducibility and show engineering refinements.",
+      "source_urls": [
+        "https://the-decoder.com/gpt-6-astra-beat-portal-start-to-finish-without-human-help-in-under-24-hours/"
+      ],
+      "topic_tag": "ai"
+    },
+    {
+      "headline": "Insilico’s AI-designed drug rentosertib shifts six independent aging clocks in a 42-patient trial",
+      "what_happened": "Researchers ran six independent AI aging clocks on blood samples from a 42-patient IPF trial and found treated patients’ protein patterns read as biologically younger than placebo, with strongest effects at three to four years by week 4 and one clock showing up to six years. The drug was developed by AI in about 18 months and is in a Phase III trial for IPF.",
+      "why_it_matters": "Multiple independent AI models agreeing on protein-pattern shifts provides a replicable signal that AI-driven target selection and molecule design produced measurable biomarker changes in this patient set; engineers working on AI-for-drug-discovery should note the end-to-end workflow and the use of external biobank comparisons for benchmarking.",
+      "outlook": "The Phase III trial readout for rentosertib is the next concrete milestone for judging clinical and translational impact beyond biomarker shifts.",
+      "source_urls": [
+        "https://the-decoder.com/ai-designed-drug-appears-to-turn-back-the-bodys-biological-clock-in-early-trial/"
+      ],
+      "topic_tag": "ai"
+    },
+    {
+      "headline": "Wired reports China scapegoating and rising local opposition as central threads in the US data center backlash",
+      "what_happened": "WIRED documents increased public opposition to data centers, notes both-party political shifts ahead of the midterms, and critiques claims that Chinese influence is the principal driver of anti-data-center sentiment. The piece cites platform moderation and analytics firms, including OpenAI’s earlier cluster finding and Graphika’s assessment that much opposition appears homegrown.",
+      "why_it_matters": "Engineers planning or operating data centers face growing political and public resistance that is being framed in partisan and foreign-influence terms; the reporting highlights that narrative attribution may shape regulatory and permitting outcomes, which affects site selection, permitting timelines, and community engagement workstreams.",
+      "outlook": "WIRED’s September 10 livestream on data centers is the next named event where reporting and stakeholder views could surface new claims or evidence about public sentiment and influence operations.",
+      "source_urls": [
+        "https://www.wired.com/story/why-china-is-still-the-bogeyman-for-data-center-enthusiasts/",
+        "https://arstechnica.com/features/2026/09/the-ai-data-center-boom-is-causing-new-accountability-problems/"
+      ],
+      "topic_tag": "policy"
+    },
+    {
+      "headline": "Broadcom removed public VDDK download pages, creating migration roadblocks for VMware customers",
+      "what_happened": "Broadcom removed the publicly accessible VMware Virtual Disk Development Kit (VDDK) download pages, returning 404s for VDDK 7, 8, and 9 paths; customers report Broadcom support saying VDDK is no longer available for general use or download. Microsoft updated Azure Migrate guidance to warn access may be restricted and recommend agent-based migration if VDDK is unavailable. Red Hat published a KB noting download errors and said it cannot redistribute the proprietary package while it investigates alternatives.",
+      "why_it_matters": "VDDK is embedded in many agentless migration and migration-tool workflows such as Azure Migrate, Red Hat Migration Toolkit, Nutanix Move, virt-v2v, and nbdkit; removing public access interrupts agentless migration paths and forces reliance on vendor workarounds or agent-based methods, raising migration cost and planning risk for infrastructure teams.",
+      "outlook": "A Broadcom public announcement restoring VDDK downloads, an official transition notice, or alternative distribution path from Broadcom are the concrete signals that would resolve the immediate migration barrier; Red Hat’s ongoing investigation into long-term VDDK alternatives is another development to watch.",
+      "source_urls": [
+        "https://www.virtualizationhowto.com/2026/09/leaving-vmware-just-got-harder-after-broadcom-pulled-vddk-downloads/"
+      ],
+      "topic_tag": "big-tech"
+    },
+    {
+      "headline": "Authors report publishers and agents claiming Anthropic settlement payments, triggering disputes",
+      "what_happened": "Authors receiving allocations from Anthropic’s $1.5 billion copyright settlement reported emails indicating publishers or agents made claims on their payments. Under the settlement, authors of nearly 500,000 titles receive $3,000 per pirated work; the payment is split 50-50 with a traditional publisher still in print, or fully to the author if rights reverted before August 10, 2022. Some publishers have told authors these are mistakes and have asked Anthropic to fix allocations.",
+      "why_it_matters": "The dispute process and recordkeeping determine final payment allocation; the reversion cutoff date and publisher involvement are concrete rules that will drive many disputes and corrections, affecting how much individual authors receive and how claims are adjudicated.",
+      "outlook": "Corrections from Anthropic and updates to the settlement distribution reflecting disputed claims and publisher fixes are the next concrete milestones for resolving allocation errors.",
+      "source_urls": [
+        "https://techcrunch.com/2026/09/06/authors-push-back-as-publishers-and-agents-seek-share-of-anthropic-settlement/"
+      ],
+      "topic_tag": "policy"
+    }
+  ],
+  "narration_script": "GPT-6 Astra completed a full Portal playthrough on its own, according to a user report. The run took 23 hours and 43 minutes. The agent uses MCP and a modified SourcePauseTool so it can see screenshots, player position, and camera angle during pauses, select inputs, and then resume the game. The author published code and documentation on GitHub, which engineers can inspect for the visual-state sampling and action-injection pattern. Insilico Medicine published analysis showing its AI-designed drug rentosertib shifted six independent aging clocks in blood samples from a 42-patient IPF trial. The strongest effects were three to four years by week four in several clocks and up to six years on one clock. Rentosertib was AI-designed over about 18 months and is currently in a Phase III trial for IPF. WIRED reports that US public opposition to data centers has grown and that political actors are invoking Chinese influence to explain the backlash. The reporting cites platform moderation activity and analytics firms and notes that much opposition appears to be homegrown. WIRED will host a data-center livestream on September 10. Broadcom removed the publicly available VMware VDDK download pages, producing 404s for multiple VDDK versions and prompting customer reports that Broadcom support said the VDDK is no longer available for general download. Microsoft updated Azure Migrate guidance to warn access may be restricted and recommend agent-based migration if needed. Red Hat published a support note saying it cannot redistribute the proprietary VDDK and is investigating alternatives. Finally, authors receiving payments under Anthropic’s $1.5 billion settlement reported that publishers and some agencies have made claims on their allocations. Under the settlement authors of nearly 500,000 titles receive $3,000 per pirated work, with a 50-50 split if the book remains in print. Rights reverted before August 10, 2022 make an author eligible for the full payment. Publishers say some of the claims are mistakes and have asked Anthropic to fix allocations. The next milestones are public GitHub updates or follow-up runs for the GPT-6 Astra playthrough, the Phase III readout for rentosertib, WIRED’s September 10 livestream on data centers, any Broadcom announcement or restored VDDK downloads, and corrections to Anthropic’s settlement distributions reflecting disputed claims."
+}
