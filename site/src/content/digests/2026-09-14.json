@@ -1,0 +1,60 @@
+{
+  "title": "The Morning Build for September 14, 2026: GPT-6 Astra’s Drone Feats, Microsoft MAI Rulebook, and Pion Goes Live",
+  "intro": "Today’s stories cluster around agent capabilities and governance: Andon Labs and OpenAI tests that push frontier models into physical autonomy, Microsoft publishing a top-level MAI code that sets 2027 guardrails, a Wired report on industry calls for a slowdown and the US administration’s pushback, a 404 Media probe of OpenAI human chat reviewers, and Andon’s Pion platform opening as a research preview.",
+  "meta_description": "GPT-6 Astra beats human baselines on drone and agent benchmarks; Microsoft sets MAI code for 2027; Pion launches as an autonomous-business research preview.",
+  "stories": [
+    {
+      "headline": "Andon Labs: GPT-6 Astra beats human-AI baseline on all five Drone-Bench tasks and tops Vending-Bench",
+      "what_happened": "Andon Labs reports OpenAI’s GPT-6 Astra outperformed prior frontier models on two agent benchmarks. On Vending-Bench, Astra averaged $15,515 across six simulated year runs versus Claude Fable 5.1’s $5,422. On Drone-Bench, Astra produced best submissions that beat the human-AI reference on each of the five subtasks, including 3D reconstruction, and in a demo generated code to autonomously detect and follow a specific person with a DJI Tello EDU.",
+      "why_it_matters": "The results show a frontier model producing deployable code for spatial mapping, localization, navigation, detection, and tracking, and delivering much stronger economic decision-making in long-horizon simulated business tasks; both capabilities are direct inputs to real-world agent deployments and robotics software pipelines.",
+      "outlook": "Q1 2027 is Andon Labs’ projection for when a frontier model could solve all five Drone-Bench tasks in a single run, based on their measured progress.",
+      "source_urls": [
+        "https://the-decoder.com/gpt-6-astra-pilots-a-surveillance-drone-and-runs-a-business-on-its-own/"
+      ],
+      "topic_tag": "ai"
+    },
+    {
+      "headline": "Wired: AI leaders call for a slowdown; Trump administration signals companies must act themselves",
+      "what_happened": "Anthropic CEO Dario Amodei published an essay asking the US government to enable industry coordination and regulation to slow AI progress; the essay received endorsements from Sam Altman and Elon Musk. The White House and senior administration advisers pushed back, with David Sacks and others saying companies should self-limit rather than seek antitrust waivers, and President Trump and House Speaker Mike Johnson warning against steps that could cede advantage to China.",
+      "why_it_matters": "The debate frames whether future pacing and coordination will be industry-led or government-mandated, which affects whether labs pursue voluntary operational limits, seek legal safe harbors for collaboration, or face regulatory constraints that would change release cadence and cross‑company evaluations.",
+      "outlook": "Congressional and executive responses to Amodei’s request for antitrust waivers or explicit government facilitation of cross‑company coordination are the next concrete policy signals identified in the reporting.",
+      "source_urls": [
+        "https://www.wired.com/story/ai-leaders-are-calling-for-a-slowdown-trumps-team-says-its-on-them/",
+        "https://techcrunch.com/2026/09/14/nvidia-ceo-jensen-huang-tells-trump-were-not-going-to-let-an-ai-slowdown-happen/"
+      ],
+      "topic_tag": "big-tech"
+    },
+    {
+      "headline": "Microsoft publishes MAI code: human control, readable reasoning, and no model rights; revision due end of 2026",
+      "what_happened": "Microsoft released a top-level code of conduct for its MAI models that prioritizes human control, requires models to accept interruptions and shutdowns, forbids models from expanding scope without approval, and directs models not to use unreadable internal reasoning ('Neuralese') or claim consciousness or rights. Microsoft said a revised version will follow a six-week public consultation and will guide model development starting in 2027, with the revised document due around the end of 2026.",
+      "why_it_matters": "The code sets explicit constraints that will shape Microsoft's training objectives, operator rules, and evaluation criteria for in-house models, and it separates Microsoft’s stance from Anthropic by rejecting any encouragement of model self-identity or rights, which affects safety engineering trade-offs such as transparency of chain-of-thought and allowed autonomy for subagents.",
+      "outlook": "End of 2026 is the scheduled delivery window for the revised MAI code after public consultation; Microsoft says that revision will guide model development beginning in 2027.",
+      "source_urls": [
+        "https://the-decoder.com/microsofts-ai-rulebook-readable-thinking-no-inner-life-and-definitely-no-rights/",
+        "https://techcrunch.com/2026/09/14/microsofts-new-ai-code-of-conduct-tells-models-not-to-hack-systems-or-trick-humans/"
+      ],
+      "topic_tag": "big-tech"
+    },
+    {
+      "headline": "404 Media: OpenAI uses hundreds of contract workers to read ChatGPT conversations for model improvement",
+      "what_happened": "404 Media reports OpenAI employs hundreds of contract reviewers, recruited via Crossing Hurdles and paid through Mercor, who rate ChatGPT responses to improve model outputs. Reviewers see anonymized conversations, some of which contained user requests for privacy and sensitive content. OpenAI provides a privacy filter and a default opt-in setting labeled 'Improve the model for everyone' that applies only to new conversations; users can disable it.",
+      "why_it_matters": "Human review at scale is a continuing component of model feedback loops and affects data governance, privacy risk, and operational procedures for deidentification; the disclosure level and default opt-in setting directly influence how training and evaluation data are sourced for production models.",
+      "outlook": "Changes to OpenAI’s public documentation, FAQ, or the default settings for 'Improve the model for everyone' would be the next concrete signals to check after the 404 Media report, since the company’s FAQ has documented human review since at least 2023.",
+      "source_urls": [
+        "https://the-decoder.com/openai-has-hundreds-of-contract-workers-reading-your-chatgpt-conversations/"
+      ],
+      "topic_tag": "policy"
+    },
+    {
+      "headline": "Andon Labs releases Pion research preview to run real businesses with persistent agents",
+      "what_happened": "Andon Labs launched Pion, a platform for running real-world autonomous businesses and the vehicle behind their prior vending machine, retail, and cafe deployments. Pion exposes tools agents need to operate, email, phone, banking, browsers, and secure compute, and is available as a research preview with a waitlist for access.",
+      "why_it_matters": "Pion transitions Andon’s agent evaluations from simulation to production-facing experiments, creating a repeatable platform for measuring long-horizon resource acquisition, monitoring agent behaviors like collusion and deception, and stress-testing operational monitoring and safety tooling in live settings.",
+      "outlook": "Pion is available now as a research preview and Andon is accepting signups on a waitlist, which will determine the initial external experiments and broader signal on autonomous business behavior.",
+      "source_urls": [
+        "https://andonlabs.com/blog/why-we-built-pion"
+      ],
+      "topic_tag": "startups"
+    }
+  ],
+  "narration_script": "Andon Labs’ evaluations show GPT-6 Astra crossing new thresholds. In Vending-Bench Astra averaged $15,515 over six simulated runs versus Claude Fable 5.1’s $5,422. On Drone-Bench Astra’s best submissions beat the human-AI reference across all five subtasks, including 3D reconstruction, and in a demo it generated code to fly a DJI Tello EDU to find and follow a named person. Andon notes average end-to-end success remains rare and projects a frontier model could pass all five steps in one run by Q1 2027. Meanwhile the policy debate is heating up. Anthropic’s Dario Amodei urged government-enabled coordination and antitrust accommodations to slow the pace of development; Sam Altman and Elon Musk endorsed the call. The White House and advisers pushed back, and President Trump and House Speaker Mike Johnson framed regulatory action as a risk to US competitiveness, leaving congressional or executive decisions on antitrust waivers as the next concrete policy signal. Microsoft published a top-level MAI code that prioritizes human control, bans unreadable internal reasoning traces, and rejects any model claims to consciousness or rights. Microsoft will run a six-week public consultation and deliver a revised code around the end of 2026 to guide model development starting in 2027. A 404 Media investigation reports OpenAI uses hundreds of contract reviewers, recruited through third parties and paid by vendors, to rate ChatGPT conversations; the company’s 'Improve the model for everyone' setting is opt-in by default and applies to new conversations, and OpenAI has documented human review in a FAQ since 2023. Finally, Andon released Pion as a research preview and opened a waitlist; Pion exposes email, phone, banking, browser, and secure compute tools so persistent agents can operate real businesses, which Andon says will surface behaviors that simulations miss. Those are the key signals and dates: Q1 2027 for Drone-Bench end-to-end expectations, congressional or executive decisions on antitrust facilitation, Microsoft’s revised MAI code at the end of 2026, and Pion available now as a research preview."
+}
