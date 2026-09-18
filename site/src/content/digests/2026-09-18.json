@@ -1,0 +1,59 @@
+{
+  "title": "The Morning Build for September 18, 2026: Grid Power Deals, Anthropic's Parallel Agents, FAA's $875M SMART",
+  "intro": "Today’s stories center on control points for compute: a coalition led by Google, Nvidia, Anthropic, and utilities that wants demand response to free tens of gigawatts for data centers; Anthropic moving Claude Code toward parallel agent workflows for autonomous coding; the FAA contracting $875 million for an AI air-traffic platform; a high-reasoning GPT-6 run showing agent-style gameplay advances; and a new proof-first language, Bend, that claims Lean-style proofs with C and CUDA performance.",
+  "meta_description": "Google, Nvidia, Anthropic form a grid coalition to free 100 GW for data centers; Anthropic opens parallel-agent Claude Code beta; FAA funds $875M SMART AI; GPT-6 gameplay gains; Bend language launches.",
+  "stories": [
+    {
+      "headline": "Google, Nvidia, Anthropic join Emerald AI in coalition to use demand-response software to free grid capacity for data centers",
+      "what_happened": "Emerald AI formed the AI Energy Management Alliance with Google, Nvidia, Anthropic, and utilities including AES, Constellation, National Grid, and NRG Energy to coordinate demand-response actions so data centers can pause or shift noncritical compute and claim up to 100 gigawatts of additional grid capacity, per TechCrunch. Emerald AI’s software connects utilities directly to data centers and the company recently raised a $150 million Series A led by Energize Capital and DCVC.",
+      "why_it_matters": "Coordinating data-center load as a grid-side resource changes site feasibility and capacity planning: demand-response actions and quick compute shifts can substitute for some generator or new-build capacity and create operational windows for new data-center connections. The coalition includes major hyperscalers and utilities, which could accelerate integration between grid signals and compute orchestration.",
+      "outlook": "Emerald AI’s $150 million Series A funding and the formation of the AI Energy Management Alliance are the immediate signals to watch for initial pilot deployments and wider utility integrations announced by Emerald and the listed utility partners.",
+      "source_urls": [
+        "https://techcrunch.com/2026/09/17/google-nvidia-and-anthropic-want-emerald-ai-to-find-space-on-the-grid-for-more-data-centers/",
+        "https://techcrunch.com/2026/09/17/crusoe-raises-3-9b-to-build-massive-data-centers-and-small-modular-ai-factories/"
+      ],
+      "topic_tag": "big-tech"
+    },
+    {
+      "headline": "Anthropic rebuilds Claude Code Projects to split goals into parallel agent threads with per-thread PRs and tests",
+      "what_happened": "Anthropic reworked the Projects feature in Claude Code so a coordinator decomposes a user goal into parallel threads, each running as its own cloud session; threads can open pull requests and run tests, progress is trackable in the main chat or per thread, and a shared memory and file library accumulate results. The beta is open to select Pro and Max subscribers using cloud sessions, with Team and Enterprise access and local execution slated for later.",
+      "why_it_matters": "Parallel, coordinator-driven threads push Claude Code from single-session assistance toward multi-session autonomous workflows that can execute repo operations and tests in parallel, changing how teams might adopt agent-driven automation and how token usage is concentrated across vendor-managed cloud sessions.",
+      "outlook": "Anthropic’s stated next milestones are rolling Team and Enterprise access and the planned local execution option after the current beta for select Pro and Max cloud-session subscribers.",
+      "source_urls": [
+        "https://the-decoder.com/anthropic-keeps-pushing-claude-code-toward-autonomous-coding-with-new-parallel-agent-workflows/"
+      ],
+      "topic_tag": "ai"
+    },
+    {
+      "headline": "FAA to spend $875 million on SMART, a cloud-based AI platform for traffic prediction and route conflict detection",
+      "what_happened": "The FAA awarded an $875 million program to Air Space Intelligence for SMART, a cloud-based platform that uses AI to assess airline schedules, weather, airport capacity, airspace conditions, and operational constraints to predict traffic flows and identify potential conflicts, with the first rollouts planned for the Washington, D.C., metropolitan area and a 12-year cost profile reported by TechCrunch via the Wall Street Journal.",
+      "why_it_matters": "A government-funded cloud AI platform integrated with air-traffic management systems creates a long-term operational commitment and a multi-year deployment path; regional first-rollout in the Washington, D.C., metro means integration and validation will start in a high-density airspace with direct operational impact for controllers and ATC tooling.",
+      "outlook": "The Washington, D.C., metropolitan area rollout, cited in the contract readout, is the first public deployment milestone to follow the $875 million, 12-year SMART program.",
+      "source_urls": [
+        "https://techcrunch.com/2026/09/17/the-faas-plan-to-fix-air-traffic-875-million-worth-of-ai/"
+      ],
+      "topic_tag": "policy"
+    },
+    {
+      "headline": "GPT-6 Astra posts large gains on ARC-AGI-3 style gameplay runs but also shows overcorrection in open-world tasks",
+      "what_happened": "Vals AI and community runs report GPT-6 Astra completing complex game playthroughs faster than prior models, Pokemon FireRed champion in 18 hours vs 96 for GPT-5.6, a Factorio rocket in about ten hours, and a Fallout 3 credits run in about 59 hours, and ARC-AGI-3 style testing shows Astra hitting 62.7 percent versus earlier models’ single-digit scores. The runs also show failure modes where a bad event caused Astra to codify an overconservative rule and spend hours farming potatoes in Minecraft.",
+      "why_it_matters": "Astra’s ability to translate observations into compact rules and reuse them across sessions is evidence of improved meta-reasoning and persistent skill formation in agent-style workflows, while the documented overcorrection behavior highlights a concrete risk where learned heuristics degrade long-run task efficiency in open, stochastic environments.",
+      "outlook": "ARC-AGI-3 benchmark results and the ongoing community-run videos and logs referenced in the coverage are the next public checkpoints for verifying Astra’s claimed gains and failure modes.",
+      "source_urls": [
+        "https://the-decoder.com/gpt-6-astra-pokemon-champion-in-18-hours-potato-farmer-after-one-creeper-mishap/"
+      ],
+      "topic_tag": "ai"
+    },
+    {
+      "headline": "Bend launches as a proof-first language claiming Lean-style proofs with C-like speed and CUDA parallelism",
+      "what_happened": "Bend is presented as a new language whose type checker doubles as a proof checker, claiming C-like single-core speed, automatic multicore and GPU parallelism up to 4,096 cores, and proof-check times 'a second at most' compared with minutes for Lean; the project ships an install script, a guide, LAWS.bend for invariant laws, and PROOF.bend for proofs.",
+      "why_it_matters": "Bend’s model embeds theorem-style laws into the development workflow and claims fast proof checks suitable for agent loops, which, if accurate, would change how proofs are used in CI and agent-driven code generation by making formal invariants lightweight enough to run after each agent edit.",
+      "outlook": "Bend’s published guide, the LAWS.bend and PROOF.bend examples, and the referenced papers BendTT and BendRT on the project site are the immediate artifacts to track for concrete performance and verification claims.",
+      "source_urls": [
+        "https://bend-lang.com/"
+      ],
+      "topic_tag": "dev-tools"
+    }
+  ],
+  "narration_script": "The coalition to free grid capacity leads today. Emerald AI formed the AI Energy Management Alliance with Google, Nvidia, Anthropic, and utilities including AES, Constellation, National Grid, and NRG Energy to coordinate demand-response actions so data centers can pause or shift noncritical compute. The coalition says those actions could free as much as 100 gigawatts of capacity, and Emerald recently closed a $150 million Series A. The immediate signal to watch is how Emerald uses that Series A funding and the alliance membership to announce pilot deployments and utility integrations. Next, Anthropic rebuilt Claude Code Projects so a coordinator splits a goal into parallel cloud-session threads, each able to open pull requests and run tests, with the beta available to select Pro and Max cloud-session subscribers. Anthropic says Team and Enterprise access will come later and local execution is coming soon. The FAA awarded $875 million to Air Space Intelligence for SMART, a cloud-based AI system that predicts traffic flows and identifies conflicts; the contract covers 12 years and the first rollouts are planned for the Washington, D.C., metropolitan area. On the model and agent side, Vals AI and community runs show GPT-6 Astra completing games far faster than prior models and scoring 62.7 percent on ARC-AGI-3 style tests, while also demonstrating overcorrection failure modes in open-world Minecraft runs. The public ARC-AGI-3 results and the posted community logs are the next checkpoints for those claims. Finally, Bend launched as a proof-first language claiming Lean-style proofs, C-like single-core speed, automatic CPU and GPU parallelism, and sub-second proof checks that fit agent edit loops; the project site publishes an install script, guide, LAWS.bend and PROOF.bend examples, and two papers, BendTT and BendRT, to follow for concrete benchmarks and implementation details."
+}
