@@ -1,0 +1,58 @@
+{
+  "title": "The Morning Build for September 23, 2026: OpenAI expands GPT-6, Qualcomm ships 30B MoE phone silicon, Microsoft shutters EvilTokens",
+  "intro": "Today’s stories focus on where AI meets systems and security: OpenAI widened its GPT-6 family with lower-cost Sol and Luna releases; Qualcomm detailed phone SoCs that can run 30-billion-parameter mixture-of-experts models locally; Microsoft led a disruption of an AI-assisted scam platform that compromised 12,000 accounts; British Columbia sued OpenAI over a ChatGPT-linked school shooting; and Trail of Bits published a technical critique arguing SAML should be deprecated in favor of OIDC.",
+  "meta_description": "OpenAI expands GPT-6 with cheaper Sol and Luna; Qualcomm unveils 30B-parameter MoE phone silicon; Microsoft disrupts EvilTokens; BC sues OpenAI; Trail of Bits calls to retire SAML.",
+  "stories": [
+    {
+      "headline": "OpenAI expands GPT-6 line with lower-cost Sol and Luna, halves API price vs 5.6 series",
+      "what_happened": "OpenAI released updated GPT-6 Sol and Luna models and began rolling them into ChatGPT Work, Codex for most paid accounts, and the ChatGPT API; Luna is also available for Free and Go desktop users and the company said rollout to ChatGPT app and website would occur gradually throughout the day. OpenAI said the 6 series models will be available at half the cost of the 5.6 series and that internal factuality evaluations show GPT-6 Sol makes about half as many mistakes as its predecessor, reaching Astra-level reliability at lower cost.",
+      "why_it_matters": "Engineers get access to GPT-6 family models with explicit lower API pricing and claimed reductions in factual errors and coding mistakes, which affects cost modeling for production inference and reliability expectations for Sol (coding/complex tasks) and Luna (high-volume clerical tasks).",
+      "outlook": "Rollout to the ChatGPT app and website, which OpenAI said would happen gradually throughout the day, is the immediate milestone that will show availability for broader user traffic and free-tier access.",
+      "source_urls": [
+        "https://techcrunch.com/2026/09/22/openai-launches-gpt-6-sol-and-luna/"
+      ],
+      "topic_tag": "ai"
+    },
+    {
+      "headline": "Qualcomm announces Snapdragon 8 Elite Gen 6 and Elite Extreme Gen 6, Extreme can run 30B-parameter MoE locally",
+      "what_happened": "At Snapdragon Summit Qualcomm introduced Snapdragon 8 Elite Gen 6 and Snapdragon 8 Elite Extreme Gen 6. The chips include sensing hubs that run models up to 200 million parameters and the Extreme version can run a 30-billion-parameter mixture-of-experts model locally. Qualcomm showed use cases including a local voice-in/voice-out agent, speaker differentiation, on-device memory building for personalization, and pixel-level camera control; Motorola announced the Motorola Signature 27 using the Elite Extreme Gen 6 with general availability sometime this year.",
+      "why_it_matters": "Smartphone SoC inference capability expands from tiny local models to large Mixture-of-Experts models where only subsets of parameters activate, changing what kinds of on-device personalization, real-time agents, and media processing can run without cloud round trips and affecting mobile model deployment plans.",
+      "outlook": "Motorola’s Motorola Signature 27, powered by the Snapdragon 8 Elite Extreme Gen 6, has general availability planned sometime this year and will be the first commercial device to validate Extreme Gen 6’s local 30B MoE capabilities.",
+      "source_urls": [
+        "https://techcrunch.com/2026/09/22/qualcomm-launches-two-new-smartphone-chips-with-emphasis-on-ai/"
+      ],
+      "topic_tag": "chips"
+    },
+    {
+      "headline": "Microsoft leads disruption of ‘EvilTokens’ AI-assisted scam platform after 12,000 account compromises",
+      "what_happened": "Microsoft said it led an industry disruption of EvilTokens, a subscription fraud platform that used an AI-style chatbot to analyze victim inboxes and draft targeted fraud messages; Microsoft reported EvilTokens users compromised 12,000 customer accounts across about 10,000 organizations and that the operation used device code authentication flows. Microsoft seized 50 websites and 150 additional domains tied to the service and the UK Metropolitan Police arrested two men in connection with the platform.",
+      "why_it_matters": "The operation shows criminals integrating inbox-analysis chatbots and automation into large-scale account takeover workflows and abusing legitimate OAuth device code authentication, which raises concrete security concerns for services supporting device code flows and for defenders who must detect AI-assisted reconnaissance and tailored social-engineering payloads.",
+      "outlook": "SpyCloud’s detailed victim report, which Microsoft said assisted the disruption and contains more victim details, is the named follow-up resource that will provide further visibility into affected sectors and compromise patterns.",
+      "source_urls": [
+        "https://arstechnica.com/security/2026/09/microsoft-disrupts-ai-assisted-platform-that-compromised-12000/"
+      ],
+      "topic_tag": "big-tech"
+    },
+    {
+      "headline": "British Columbia sues OpenAI and Sam Altman seeking rebuilding costs after ChatGPT-assisted school shooting",
+      "what_happened": "British Columbia filed a complaint asking OpenAI and Sam Altman to pay rebuilding and recovery costs after an 18-year-old used ChatGPT in planning a shooting that left eight dead and led to the demolition of Tumbler Ridge Secondary School. The province asked the court for damages and injunctive relief, including requiring OpenAI to update ChatGPT to automatically terminate violent conversations. The community began demolition in August and hopes to have a replacement school built by the end of this year if all goes to plan.",
+      "why_it_matters": "The lawsuit links consumer-facing model behavior and vendor liability to tangible emergency and reconstruction costs and requests operational changes to ChatGPT’s conversational controls, which engineers and legal teams must track because the case seeks product-level injunctions and monetary damages tied to model use.",
+      "outlook": "The community’s goal of completing a replacement school by the end of this year, cited in the complaint, is the immediate timeline tied to recovery costs and is the concrete milestone the filing uses to frame damages and emergency spending.",
+      "source_urls": [
+        "https://arstechnica.com/tech-policy/2026/09/lawsuit-demands-openai-pay-for-new-school-after-chatgpt-used-in-shooting/"
+      ],
+      "topic_tag": "policy"
+    },
+    {
+      "headline": "Trail of Bits publishes technical critique arguing SAML should be retired in favor of OIDC",
+      "what_happened": "A Trail of Bits post traces SAML’s committee-driven, XML-based origins and enumerates recurring implementation problems such as XML canonicalization, enveloped signatures, signature-wrapping attacks, XML parser differentials, and broad unused features; the author recommends deprecating SAML and migrating to modern alternatives like OpenID Connect (OIDC). The post documents historical vulnerabilities and implementation incidents, including XML round-trip and libxml2 quirks cited in 2020–2025 research and real-world bypasses.",
+      "why_it_matters": "The post compiles concrete failure modes that continue to produce exploitable differences across SAML implementations, which should inform engineering risk assessments for organizations maintaining SAML-based SSO and for teams deciding whether to invest in migration to OIDC.",
+      "outlook": "The post’s call to deprecate SAML in favor of OIDC, grounded in the cited 2020–2025 parser and canonicalization incidents, frames migrations and deprecation plans by identity providers and large organizations as the next practical milestone to watch for.",
+      "source_urls": [
+        "https://blog.trailofbits.com/2026/09/21/saml-a-fractal-of-bad-design/"
+      ],
+      "topic_tag": "dev-tools"
+    }
+  ],
+  "narration_script": "OpenAI expanded the GPT-6 family today, adding updated Sol and Luna models. The company said the 6 series will cost half as much as the 5.6 series for API access, and that internal factuality tests show GPT-6 Sol makes about half as many mistakes as its predecessor. Sol and Luna are already in ChatGPT Work and Codex for most paid accounts and in the ChatGPT API. Luna is also available in the desktop app for Free and Go users, and OpenAI said rollout to the ChatGPT app and website would proceed gradually throughout the day. Qualcomm announced two new Snapdragon chips, the 8 Elite Gen 6 and the 8 Elite Extreme Gen 6. Both include sensing hubs that run models up to 200 million parameters locally, and the Extreme chip can run a 30-billion-parameter mixture-of-experts model on device. Qualcomm highlighted local voice agent, speaker differentiation, on-device memory for personalization, pixel-level camera control, and pro video features. Motorola said its Motorola Signature 27 will use the Elite Extreme Gen 6 and has general availability planned sometime this year. Microsoft disclosed that it led an industry disruption of EvilTokens, a subscription service that used an AI chatbot to analyze inboxes and draft targeted fraud messages. Microsoft said EvilTokens operators compromised 12,000 accounts across about 10,000 organizations, abused device code OAuth flows, and that Microsoft seized 50 websites and 150 domains; the UK Metropolitan Police arrested two men. Microsoft and partners credited SpyCloud for more victim detail. In Canada, British Columbia filed a complaint against OpenAI and Sam Altman seeking payment for rebuilding and recovery after a shooter used ChatGPT in planning an attack that led to the demolition of Tumbler Ridge Secondary School. The complaint requests damages and injunctive relief, including requiring ChatGPT to terminate violent conversations; the community aims to have a replacement school built by the end of this year if plans hold. Finally, Trail of Bits published a technical critique that calls for retiring SAML in favor of OpenID Connect. The post reviews repeated classes of XML and canonicalization failures, signature-wrapping attacks, and parser-differential incidents documented in 2020 through 2025, and recommends migration to OIDC. Key near-term signals: OpenAI’s stated rollout to the ChatGPT app and website later today; Motorola’s general-availability window for the Signature 27 sometime this year; SpyCloud’s victim report that Microsoft referenced for the EvilTokens disruption; the community’s replacement-school timeline through the end of this year cited in British Columbia’s complaint; and the Trail of Bits call for deprecation, which frames upcoming migration or deprecation plans by major identity providers."
+}
