@@ -1,0 +1,61 @@
+{
+  "title": "The Morning Build for September 27, 2026: $1.2T AI Capex, Muse Mascots, and Agents Moving to Checkout",
+  "intro": "Today’s stories connect how scale, interfaces, and infrastructure are shifting AI work: Goldman’s $1.2 trillion capex forecast reframes the economics underpinning agent and training platforms; Meta’s Muse shows consumer-agent product design and data opt-out tradeoffs; DeepSeek’s DSec paper presents an elastic sandbox model for agentic training at scale; Google tests Gemini-powered purchases from Flipkart ahead of October rollout; and Microsoft repackages Copilot with an Autopilot agent and usage-based billing.",
+  "meta_description": "Goldman forecasts $1.2T AI infra in 2027; Meta’s Muse design and opt-out details; DeepSeek’s DSec elastic sandboxes; Google tests Gemini checkout with Flipkart; Microsoft adds Autopilot and usage billing.",
+  "stories": [
+    {
+      "headline": "Goldman Sachs projects Big Tech will spend $1.2 trillion on AI infrastructure in 2027",
+      "what_happened": "Goldman Sachs expects Amazon, Alphabet, Microsoft, Oracle, and Meta to spend a combined $1.2 trillion on AI infrastructure in 2027, about 50 percent above 2026 projections and above Wall Street consensus, citing strategist Ryan Hammond. The firm says current spending exceeds operating cash generation and that power, labor, and memory chip bottlenecks could slow the buildout.",
+      "why_it_matters": "Engineers and platform planners should treat vendor capex as the underlying driver of capacity growth and debt-financed buildouts; bottlenecks in power, labor, and memory chips are explicit constraints Goldman flags that can delay provisioning and raise costs.",
+      "outlook": "Goldman’s timeline points to 2027 capex totals and 2028 growth slowing to 12 percent as the next public milestone to assess whether revenue from AI (Goldman says about $300 billion a year is needed to recoup the buildout) tracks investment levels.",
+      "source_urls": [
+        "https://the-decoder.com/goldman-sachs-expects-big-tech-to-spend-1-2-trillion-on-ai-infrastructure-by-2027-dwarfing-wall-street-estimates/"
+      ],
+      "topic_tag": "big-tech"
+    },
+    {
+      "headline": "Meta’s Muse pairs an adults-only AI agent with a toy-like mascot and an opt-out training mode",
+      "what_happened": "Meta launched Muse with a mascot named Jolly, consumer-facing merchandising including a Tamagotchi-style Muse Charm device planned later this year, and an adults-only requirement enforced by date-of-birth checks. Meta says it will release a confidential virtual machine option later in 2026 that could cryptographically and verifiably prevent Meta from accessing a user’s Muse data, while default Muse interactions are used to train Meta’s models unless users opt out.",
+      "why_it_matters": "Product and privacy engineers should note the explicit trade: a mascot-led consumer UX that may reduce friction, plus a promised confidential VM option for cryptographic protection; the release plan ties product design, data collection defaults, and a later confidential-VM control into the same rollout.",
+      "outlook": "The confidential virtual machine for Muse is scheduled for release later in 2026 and is the next concrete milestone for verifying Meta’s claim it can cryptographically limit access to user data.",
+      "source_urls": [
+        "https://www.wired.com/story/meta-muse-is-adults-only-why-does-it-look-like-a-cute-kids-toy/",
+        "https://techcrunch.com/2026/09/25/meta-is-putting-its-muscle-behind-muse-as-the-ai-app-takes-off/",
+        "https://techcrunch.com/podcast/metas-muse-just-stole-the-ai-spotlight-from-openai-and-anthropic/"
+      ],
+      "topic_tag": "ai"
+    },
+    {
+      "headline": "DeepSeek publishes DSec: an elastic sandbox platform that serves millions of agentic sandboxes per day",
+      "what_happened": "DeepSeek’s DSec paper describes a production sandbox platform exposing FnCall, container, microVM, and full-VM backends via a unified SDK, coordinated lifecycle and placement, and a Fire-Flyer File System for on-demand image loading. A single production unit spans about 160 nodes, serves roughly 3 million sandboxes per day, supports over 380,000 concurrent sandboxes, and sustains over 5,000 sandbox creations per second.",
+      "why_it_matters": "Engineers building agentic training and evaluation pipelines get a concrete architecture pattern: decouple stateful rollout execution from preemptible GPU training, compose environments from versioned layers, and use memory sharing and reclamation to increase density while preserving latency under heavy creation rates.",
+      "outlook": "Further evaluation results and deployment experience in the DSec paper are the immediate reference point; the paper’s production-scale metrics (3 million sandboxes per day, 380,000 concurrent sandboxes) are the benchmark readers can compare against other sandbox and rollout systems.",
+      "source_urls": [
+        "https://arxiv.org/abs/2609.22978"
+      ],
+      "topic_tag": "dev-tools"
+    },
+    {
+      "headline": "Google tests Gemini and AI Mode buying from Flipkart in India with broader rollout planned for October",
+      "what_happened": "Google is testing a Buy button in Gemini and AI Mode that opens a Flipkart-branded checkout flow for selected products and some users in India; the test covers a small selection of categories including smartphones and accessories while other users still see regular listings without Buy options. Google plans a broader rollout later in October ahead of India’s festive season.",
+      "why_it_matters": "Engineers integrating agentic shopping flows should note two specifics from the test: the Buy button can surface a retailer-branded checkout from within Gemini/AI Mode rather than a Google-hosted checkout, and Google cites the Universal Commerce Protocol as its open standard for agent-retailer interactions though the Flipkart test appears to use a different checkout integration.",
+      "outlook": "A broader rollout is planned for later in October 2026, which is the next public milestone to measure whether Gemini’s in-AI checkout expands beyond Flipkart and to observe how payment and checkout flows are implemented.",
+      "source_urls": [
+        "https://techcrunch.com/2026/09/26/google-tests-buying-from-walmart-owned-flipkart-through-gemini-and-ai-mode-in-india/"
+      ],
+      "topic_tag": "big-tech"
+    },
+    {
+      "headline": "Microsoft revamps Copilot with an Autopilot agent, split app sections, and usage-based billing",
+      "what_happened": "Microsoft introduced an Autopilot agent built on OpenClaw, reorganized Copilot into Home, Code, and Autopilot sections, and shifted Autopilot, Code, and Cowork to usage-based billing while keeping a standard Copilot license for chat and Office integrations. Autopilot instances get dedicated cloud compute, workspace, storage, and identity and run in the cloud continuously; a Today dashboard feature will enter private preview in October and Autopilot private preview is scheduled for late September.",
+      "why_it_matters": "SRE, FinOps, and platform teams face two operational changes: always-on Autopilot instances with persistent cloud resources raise continuous-cost profiles, and the move to usage-based billing plus an auto-router for model selection changes how cost, model quality, and governance map to access controls and quota policies.",
+      "outlook": "Autopilot is slated to enter private preview in late September 2026 and the Today dashboard feature will enter private preview in October 2026; those previews are the immediate product milestones to evaluate billing and operational behavior.",
+      "source_urls": [
+        "https://the-decoder.com/microsoft-gives-copilot-another-makeover-adding-an-autopilot-agent-and-usage-based-billing/",
+        "https://arstechnica.com/gadgets/2026/09/microsoft-stops-insisting-you-need-a-copilot-pc/"
+      ],
+      "topic_tag": "big-tech"
+    }
+  ],
+  "narration_script": "Goldman Sachs says Amazon, Alphabet, Microsoft, Oracle, and Meta will spend about 1.2 trillion dollars on AI infrastructure in 2027, a figure Goldman frames as more than 50 percent above 2026 projections and above Wall Street consensus, and it flags power, labor, and memory chip bottlenecks and increased debt financing as constraints. Meta’s Muse launched with a mascot called Jolly, a planned Muse Charm device later this year, and an adults-only requirement; Meta said it will offer a confidential virtual machine later in 2026 that could cryptographically and verifiably prevent Meta from accessing Muse data, while default interactions are used to train Meta models unless users opt out. DeepSeek’s arXiv paper on DSec describes an elastic sandbox platform exposing FnCall, container, microVM, and full-VM backends through a unified SDK, with a single production unit spanning about 160 nodes, roughly 3 million sandboxes per day, over 380,000 concurrent sandboxes, and more than 5,000 sandbox creations per second, and it emphasizes decoupling stateful rollout execution from preemptible GPU training and using on-demand image loading from a cluster filesystem. Google is testing a Buy button in Gemini and AI Mode in India that opens a Flipkart-branded checkout flow for selected products and some users, and the company plans a broader rollout later in October 2026 ahead of the festive shopping season; Google previously introduced the Universal Commerce Protocol as an open standard for agent-retailer interactions but the Flipkart test appears to use a different integration. Microsoft reorganized Copilot into Home, Code, and Autopilot, added an Autopilot agent built on OpenClaw with dedicated cloud compute, workspace, storage, and identity per instance, and moved Autopilot, Code, and Cowork to usage-based billing while keeping a standard Copilot license for chat and Office integrations; Autopilot private preview is scheduled for late September and a Today dashboard feature will enter private preview in October 2026. The next concrete milestones across these stories are Goldman’s 2027 capex outcomes and 2028 growth figures, Meta’s confidential VM release later in 2026, the DSec paper’s production metrics as a benchmark, Google’s broader October rollout in India, and Microsoft’s Autopilot private preview scheduled for late September 2026."
+}
