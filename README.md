@@ -38,7 +38,7 @@ Prerequisites: Python 3.12+, [uv](https://docs.astral.sh/uv/), Node 20+.
 cd pipeline
 uv sync
 copy ..\.env.example ..\pipeline\.env   # then fill in OPENAI_API_KEY
-uv run pytest                            # 69 tests, all offline
+uv run pytest                            # 147 tests, all offline
 
 # Dry run: full pipeline, writes to ./out/ instead of the site, no publishing
 # (set DRY_RUN=true in .env first)
