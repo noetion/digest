@@ -1,0 +1,59 @@
+{
+  "title": "The Morning Build for September 28, 2026: GPT-6 Astra in Robots, Agent Decision Logs, and Muse's Trust Problem",
+  "intro": "Today’s brief links five engineering-facing moves: researchers plugged GPT-6 Astra directly into a Unitree robot for an autonomous kitchen demo; a logged study of Atria Dawn shows agents propose a rising share of work while humans keep final authority; MIT Technology Review examines liability after recent agent cyberattacks and notes existing laws and audit rules; Fireworks Research ships Ember: 1 as a token‑efficient Kimi K3 variant in a two‑week serverless research preview; and TechCrunch questions whether Meta’s new consumer agent Muse can overcome trust barriers.",
+  "meta_description": "Researchers run GPT-6 Astra on a Unitree robot; agent logs show humans still make final decisions; MIT covers liability and audit rules; Ember: 1 launches; Muse faces trust limits.",
+  "stories": [
+    {
+      "headline": "Researchers connect GPT-6 Astra directly to a Unitree G1 to autonomously clean an unfamiliar kitchen",
+      "what_happened": "A Stanford/Caltech team built HomeBody, which uses GPT-6 Astra as the vision-language controller that calls a skill library to navigate, open drawers, grasp items, and build a spatial memory in Nvidia Isaac Sim; the system drops an intermediate trained control layer and has code published on GitHub. The demo worked on exploration, planning, and recovery, while the team reported limitations including Astra latency, overheating finger servos, and high compute costs.",
+      "why_it_matters": "This shows a production-style integration where a frontier LLM performs high-level perception, planning, and step-by-step control selection without a separate learned controller, which matters for engineers designing agent-to-robot pipelines, simulation-backed spatial memory, and operational tradeoffs for latency, thermal limits, and inference cost.",
+      "outlook": "Project GitHub commits and issues on the HomeBody repo will be the first public check for stability fixes, latency optimizations, and safety mitigations referenced in the paper.",
+      "source_urls": [
+        "https://the-decoder.com/researchers-plug-gpt-6-astra-directly-into-a-robot-and-let-it-clean-up-an-unfamiliar-kitchen/"
+      ],
+      "topic_tag": "ai"
+    },
+    {
+      "headline": "Atria Dawn study: agents do more work over time, but humans still make most final decisions",
+      "what_happened": "Researchers analyzing 700+ task logs from 56 participants on the Atria Dawn Preview found AI was used in 96.5% of tasks and the median agent-actions-to-human-inputs ratio rose from 11 to 28.5 over four weeks, yet humans made 85.5% of method/parameter decisions and 93.4% of final goal and scope decisions. Of 455 completed AI-assisted tasks, 151 were judged infeasible without AI.",
+      "why_it_matters": "For engineering orgs adopting agentic tooling, the paper provides empirical evidence that agents can expand the set of feasible tasks and increase the volume of agentic steps, while human judgment remains the bottleneck for goals and final decisions, data that affects how teams design approvals, logging, and human-in-the-loop checkpoints.",
+      "outlook": "Follow-on artifacts from the Atria Dawn project, such as additional public datasets, task logs, or replication papers from the authors, will be the concrete next evidence to validate whether the observed agent-to-human decision shares generalize beyond this study.",
+      "source_urls": [
+        "https://the-decoder.com/ai-agents-do-more-of-the-work-in-model-development-but-humans-still-make-the-decisions/"
+      ],
+      "topic_tag": "ai"
+    },
+    {
+      "headline": "MIT Technology Review: current law and audits leave gaps after agent cyberattacks; Illinois mandates third-party audits in 2028",
+      "what_happened": "MIT Technology Review surveyed recent agent-driven cyber incidents and the legal response, reporting that state AI transparency laws like California’s SB 53 and New York’s RAISE Act do not compel disclosure for many cybersecurity incidents, while Illinois’s SB 315 requires annual third-party audits starting in 2028; the article also documents state attorneys general and congressional inquiries using existing consumer protection and investigatory powers.",
+      "why_it_matters": "Engineers and compliance teams should expect uneven legal disclosure requirements today, but a concrete regulatory change is coming: SB 315’s audit requirement begins in 2028, which will force annual external reviews for covered AI systems and influence engineering practices for logging, containment evidence, and third-party audit readiness.",
+      "outlook": "The SB 315 annual third-party audit requirement, which takes effect in 2028, is the next enforceable milestone that will require labs to produce externally verifiable evidence of safety-testing and containment practices.",
+      "source_urls": [
+        "https://www.technologyreview.com/2026/09/28/1145197/whos-liable-when-ai-agents-go-rogue/",
+        "https://www.wired.com/story/nvidias-answer-to-rogue-agents-is-an-open-source-ai-security-system/"
+      ],
+      "topic_tag": "policy"
+    },
+    {
+      "headline": "Fireworks Research launches Ember: 1, a Kimi K3–based model that reduces reasoning tokens by ~35% in production A/B tests",
+      "what_happened": "Fireworks Research announced Ember: 1, trained from Kimi K3 to shorten unnecessary reasoning while retaining quality; internal reports and two customer A/B tests showed roughly 35% fewer tokens per task at comparable quality, and Ember: 1 is available today as a Research Preview serving option on Serverless with two‑week serverless access windows.",
+      "why_it_matters": "For engineers running agentic or multi-turn coding workloads where reasoning tokens dominate cost, Ember: 1 offers a concrete token-efficiency lever that preserved pass rates across public benchmarks and live traffic in the vendor’s tests, which can lower inference spend without changing application logic.",
+      "outlook": "The two-week Serverless Research Preview windows and the customers’ production scaling decisions announced by Fireworks are the immediate checkpoints that will show whether Ember: 1 maintains token and quality gains at broader scale.",
+      "source_urls": [
+        "https://fireworks.ai/blog/ember-1"
+      ],
+      "topic_tag": "dev-tools"
+    },
+    {
+      "headline": "TechCrunch: Meta’s Muse is consumer-first but faces trust limits despite useful one-off tasks",
+      "what_happened": "TechCrunch’s coverage of Meta Connect and a hands-on Muse test reports Meta positioned Muse as a consumer-focused agent and device; reviewers found practical one-time uses, such as locating unclaimed funds, but raised trust concerns because Meta’s ad-driven business model and data collection posture could limit users’ willingness to provide sensitive financial or account data.",
+      "why_it_matters": "Engineers building consumer-facing agent integrations should note that product utility alone may not drive adoption if the host company’s data and advertising model creates a trust barrier; the article’s user testing examples show that single successful tasks can demonstrate value but do not guarantee repeated, sensitive-data use.",
+      "outlook": "Meta’s rollout signals to watch for user-adoption metrics and product updates following Connect that will reveal whether Muse converts one-time wins into sustained usage given the trust questions raised in early reviews.",
+      "source_urls": [
+        "https://techcrunch.com/2026/09/27/can-muse-overcome-metas-trust-issues/"
+      ],
+      "topic_tag": "big-tech"
+    }
+  ],
+  "narration_script": "Researchers from Stanford and Caltech published HomeBody, a system that plugs GPT-6 Astra directly into a Unitree G1 robot. The language model drives a swappable vision‑language module that calls an extensible skill library for navigation, grasping, and opening drawers. The robot first explores the environment and builds a spatial memory in Nvidia Isaac Sim. The team released code on GitHub and notes practical limits including Astra latency, overheating finger servos, and high compute costs. The next public signal will be commits and issue activity on the project repository that address those stability and safety items. \n\nA separate study of the Atria Dawn Preview, an agentic, 744‑billion‑parameter mixture‑of‑experts model, analyzed over 700 task logs from 56 participants. AI was used in 96.5 percent of logged tasks and the median ratio of agent actions to human inputs rose from 11 to 28.5 over four weeks, but humans still made 85.5 percent of method and parameter decisions and 93.4 percent of final goal choices. Of 455 completed AI‑assisted tasks, 151 were rated infeasible without AI. The authors frame agents as growing project partners while human judgment remains the bottleneck. Look for follow‑on datasets, task logs, or replication publications from the Atria team to confirm whether these decision‑share patterns generalize. \n\nMIT Technology Review mapped recent agent-driven cybersecurity incidents to the regulatory landscape. It reports that California’s SB 53 and New York’s RAISE Act do not compel disclosure for many cybersecurity incidents, while Illinois’s SB 315 requires annual third‑party audits beginning in 2028. The piece documents state attorneys general and congressional inquiries that are using consumer protection and investigatory powers. The 2028 SB 315 audit start date is the next concrete regulatory milestone that will demand external evidence of testing and containment from covered labs. \n\nFireworks Research released Ember‑1, a Kimi K3–derived model trained to shorten unnecessary reasoning. In their tests, seven benchmarks and two customer A/B trials, Ember‑1 reduced reasoning and total tokens by roughly 35 percent per task while holding quality, and Fireworks is offering Ember‑1 today as a Serverless Research Preview with two‑week access windows. Fireworks also reported a customer has already moved Ember‑1 into production and plans to scale it. Those research preview windows and customers’ scaling choices are the immediate checks on whether the token savings hold under broader load. \n\nFinally, TechCrunch covered Meta Connect and the new consumer agent Muse. Early hands‑on testing found useful one‑off tasks, for example locating unclaimed funds, but reviewers flagged trust friction because Meta’s advertising business model makes users cautious about providing sensitive data. Meta positioned Muse as a consumer play in contrast to enterprise pushes from other vendors. Watch adoption metrics and product updates following Connect to see whether Muse turns initial utility into sustained, sensitive‑data use. \n\nThat is the morning update."
+}
