@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import json
 from datetime import date
 from pathlib import Path
 
@@ -19,24 +20,20 @@ def reading_time_minutes(digest: Digest) -> int:
     return max(1, round(words / WORDS_PER_MINUTE))
 
 
-def _yaml_escape(value: str) -> str:
-    return '"' + value.replace("\\", "\\\\").replace('"', '\\"') + '"'
-
-
 def render_frontmatter(digest: Digest, day: date) -> str:
     tags = sorted({story.topic_tag for story in digest.stories})
     sources = sorted({url for story in digest.stories for url in story.source_urls})
     lines = [
         "---",
-        f"title: {_yaml_escape(digest.title)}",
+        f"title: {json.dumps(digest.title, ensure_ascii=True)}",
         f"date: {day.isoformat()}",
-        f"description: {_yaml_escape(digest.meta_description)}",
-        f"tags: [{', '.join(tags)}]",
+        f"description: {json.dumps(digest.meta_description, ensure_ascii=True)}",
+        f"tags: {json.dumps(tags, ensure_ascii=True)}",
         f"storyCount: {len(digest.stories)}",
         f"readingTimeMinutes: {reading_time_minutes(digest)}",
         "audio: null",  # reserved: future TTS mp3 URL
         "sources:",
-        *[f"  - {_yaml_escape(url)}" for url in sources],
+        *[f"  - {json.dumps(url, ensure_ascii=True)}" for url in sources],
         "---",
     ]
     return "\n".join(lines)

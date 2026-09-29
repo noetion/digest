@@ -99,7 +99,9 @@ def test_score_prompt_targets_builder_tiers() -> None:
     assert "FULL 1-10" in SCORE_SYSTEM_PROMPT
     assert "platform-scale vendors" in SCORE_SYSTEM_PROMPT
     assert "Microsoft, Google, Meta, Amazon" in SCORE_SYSTEM_PROMPT
-    assert "production ML" not in SCORE_SYSTEM_PROMPT or "agent orchestration" in SCORE_SYSTEM_PROMPT
+    assert (
+        "production ML" not in SCORE_SYSTEM_PROMPT or "agent orchestration" in SCORE_SYSTEM_PROMPT
+    )
 
 
 def test_normalize_cluster_groups_fills_missing_indices() -> None:

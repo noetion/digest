@@ -8,8 +8,8 @@ from digest.synthesize import (
     _dominant_domain,
     _pick_primary,
     attach_cluster_sources,
-    source_urls_for_story,
     scrub_digest,
+    source_urls_for_story,
 )
 
 

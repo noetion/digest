@@ -31,7 +31,7 @@ Key design decisions:
 
 ## Local setup
 
-Prerequisites: Python 3.12+, [uv](https://docs.astral.sh/uv/), Node 20+.
+Prerequisites: Python 3.12+, [uv](https://docs.astral.sh/uv/), Node 22.12+ (Node 24 LTS recommended).
 
 ```powershell
 # Pipeline
@@ -54,7 +54,7 @@ npm run dev                              # http://localhost:4321
 
 1. **Create a GitHub repo** and push this project.
 2. **Host the site** (pick one):
-   - **Cloudflare Pages** (recommended, free): create a Pages project from the repo, build command `npm run build`, build output `dist`, root directory `site`.
+   - **Cloudflare Pages** (recommended, free): create a Pages project from the repo, build command `npm run build`, build output `dist`, root directory `site`. Set the build environment variable `NODE_VERSION` to `24` (Astro requires Node 22.12 or newer).
    - **Vercel:** import the repo, set root directory to `site`, framework preset Astro.
 3. **Set the site URL** in two places: `SITE_URL` in `site/astro.config.mjs` and the `SITE_URL` repository variable (Settings → Secrets and variables → Actions → Variables).
 4. **Add repository secrets** (Settings → Secrets and variables → Actions → Secrets):

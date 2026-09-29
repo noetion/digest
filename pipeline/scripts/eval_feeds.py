@@ -1,4 +1,5 @@
 """Evaluate configured feeds: HTTP, 48h volume, freshness. Run from pipeline/."""
+
 from __future__ import annotations
 
 import sys
@@ -20,7 +21,9 @@ print("-" * 72)
 
 for feed in FEEDS:
     try:
-        r = httpx.get(feed.url, headers={"User-Agent": USER_AGENT}, follow_redirects=True, timeout=25)
+        r = httpx.get(
+            feed.url, headers={"User-Agent": USER_AGENT}, follow_redirects=True, timeout=25
+        )
         if r.status_code != 200:
             print(f"{feed.name:<28}    -     -        -  HTTP {r.status_code}  {feed.topic}")
             continue
@@ -40,6 +43,8 @@ for feed in FEEDS:
             status = "STRONG"
         else:
             status = "OK"
-        print(f"{feed.name:<28} {n:>4} {len(parsed.entries):>5} {newest:>8} {status:<8}  {feed.topic}")
+        print(
+            f"{feed.name:<28} {n:>4} {len(parsed.entries):>5} {newest:>8} {status:<8}  {feed.topic}"
+        )
     except Exception as exc:
         print(f"{feed.name:<28}    -     -        -  FAIL     {exc}")

@@ -15,6 +15,12 @@ const { title, description, ogImage, jsonLd = [] } = Astro.props;
 const canonical = new URL(Astro.url.pathname, Astro.site);
 const ogImageUrl = new URL(ogImage ?? "/og/site.png", Astro.site);
 
+// JSON remains parseable while literal HTML closing tags cannot end the script.
+const serializeJsonLd = (value: unknown) => JSON.stringify(value)
+  .replace(/</g, "\\u003c")
+  .replace(/\u2028/g, "\\u2028")
+  .replace(/\u2029/g, "\\u2029");
+
 const websiteLd = {
   "@context": "https://schema.org",
   "@type": "WebSite",
@@ -49,8 +55,8 @@ const websiteLd = {
     <meta name="twitter:description" content={description} />
     <meta name="twitter:image" content={ogImageUrl} />
 
-    <script type="application/ld+json" set:html={JSON.stringify(websiteLd)} />
-    {jsonLd.map((ld) => <script type="application/ld+json" set:html={JSON.stringify(ld)} />)}
+    <script type="application/ld+json" set:html={serializeJsonLd(websiteLd)} />
+    {jsonLd.map((ld) => <script type="application/ld+json" set:html={serializeJsonLd(ld)} />)}
 
     <!-- No-flash theme init: must run before paint, hence inline and blocking. -->
     <script is:inline>
