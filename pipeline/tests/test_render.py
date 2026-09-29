@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import json
 from datetime import date
 from pathlib import Path
 
@@ -12,7 +13,7 @@ def test_frontmatter_fields(sample_digest: Digest) -> None:
     frontmatter = md.split("---")[1]
     assert 'title: "The Morning Build' in frontmatter
     assert "date: 2026-07-02" in frontmatter
-    assert "tags: [ai, chips, policy]" in frontmatter
+    assert 'tags: ["ai", "chips", "policy"]' in frontmatter
     assert "storyCount: 3" in frontmatter
     assert "audio: null" in frontmatter
     assert "https://example.com/acme-chip" in frontmatter
@@ -48,3 +49,19 @@ def test_yaml_special_characters_escaped(sample_digest: Digest) -> None:
     )
     md = render_markdown(digest, date(2026, 7, 2))
     assert 'title: "He said: \\"50% \\\\ off\\""' in md
+
+
+def test_frontmatter_keeps_generated_controls_inside_values(sample_digest: Digest) -> None:
+    title = 'First line\n---\nextra: "value"\x00\t\\last'
+    tag = 'ai]\nextra: true\n#'
+    digest = sample_digest.model_copy(update={
+        "title": title,
+        "meta_description": "Description\r\nnext\x01",
+        "stories": [sample_digest.stories[0].model_copy(update={"topic_tag": tag})],
+    })
+    frontmatter = render_markdown(digest, date(2026, 7, 2)).split("\n---\n", 1)[0]
+    fields = dict(line.split(": ", 1) for line in frontmatter.splitlines() if ": " in line)
+    assert json.loads(fields["title"]) == title
+    assert json.loads(fields["description"]) == "Description\r\nnext\x01"
+    assert json.loads(fields["tags"]) == [tag]
+    assert "extra" not in fields

@@ -1,4 +1,5 @@
 """One-off feed probe: HTTP status + 48h fresh count. Run from pipeline/."""
+
 from __future__ import annotations
 
 import sys
@@ -10,7 +11,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "src"))
 import httpx
 
 from digest.config import USER_AGENT, Feed
-from digest.feeds import FRESH_WINDOW, _entry_published, _parse_feed
+from digest.feeds import _entry_published, _parse_feed
 
 CANDIDATES = [
     ("TechCrunch AI", "https://techcrunch.com/category/artificial-intelligence/feed/", "ai"),
@@ -24,7 +25,11 @@ CANDIDATES = [
     ("Hacker News 150+", "https://hnrss.org/frontpage?points=150", "dev-tools"),
     ("The Decoder", "https://the-decoder.com/feed/", "ai"),
     ("The Register AI", "https://www.theregister.com/software/ai_ml/headlines.atom", "ai"),
-    ("MIT Tech Review AI", "https://www.technologyreview.com/topic/artificial-intelligence/feed", "ai"),
+    (
+        "MIT Tech Review AI",
+        "https://www.technologyreview.com/topic/artificial-intelligence/feed",
+        "ai",
+    ),
     ("Wired AI", "https://www.wired.com/feed/tag/ai/latest/rss", "ai"),
     ("IEEE Spectrum AI", "https://spectrum.ieee.org/feeds/topic/artificial-intelligence.rss", "ai"),
     ("AI News", "https://www.artificialintelligence-news.com/feed/", "ai"),
@@ -37,7 +42,11 @@ CANDIDATES = [
     ("Google AI Blog", "https://blog.google/technology/ai/rss/", "ai"),
     ("Anthropic News", "https://www.anthropic.com/news/rss", "ai"),
     ("SemiAnalysis", "https://www.semianalysis.com/feed", "chips"),
-    ("Tom's Hardware AI", "https://www.tomshardware.com/feeds/tag/artificial-intelligence", "chips"),
+    (
+        "Tom's Hardware AI",
+        "https://www.tomshardware.com/feeds/tag/artificial-intelligence",
+        "chips",
+    ),
 ]
 
 now = datetime.now(tz=UTC)

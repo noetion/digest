@@ -1,14 +1,14 @@
 from __future__ import annotations
 
 from digest.editorial import (
+    MAJOR_WORKFORCE_SCORE_FLOOR,
     TIER_A_MIN,
     TIER_B_MIN,
-    MAJOR_WORKFORCE_SCORE_FLOOR,
-    effective_significance,
     editorial_family,
     editorial_geo_bucket,
     editorial_raw_significance,
     editorial_tier,
+    effective_significance,
     is_agent_demo_stunt,
     is_builder_relevant,
     is_consumer_beta_noise,

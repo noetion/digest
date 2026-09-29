@@ -24,8 +24,14 @@ def _entry(
 
 
 def test_hy3_headlines_are_same_event() -> None:
-    decoder = "Tencent releases Hy3 open-source model that allegedly matches models up to five times its active size"
-    vb = "Tencent's Apache-licensed Hy3 takes on GLM-5.2 at half the size and wins everywhere except coding"
+    decoder = (
+        "Tencent releases Hy3 open-source model that allegedly matches models "
+        "up to five times its active size"
+    )
+    vb = (
+        "Tencent's Apache-licensed Hy3 takes on GLM-5.2 at half the size "
+        "and wins everywhere except coding"
+    )
     assert titles_same_event(decoder, vb)
 
 
@@ -44,7 +50,10 @@ def test_unrelated_microsoft_and_regulator_are_not_same_event() -> None:
 def test_claude_stories_do_not_merge() -> None:
     tracker = "Secret Claude tracker shocks users after Anthropic anti-surveillance stance"
     cnc = "Claude Code and Fable 5 ported Command and Conquer to native iOS in a few hours"
-    zcode = "Zhipu AI launches ZCode to challenge Claude Code and OpenAI Codex at a fraction of the cost"
+    zcode = (
+        "Zhipu AI launches ZCode to challenge Claude Code and OpenAI Codex "
+        "at a fraction of the cost"
+    )
     assert not titles_same_event(tracker, cnc)
     assert not titles_same_event(tracker, zcode)
     assert not titles_same_event(cnc, zcode)
@@ -93,7 +102,10 @@ def test_split_incoherent_cluster() -> None:
 
 def test_unrelated_fca_and_hy3_are_not_same_event() -> None:
     fca = "UK regulator warns of arms race to keep up with AI use in financial services"
-    hy3 = "Tencent releases Hy3 open-source model that allegedly matches models up to five times its active size"
+    hy3 = (
+        "Tencent releases Hy3 open-source model that allegedly matches models "
+        "up to five times its active size"
+    )
     assert not titles_same_event(fca, hy3)
 
 
@@ -192,7 +204,8 @@ def test_openai_gpt_live_coverage_merges_via_news_outlets() -> None:
         "https://the-decoder.com/chatgpt-can-now-listen-and-talk-at-the-same-time",
     )
     vb = _entry(
-        "OpenAI launches GPT Live, a full-duplex voice upgrade that lets ChatGPT talk more like a person",
+        "OpenAI launches GPT Live, a full-duplex voice upgrade "
+        "that lets ChatGPT talk more like a person",
         "https://venturebeat.com/technology/openai-launches-gpt-live-a-full-duplex-voice-upgrade",
     )
     assert entries_same_event(decoder, vb)
@@ -239,7 +252,8 @@ def test_coerce_incoherent_cluster_keeps_anchor_only() -> None:
 
 def test_gpt56_benchmark_does_not_merge_anthropic_fable_story() -> None:
     gpt56_work = _entry(
-        "OpenAI pairs its GPT-5.6 public rollout with ChatGPT Work, a new agent that handles entire workflows",
+        "OpenAI pairs its GPT-5.6 public rollout with ChatGPT Work, "
+        "a new agent that handles entire workflows",
         "https://the-decoder.com/openai-pairs-its-gpt-5-6-public-rollout-with-chatgpt-work-a-new-agent-that-handles-entire-workflows/",
     )
     gpt56_bench = _entry(
@@ -247,7 +261,8 @@ def test_gpt56_benchmark_does_not_merge_anthropic_fable_story() -> None:
         "https://the-decoder.com/gpt-5-6-sol-nearly-matches-fable-5-on-aggregated-benchmarks-at-one-third-the-cost/",
     )
     anthropic = _entry(
-        "Anthropic's fix for Fable 5's high cost is turning it into a manager that delegates to Sonnet 5",
+        "Anthropic's fix for Fable 5's high cost is turning it into a manager "
+        "that delegates to Sonnet 5",
         "https://the-decoder.com/anthropics-fix-for-fable-5s-high-cost-is-turning-it-into-a-manager-that-delegates-to-sonnet-5/",
     )
     assert not entries_same_event(gpt56_bench, anthropic)
@@ -318,13 +333,15 @@ def test_full_text_preview_does_not_false_match_unrelated_openai_stories() -> No
         }
     )
     gpt56 = _entry(
-        "OpenAI staffer maps out which of GPT-5.6 Sol's five reasoning levels fits which task complexity",
+        "OpenAI staffer maps out which of GPT-5.6 Sol's five reasoning levels "
+        "fits which task complexity",
         "https://the-decoder.com/openai-staffer-maps-out-which-of-gpt-5-6-sols-five-reasoning-levels-fits-which-task-complexity/",
     )
     gpt56 = gpt56.model_copy(
         update={
             "full_text": (
-                "OpenAI staffer explains GPT-5.6 Sol reasoning levels for different task complexity."
+                "OpenAI staffer explains GPT-5.6 Sol reasoning levels "
+                "for different task complexity."
             )
         }
     )
@@ -367,7 +384,8 @@ def test_luna_post_training_does_not_merge_reasoning_guide() -> None:
         "https://the-decoder.com/openais-gpt-5-6-sol-autonomously-post-trained-the-smaller-luna-model-with-a-fairly-underspecified-prompt/",
     )
     reasoning = _entry(
-        "OpenAI staffer maps out which of GPT-5.6 Sol's five reasoning levels fits which task complexity",
+        "OpenAI staffer maps out which of GPT-5.6 Sol's five reasoning levels "
+        "fits which task complexity",
         "https://the-decoder.com/openai-staffer-maps-out-which-of-gpt-5-6-sols-five-reasoning-levels-fits-which-task-complexity/",
     )
     assert not entries_same_event(luna, reasoning)

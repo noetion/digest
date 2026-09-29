@@ -432,11 +432,7 @@ def _primary_coverage_same_event(primary: FeedEntry, coverage: FeedEntry) -> boo
     primary_tokens = _entry_match_tokens(primary)
     coverage_tokens = _entry_match_tokens(coverage)
     distinctive = _distinctive_overlap(primary_tokens, coverage_tokens)
-    if len(distinctive) >= 2:
-        return True
-    if len(distinctive) >= 1:
-        return True
-    return False
+    return len(distinctive) >= 1
 
 
 def entries_same_event(a: FeedEntry, b: FeedEntry) -> bool:
@@ -498,9 +494,7 @@ def titles_same_event(a: str, b: str) -> bool:
 
     distinctive = _distinctive_overlap(ta, tb)
     if len(distinctive) >= 2:
-        if _cross_vendor_product_confusion(a, b, distinctive):
-            return False
-        return True
+        return not _cross_vendor_product_confusion(a, b, distinctive)
 
     overlap = ta & tb
     if not overlap or not distinctive:
@@ -520,9 +514,12 @@ def clusters_share_event(
     """True when any member in left matches any member in right."""
     for i in left.entry_indices:
         for j in right.entry_indices:
-            if i < len(entries) and j < len(entries):
-                if entries_same_event(entries[i], entries[j]):
-                    return True
+            if (
+                i < len(entries)
+                and j < len(entries)
+                and entries_same_event(entries[i], entries[j])
+            ):
+                return True
     return False
 
 
@@ -658,9 +655,12 @@ def _groups_share_event(
 ) -> bool:
     for i in left.entry_indices:
         for j in right.entry_indices:
-            if i < len(entries) and j < len(entries):
-                if entries_same_event(entries[i], entries[j]):
-                    return True
+            if (
+                i < len(entries)
+                and j < len(entries)
+                and entries_same_event(entries[i], entries[j])
+            ):
+                return True
     return False
 
 
