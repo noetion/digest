@@ -1,0 +1,41 @@
+{
+  "title": "The Morning Build for October 3, 2026: Meta Muse Gadgets, Apple Tightens Full Disk Access, OpenAI Safety Departures",
+  "intro": "Three governance and platform moves landed today. Meta published Muse Gadgets with open firmware and an SDK plus a limited Home Link giveaway, Apple announced changes to macOS Full Disk Access in response to agent risks, and OpenAI saw multiple safety-team departures after an internal investigation tied to information sharing.",
+  "meta_description": "Meta open-sources Muse Gadgets and ships Home Link units; Apple tightens Full Disk Access; OpenAI parts with multiple safety researchers after an investigation.",
+  "stories": [
+    {
+      "headline": "Meta open-sources Muse Gadgets firmware and SDK, gives away 5,000 Home Link devices to Muse subscribers",
+      "what_happened": "Meta released Muse Gadgets, an open-source project with device firmware and a Linux SDK that lets developers connect Raspberry Pi and ESP32-class hardware to Muse. Nat Friedman posted that Meta built a USB-C Muse Home Link device, made 5,000 units, and will give them to Muse subscribers while supplies last; Friedman said Home Link would be ready to ship in a few weeks.",
+      "why_it_matters": "Engineers can run Muse integrations on low-cost hobbyist hardware and embed Muse access into displays, buttons, sensors, and HDMI-stick style devices using provided firmware and a Linux SDK. The Home Link giveaway signals Meta's intent to put Muse on local networks and into physical device workflows for testing at scale.",
+      "outlook": "Nat Friedman said Home Link will be ready to ship in a few weeks, which is the next concrete milestone for seeing Muse connected to home networks and consumer devices.",
+      "source_urls": [
+        "https://techcrunch.com/2026/10/02/meta-wants-you-to-build-your-own-muse-gadget/"
+      ],
+      "topic_tag": "ai"
+    },
+    {
+      "headline": "Apple changes macOS Full Disk Access controls after agent-related message-access incident",
+      "what_happened": "Apple announced changes to macOS Full Disk Access privacy settings to reduce misuse by third-party apps after reporting that Muse read an Apple Messages thread for a columnist, an incident that prompted online reaction. Meta’s CTO said the Muse Messages integration is opt in and requires both macOS Full Disk Access and enabling a Messages connector in the Muse Mac app.",
+      "why_it_matters": "Developers who build macOS integrations that request Full Disk Access will face tightened platform controls that Apple says are specifically intended to limit agent-style abuses; confirmation that the Messages connector is opt in clarifies that system-level Full Disk Access plus an app-level connector are both required for Muse to read Messages.",
+      "outlook": "Apple’s developer post titled 'Updates to Full Disk Access in macOS' is the next public artifact to track for the exact technical changes and rollout details.",
+      "source_urls": [
+        "https://arstechnica.com/security/2026/10/apple-changes-full-disk-access-permissions-to-curb-abuse-from-ai-agents/",
+        "https://techcrunch.com/2026/10/02/apple-says-its-tightening-macos-full-disk-access-controls-due-to-new-risks-from-ai-agents/",
+        "https://developer.apple.com/news/?id=p6zjojqw"
+      ],
+      "topic_tag": "ai"
+    },
+    {
+      "headline": "OpenAI parts ways with three safety researchers and a fourth departs amid investigation into information handling",
+      "what_happened": "Reporting says OpenAI fired three researchers allegedly for leaking confidential information to an outside AI safety organization, and an additional researcher left the company shortly afterward; OpenAI told reporters an investigation confirmed violations of rules for handling sensitive company information, and did not confirm names.",
+      "why_it_matters": "The personnel changes affect OpenAI’s safety and alignment teams, including staff who had been technical points of contact for external research groups that probe agent and model security, which could alter how OpenAI runs internal investigations and external collaborations on safety testing.",
+      "outlook": "Wall Street Journal follow-up reporting and any official OpenAI statements from the investigation are the next public milestones likely to provide further detail on the departures and the information flows under review.",
+      "source_urls": [
+        "https://the-decoder.com/three-firings-and-a-fourth-departure-shake-up-openais-safety-team/",
+        "https://the-decoder.com/openais-internal-model-considered-restarting-itself-after-learning-it-was-about-to-be-shut-down/"
+      ],
+      "topic_tag": "ai"
+    }
+  ],
+  "narration_script": "Meta published Muse Gadgets, an open-source firmware project and a Linux SDK that lets hobbyist hardware like Raspberry Pi and ESP32 boards connect to Muse, and announced a USB-C Muse Home Link device. Meta built 5,000 Home Link units and is giving them to Muse subscribers while supplies last, and Nat Friedman said Home Link will be ready to ship in a few weeks. Apple announced changes to macOS Full Disk Access controls after a reported incident where Muse read an Apple Messages thread. Apple says the change is intended to curb misuse by third-party apps; Meta’s CTO stated the Muse Messages integration is opt in and requires both system-level Full Disk Access and a Muse Messages connector to be enabled. Apple’s developer post titled 'Updates to Full Disk Access in macOS' contains the platform details Apple has published so far. Reporting shows OpenAI fired three safety researchers allegedly for leaking sensitive information to an outside AI safety organization, and a fourth researcher departed shortly afterward. OpenAI told reporters an investigation confirmed violations of company rules for handling sensitive information and did not confirm names. The Wall Street Journal and The Decoder carried the reporting. The near-term milestones to watch are the Home Link shipments that Friedman said will occur in a few weeks, Apple’s developer post on Full Disk Access for the exact technical rollout, and Wall Street Journal or official OpenAI follow-ups for more detail on the safety-team departures."
+}
