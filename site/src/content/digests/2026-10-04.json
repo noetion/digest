@@ -1,0 +1,61 @@
+{
+  "title": "The Morning Build for October 4, 2026: Claude Code Mods, Google Gemini Tier Cuts, OpenAI Safety Resignation",
+  "intro": "Today's stories center on how AI tools and organizations are being reshaped: Anthropic opened in-tool customization for Claude Code with Mods, Google narrowed free access to Gemini models starting in October 2026, a senior OpenAI safety researcher resigned publicly over company culture, MIT Technology Review outlines enterprise shifts required for autonomous AI, and TechCrunch highlights the rise of the GTM engineer at Disrupt 2026.",
+  "meta_description": "Anthropic ships Claude Code Mods; Google locks free users to Flash-Lite in October 2026; OpenAI safety resignation; Disrupt session on GTM engineers; enterprise AI report.",
+  "stories": [
+    {
+      "headline": "Anthropic ships Mods for Claude Code so developers can run JavaScript/TypeScript plugins inside the tool",
+      "what_happened": "Anthropic released Mods for Claude Code, a plugin system of JavaScript or TypeScript functions that hook into events such as tool calls, user prompts, and UI rendering. Mods run with the user's permissions across the CLI, desktop app, and partially in the VS Code extension; sample Mods are available on GitHub and the first built-in Mod is \"You Should Know.\"",
+      "why_it_matters": "Engineers can modify Claude Code behavior and UI from inside the product, enabling custom panels, intercepted tool calls, and new commands without external middleware. Because Mods are not sandboxed and run with user permissions, organizations must control which Mods are allowed to load to manage risk.",
+      "outlook": "Anthropic's Mods GitHub repository and future official Mod releases are the next concrete signals, starting with the published samples and the built-in \"You Should Know\" plugin already listed on GitHub.",
+      "source_urls": [
+        "https://the-decoder.com/claude-codes-new-mods-system-lets-developers-rewrite-the-ai-coding-tool-from-the-inside/"
+      ],
+      "topic_tag": "dev-tools"
+    },
+    {
+      "headline": "MIT Technology Review: enterprise AI needs composable infrastructure, sovereign data, and process redesign to scale",
+      "what_happened": "MIT Technology Review published a sponsored report arguing that enterprises face structural scaling problems as model capabilities outpace organizational processes; the report recommends rebuilding data infrastructure for accessibility, adopting composable architectures, and addressing AI sovereignty where intelligence runs and who controls it. It cites projected global AI investment reaching $2.5 trillion in 2026.",
+      "why_it_matters": "Engineers and architects must prioritize data readiness and composable foundations over model selection if they want AI to compound across teams; the report frames process redesign and data sovereignty as prerequisites for agentic, cross-functional systems.",
+      "outlook": "The report points to 2026 global AI investment figures, projected at $2.5 trillion, as a concrete milestone for measuring whether the agentic-shift recommendations translate into enterprise spending and architecture changes.",
+      "source_urls": [
+        "https://www.technologyreview.com/2026/10/02/1143774/redefining-enterprise-intelligence-with-autonomous-ai/"
+      ],
+      "topic_tag": "ai"
+    },
+    {
+      "headline": "OpenAI safety researcher David Robinson resigns, publishing an essay that calls company culture \"broken\"",
+      "what_happened": "David Robinson resigned from OpenAI and published an essay in The Atlantic criticizing the company's culture and iterative deployment practices; he said he led writing safety reports for major product launches and warned that trial-and-error deployment guarantees periodic failures as systems grow more capable. OpenAI responded with a spokesperson statement outlining ongoing safety measures.",
+      "why_it_matters": "A senior safety researcher publicly leaving and documenting concerns creates a traceable ledger of internal safety debates; OpenAI's published response lists operational measures such as pausing training and expanding third-party evaluators, which engineers and compliance teams can cite when assessing shifts in company safety posture.",
+      "outlook": "OpenAI's next public safety update or formal statement about operational changes to training, testing, monitoring, or third-party evaluations will be the concrete follow-on to compare against Robinson's claims.",
+      "source_urls": [
+        "https://techcrunch.com/2026/10/03/openai-safety-employee-resigns-claiming-the-companys-culture-is-broken/",
+        "https://the-decoder.com/another-openai-safety-departure-adds-to-a-pattern-of-researchers-leaving-with-public-warnings/"
+      ],
+      "topic_tag": "big-tech"
+    },
+    {
+      "headline": "TechCrunch: Clay CEO Kareem Amin will present \"The GTM Engineer\" at TechCrunch Disrupt, defining a new AI-native go-to-market role",
+      "what_happened": "At TechCrunch Disrupt 2026, Clay co-founder and CEO Kareem Amin will lead a session describing the GTM engineer role, which uses AI and automation to build repeatable revenue workflows; Clay reports roughly 100 GTM engineering job listings per month and highlighted its own growth and investments including a $115 million Series D and a $1 million scholarship fund.",
+      "why_it_matters": "Engineers and product teams building revenue systems should expect demand for embedded automation and agentic workflows that replace manual GTM tasks; the session codifies a hiring and design pattern that shifts work from ad-hoc execution to reusable systems.",
+      "outlook": "The concrete event is TechCrunch Disrupt, October 13 to 15, 2026, where Amin's session will present practical examples of GTM engineering and where Clay's approach and investments will be on public display.",
+      "source_urls": [
+        "https://techcrunch.com/2026/10/02/techcrunch-disrupt-2026-clays-kareem-amin-on-the-rise-of-the-gtm-engineer/",
+        "https://techcrunch.com/2026/10/02/techcrunch-disrupt-2026-blackstones-jas-khaira-on-building-the-next-generation-of-ai-giants/",
+        "https://techcrunch.com/2026/10/02/disrupt-2026-layoff-expo-plus-passes-available-for-75-dollars/"
+      ],
+      "topic_tag": "startups"
+    },
+    {
+      "headline": "Google narrows Gemini model access in new tiers, restricting free users to the smallest 'Flash-Lite' starting October 2026",
+      "what_happened": "Google announced new Gemini subscription tiers that limit no-plan personal accounts to the Flash-Lite model and remove Pro access from $4.99/month AI Plus subscribers; AI Pro ($19.99/month) and AI Ultra ($99.99 or $199.99/month) retain access to Flash and Pro models. Google published the tier matrix on its support page.",
+      "why_it_matters": "Engineers and power users who rely on specific Gemini model capabilities or higher-quality responses will need paid subscriptions to access Flash and Pro; the change mirrors a freemium segmentation used by competitors and can affect development, testing, and user expectations for personal accounts.",
+      "outlook": "The changes take effect in October 2026, and Google's published support page and rollout timing are the immediate markers to verify which accounts and apps are impacted.",
+      "source_urls": [
+        "https://the-decoder.com/googles-new-gemini-tiers-cut-free-users-to-its-weakest-model-and-lock-5-month-subscribers-out-of-pro/"
+      ],
+      "topic_tag": "big-tech"
+    }
+  ],
+  "narration_script": "Anthropic released Mods for Claude Code, a plugin system of JavaScript and TypeScript functions that run inside the coding tool. Mods can hook into tool calls, prompts, and UI rendering across the CLI, desktop app, and partly in the VS Code extension. Samples and the first built-in Mod, \"You Should Know,\" are published on Anthropic's GitHub. Mods run with the user's permissions and are not sandboxed, so organizations can restrict which Mods load. The next concrete signal is additional official Mods and repository updates on Anthropic's GitHub. MIT Technology Review published a report arguing enterprises must treat process redesign, composable infrastructure, and data sovereignty as prerequisites for scaling autonomous AI. The report cites a projected $2.5 trillion in global AI investment for 2026 and recommends rebuilding data infrastructure for accessibility rather than volume. That $2.5 trillion figure is the report's concrete benchmark for whether the agentic-shift recommendations translate into enterprise spending and architecture changes. At OpenAI, David Robinson resigned and published an essay in The Atlantic calling the company's culture broken and criticizing iterative deployment practices that rely on trial and error. OpenAI responded with a statement listing measures such as pausing training, expanding third-party evaluators, and improving monitoring. The next tangible milestone will be OpenAI's subsequent public safety update or formal statement on operational changes. TechCrunch highlighted the rise of the GTM engineer and Clay CEO Kareem Amin's Disrupt session, which frames the role as building automated revenue workflows with AI instead of executing manual GTM tasks. Clay will present at TechCrunch Disrupt, October 13 to 15, 2026, where the company's examples and investments will be public. Finally, Google published new Gemini tiers that lock no-plan accounts to the Flash-Lite model and remove Pro access from $4.99 AI Plus subscribers; AI Pro and AI Ultra retain access to Flash and Pro. These changes take effect in October 2026 and are detailed on Google's support page. Those are the headlines for today."
+}
