@@ -1,0 +1,58 @@
+{
+  "title": "The Morning Build for October 5, 2026: NASA/IBM Lunar Model, Qwen 3.8 on RTX, Google Agent Safety, Bug-Bounty Freeze",
+  "intro": "Today’s briefs cover open scientific models and local inference, agent robustness, a major platform pausing a program, and shifting public sentiment toward AI. Stories include NASA and IBM’s open Lunar Foundation Model, a community project running Qwen 3.8-Flash-Next on RTX 40-series cards, Google Research’s RRSI method for preventing agent overfitting, Google’s pause of its open-source bug bounty until Q1 2027, and MIT Technology Review’s look at rising AI adoption alongside growing public distrust.",
+  "meta_description": "NASA and IBM release an open Lunar Foundation Model; community runs Qwen 3.8 (125B) on RTX 4090; Google proposes RRSI for agent generalization; Google freezes bug bounties.",
+  "stories": [
+    {
+      "headline": "NASA and IBM release open Lunar Foundation Model trained on 17 years of lunar orbiter data",
+      "what_happened": "NASA and IBM Research published the NASA-IBM Lunar Foundation Model and the SomBench corpus, trained from scratch on nearly 2 million co-registered tile bundles across 11 modalities and two spatial scales from 17 years of Lunar Reconnaissance Orbiter and other missions; code is on GitHub, the model and pretraining datasets are on Hugging Face, and the model is integrated into TerraTorch.",
+      "why_it_matters": "Engineers and researchers get a multimodal pretrained model that encodes imaging geometry (illumination angles, sun position, tile extent) and ingests 1-meter NAC imagery plus 100-meter multispectral inputs, which the authors report reduces ice-prediction error up to 22 percent versus SwinV2-B and improves coarse crater detection by nearly 19 percent using half the labeled data.",
+      "outlook": "The authors said controlled experiments isolating the contribution of each method are pending, so watch for those experimental results and follow-up papers or repo updates from the NASA-IBM AI for Science collaboration.",
+      "source_urls": [
+        "https://the-decoder.com/nasa-and-ibms-open-source-lunar-model-turns-17-years-of-orbiter-data-into-a-foundation-for-lunar-science/"
+      ],
+      "topic_tag": "ai"
+    },
+    {
+      "headline": "Strata project runs Qwen3.8-Flash-Next (125B) on consumer GPUs including RTX 4090/5070",
+      "what_happened": "The open-source Strata installer and engine demonstrate running Qwen3.8-Flash-Next variants on single consumer GPUs with 12 GB or more VRAM, reporting measured reply throughput like 60 tokens/s on tested machines and recommending RAM tiers (32 GB, 48 GB, 64 GB) and SSD for larger sizes; Strata is published on GitHub under the MIT License and bundles compressed model variants and installer scripts.",
+      "why_it_matters": "Developers can run a large 125B-family model locally using a combination of GPU, system RAM, CPU, and SSD swapping; the project documents memory and throughput tradeoffs, multiple compressed sizes (IQ2_XS, IQ3_S, Unsloth UD variants), and practical engineering patterns for multi-device staging and batching on commodity hardware.",
+      "outlook": "Repository activity, commits to the Niko1221/Strata GitHub, and issue threads will provide the first public verification of stability, multi-GPU behavior, and real-world throughput across cards and OS configurations.",
+      "source_urls": [
+        "https://github.com/Niko1221/Strata"
+      ],
+      "topic_tag": "dev-tools"
+    },
+    {
+      "headline": "Google researchers publish RRSI, a regularized self-improvement method that reduces agent memorization and token costs",
+      "what_happened": "Google Cloud AI Research and collaborators introduced RRSI (Regularized Recursive Self-Improvement), which caps edit budgets that proposals can bundle, shrinks that budget over time, tracks prior failed attempts, and applies a critic that rejects hardcoded task tricks; they tested RRSI with a frozen Claude Opus 4.8 model across eight benchmarks and report up to 14.1 points training gains and up to 4.7 points improvement on unseen benchmarks while using about 30 percent fewer tokens at runtime.",
+      "why_it_matters": "For engineers building agent harness optimization loops, RRSI demonstrates that constraining proposal size and applying critic rules can trade off some training-set gains for better generalization and lower token costs; the paper also shows harness edits found on one model can improve weaker models, and the authors released code on GitHub.",
+      "outlook": "Watch the authors’ GitHub and subsequent benchmark runs on additional unseen tasks to verify whether RRSI’s generalization and token-savings claims hold across model families and non-frozen-weight setups, since the paper covers only frozen models.",
+      "source_urls": [
+        "https://the-decoder.com/google-researchers-find-a-way-to-keep-self-improving-ai-agents-from-memorizing-their-tests/"
+      ],
+      "topic_tag": "ai"
+    },
+    {
+      "headline": "Google pauses its open-source bug bounty program citing a ‘significant rise’ in automated AI submissions",
+      "what_happened": "Google paused its Open Source Software Vulnerability Rewards Program as of October 1, 2026, stating a ‘significant rise’ in automated submissions, the majority of which it called invalid or hallucinated; Google said it will provide an update in the first quarter of 2027 and advised researchers to consider its other bounty programs.",
+      "why_it_matters": "Open-source maintainers and security teams face a surge of low-quality automated reports that can overwhelm triage workflows; Google’s pause signals a near-term operational reaction from a major platform that could force changes in submission tooling, triage thresholds, or automated-report handling across programs that accept external vulnerability reports.",
+      "outlook": "Google’s promised program update in Q1 2027 is the next concrete milestone for changes to submission rules, automation filters, or reopening timelines.",
+      "source_urls": [
+        "https://techcrunch.com/2026/10/04/google-froze-its-open-source-bug-bounty-program-due-to-a-significant-rise-in-ai-submissions/"
+      ],
+      "topic_tag": "big-tech"
+    },
+    {
+      "headline": "MIT Technology Review examines rising AI adoption alongside growing public distrust",
+      "what_happened": "MIT Technology Review summarized surveys showing growing user adoption, ChatGPT reached a billion monthly users and Gemini logged 950 million users in July, while polls from Pew, Stanford, and Gallup report rising public unease, nervousness about AI products, and opposition to local AI data centers; the article frames this as concurrent high usage and souring public sentiment.",
+      "why_it_matters": "Product and policy engineers working on consumer-facing AI should account for high adoption metrics coexisting with increased public skepticism, a reality that the piece ties to political appetite for regulation and the existence of more than 2,100 state-level AI bills in the US.",
+      "outlook": "State legislative sessions and the passage or implementation dates of the more than 2,100 state bills cited will be the concrete policy milestones that determine near-term regulatory constraints on consumer AI deployments.",
+      "source_urls": [
+        "https://www.technologyreview.com/2026/10/05/1145682/people-really-hate-ai-so-why-cant-they-get-enough/"
+      ],
+      "topic_tag": "policy"
+    }
+  ],
+  "narration_script": "NASA and IBM published the NASA-IBM Lunar Foundation Model trained from scratch on SomBench, a nearly two million tile multimodal corpus built from 17 years of Lunar Reconnaissance Orbiter and other mission data. The model accepts explicit imaging geometry, illumination angles, sun position, and tile extent, and the team reports up to 22 percent lower ice-prediction error versus SwinV2-B, plus a near 19 percent improvement on coarse crater detection. Code, datasets, and the model are public on GitHub and Hugging Face and integrated into TerraTorch. The authors note controlled experiments isolating each innovation are pending. The Strata community project shows a practical engineering path to run Qwen3.8-Flash-Next variants on single consumer GPUs with 12 GB or more VRAM, providing installer scripts, model compression options, and measured throughputs such as 60 tokens per second on tested machines. Strata documents how system RAM, GPU memory, CPU, and SSD are combined to stage model experts and lists recommended RAM tiers and compressed sizes. The project is on GitHub under an MIT license; public repo activity will reveal real-world stability and multi-GPU behavior. Google Cloud AI Research published RRSI, Regularized Recursive Self-Improvement, a method that caps edit budgets, shrinks them over time, and applies a critic to reject hardcoded task tricks. Tested with a frozen Claude Opus 4.8 across eight benchmarks, RRSI delivered up to 14.1 points on training tasks, up to 4.7 points on unseen benchmarks, and about 30 percent fewer runtime tokens, and the authors released code on GitHub. The paper covers frozen-weight setups only; subsequent GitHub commits and benchmark runs will show how the approach generalizes across model families and non-frozen training. Google paused its Open Source Software Vulnerability Rewards Program on October 1, 2026, citing a significant rise in automated, mostly invalid AI-generated submissions, and said it will provide an update in the first quarter of 2027. That pause is an operational signal that high-volume automated reports can overwhelm triage workflows. Finally, MIT Technology Review summarized concurrent trends: massive user adoption, ChatGPT at a billion monthly users, Gemini near 950 million, and rising public unease in Pew, Stanford, and Gallup polling. The piece notes a patchwork of more than 2,100 state-level AI bills in the US; the timing and passage of those bills during upcoming state legislative sessions will be the concrete policy milestones that shape near-term regulation for consumer AI."
+}
