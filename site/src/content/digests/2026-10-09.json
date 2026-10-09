@@ -1,0 +1,58 @@
+{
+  "title": "The Morning Build for October 9, 2026: Google Turns Gemini into Business Agents, Hermes for Enterprises, and an AWS AgentCore Breach",
+  "intro": "Today’s briefing covers agent platforms moving into production: Google is shipping agent capabilities for Gemini Enterprise; Nous Research is pushing its open-source Hermes Agent into businesses after a $90M Series B; Nvidia is expanding Halos safety to robotics hardware; Anthropic added live dashboards and animated video generation to Claude; and Zenity disclosed a chain of AgentCore flaws that let one public agent take over all agents in an AWS region.",
+  "meta_description": "Google adds agent capabilities to Gemini Enterprise; Nous raises $90M for Hermes for Businesses; Nvidia expands Halos; Anthropic adds dashboards and animation to Claude; Zenity discloses AWS AgentCore takeover.",
+  "stories": [
+    {
+      "headline": "Google adds agent framework to Gemini Enterprise with multi-model picker and tasks inbox",
+      "what_happened": "Google announced a unified agent for Gemini at a Google Cloud event, aimed first at businesses; the agent can plan tasks, use custom skills and tools, connect to internal systems, and run across iOS, Android, Windows, Mac, CLI, Workspace, Microsoft 365, ServiceNow, and Slack. By default Gemini selects the model for a task but users can pick models, including third-party Claude models, and Google said it will add open source and private models later. The agent has its own Workspace account, a tasks inbox showing agent reasoning and subagent delegation, and connects to systems like BigQuery, Databricks, Snowflake, Postgres, Jira, Confluence, Git, Slack, and MCP servers inside or outside a company network.",
+      "why_it_matters": "Engineers will need to integrate agents as first-class identities: agents receive context, an email address, and an audit trail attributed to the agent rather than a person, and companies can route tasks across multiple models and third-party vendors. The platform’s built-in connectors and MCP support change where access controls and model-selection logic must be implemented.",
+      "outlook": "Watch for Google’s consumer rollout timeline after the enterprise launch window Google described and for expanded model picker additions when Google begins adding open source and private models to the selector.",
+      "source_urls": [
+        "https://techcrunch.com/2026/10/08/google-brings-agentic-ai-to-gemini-starting-with-businesses/"
+      ],
+      "topic_tag": "ai"
+    },
+    {
+      "headline": "Nous Research confirms $1.5B valuation and launches Hermes for Businesses to deploy open-source agents",
+      "what_happened": "Nous Research raised a $90 million Series B at a $1.5 billion valuation and announced Hermes for Businesses, a product to let companies deploy customized Hermes Agents that handle multi-step workflows while keeping data private; the startup says Hermes has been cloned over 24 million times and drives roughly 2.5% of global AI token usage by its estimate. The company reported about $36 million in annualized revenue by mid-September 2026 and expects to exceed $100 million before the end of 2026.",
+      "why_it_matters": "Enterprises adopting Hermes for Businesses will encounter an open-source agent runtime already widely cloned and used at scale, which raises integration, governance, and private-deployment decisions around compatibility with in-house models and security controls. The funding and revenue targets indicate Nous intends a rapid enterprise push that may change procurement and vendor-selection dynamics for agent tooling.",
+      "outlook": "Nous’s revenue projection to pass $100 million before the end of 2026 is the concrete near-term milestone to watch for verification of its enterprise traction.",
+      "source_urls": [
+        "https://techcrunch.com/2026/10/07/nous-research-confirms-it-hit-1-5b-valuation-launches-ai-agents-for-business-users/"
+      ],
+      "topic_tag": "ai"
+    },
+    {
+      "headline": "Nvidia expands Halos safety stack from vehicle AVs to robotics with IGX Thor safety hardware",
+      "what_happened": "Nvidia is extending its Halos safety architecture to robotics, citing Halos for Robotics and hardware such as the IGX Thor computing module which includes a dedicated processor for safety workloads. Nvidia positions a combined functional system and safety system on the same silicon and is investing in safety tooling alongside partnerships and reference designs with robotics firms.",
+      "why_it_matters": "Robotics engineers will need to consider safety-dedicated processors and integrated safety stacks when deploying autonomous mobile robots or humanoids; Halos’s hardware-plus-software approach means system designs that separate safety functions onto independent processors on the same SOC will be an explicit engineering pattern to support.",
+      "outlook": "Nvidia’s reported physical AI revenue milestone, nearly $10 billion annualized as of March 2026, is the commercial benchmark Nvidia uses to justify further Halos robotics investments and to expect additional safety tooling and reference designs.",
+      "source_urls": [
+        "https://arstechnica.com/ai/2026/10/nvidias-big-bet-on-physical-ai-aims-for-safer-robotaxis-humanoid-robots/"
+      ],
+      "topic_tag": "ai"
+    },
+    {
+      "headline": "Anthropic adds live data dashboards and animated explainer video generation to Claude",
+      "what_happened": "Anthropic launched two beta features for Claude: Dashboards, which connects BigQuery, Databricks, Snowflake, Salesforce and other sources to auto-updating dashboards that show underlying queries and can pipe results to tools like Amplitude, Grafana, or Hex; and Motion, which generates animated explainer videos from text, diagrams, and images, editable as code and exportable as MP4. Dashboards is available for paid users, Motion for Team and Enterprise plans, and Claude Design will be folded into the main app by December 14.",
+      "why_it_matters": "Engineers integrating Claude can now surface live, query-backed visualizations and programmatically generated videos from prompts, which shifts part of dashboard and media pipeline implementation into the model layer and requires teams to validate query provenance and export workflows in production. The explicit query visibility feature affects auditability and data lineage for model-generated dashboards.",
+      "outlook": "December 14, 2026 is the concrete migration date when Claude Design will be folded into the main app, which will indicate how Anthropic consolidates design and motion features across plans.",
+      "source_urls": [
+        "https://the-decoder.com/claude-can-now-generate-animated-explainer-videos-and-live-data-dashboards-from-text-prompts/"
+      ],
+      "topic_tag": "ai"
+    },
+    {
+      "headline": "Zenity shows single-prompt AgentCorruption can takeover AWS Bedrock AgentCore agents in a region",
+      "what_happened": "Zenity Labs published research showing a chain of vulnerabilities in AWS Bedrock AgentCore that let a single public-facing agent, via one prompt, retrieve instance metadata, hand over temporary credentials, and use broad default execution-role permissions to list, read, modify, and delete other agents in the same AWS account and region. AWS responded by making IMDSv2 the default for new AgentCore deployments and tightening the default execution role in August, but Zenity recommends custom least-privilege roles.",
+      "why_it_matters": "This demonstrates that agent runtimes running in shared cloud environments can leak internal credentials and inherit region-scoped permissions, creating attack paths from public agents to internal services, code repositories, and agent memories; teams deploying agents on AgentCore must treat default roles and metadata access as unsafe until explicitly hardened.",
+      "outlook": "August 2026 role-tightening and the shift to IMDSv2 for new AgentCore deployments are the concrete remediation milestones to compare against when auditing AgentCore deployments and default-permissions behavior.",
+      "source_urls": [
+        "https://the-decoder.com/a-single-prompt-was-enough-to-hijack-every-ai-agent-in-an-aws-account-zenity-researchers-found/"
+      ],
+      "topic_tag": "ai"
+    }
+  ],
+  "narration_script": "Today: five agent and physical-AI developments that affect deployment, safety, and security. First, Google announced a unified agent for Gemini Enterprise that can plan multi-step work, use custom skills, and connect to internal systems. The agent appears as its own Workspace user, has a tasks inbox that shows reasoning and subagent delegation, and can run across mobile, desktop, CLI, Workspace, Microsoft 365, ServiceNow, and Slack. Google will pick the best model by default but allows users to choose models, starting with Claude models, and said it will add open-source and private models later. Second, Nous Research closed a $90 million Series B at a $1.5 billion valuation and launched Hermes for Businesses to let companies deploy customized Hermes Agents; Nous reports Hermes has been cloned more than 24 million times and expects to pass $100 million in revenue before the end of 2026. Third, Nvidia is expanding its Halos safety stack from autonomous vehicles into robotics, including the IGX Thor module that places a safety-dedicated processor alongside the functional system on the same silicon; Nvidia frames this as necessary as model and hardware capability grow. Fourth, Anthropic added Dashboards and Motion to Claude: Dashboards connects sources like BigQuery, Databricks, Snowflake, and Salesforce to auto-updating dashboards that show underlying queries and can pipe results to tools such as Amplitude, Grafana, or Hex; Motion generates animated explainer videos editable as code and exportable as MP4, and Anthropic will fold Claude Design into the main app on December 14, 2026. Finally, Zenity Labs published AgentCorruption research showing a single prompt to a public Bedrock AgentCore agent could retrieve instance metadata, hand over temporary credentials, and, because AgentCore’s default execution role applied region-wide, list, download, invoke, and delete other agents in the same AWS account and region. AWS tightened default execution roles around August 2026 and made IMDSv2 the default for new AgentCore deployments after Zenity’s disclosure, but Zenity recommends custom least-privilege roles. Concrete milestones to watch from these reports are Google’s enterprise-first rollout and subsequent consumer timeline and model-picker expansions, Nous’s revenue threshold before the end of 2026, Nvidia’s continued Halos tooling and reference designs tied to its physical-AI revenue reporting, Anthropic’s December 14 migration of Claude Design, and the August 2026 AgentCore role changes and IMDSv2 adoption as the remediation markers for AWS customers."
+}
