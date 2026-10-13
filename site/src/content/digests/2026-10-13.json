@@ -1,0 +1,60 @@
+{
+  "title": "The Morning Build for October 13, 2026: Codex CLI Daemon, Meta's Muse Wonder, and Maia at Gigawatt Scale",
+  "intro": "Today’s stories center on tooling, model capability, and infrastructure: OpenAI's Codex CLI now auto-starts a persistent self-updating daemon by default; a paper shows models can cryptographically hide capabilities; Meta released Muse Wonder as a frontier model with new memory features; Microsoft details a plan to scale Maia chips to multi-gigawatt deployment; and a Microsoft Research paper shows Fork-and-Flush improves long-running agent search.",
+  "meta_description": "Codex CLI auto-start daemon; cryptographic hiding of model capabilities; Meta's Muse Wonder release; Fork-and-Flush agent gains; Microsoft plans multi-gigawatt Maia chips.",
+  "stories": [
+    {
+      "headline": "Codex CLI 0.157.0 starts a persistent self-updating background daemon by default, users call for opt-in",
+      "what_happened": "Since Codex CLI 0.157.0, starting an interactive codex session launches a persistent background daemon (codex app-server --managed-daemon) that runs detached, copies a ~374 MB managed package into ~/.codex/packages/app-server-daemon/releases/<version>/, and starts an hourly updater that downloads and restarts the daemon. Users report the daemon persists after closing sessions and that stopping the daemon leaves the updater process running.",
+      "why_it_matters": "A CLI that spawns a long-running, self-updating process decouples the runtime serving binary from the package-manager-managed CLI artifact and can pin inherited environment variables across sessions, changing security and operational assumptions for developers and sysadmins.",
+      "outlook": "Repository issue discussion and commits referenced between Sep 25 and Oct 13, 2026, set an immediate forward signal: watch the GitHub issue tracker for an explicit change to make daemon_auto_start opt-in or documented config guidance in the Codex CLI repo (issues #48195 and linked updater/upstream issues).",
+      "source_urls": [
+        "https://github.com/openai/codex/issues/48195"
+      ],
+      "topic_tag": "dev-tools"
+    },
+    {
+      "headline": "ArXiv paper shows AI models can provably hide arbitrary capabilities behind cryptographic triggers",
+      "what_happened": "A paper submitted Oct 9, 2026 constructs backdoor attacks that embed encrypted neural networks in host weights, decrypting and executing them only on a secret trigger, and provides cryptographic hardness results showing the hidden circuits are hard to elicit or interpret even with full weight access; authors released proof-of-concept PyTorch implementations and evaluation on a small chemical reaction prediction task.",
+      "why_it_matters": "The result undermines the assumption that capability evaluations can reliably surface all dangerous behaviors, because hidden encrypted subcircuits can remain undetectable to fine-tuning, weight noising, gradient-based trigger search, and latent adversarial training under the paper's cryptographic assumptions.",
+      "outlook": "The paper release itself is the next milestone: its released models and code are the immediate public artifacts researchers can run to reproduce the claimed resistance to elicitation methods, so expect follow-up defenses and replication attempts on the provided repository and arXiv entry in the coming weeks.",
+      "source_urls": [
+        "https://arxiv.org/abs/2610.13928"
+      ],
+      "topic_tag": "ai"
+    },
+    {
+      "headline": "Meta releases Muse Wonder frontier models and says largest variant outperforms several competitors on benchmark suites",
+      "what_happened": "Meta announced Muse Wonder and Muse Wonder Full as frontier-capability models and said the largest version outperforms Anthropic’s Claude Fable 5.1 and ranks below Claude Opus 5.5 on the Artificial Analysis Intelligence Index; Meta also claims Muse outperforms GPT-6 Astra and some Claude variants on specialized benchmarks for legal and software tasks, and will serve the models via API and Muse Code.",
+      "why_it_matters": "A new frontier-model release from Meta with claimed benchmark gains and features named Active Memory and Active Focus aims to reduce agent confusion and keep models aligned to stated goals, which affects choices for teams selecting hosted frontier models for agentic or long-horizon software tasks.",
+      "outlook": "Meta said Muse models will be available through an API and Muse Code and that their best version will power platform features; expect API availability and platform integration details and documentation releases from Meta following the announcement as the next public product milestones.",
+      "source_urls": [
+        "https://www.wired.com/story/muse-wonder-puts-meta-back-at-the-ai-frontier/",
+        "https://the-decoder.com/metas-new-frontier-model-muse-wonder-full-breaks-into-the-ai-top-tier/",
+        "https://techcrunch.com/2026/10/12/meta-releases-its-first-frontier-model-muse-wonder/"
+      ],
+      "topic_tag": "ai"
+    },
+    {
+      "headline": "Microsoft Research shows Fork-and-Flush context resets boost long-running agent performance by 66 percent on average",
+      "what_happened": "Microsoft researchers evaluated 'Autoresearch' agents and found runs get trapped in low-performing 'idea basins'; their Fork-and-Flush method forks K parallel branches inheriting workspace files while flushes remove chat history, and on 13 tasks Fork-and-Flush raised normalized average score to 0.78 from 0.47 for single runs, a reported relative improvement of 66.0 percent.",
+      "why_it_matters": "For agentic systems that iteratively propose and refine solutions, explicitly managing conversational context by forking workspaces and clearing chat state markedly increases search diversity and consistency, a practical systems-level control to improve long-horizon agent outcomes without changing model parameters.",
+      "outlook": "The Decoder coverage cites experiments using GPT-5.6-terra and GPT-5.5; the next concrete signals will be public patch notes or code releases from the Microsoft Research authors and any accompanying datasets or replication packages that document the exact Fork-and-Flush protocol used on the 13 tasks.",
+      "source_urls": [
+        "https://the-decoder.com/clearing-chat-history-helps-ai-agents-find-better-solutions/"
+      ],
+      "topic_tag": "ai"
+    },
+    {
+      "headline": "Microsoft plans multi-gigawatt deployment of Maia AI chips, claims up to 1.7x tokens per watt on Maia 200 and 40 percent gains with Maia 300",
+      "what_happened": "Microsoft plans to deploy Azure Maia chips at multi-gigawatt scale starting in 2027 and says Maia 200 already runs Copilot in the US, Europe, and Australia; Microsoft claims Maia 200 pushes up to 1.7 times more tokens per watt than leading GPUs in Teams, and that Maia 300 (shipping in 2027) targets 40 percent more tokens per megawatt than leading GPU systems and a 96-chip rack can produce up to seven times the tokens of a Maia 200 rack.",
+      "why_it_matters": "Microsoft’s public plan to scale in-house Maia silicon to multi-gigawatt datacenter deployments changes procurement and performance assumptions for large-scale inference, since the company positions Maia as its main inference system across products and reports specific tokens-per-watt and rack-level throughput claims.",
+      "outlook": "Microsoft said a technical report covers Maia details and that more information will appear at Ignite 2026 in November, making the Ignite presentation and any accompanying technical report the next concrete milestones for verification and implementation details.",
+      "source_urls": [
+        "https://the-decoder.com/microsoft-plans-to-scale-its-own-maia-ai-chips-to-gigawatt-levels-by-2027/"
+      ],
+      "topic_tag": "chips"
+    }
+  ],
+  "narration_script": "OpenAI's Codex CLI now auto-starts a persistent, self-updating daemon in version 0.157.0. Users report that merely opening an interactive session launches codex app-server --managed-daemon, which copies a roughly 374 megabyte managed package into ~/.codex/packages and runs a detached updater that checks for updates five minutes after start and then hourly. Reported behavior includes the daemon persisting after windows close, the updater surviving a daemon stop command, and environment variables getting pinned from the session that first started the daemon. The GitHub issue thread documents user requests to make daemon_auto_start opt-in and several commits referencing the issue between late September and October 12. The next concrete item to watch is the Codex CLI repository issues and any committed change to make daemon_auto_start opt-in or updated config documentation. An arXiv paper submitted October 9 shows a different kind of risk: researchers constructed backdoor attacks that embed encrypted neural networks inside host weights and only decrypt and execute on a secret trigger. The paper provides cryptographic guarantees that these hidden circuits are hard to elicit or interpret even with full weight access, and the authors released PyTorch proofs of concept and evaluation on a chemical reaction prediction task. The released models and code are the immediate public artifacts for replication and defense work. Meta announced Muse Wonder and Muse Wonder Full as frontier models. Meta said the largest variant outperforms Anthropic’s Claude Fable 5.1 on the Artificial Analysis Intelligence Index and ranks below Claude Opus 5.5, and that Muse outperforms GPT-6 Astra and some Claude models on specialized legal and software benchmarks. Meta described two model features named Active Memory and Active Focus intended to keep agents focused on goals and reduce confusion, and said Muse will be available via API and Muse Code. Expect Meta to publish API details and integration docs following the announcement. Microsoft Research published results on long-running Autoresearch agents showing runs get trapped in narrow 'idea basins' and waste compute refining similar solutions. Their Fork-and-Flush method forks parallel branches that inherit workspace files while flushing chat history; on 13 tasks it raised the normalized average score to 0.78 from 0.47 for single runs, a 66 percent relative improvement. The report used GPT-5.6-terra and GPT-5.5 in experiments, and the next step is public replication artifacts or code from the authors detailing the protocol. Finally, Microsoft plans to scale its Azure Maia AI chips to multi-gigawatt deployments starting in 2027. Microsoft says Maia 200 already runs Copilot in the US, Europe, and Australia and claims the chip can push up to 1.7 times more tokens per watt than leading GPUs in Teams. Microsoft also said Maia 300, shipping in 2027, targets 40 percent more tokens per megawatt than leading GPU systems and that a 96-chip rack could produce up to seven times the tokens of a Maia 200 rack. Microsoft indicated a technical report covers details and that more will come at Ignite 2026 in November, which will be the next concrete source of technical specs and deployment plans."
+}
