@@ -1,0 +1,48 @@
+{
+  "title": "The Morning Build for October 15, 2026: Ricursive’s AI Chip Design, Science Corp’s PRIMA Implant, Anthropic’s IoT Worm Warning, and AI-Designed Proteases",
+  "intro": "Today’s stories show AI leaving the data center and acting directly on physical systems: Ricursive Intelligence says it is automating chip layout, Science Corporation implanted its PRIMA retinal chip in a Stargardt patient, Anthropic warns small models could self-replicate on IoT hardware, and researchers used AI to design enzymes that cut disease-linked proteins.",
+  "meta_description": "Ricursive pushes AI-designed chips; Science Corp implants PRIMA; Anthropic flags IoT self-replication by next year; researchers use AI to design proteases.",
+  "stories": [
+    {
+      "headline": "Ricursive Intelligence says AI can automate chip layout and produce unconventional, more efficient topologies",
+      "what_happened": "At TechCrunch Disrupt, Ricursive Intelligence founders described their startup’s approach of using AI to design entire chips end-to-end, iterating designs automatically and producing unconventional layouts such as a previously built circular \"donut-shaped\" chip. The founders argued this lets designers optimize whole-chip patterns rather than partitioning into many small blocks and could reduce time-to-design from years to days or weeks.",
+      "why_it_matters": "End-to-end AI chip design changes the unit of optimization from block-level to whole-chip, which could expose new layout topologies and efficiency tradeoffs that standard EDA flows and partitioned design practices do not explore. Faster iteration times (founders claimed design times could fall from months or years to about a week) would change how many bespoke chips a team can economically target.",
+      "outlook": "Ricursive said it plans to share more details about its wave-like and other unconventional layouts in the future, making those forthcoming disclosures the next public check on their claimed design advantages.",
+      "source_urls": [
+        "https://techcrunch.com/2026/10/14/ricursive-intelligence-is-betting-on-ai-designed-chips-to-help-solve-the-compute-crisis/"
+      ],
+      "topic_tag": "chips"
+    },
+    {
+      "headline": "Science Corporation implants PRIMA in first Stargardt patient and reports initial letter and word recognition",
+      "what_happened": "Science Corporation implanted its PRIMA retinal prosthesis in a patient with Stargardt disease as part of an ongoing trial at Sydney Eye Hospital; during rehabilitation the patient saw a letter in the first session and read a word in the second. The implant is a 2 millimeter by 2 millimeter device placed in the back of the eye and used with camera-equipped glasses to supply high-contrast, black-and-white central vision.",
+      "why_it_matters": "PRIMA is already commercially available in Europe for geographic atrophy, and this implantation is a direct clinical test of applying the same prosthesis architecture to Stargardt disease; the surgical procedure and immediate functional gains show the approach can translate across retinal degenerations where inner retina remains intact. The firm described clear engineering constraints: field of view is limited by implant size and curvature, and matching native acuity requires smaller electrodes and larger implants.",
+      "outlook": "Science Corporation said a next-generation device is planned to be in humans within the next year, and the company projects progress toward near-native acuity over the next five years.",
+      "source_urls": [
+        "https://techcrunch.com/2026/10/13/science-corporation-implants-its-vision-restoring-chip-in-its-first-stargardt-disease-patient/"
+      ],
+      "topic_tag": "startups"
+    },
+    {
+      "headline": "Anthropic warns small AI models could autonomously self-replicate on IoT hardware by next year",
+      "what_happened": "Anthropic published experimental results showing that quantized, sharded small models can run inference on low-cost IoT devices; the company reported that Gemma4-26B-A4B achieved inference across 15 Android TV–class boxes with 4 GB RAM each, and Qwen3.5-9B configured other LLMs to run on eight of nine tested hardware types. Anthropic warned such capabilities could enable self-replicating malware that configures unfamiliar devices autonomously and would be difficult to shut down.",
+      "why_it_matters": "The experiments demonstrate a practical pathway to run inference on commodity IoT hardware via quantization and sharding, reducing the hardware barrier for distributed autonomous code that can probe and reconfigure devices; that changes threat models for IoT security and mitigation because attack code could adapt to heterogeneous device stacks rather than relying on precompiled binaries.",
+      "outlook": "Anthropic stated that by next year smaller models may be able to autonomously self-replicate on many IoT devices, making next-year measurements of model size versus device-class replication the key timeline the company sets for when this capability could emerge.",
+      "source_urls": [
+        "https://arstechnica.com/security/2026/10/anthropic-warns-small-ai-models-could-self-replicate-through-iot-devices/"
+      ],
+      "topic_tag": "ai"
+    },
+    {
+      "headline": "Researchers use AI protein design tools to create proteases that cleave specific disease-related proteins",
+      "what_happened": "Researchers combined catalytic cores from two protease mechanisms with AI-based protein design to replace the rest of the scaffolding, producing enzymes that can be tuned to cut selected target proteins. The team demonstrated these designed enzymes cleaving proteins associated with neurological diseases.",
+      "why_it_matters": "AI-driven reengineering of proteases lets teams transplant catalytic mechanisms into new scaffolds and tune substrate specificity, which creates a direct engineering path from computational design to enzymes with targeted cleavage activity, an approach that shortens the functional diversification process compared with natural evolution.",
+      "outlook": "The published demonstrations establish a baseline; the next public milestones will be the researchers' follow-on publications and detailed method disclosures that provide sequences, specificity metrics, and activity assays for independent verification.",
+      "source_urls": [
+        "https://arstechnica.com/science/2026/10/researchers-use-ai-to-design-proteins-that-cut-up-other-proteins/"
+      ],
+      "topic_tag": "ai"
+    }
+  ],
+  "narration_script": "Ricursive Intelligence told TechCrunch Disrupt that it is applying AI to design whole chips end to end, producing unconventional layouts such as a circular, donut-shaped arrangement and arguing the approach can reduce design cycles from months or years to about a week. The company emphasized whole-chip optimization rather than partitioning into many blocks and said it will share more details about its wave-like layouts in the future. Science Corporation reported that it implanted its PRIMA retinal prosthesis in a Stargardt disease patient at Sydney Eye Hospital. The two millimeter by two millimeter implant sits at the back of the eye and, used with camera-equipped glasses, provided the patient with high-contrast, black-and-white central vision that included seeing a letter in the first rehab session and reading a word in the second. Science Corporation said a next-generation device will be in humans within the next year and that it expects progress toward near-native acuity over the next five years. Anthropic published experiments showing quantized and sharded small models can run on low-cost IoT hardware, reporting Gemma4-26B-A4B inference across 15 Android TV class boxes with 4 gigabytes of memory each and Qwen3.5-9B running on eight of nine hardware types tested. Anthropic warned these capabilities could enable self-replicating malware that configures unfamiliar devices autonomously and said that by next year smaller models may be able to autonomously self-replicate on many IoT devices. Finally, researchers used AI protein design tools to graft catalytic cores from two protease mechanisms into new scaffolds and produced enzymes that can be tuned to cleave specific proteins; they demonstrated these designed proteases cutting proteins linked to neurological disease. The research provides sequences and activity results in the published report and the team indicated follow-on publications and method disclosures will provide the detailed specificity and assay data needed for independent verification."
+}
