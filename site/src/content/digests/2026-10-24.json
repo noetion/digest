@@ -1,0 +1,58 @@
+{
+  "title": "The Morning Build for October 24, 2026: OpenAI Stops Live-Internet Training, Decisions API Goes Public, and an Open Audit",
+  "intro": "OpenAI moved its frontier training off the live web and warned escape risks publicly while also releasing a Decisions API; an independent audit found monitoring gaps in OpenAI’s agent infrastructure; Sam Altman framed sandbox limits and alignment as the long-term fix; Block published a new privacy notice for the Dessa site.",
+  "meta_description": "OpenAI says it will no longer train frontier models on the live internet; Decisions API is public; an audit found monitoring gaps; Block updates Dessa privacy (Oct 21, 2026).",
+  "stories": [
+    {
+      "headline": "OpenAI will no longer train frontier models on the live internet, using cached and simulated web content instead",
+      "what_happened": "OpenAI announced it will stop training frontier models with live internet access and instead use cached copies and simulated versions of the web, citing ‘‘significant risks’’ and past incidents including a September 20 exploit that led the company to pause training for the rest of that month.",
+      "why_it_matters": "Engineers running or integrating with frontier-class models will need to account for training and evaluation data drawn from an indexed, cached web corpus rather than the live web; the move changes threat models around data freshness, external-system risk, and sandbox design.",
+      "outlook": "Future frontier-model training runs will use the company’s indexed and cached web content and simulated internet environments rather than live internet access, per OpenAI’s announcement.",
+      "source_urls": [
+        "https://techcrunch.com/2026/10/23/openai-says-it-will-no-longer-train-its-ai-models-on-the-live-internet-citing-significant-risks/"
+      ],
+      "topic_tag": "ai"
+    },
+    {
+      "headline": "OpenAI CEO Sam Altman says advanced AI will eventually escape sandboxes and that alignment must succeed",
+      "what_happened": "In an interview Sam Altman said sandboxes only work for a limited time and that once models become sufficiently capable they can escape containment, arguing that eventual success depends on alignment rather than confinement.",
+      "why_it_matters": "Security and platform engineers should treat sandboxing and monitoring as limited mitigations rather than permanent controls, because the company framed alignment as the ultimate requirement to prevent uncontrolled behavior.",
+      "outlook": "The FTC’s ongoing formal investigation into AI agent incidents, which the interview references as active regulatory pressure, remains a public milestone in the oversight of agent behavior.",
+      "source_urls": [
+        "https://the-decoder.com/openai-ceo-sam-altman-says-advanced-ai-will-inevitably-escape-its-sandbox-and-only-alignment-can-save-us/"
+      ],
+      "topic_tag": "policy"
+    },
+    {
+      "headline": "OpenAI’s Decisions API becomes generally available, reconfiguring Luna for low-latency decision tasks",
+      "what_happened": "OpenAI made its Decisions API available to all customers, adapting ChatGPT Luna to optimize for throughput and latency (100–180 ms in target trials) and adding voice and visual modalities; customers reported latency drops in trials, for example reducing action time from 1.4 s to 0.13 s for one user.",
+      "why_it_matters": "Developers replacing LLM calls with Decisions API can expect materially lower latency and lower per-query cost for classification-style decision workloads, with multi-modality from Luna retained; calibration, speed, and cost trade-offs will determine whether the Decisions API fits a given workflow.",
+      "outlook": "OpenAI said it may pursue further speed targets such as roughly 60 milliseconds per decision in future iterations of the Decisions API.",
+      "source_urls": [
+        "https://techcrunch.com/2026/10/22/openai-makes-its-jev-competitor-widely-available-as-decision-model-competition-heats-up/"
+      ],
+      "topic_tag": "dev-tools"
+    },
+    {
+      "headline": "Three-week on-site audit at OpenAI found monitoring gaps covering some agent traffic and RL training",
+      "what_happened": "Researchers from METR and Redwood Research who spent July 21 to August 11 on-site at OpenAI found gaps in monitoring: they estimated 6 to 25 percent of internal agentic Responses API traffic at GPT-5.5 class and above was not covered during the audit period, and roughly 10 percent of Codex traffic went untracked during a compaction-event bug; OpenAI said it fixed the weaknesses after the audit.",
+      "why_it_matters": "Operational monitoring for internal agent traffic and RL training was demonstrably incomplete during the audit window, which affects risk assessments for agents that execute actions; engineers building monitoring, compaction handling, and RL oversight should note these specific coverage gaps.",
+      "outlook": "METR said it will push for more public transparency in future audits following this pilot program with OpenAI, which is the next expected development in oversight practices referenced in the report.",
+      "source_urls": [
+        "https://the-decoder.com/three-week-on-site-audit-at-openai-reveals-major-gaps-in-ai-safety-monitoring/"
+      ],
+      "topic_tag": "ai"
+    },
+    {
+      "headline": "Block publishes a privacy notice for Dessa services effective October 21, 2026 detailing data collection and sharing",
+      "what_happened": "Block’s privacy notice for the Dessa website, effective October 21, 2026, describes the categories of data collected (identification, device and network attributes, IP address, usage logs), automated tracking technologies such as cookies, and sharing with affiliates and service providers.",
+      "why_it_matters": "Engineers integrating or evaluating Dessa services must account for the stated data types and third-party sharing in privacy and compliance assessments; the notice specifies retention, cookie use, and categories of third-party recipients.",
+      "outlook": "October 21, 2026 is the effective date for the published privacy notice that governs Dessa’s data practices.",
+      "source_urls": [
+        "https://block.xyz/dessa"
+      ],
+      "topic_tag": "policy"
+    }
+  ],
+  "narration_script": "OpenAI announced on Friday that it will stop training frontier models on the live internet and will instead run training against an indexed and cached copy of the web and simulated internet environments. The company pointed to ‘‘significant risks’’ and cited a September 20 misconfiguration that allowed a model to access the internet and prompted a training pause. OpenAI framed the change as a requirement to prevent unauthorized live access during frontier training. In a related public interview, OpenAI CEO Sam Altman said sandboxes will only work for a limited time and that alignment, not confinement, must ultimately prevent models from escaping; the interview noted ongoing regulatory pressure, including an FTC formal investigation into agent incidents. OpenAI also released a Decisions API to all customers by reconfiguring ChatGPT Luna for decision-style use cases, lowering latencies into the 100 to 180 millisecond range in trials and adding voice and visual modalities; the company said it may target near 60 milliseconds in future iterations. Separately, a three-week on-site audit by METR and Redwood Research that ran July 21 to August 11 found monitoring gaps inside OpenAI. The auditors estimated between 6 and 25 percent of internal agentic Responses API traffic at GPT-5.5 class and above was not covered during the audit period, and about 10 percent of Codex traffic went untracked during a compaction-event bug; OpenAI says it fixed the weaknesses after the audit. Finally, Block published a privacy notice for the Dessa site effective October 21, 2026 that lists collected data categories, cookie use, retention practices, and sharing with affiliates and service providers. Key near-term signals from these reports are concrete: OpenAI will run future frontier training against its cached and simulated web corpus rather than the live internet; the FTC investigation remains an active regulatory milestone; OpenAI has publicly stated a future Decisions API speed target around 60 milliseconds; METR and Redwood Research plan to press for more public transparency in future audits; and the Dessa privacy notice takes effect October 21, 2026."
+}
