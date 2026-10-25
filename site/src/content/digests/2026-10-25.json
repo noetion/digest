@@ -1,0 +1,61 @@
+{
+  "title": "The Morning Build for October 25, 2026: OpenMobile: 2, Block Dessa on M4 Max, and a Critical Brotli Fix",
+  "intro": "Today’s stories center on practical shifts engineers can act on: open-weight smartphone agents and Kimi’s near‑Claude parity, a new on‑device full‑duplex voice model from Block, API model political biases ahead of the Nov. 3 midterms, and a high‑severity Brotli decoder CVE that forces runtime upgrades and image rebuilds.",
+  "meta_description": "OpenMobile: 2 and Kimi K3.1 Pro push open models forward, Block demos on‑device Dessa, Grok vs GPT political bias studies hit before Nov. 3, and CVE-2026-111497 demands Brotli 1.2.1.",
+  "stories": [
+    {
+      "headline": "OpenMobile: 2 releases Qwen3.5/3.6-based smartphone agents and training environment",
+      "what_happened": "Researchers from Nanjing University, SenseTime, and partners released OpenMobile: 2: two agent models (9B on Qwen3.5 and 27B on Qwen3.6) plus the full training environment, data, and instructions; they trained over 110 simulated apps and generated about 11,600 example workflows and 2,000+ practice tasks. On real Android devices the larger model scored 59.6 on SPA-Bench, the top result reported for open models.",
+      "why_it_matters": "The study shows app diversity in the training environment raised unseen-app success rates from 60.7% to 67.5% with the same data budget, and real‑device gains were larger than emulator/bench improvements, meaning engineers building phone agents should prioritize varied simulation coverage over raw example counts.",
+      "outlook": "Check the OpenMobile: 2 public release artifacts the authors published (models, environment, and reproduction instructions) for independent SPA-Bench and AndroidWorld verification and for community forks now that models and data are available.",
+      "source_urls": [
+        "https://the-decoder.com/openmobile-2-proves-open-source-smartphone-agents-can-rival-proprietary-models/"
+      ],
+      "topic_tag": "ai"
+    },
+    {
+      "headline": "Block publishes Dessa, a full‑duplex on‑device voice model said to run on MacBook M4 Max",
+      "what_happened": "Block announced Dessa, a voice model trained solely on human speech that runs locally and supports full‑duplex listen-and-speak behavior; the company says it can run on consumer hardware such as a MacBook M4 Max and has posted example conversations demonstrating emotion, cadence, and pauses.",
+      "why_it_matters": "An on‑device full‑duplex model removes round trips for some interactive voice workloads and preserves acoustic signals lost by text pipelines; engineers designing voice UIs and offline agents should note the claim of local execution on M4 Max class hardware and Block’s public call for safety researchers.",
+      "outlook": "Watch for safety‑researcher reports and any public access statements from Block after their call for testers, which will reveal exploit vectors, metrics for deceptive behavior, and any planned distribution or SDK timing.",
+      "source_urls": [
+        "https://techcrunch.com/2026/10/24/blocks-new-voice-model-sounds-eerily-human/",
+        "https://the-decoder.com/blocks-new-ai-model-dessa-was-trained-entirely-on-human-speech-to-catch-emotions-text-based-models-miss/"
+      ],
+      "topic_tag": "ai"
+    },
+    {
+      "headline": "Convovo study finds Grok and GPT API outputs diverge on candidate picks ahead of Nov. 3 midterms",
+      "what_happened": "Researchers asked models via APIs to name one candidate to vote for and found Grok 4.7 recommended Republicans in 92% of answers while OpenAI’s GPT-6.1 Sol recommended Democrats in 97% across ~500 races; the two models agreed less than 10% of the time. The paper also notes Grok requests carried about 1,240 tokens of additional, opaque input via the API.",
+      "why_it_matters": "The results show API access to model weights or developer endpoints can produce political recommendation behavior that differs sharply from consumer app behavior; engineers deploying model APIs for information tasks should be aware that API-level prompts, hidden request context, or search behavior changed outcomes in this study.",
+      "outlook": "Nov. 3, 2026 midterm results provide the immediate public milestone tied to this study, with the paper released in the two weeks before the election and the authors framing their findings as relevant to debates over political bias in model outputs.",
+      "source_urls": [
+        "https://techcrunch.com/2026/10/24/forced-to-pick-groks-ai-model-chooses-republicans-openais-picks-democrats/",
+        "https://the-decoder.com/openais-isolated-ai-agents-found-ways-to-talk-to-each-other-through-cpu-cache/"
+      ],
+      "topic_tag": "ai"
+    },
+    {
+      "headline": "Moonshot’s Kimi K3.1 Pro posts 55 on Artificial Analysis, plans open weights by Nov. 4, 2026",
+      "what_happened": "Moonshot AI released Kimi K3.1 Pro, a post-trained 2.8T-parameter model scoring 55 on Artificial Analysis (up 11 points from K3); Moonshot lowered token prices by 33% and announced a weights release planned by November 4, 2026. K3.1 Pro shows gains in agentic tasks, coding, and 3D modeling and retains a 1,000,000-token context window.",
+      "why_it_matters": "If Moonshot follows through on an open-weights release, K3.1 Pro would become the highest-scoring open-weights model available per Artificial Analysis; engineers tracking open models should note the November 4 target and the model’s stated price, context window, and claimed reductions in hallucination and cyber-offense data removal for the open-weights build.",
+      "outlook": "November 4, 2026 is the release target Moonshot set for publishing model weights; that date will show whether K3.1 Pro becomes the top publicly available weights and allow independent benchmarking versus Claude Opus 5.5.",
+      "source_urls": [
+        "https://the-decoder.com/chinese-ai-model-kimi-k3-1-pro-is-closing-in-on-anthropics-claude-opus-5-5/",
+        "https://the-decoder.com/openai-offers-discounts-up-to-90-percent-to-poach-anthropics-biggest-customers/"
+      ],
+      "topic_tag": "ai"
+    },
+    {
+      "headline": "CVE-2026-111497 (Node2Shell / HTTP2Shell) is an out‑of‑bounds write in Brotli; vendors released patches and mitigations",
+      "what_happened": "A Brotli decoder bug (CVE-2026-111497) allows crafted Brotli streams to cause out‑of‑bounds writes, memory leaks, crashes, or possible remote code execution; OpenAI found the root cause in February. Patches are available in libbrotli 1.2.1, Brotli/bro tlicffi patched releases, and in specific runtime versions listed (Node.js 22.23.4, 24.22.1, 26.12.1; Bun 1.4.4; Envoy and Istio releases named), and the advisory assigns CVSS v4.0 score 9.2.",
+      "why_it_matters": "Because many HTTP clients and servers load Brotli decoders as bundled or transitive dependencies, vulnerable environments can be exploited by malicious servers or clients; the advisory lists concrete patched package versions and recommends rebuilding container images and restarting services to ensure the fixed decoder is in use.",
+      "outlook": "Confirm production environments run Brotli 1.2.1 or the patched runtime releases the advisory lists (for example Node.js 22.23.4, 24.22.1, 26.12.1) and rebuild container images and deployed binaries so services use the updated Brotli decoder before relying services accept traffic.",
+      "source_urls": [
+        "https://www.aikido.dev/blog/python-packages-vulnerable-node2shell-brotli-cve-2026-111497"
+      ],
+      "topic_tag": "dev-tools"
+    }
+  ],
+  "narration_script": "OpenMobile: 2 published two smartphone agent models built on Qwen3.5 and Qwen3.6, plus its full simulated‑app training environment and reproduction artifacts. The project trained agents across more than 110 apps, produced about 11,600 example workflows and 2,000 practice tasks, and reports a 59.6 SPA‑Bench score for the larger model, which the authors say is the best among open models. Their controlled experiments show increasing the number of apps raised unseen‑app success from 60.7% to 67.5% at a fixed data budget, so simulation diversity mattered more than raw example count. The authors published models and environment artifacts for community verification. Block announced Dessa, a full‑duplex voice model trained on human speech that the company says runs locally on consumer hardware such as a MacBook M4 Max. Block released example conversations showing laughs, pauses, and emotional cadence and has invited safety researchers to test the model; there is no public access window yet. A Convovo study examined API responses from Grok 4.7 and GPT‑6.1 Sol on the question of who to vote for and found large partisan splits: Grok picked Republican candidates in 92% of its answers while GPT picked Democrats in 97%. The paper notes hidden API input tokens in Grok requests and places the study in the two weeks before the November 3, 2026 midterms. Moonshot AI published Kimi K3.1 Pro, a 2.8 trillion parameter post‑trained model that scores 55 on the Artificial Analysis index, and announced plans to release weights by November 4, 2026; the company also cut token prices by about 33 percent and highlighted agentic and 3D modeling gains. Finally, a critical Brotli decoder bug, CVE‑2026‑111497, was disclosed; it is an out‑of‑bounds write in the Brotli decoder that can corrupt memory or allow remote code execution. OpenAI found the root cause in February and vendors have published patches: upgrade to Brotli 1.2.1 or brotlicffi 1.2.1.0, and use the patched runtime releases listed for Node.js, Bun, Envoy, and Istio. If you cannot upgrade immediately, the advisory recommends removing Brotli decoders from environments or rejecting br Content-Encoding at the proxy until images and binaries are rebuilt. The concrete forward milestones to watch are the OpenMobile‑2 public artifacts for independent SPA‑Bench runs, any public safety reports or access statements from Block on Dessa, election day Nov. 3 for the Convovo study’s context, Moonshot’s November 4 weights release target, and verified redeploys showing Brotli 1.2.1 or the vendor runtime versions running in production."
+}
