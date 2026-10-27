@@ -1,0 +1,61 @@
+{
+  "title": "The Morning Build for October 27, 2026: OpenAI's always-on 'dots', GPT-6.1 Terra price cut, and Anthropic's S-1",
+  "intro": "Today’s stories center on how AI vendors are shifting product and financial models: OpenAI turned its coding tools into an always-on assistant called dots and priced it for Pro subscribers; OpenAI also cut API prices with GPT-6.1 Terra while pushing mid-tier capabilities; Anthropic filed an S-1 that lays out record revenue, massive compute commitments, and explicit recursive self-improvement risk language; and Tesla is pitching autonomy subscriptions as a new profit engine.",
+  "meta_description": "OpenAI launches always-on assistant dots for Pro subscribers; GPT-6.1 Terra halves API prices; Anthropic files S-1 showing $11.6B Q2 revenue and $780B compute commitments.",
+  "stories": [
+    {
+      "headline": "OpenAI launches dots: an always-on assistant in ChatGPT for Pro and above",
+      "what_happened": "OpenAI released dots, an always-on personal assistant available in ChatGPT desktop and mobile to subscribers on the Pro tier or higher, with plans starting at $100 per month. Dots connects to calendar, email, computer and other tools, runs proactive research on a cadence, and inherits ChatGPT privacy controls including a user option to turn off model training.",
+      "why_it_matters": "Engineers integrating agents should expect persistent background activity that increases token usage and requires broader resource access and privacy controls; dots does not accept read-only cloud-drive access and currently has coarse-grained permission controls, per OpenAI’s product team comments.",
+      "outlook": "OpenAI’s ongoing conversations with payment processors, which the company says are underway, will determine whether dots gains the ability to execute payments on users’ behalf.",
+      "source_urls": [
+        "https://techcrunch.com/2026/10/26/how-openai-turned-its-coding-tools-into-dots-an-always-on-personal-assistant/"
+      ],
+      "topic_tag": "ai"
+    },
+    {
+      "headline": "GPT-6.1 Terra halves OpenAI’s API prices and targets office tasks and automated software control",
+      "what_happened": "OpenAI released GPT-6.1 Terra at roughly half the token price of GPT-5.6 Terra, with input tokens at $1 per million and output tokens at $5 per million, and cached inputs at $0.05 per million. OpenAI positions Terra for drafting, visual reasoning, form filling and automated software control and made it available in ChatGPT Work, Codex, and via the API for Plus, Pro, Enterprise, and Edu users.",
+      "why_it_matters": "The model claims materially better price-to-performance for mid-range tasks and agentic automation: published comparisons cite higher Intelligence Index points per dollar, faster computer-control throughput on Agents' Last Exam, and substantially improved coding results on Terminal-Bench 4.0 versus GPT-5.6 Terra.",
+      "outlook": "Third-party and vendor benchmark results named in coverage, Artificial Analysis’s cost-efficiency metrics, Agents' Last Exam, Terminal-Bench 4.0, and MMMU-Pro, are the next public checkpoints for Terra’s claimed price-to-performance and hallucination reductions.",
+      "source_urls": [
+        "https://the-decoder.com/gpt-6-1-terra-halves-openais-api-prices-and-still-gains-ground-on-its-larger-models/"
+      ],
+      "topic_tag": "ai"
+    },
+    {
+      "headline": "Anthropic’s S-1 frames recursive self-improvement as both a risk and a strategic advantage",
+      "what_happened": "Anthropic’s IPO prospectus emphasizes existential and catastrophic risks tied to recursive self-improvement (RSI) and repeatedly links RSI to faster model development, while also describing 'closing the loop', AI-accelerated R&D, as a core structural advantage the company intends to use to compete.",
+      "why_it_matters": "The filing puts public detail around how a leading frontier lab views the trade-off between accelerating model development via AI and the safeguards needed to manage those pathways; engineers and risk teams will find Anthropic’s explicit linkage of RSI to both product strategy and risk disclosures notable.",
+      "outlook": "Congressional action is the next public policy milestone referenced in the filing, including bills in Congress and at least one cosponsored by Bernie Sanders that propose limits on RSI-related practices.",
+      "source_urls": [
+        "https://www.wired.com/story/the-anthropic-ipo-is-also-a-doomsday-primer/",
+        "https://techcrunch.com/2026/10/26/anthropics-ipo-filing-reveals-its-strategy-for-keeping-enterprise-customers-hooked/",
+        "https://www.wired.com/story/anthropic-ipo-filings-reveal-finances-risks-strategy/"
+      ],
+      "topic_tag": "policy"
+    },
+    {
+      "headline": "Anthropic’s S-1 shows $11.6B Q2 revenue, high net retention, and $780B-plus compute commitments",
+      "what_happened": "Anthropic filed its S-1 to list on Nasdaq under ticker ANT, reporting $11.6 billion revenue in Q2 2026, a first-quarter-to-Q2 jump from $376 million in Q1 2025, net revenue retention of roughly 900 percent, and long-term compute capacity contracts totaling about $780 to $810 billion.",
+      "why_it_matters": "The numbers reveal a usage-driven revenue model: 80 percent billed per token, with extreme customer spending concentration metrics and fixed, large compute obligations that create a structural need for sustained high growth and justify Anthropic’s investments in Anthropic Direct data centers.",
+      "outlook": "The IPO process itself is the immediate next public milestone: pricing, offering size and the Nasdaq listing under ticker ANT led by Goldman Sachs and Morgan Stanley will be the key events to watch following the S-1 filing.",
+      "source_urls": [
+        "https://arstechnica.com/cars/2026/10/tesla-wants-ai-and-software-to-be-its-next-profit-engine/"
+      ],
+      "topic_tag": "ai"
+    },
+    {
+      "headline": "Tesla pivots to autonomy subscriptions as a path to recurring revenue",
+      "what_happened": "Tesla is positioning AI and software, notably its Full Self-Driving software, as a high-margin recurring revenue stream while vehicle sales continue to provide most cash flow; Elon Musk also disclosed companies are exploring a merger to accelerate the autonomy push.",
+      "why_it_matters": "Engineers should expect Tesla to prioritize software feature development and monetization for Full Self-Driving, while the company balances heavy AI spending against a vehicle business that still generates about 75 percent of total revenues.",
+      "outlook": "Merger exploration disclosures are the near-term corporate signal to watch, specifically any merger filings or regulatory disclosures from Tesla or the other companies Musk said are involved.",
+      "source_urls": [
+        "https://the-decoder.com/anthropic-opens-its-books-for-wall-street-showing-record-revenue-and-mounting-obligations/",
+        "https://the-decoder.com/wall-streets-fastest-traders-are-building-data-centers-and-backing-chip-startups-to-stay-ahead-in-ai/"
+      ],
+      "topic_tag": "ai"
+    }
+  ],
+  "narration_script": "OpenAI launched dots, an always-on assistant inside ChatGPT available to Pro subscribers at plans starting around $100 per month. Dots runs proactively across your calendar, email and local machine, performs periodic 'proactive research,' and uses the same ChatGPT privacy controls so users can opt out of training, although current permission controls are coarse and the app refuses read-only cloud-drive access. OpenAI says it is working closely with payment processors, which will determine whether dots can ever execute payments for users. OpenAI also cut API prices with a new mid-tier model, GPT-6.1 Terra. Terra’s input tokens are priced at about $1 per million and outputs at $5 per million, with cached inputs at $0.05 per million, and the company published comparisons showing improved cost-to-performance for office tasks, visual reasoning, automated software control and coding. Coverage cites third-party benchmark lifts on Agents' Last Exam, Terminal-Bench 4.0 and Artificial Analysis cost-efficiency metrics as the points that will validate those claims. Anthropic filed an S-1 under the ticker ANT and opened its books to investors. The prospectus shows Q2 2026 revenue of $11.6 billion, first-half 2026 revenue of $16.3 billion, net revenue retention near 900 percent, and long-term compute contracts totaling roughly $780 to $810 billion. The filing makes two strategic points public: most revenue is usage-based, and the company is building Anthropic Direct data centers to reduce dependence on contracted compute. The S-1 also devotes extensive space to risk factors, repeatedly naming recursive self-improvement as a pathway that could produce catastrophic risks if development outpaces safeguards, while simultaneously identifying AI-accelerated R&D as a core competitive advantage. The filing references pending bills in Congress, including one cosponsored by Bernie Sanders, as a public policy vector. Finally, Tesla is pitching autonomy subscriptions as a margin play. The company still gets roughly 75 percent of revenue from vehicle sales, but Full Self-Driving remains the near-term lever for recurring software revenue, and Elon Musk said companies are exploring a merger to accelerate autonomy work. The next concrete milestones are straightforward: OpenAI’s discussions with payment processors will shape dots’ ability to act on behalf of users; published benchmark updates such as Artificial Analysis, Agents' Last Exam and Terminal-Bench results will test GPT-6.1 Terra’s claims; Anthropic’s IPO pricing and Nasdaq listing under ANT, led by Goldman Sachs and Morgan Stanley, will follow the S-1; Congressional progress on bills targeting recursive self-improvement will be the policy signal called out in Anthropic’s filing; and any merger filings or regulatory disclosures tied to Tesla’s announced merger exploration will indicate how serious the autonomy subscription pivot will be."
+}
