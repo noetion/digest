@@ -1,0 +1,61 @@
+{
+  "title": "The Morning Build for October 28, 2026: Google’s Genie 4 Launches, Anthropic Files to Go Public, and Delaware’s AI-Run Company Plan",
+  "intro": "Today’s stories center on how foundation models are moving from research into operations and markets: DeepMind announced Genie 4, a real-time multimodal world model released as a trusted-tester research preview; Anthropic filed an S-1 with revenue and governance detail as it prepares to list under ANT; investigations and filings surfaced product-level content pipelines at OpenAI; Anthropic’s S-1 also foregrounds existential-risk disclosures; and Delaware’s draft bill would permit AI-run companies under a 30-month sandbox, drawing congressional scrutiny.",
+  "meta_description": "Genie 4 research preview from DeepMind, Anthropic's S-1 with $16.3B H1 revenue and Founder LLC control, OpenAI partner pipeline analysis, and Delaware’s AI-run company draft.",
+  "stories": [
+    {
+      "headline": "DeepMind releases Genie 4 research preview: multimodal real-time world model with native audio and Gemini coordination",
+      "what_happened": "DeepMind announced Genie 4, a multimodal world model that natively generates audio, ambient sound, and interactive dialogue, can be steered in real time via natural language, and is being rolled out as a research preview to trusted testers and soon to Google AI Ultra subscribers and early access Gemini API and Google AI Studio partners.",
+      "why_it_matters": "Genie 4 integrates simulation rendering and reasoning by pairing a real-time generator with Gemini models, including Gemini 3.8 Flash as an agent-in-the-loop, which changes how engineers can prototype physics, multi-step tasks, and interactive characters without building a full engine pipeline.",
+      "outlook": "The immediate rollout to Google AI Ultra subscribers and early access partners in the Gemini API and Google AI Studio, described as coming soon in the announcement, is the next public milestone to watch for broader availability and partner feedback.",
+      "source_urls": [
+        "https://deepmind.google/blog/genie-4-a-new-generation-of-world-simulation/",
+        "https://the-decoder.com/google-deepminds-genie-4-puts-a-modern-spin-on-agent-designs-that-predate-llms/",
+        "https://techcrunch.com/2026/10/27/googles-genie-4-world-model-adds-audio-more-realistic-worlds-and-real-time-steering/"
+      ],
+      "topic_tag": "ai"
+    },
+    {
+      "headline": "Anthropic files S-1 for IPO, reports $16.3B revenue for H1 2026 and founder voting control via Founder LLC",
+      "what_happened": "Anthropic filed an S-1 to list under ticker ANT, reporting $16.3 billion in revenue for the first half of 2026, an operating loss of $693 million (improved from H1 2025), and a net loss of $80.7 billion driven largely by noncash convertible-debt adjustments; the filing also says a Founder LLC of the seven co-founders will control 50.1% of voting power.",
+      "why_it_matters": "The filing quantifies enterprise scale with more than 11,900 customers spending $100,000+ annually and governance that preserves founder voting control, both of which directly affect how investors and engineers interpret product priorities, resource allocation, and the company’s public accountability for model risks.",
+      "outlook": "Anthropic has not disclosed offering size or proposed share price; the company’s IPO pricing statement and related SEC filings ahead of the public listing will be the next concrete milestones for raise size, valuation, and how the market prices these financials and governance terms.",
+      "source_urls": [
+        "https://techcrunch.com/2026/10/26/anthropic-officially-files-for-its-public-debut/"
+      ],
+      "topic_tag": "big-tech"
+    },
+    {
+      "headline": "Analysis finds OpenAI delivers partner content to ChatGPT as pre-summarized entries while other web results arrive as raw snippets",
+      "what_happened": "A technical analysis identified a dedicated pipeline in ChatGPT named 'labrador' that populates a provider field with pre-generated summaries from 12 publishers covering 43 domains, and found partner summaries are placed ahead of general web results; in a 1,000-case sample the summaries named 70 percent of ranked-list entries in positions 1 through 3 versus 23 percent in positions 7 through 10.",
+      "why_it_matters": "The pipeline changes how content from licensing partners is surfaced and ranked inside ChatGPT, which affects reproducibility of retrieval behavior, auditability of source provenance, and how engineers should treat citation and freshness when integrating ChatGPT results into products.",
+      "outlook": "OpenAI product notes, blog posts, or official technical disclosures about web-result ordering and the partner pipeline will be the next concrete public signals that could confirm, modify, or explain the delivery and ranking behavior described in the analysis.",
+      "source_urls": [
+        "https://the-decoder.com/openais-partner-content-arrives-in-chatgpt-pre-summarized-while-the-rest-of-the-web-gets-raw-scraps/",
+        "https://the-decoder.com/openais-ted-sanders-shares-a-rule-of-thumb-for-picking-the-right-gpt-model/"
+      ],
+      "topic_tag": "ai"
+    },
+    {
+      "headline": "Anthropic’s S-1 lists existential and catastrophic AI risks in a lengthy Risk Factors section",
+      "what_happened": "Anthropic’s S-1 Risk Factors, published with the filing, explicitly discusses risks that could pose 'catastrophic or existential risks to humanity,' and warns that near-future models that substantially automate AI research and development could accelerate progress beyond Anthropic’s ability to evaluate and safeguard new models.",
+      "why_it_matters": "Those explicit risk disclosures frame the company’s public safety posture and set expectations for investors and regulators about potential failure modes; engineers working with or integrating Anthropic models will see these public admissions reflected in contractual, compliance, and operational risk assessments.",
+      "outlook": "The IPO process, including the forthcoming pricing statement, roadshow materials, and SEC filings ahead of the listing, will be the next place these risk disclosures are tested against investor questions and regulatory scrutiny.",
+      "source_urls": [
+        "https://arstechnica.com/ai/2026/10/anthropic-ipo-warns-its-ai-could-blackmail-people-become-sentient-end-humanity/"
+      ],
+      "topic_tag": "big-tech"
+    },
+    {
+      "headline": "Delaware draft bill would allow AI-run companies under a 30-month sandbox and draws a House Oversight probe",
+      "what_happened": "A Delaware draft bill would permit Artificial Intelligence Companies to be managed and have their business conducted by designated AI agents, exclude banking, and establish a 30-month regulatory sandbox; Representative James Comer has sent a letter requesting documents and signaled potential federal legislative action to limit state AI regulatory initiatives.",
+      "why_it_matters": "Permitting AI agents to be designated to manage a company changes legal accountability and corporate governance models engineers and architects must consider when designing autonomous business processes, and the congressional probe signals possible federal constraints on state-led corporate experiments.",
+      "outlook": "The House Oversight Committee’s document requests to Delaware and any subsequent proposed federal legislation from Representative Comer or the committee will be the concrete milestones that determine whether the draft bill proceeds, is modified, or triggers federal limits.",
+      "source_urls": [
+        "https://arstechnica.com/tech-policy/2026/10/no-human-at-the-helm-delaware-plan-would-let-ai-agents-run-entire-businesses/"
+      ],
+      "topic_tag": "policy"
+    }
+  ],
+  "narration_script": "DeepMind announced Genie 4, a new real-time world model that natively generates audio and interactive dialogue and can be steered with natural language. Genie 4 pairs a pixel-level generator with Gemini reasoning, using Gemini 3.8 Flash as an agent-in-the-loop, and DeepMind is running the model as a research preview for trusted testers before opening access to Google AI Ultra subscribers and early access Gemini API and Google AI Studio partners. The team also says generated video and audio will carry SynthID watermarks and that visual drift, object permanence, and some physics and text-rendering limits remain active research problems. The next milestone is the planned rollout to Google AI Ultra subscribers and Gemini API partners, which will reveal how the model performs outside internal tests. Anthropic filed an S-1 to list under ticker ANT, reporting $16.3 billion in revenue for the first half of 2026, an operating loss of $693 million, and a net loss of $80.7 billion driven by noncash convertible-debt adjustments. The filing also reports more than 11,900 customers spending $100,000 or more annually and states that a Founder LLC of the seven co-founders will control 50.1 percent of voting power. Anthropic did not disclose offering size or a proposed share price; the company’s IPO pricing statement and related SEC filings ahead of the public listing will be the concrete next signals for valuation and raise size. A technical analysis of ChatGPT’s web pipeline found a provider field tied to a 'labrador' engine that delivers pre-generated summaries from 12 publishers covering 43 domains. The analysis reports partner summaries are placed ahead of other web results and shows, in a 1,000-case sample, partner summaries named 70 percent of ranked-list entries in positions one through three versus 23 percent for positions seven through ten. The analysis changes how engineers should treat provenance and ranking in ChatGPT outputs; product notes or official technical disclosures from OpenAI will be the next public confirmation or clarification. Separately, Anthropic’s S-1 Risk Factors section explicitly discusses catastrophic and existential risks, warning that near-future systems that can substantially automate AI research could outpace the company’s ability to evaluate and safeguard models. Those risk admissions will show up in investor and regulator questioning during the IPO process, with the pricing statement and roadshow materials as the immediate places to watch. Finally, Delaware’s draft bill would allow companies to be managed by designated AI agents, carve out banking, and run a 30-month regulatory sandbox. Representative James Comer has requested documents from Delaware and signaled he may pursue federal legislation to limit state AI initiatives. The Oversight Committee’s response and any proposed federal bill will be the concrete steps that determine whether the draft proceeds or is constrained."
+}
