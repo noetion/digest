@@ -1,0 +1,48 @@
+{
+  "title": "The Morning Build for October 30, 2026: Mistral's Le Chonk, Google BYOA for Android, AWS's $220B capex, and Dream's world models",
+  "intro": "Today’s stories center on AI moving from research into engineering: Mistral published Large 4 weights aimed at coding and cyber tasks; Google opened Android Studio to third-party agents and shipped new Gemini APIs and XR glasses; AWS signaled a major capex ramp tied to AI capacity; and Dream, an ex-Palantir team, raised seed funding to build world models for construction.",
+  "meta_description": "Mistral releases Large 4 weights; Google opens Android Studio to external agents; AWS plans $220B 2026 capex; Dream raises $17M for construction world models.",
+  "stories": [
+    {
+      "headline": "Mistral publishes Large 4 \"Le Chonk\" weights: ~1T params, 52B active, modified MIT license",
+      "what_happened": "Mistral released Large 4 weights (nicknamed Le Chonk) to Hugging Face; the model totals about one trillion parameters with 52 billion active per step and is available under a modified MIT license that requires cloud providers selling the model to obtain a separate license from Mistral. Mistral reports 161 tokens/sec inference speed, revised RL training since the preview, API pricing of $0.70 per million input tokens and $2.10 per million output tokens, and a 96.6 percent refusal rate for malicious cyber requests.",
+      "why_it_matters": "Engineers get a shareable, runnable trillion-parameter base with documented hardware targets (standard eight Nvidia B300 GPUs, compressed four GB300 GPUs) and an open-source friendly license for on-prem deployment, while commercial cloud resellers must negotiate a vendor license. Benchmarks show coding and cyber-defense strengths but overall ranking behind several Chinese open models and leading proprietary models, so performance trade-offs and integration costs are concrete engineering considerations.",
+      "outlook": "Moonshot's Kimi K3.1 Pro weight release on November 4, 2026 is the next public benchmark milestone poised to change open-model leaderboards mentioned in Mistral's comparisons.",
+      "source_urls": [
+        "https://the-decoder.com/paris-based-mistral-releases-le-chonk-a-strong-coding-model-that-still-trails-china-overall/"
+      ],
+      "topic_tag": "ai"
+    },
+    {
+      "headline": "Google opens Android Studio to third-party coding agents with BYOA, adds Gemini Nano 4 Agentic API and MCP",
+      "what_happened": "Google launched Bring Your Own Agent (BYOA) in Android Studio Rabbit 2 using the Agent Client Protocol to run over 40 external coding agents inside the IDE; it also shipped an alpha Agentic API powered by Gemini Nano 4 in ML Kit and a Model Context Protocol plus AppFunctions and A2UI for calling app functions and rendering agent-driven UI components. Google announced Android CLI agent plugins, Android Bench 2.0, and the XREAL AURA smart glasses running Android XR for $1,099 with mid-November shipping.",
+      "why_it_matters": "Developers can integrate external agents (Anthropic, OpenAI, Google Antigravity) directly with IDE tooling, local device execution, and app-level function calling, reducing token use via terminal previews and new skills; the Agentic API and MCP establish concrete interfaces for local agent orchestration, safety filters, and function calls that change where model inference and verification can run in mobile apps.",
+      "outlook": "XREAL AURA shipping in mid-November 2026 is the immediate hardware milestone that will show how Gemini-integrated local agent features behave on a consumer XR device.",
+      "source_urls": [
+        "https://the-decoder.com/google-opens-android-development-to-third-party-ai-agents-and-unveils-new-gemini-apis/"
+      ],
+      "topic_tag": "dev-tools"
+    },
+    {
+      "headline": "AWS plans roughly $220B cash capex in 2026, Jassy signals higher 2027 spending to scale AI infrastructure",
+      "what_happened": "Amazon CEO Andy Jassy said AWS still expects about $220 billion cash capex in 2026, with the majority allocated to AWS, and that Amazon expects to spend meaningfully more in 2027 to build capacity for AI-driven cloud demand. Jassy forecasted AWS revenue growth of roughly 40% for 2027 and 2028 and described a multi-year path toward a potential trillion-dollar annual revenue business.",
+      "why_it_matters": "A specified, large capex commitment tied to AWS capacity gives engineering teams and infrastructure vendors advance visibility into major spend on data center, compute, and AI-serving capacity; the company’s public revenue growth targets and capex cadence provide measurable signals for capacity availability, pricing pressure, and hardware procurement planning.",
+      "outlook": "Amazon’s 2027 capex disclosure and the company’s next fiscal updates will reveal the scale and timing of the planned increase beyond the $220 billion 2026 figure.",
+      "source_urls": [
+        "https://techcrunch.com/2026/10/29/aws-will-be-a-1t-business-jassy-says-but-first-it-will-spend-big/"
+      ],
+      "topic_tag": "big-tech"
+    },
+    {
+      "headline": "Dream raises $17M seed to build trained world models for construction and architecture",
+      "what_happened": "Ex-Palantir founders Andy Elder and Arjun Mathur launched Dream and raised $17 million in seed funding led by Andreessen Horowitz to build built-world models trained on over 100 million square feet of permit archive data; Dream says its model produces structurally precise designs accounting for materials, beams, plumbing, and HVAC, and is deployed on 10 active projects in Texas and California.",
+      "why_it_matters": "Dream’s domain-trained world model and its claim of structural cognition indicate an enterprise ML application that binds geometry, materials, and construction standards into generative design outputs, which affects engineering workstreams that must integrate model outputs with regulatory checks, cost estimation, and downstream BIM tools.",
+      "outlook": "Product adoption and deployment across Dream’s active projects this quarter, as reported by the company, will be the near-term commercial milestone showing whether their model-driven designs integrate with existing AEC workflows.",
+      "source_urls": [
+        "https://techcrunch.com/2026/10/29/ex-palantir-execs-launch-dream-with-17m-from-a16z-to-build-ai-world-models-for-construction/"
+      ],
+      "topic_tag": "startups"
+    }
+  ],
+  "narration_script": "Mistral published Large 4, nicknamed Le Chonk, and released the weights on Hugging Face. The model totals about one trillion parameters with 52 billion active per step. Mistral reports 161 tokens per second, API prices of $0.70 per million input tokens and $2.10 per million output tokens, and a 96.6 percent refusal rate for malicious cyber requests. The model is available under a modified MIT license that requires a separate commercial cloud license from Mistral. Independent indexes show coding and cyber-defense strengths but rank Large 4 behind several Chinese open models and top proprietary systems. The next public milestone called out in coverage is Moonshot’s planned Kimi K3.1 Pro weight release on November 4, 2026.  Google opened Android Studio to external coding agents with a Bring Your Own Agent feature in Rabbit 2 and published the Agent Client Protocol. The company shipped an alpha Agentic API running Gemini Nano 4 in ML Kit, a Model Context Protocol, AppFunctions and an Agent-to-UI interface for Jetpack Compose, plus Android CLI agent plugins and Android Bench 2.0. Google also announced the XREAL AURA wired smart glasses running Android XR, priced at $1,099 and shipping in mid-November. These changes place agent execution, function calling, and safety filters into IDEs, local devices, and apps.  Amazon CEO Andy Jassy said AWS still expects roughly $220 billion in cash capex for 2026 with the majority for AWS, and he said Amazon plans to spend meaningfully more in 2027 to build AI-serving capacity. Jassy repeated a target for AWS to grow about 40 percent in 2027 and 2028 and described a multi-year path to potentially reach a trillion-dollar annual revenue business. The company’s 2027 capex disclosures and upcoming fiscal updates will show how that spending ramps.  Finally, Dream, founded by two former Palantir executives, raised $17 million in seed funding led by Andreessen Horowitz to build trained world models for construction. Dream says its model is trained on permit archives totaling more than 100 million square feet and produces structurally precise designs that include materials, beams, plumbing, and HVAC. The startup reports deployments across 10 active projects in Texas and California, and near-term product adoption on those projects will be the initial commercial signal of traction."
+}
