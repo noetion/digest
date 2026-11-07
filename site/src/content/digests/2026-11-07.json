@@ -1,0 +1,59 @@
+{
+  "title": "The Morning Build for November 7, 2026: OpenAI's $11B Round, Airbnb's 2027 Agent, and Google’s Video and Health AI",
+  "intro": "Today’s stories center on how large models and application-specific agents are moving from research into products and balance sheets: OpenAI’s reported new $11 billion financing and IPO timing, Airbnb committing to a travel agent in H1 2027, an Apache 2.0 65B developer model (Ripple: 65B) on Hugging Face, Google Research’s Nature paper and Health app feature for cuffless blood-pressure detection, and Google’s general-availability Gemini Omni 1.2 Flash video model rolling out across developer and business platforms.",
+  "meta_description": "OpenAI raises $11B at a $1.25T valuation; Airbnb vows an AI travel agent H1 2027; Ripple: 65B hits Hugging Face under Apache 2.0; Google publishes cuffless BP study and ships Gemini Omni 1.2 Flash.",
+  "stories": [
+    {
+      "headline": "OpenAI reportedly raises an additional $11 billion at a $1.25 trillion valuation",
+      "what_happened": "Bloomberg and TechCrunch report OpenAI has raised about $11 billion so far in a new funding round valuing the company at $1.25 trillion; sources say the round could total about $20 billion and is expected to close in the coming weeks. OpenAI previously indicated an IPO this year but delayed and is expected to go public next year.",
+      "why_it_matters": "A multi‑billion private round at this valuation materially shifts OpenAI’s balance-sheet runway and investor expectations, which affects capital availability and signal dynamics across competing labs and potential IPO pricing. The reported size and timeline also frame near-term market comparisons with Anthropic’s share-sale interest and valuation chatter.",
+      "outlook": "The funding round is reported to be expected to close in the coming weeks, and OpenAI’s previously stated IPO plans remain targeted for next year as the next public milestone.",
+      "source_urls": [
+        "https://techcrunch.com/2026/11/06/openai-reportedly-raises-an-additional-11-billion-at-a-1-25-trillion-valuation/"
+      ],
+      "topic_tag": "ai"
+    },
+    {
+      "headline": "Airbnb commits to launching an AI travel agent in the first half of 2027",
+      "what_happened": "In its Q3 shareholder letter and earnings call, Airbnb announced it will launch a travel-specific AI agent in the first half of 2027, describing a personalized, component-based interface that composes maps, photos, comparisons, calendars, and itineraries in real time rather than a text-only chatbot.",
+      "why_it_matters": "Airbnb is building an agent tightly integrated with its platform actions, booking changes, refunds, rebooking, 24-hour safety support, and claims this integration is a capability outside general-purpose agents, which has implications for how travel booking, post-booking support, and UI composition will be instrumented by product teams.",
+      "outlook": "First-half 2027 is the company’s committed rollout window for the travel agent, which investors and customers can use to measure adoption and how the agent integrates booking and post-booking platform actions.",
+      "source_urls": [
+        "https://techcrunch.com/2026/11/05/airbnb-says-its-launching-an-ai-travel-agent-in-the-first-half-of-2027/"
+      ],
+      "topic_tag": "ai"
+    },
+    {
+      "headline": "Ripple: 65B Preview posts strong agentic coding TerminalBench 2.1 result and is released under Apache 2.0 on Hugging Face",
+      "what_happened": "Ricursive Intelligence published Ripple: 65B Preview, a 65 billion parameter dense Transformer pretrained on 12 trillion tokens; the company reports an 80.52 score on TerminalBench 2.1 and lists the model on Hugging Face under the Apache 2.0 license. Ricursive says total development and training costs were $32 million.",
+      "why_it_matters": "An open US model at 65B parameters with an Apache 2.0 license and claimed TerminalBench 2.1 leader status for open models lowers legal and integration friction for teams that want a deployable, on‑prem or cloud‑hosted coding model optimized for Nvidia hardware.",
+      "outlook": "The Ripple: 65B Preview is available on Hugging Face under Apache 2.0, providing an immediate reference point for deployments and for comparative benchmarking against other publicly hosted models.",
+      "source_urls": [
+        "https://the-decoder.com/ripple-65b-preview-delivers-strong-agentic-coding-results-as-a-fully-apache-2-0-open-us-model/"
+      ],
+      "topic_tag": "ai"
+    },
+    {
+      "headline": "Google Research publishes Nature paper and folds cuffless blood-pressure detection into Google Health app trends",
+      "what_happened": "Google published a Nature paper and a blog post describing a neural network that detects signs of high blood pressure using only smartwatch pulse and motion sensors without cuff calibration; in a 196-person study across five US sites the watch identified hypertension in 65.8 percent of cases versus 55.3 percent for standard in-office measurement. Google says the findings have been folded into the blood pressure trends feature in the Google Health app, and the method remains research and not a replacement for diagnosis.",
+      "why_it_matters": "A sensor-only approach that matches or exceeds in-office measurement sensitivity in this study size suggests a pathway for longitudinal, passive hypertension screening integrated into consumer apps, which affects product teams working on device telemetry, privacy, clinical validation, and feature gating.",
+      "outlook": "Google has integrated the study’s findings into the blood pressure trends feature in the Google Health app as the immediate product milestone noted in the report.",
+      "source_urls": [
+        "https://the-decoder.com/googles-ai-detects-high-blood-pressure-from-a-regular-smartwatch-without-a-cuff/"
+      ],
+      "topic_tag": "ai"
+    },
+    {
+      "headline": "Google makes Gemini Omni 1.2 Flash generally available with 15-second video and a 30 percent price cut",
+      "what_happened": "Google announced general availability of Gemini Omni 1.2 Flash across the Gemini API and Gemini for business, added native 15-second video generation and multi-turn conversational editing, improved reference adherence, and lowered price 30 percent to $0.07 per second for 720p; outputs include a SynthID watermark and the model is available via Google AI Studio, Google Cloud console, Gemini app rollouts, and the Gemini API.",
+      "why_it_matters": "A lower price, longer native clip length, and conversational multi-turn edits change false-start costs for iterative video generation and variant production, which affects compute cost projections and workflow design for teams building video ads, product explainers, and avatar-driven content at scale.",
+      "outlook": "Gemini Omni 1.2 Flash is rolling out across developer and business platforms now, with the Gemini app rollout specified for Google AI Ultra subscribers and integration paths through Google AI Studio and Google Cloud console listed as immediate deployment channels.",
+      "source_urls": [
+        "https://blog.google/innovation-and-ai/technology/developers-tools/introducing-gemini-omni-1-2-flash/",
+        "https://arstechnica.com/ai/2026/11/google-schools-can-keep-search-while-skipping-gemini-but-ai-search-is-non-negotiable/"
+      ],
+      "topic_tag": "ai"
+    }
+  ],
+  "narration_script": "OpenAI reportedly raised about $11 billion in a new round that sources say values the company at $1.25 trillion, with the financing expected to close in the coming weeks and possible total round size reported near $20 billion; OpenAI’s IPO timeline remains targeted for next year. Airbnb told shareholders it will ship a travel-specific AI agent in the first half of 2027, describing a component-based, travel-native UI that composes maps, photos, comparisons, calendars, and itineraries and that can perform booking changes, refunds, rebooking, and 24-hour safety support. Ricursive Intelligence published Ripple: 65B Preview, a dense 65B parameter Transformer pretrained on 12 trillion tokens, reporting an 80.52 TerminalBench 2.1 score for agentic coding and listing the model on Hugging Face under the Apache 2.0 license; the company states total development and training costs were $32 million. Google Research published a Nature paper showing a neural network that uses smartwatch pulse and motion sensors to detect signs of high blood pressure without cuff calibration; in a 196-person study across five US sites the smartwatch approach identified 65.8 percent of people with hypertension versus 55.3 percent for in-office measurement, and Google says those findings have been folded into the blood pressure trends feature in the Google Health app, though the method remains research. Google also announced general availability of Gemini Omni 1.2 Flash, lowering price 30 percent to $0.07 per second for 720p, extending native clips to 15 seconds, adding multi-turn conversational editing, improved reference adherence, and a SynthID watermark, with rollout across the Gemini API, Google AI Studio, Google Cloud console, and the Gemini app for Google AI Ultra subscribers. That’s the morning read: a large private financing that affects market expectations, two product rollouts that push agents and vertical models into user flows, an open Apache 2.0 65B model available now on Hugging Face, and two Google moves that tie research and production together in health and video generation."
+}
