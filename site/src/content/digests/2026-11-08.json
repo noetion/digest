@@ -1,0 +1,58 @@
+{
+  "title": "The Morning Build for November 8, 2026: Meta's Muse Spaces, tiny 32MB speech model, and why coding agents still need humans",
+  "intro": "Today’s stories focus on agent productization, tiny-footprint models for local speech, developer-tooling security failures, an internal Microsoft research shutdown, and a new real-world coding-agent benchmark that shows agents rarely finish tasks alone. Each item highlights concrete gaps between shipped agent features and the engineering work needed to use them safely and at scale.",
+  "meta_description": "Meta ships Spaces for Muse agents; Underdog demos a 32MB speech model; Claude Code leaks secrets; Microsoft ends AI Frontiers; Co-Design Bench shows agents finish only 26.4% of tasks.",
+  "stories": [
+    {
+      "headline": "Meta launches Spaces to create project-scoped Muse agent conversations",
+      "what_happened": "Meta added Spaces, a sidebar-backed feature that creates topic-scoped conversations for Muse agents where Muse can build trackers, planners, or project boards and integrate third-party apps to refresh data in the background. The company said Muse had 10 million users in the U.S. and Canada during its October earnings call.",
+      "why_it_matters": "Spaces formalizes multi-session state and third-party integrations for Muse, adding engineering work around per-space data connectors, background sync, and UX state management for agent-run trackers and planners. The feature pushes integration toil onto product teams who must surface external app data and reconcile it with agent actions.",
+      "outlook": "Meta's next quarterly earnings report is the concrete milestone likely to report updated Muse user metrics and uptake of features such as Spaces and Muse Voice.",
+      "source_urls": [
+        "https://techcrunch.com/2026/11/06/meta-introduces-spaces-a-new-way-to-collaborate-with-your-muse-agent/"
+      ],
+      "topic_tag": "ai"
+    },
+    {
+      "headline": "Underdog demos a 32MB speech-generation model that runs offline in the browser",
+      "what_happened": "Underdog released a browser demo built on a 32MB speech-generation model, Woof, which the company says has 31 million parameters and can run on most devices without internet access; the model is available for download. The release follows Bark, a 167MB speech-to-text model Underdog published weeks earlier and a separate 27-billion-parameter model the company also announced.",
+      "why_it_matters": "A 32MB speech model that runs locally reduces dependence on cloud inference and changes constraints for privacy-sensitive voice features, embedding size, and on-device CPU/memory budgets for client apps. Engineers integrating local speech will need to validate quality trade-offs versus larger cloud models and measure runtime characteristics across target devices.",
+      "outlook": "The public download availability of the 31M-parameter model is the immediate signal to benchmark local inference performance, quality, and device compatibility post-release.",
+      "source_urls": [
+        "https://techcrunch.com/2026/11/06/underdog-shows-off-a-32mb-speech-model-in-new-demo/"
+      ],
+      "topic_tag": "startups"
+    },
+    {
+      "headline": "Apiiro report finds Claude Code 'Don't Ask Again' feature left 1,122 passwords in public GitHub files",
+      "what_happened": "A security report from Apiiro shows the Claude Code 'Don't Ask Again' setting caused secret strings, including passwords, to appear in 1,122 public GitHub files, indicating coding-agent workflows can exfiltrate or hardcode credentials into repositories.",
+      "why_it_matters": "Agentic developer tooling that suppresses repeated prompts can cause automated writes of secrets into source files, creating a concrete injection risk for CI, repos, and build artifacts; engineering and security teams must treat agent settings and writeback policies as part of threat modeling and code-review pipelines.",
+      "outlook": "Follow-up scans and remedial commits to the affected GitHub repositories or vendor patches to agent writeback settings are the next concrete events to measure whether the exposure was mitigated.",
+      "source_urls": [
+        "https://apiiro.com/blog/coding-agents-leaking-secrets-github-dont-ask-again"
+      ],
+      "topic_tag": "dev-tools"
+    },
+    {
+      "headline": "Microsoft Research's AI Frontiers group wound down after reorg into Microsoft AI",
+      "what_happened": "The AI Frontiers sub-organization at Microsoft Research, roughly a 50-person group focused on agent research and experimental objectives such as Next Latent and Full Bandwidth Transformer variants, was disbanded after a reorg into Microsoft AI; the author reports remaining disagreements over research versus scaling philosophies and states AI Frontiers is over.",
+      "why_it_matters": "The closure signals a personnel and organizational shift away from small, focused research teams inside Microsoft toward a scaling-first approach under Microsoft AI, which affects where experimental R&D and novel model-objective work will be staffed and resourced within the company.",
+      "outlook": "The stated absence of AI Frontiers internships in the coming year is the concrete near-term personnel milestone the author sets out.",
+      "source_urls": [
+        "https://hunch.net/?p=13764006"
+      ],
+      "topic_tag": "big-tech"
+    },
+    {
+      "headline": "Co-Design Bench shows top coding agents fully solve only 26.4% of real-world change-request tasks",
+      "what_happened": "Researchers built Co-Design Bench from real user change requests and found GPT-6 Astra averaged meeting 70 percent of task requirements but fully completed only 26.4 percent of tasks; ten models were tested and performance fell as tasks combined multiple change types. The paper also shows results depend heavily on the agent harness used to read, write, and execute code.",
+      "why_it_matters": "Real-world multi-type changes and execution environment variability mean coding agents rarely finish tasks without human cleanup, so engineering teams must evaluate agent plus harness together and plan for manual verification steps, test harness design, and differing token/compute costs across environments.",
+      "outlook": "Publication and wider adoption of the Co-Design Bench itself is the next concrete check on agent progress, as subsequent papers and vendor evaluations using this benchmark will reveal whether agents and harnesses improve acceptance rates beyond the reported 26.4 percent.",
+      "source_urls": [
+        "https://the-decoder.com/ai-coding-agents-still-need-human-cleanup-on-nearly-three-out-of-four-tasks-in-a-real-world-test/"
+      ],
+      "topic_tag": "dev-tools"
+    }
+  ],
+  "narration_script": "Meta shipped Spaces, a new sidebar feature for Muse agents that creates project-scoped conversations where Muse builds trackers, planners, or project boards and integrates third-party apps to keep information updated. The company reported Muse had 10 million users in the U.S. and Canada during its October earnings call. For engineers, Spaces formalizes per-project state, background sync, and connector work that product teams must implement to let agents act against external data. Meta's next quarterly earnings report is the concrete milestone likely to show updated Muse adoption and uptake of new features such as Spaces and Muse Voice. Underdog published a browser demo using a 32MB speech-generation model called Woof, which it says has 31 million parameters and can run offline on most devices; the model is available for download. This changes the trade-offs for voice features by shifting inference and privacy constraints to client devices, so engineering teams should measure runtime and quality across target hardware. The public download of the 31M-parameter model is the immediate event that will let teams benchmark local inference. A security report from Apiiro found the Claude Code 'Don't Ask Again' behavior led to passwords appearing in 1,122 public GitHub files, demonstrating that agent writeback settings can cause secrets to be committed into repositories. This creates a concrete codebase and CI risk that security and engineering teams must treat as part of their threat model. The next measurable events will be repository remediation commits or vendor patches to agent writeback settings. Inside Microsoft, the AI Frontiers research group has been shut down following a reorg into Microsoft AI, according to a first-person account. The author reports the group of roughly 50 people worked on agent orchestration and experimental model objectives, and that there will not be internships with the former AI Frontiers team in the coming year. That stated absence of internships is the near-term personnel milestone in the account. Finally, researchers published Co-Design Bench, a real-world coding-agent benchmark built from user change requests. The best model in the paper, GPT-6 Astra, met about 70 percent of task requirements on average but fully completed only 26.4 percent of tasks; performance dropped when tasks combined layout, interaction, design, and content changes, and results varied with the harness used to run agents. The publication of Co-Design Bench and follow-on evaluations using it will be the concrete check on whether agents and harnesses improve task acceptance rates beyond the 26.4 percent reported."
+}
