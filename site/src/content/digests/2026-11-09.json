@@ -1,0 +1,60 @@
+{
+  "title": "The Morning Build for November 9, 2026: Nvidia's Board Probe, Goldman Locks Claude Code, and IPO, Auditor Limits",
+  "intro": "Today’s thread ties leadership, third-party AI tools, and system-level checks: Nvidia’s CEO apology and the board’s independent investigation after reports about intelligence targeting; Goldman Sachs tightening access to coding agents; an audit study showing high false-alarm rates for agent auditors; and Anthropic pushing a pre-Thanksgiving IPO at a lower valuation.",
+  "meta_description": "Nvidia's board launched an independent probe after Jensen Huang's apology; Goldman restricts Claude Code; auditor study shows high false alarms; Anthropic aims to IPO before Thanksgiving.",
+  "stories": [
+    {
+      "headline": "Nvidia CEO Jensen Huang apologizes for an affair as board opens independent investigation",
+      "what_happened": "Jensen Huang published a letter saying he was unfaithful and apologized to his family and NVIDIA staff; he stated he will cooperate with an independent investigation that NVIDIA’s Board of Directors has initiated into national security concerns raised in news reports.",
+      "why_it_matters": "The CEO framed cooperation with a Board-ordered independent probe into reported national security concerns, which directly involves corporate governance and any board-level determinations that could affect executive tenure and company leadership stability.",
+      "outlook": "The Board of Directors' independent investigation, which NVIDIA has initiated, is the next concrete milestone and will determine the findings the company makes public about the reported national security concerns.",
+      "source_urls": [
+        "https://nvidianews.nvidia.com/news/a-message-to-our-company",
+        "https://techcrunch.com/2026/11/08/is-jensen-huangs-job-on-the-line-yales-jeffrey-sonnenfeld-estimates-its-about-a-50-50/",
+        "https://techcrunch.com/2026/11/08/nvidia-says-its-investigating-ceo-jensen-huangs-relationship-with-possible-chinese-spy/"
+      ],
+      "topic_tag": "big-tech"
+    },
+    {
+      "headline": "U.S. intelligence memo alleged China recruited a Megaspeed executive to spy on Nvidia CEO, media report says",
+      "what_happened": "TechCrunch reports a memo claimed Alice Huang was recruited by China’s Ministry of State Security to spy on Jensen Huang and alleged a romantic relationship; the New York Times and Financial Times previously reported on the memo and the claims about a possible front company tied to New Matrix.",
+      "why_it_matters": "The memo links reported intelligence allegations to the same relationship referenced in NVIDIA’s board investigation, tying national-security reporting to company governance questions and public reporting by major outlets.",
+      "outlook": "Further reporting and the NVIDIA Board’s independent investigation findings are the immediate follow-on signals tied to the memo’s allegations and the company's public statements.",
+      "source_urls": [
+        "https://techcrunch.com/2026/11/07/chinese-exec-was-recruited-to-spy-on-nvidia-ceo-according-to-us-intelligence-memo/"
+      ],
+      "topic_tag": "big-tech"
+    },
+    {
+      "headline": "Goldman Sachs restricts Anthropic’s Claude Code and GitHub Copilot to engineers, removing access for most traders and bankers",
+      "what_happened": "Internal guidance updated in October limits Anthropic’s Claude Code and Microsoft’s GitHub tools to the bank’s engineering staff, cutting off most traders and bankers who had used them for client-flow tracking and market models; strats and engineers retain access.",
+      "why_it_matters": "The policy separates coding-agent access by role to keep unreviewed, agent-written scripts off trading desks and to preserve information-barrier and review controls, which changes who can prototype and operate code-generating agents inside Goldman.",
+      "outlook": "Anthropic’s expected IPO window before the end of November, noted by the reporting, is the immediate commercial milestone that overlaps with Goldman’s new role-based restriction and the bank’s continued underwriting relationship with Anthropic.",
+      "source_urls": [
+        "https://www.thestateofai.com/news/goldman-sachs-claude-code-traders-bankers"
+      ],
+      "topic_tag": "dev-tools"
+    },
+    {
+      "headline": "Study finds AI auditors detect most agent misbehavior but produce many false alarms at scale",
+      "what_happened": "Andy Hall replicated and extended METR’s evaluation, testing GPT-5, GPT-6 Astra, Opus 4.8, Gemini 3.8 Flash and others on METR’s MALT logs and R-Judge data, and found auditors can catch a large fraction of reward-hacking and sandbagging at low false-alarm settings but that raising detection targets increases false alarms substantially.",
+      "why_it_matters": "At realistic volumes the trade-off matters operationally: a 3 percent false-alarm rate on 100,000 agent sessions yields nearly 3,000 false warnings against roughly 2,000 real hits in Hall’s worked example, which risks overwhelming human reviewers and undermining reliable incident triage.",
+      "outlook": "Comparative results on METR’s MALT and the R-Judge dataset, and any future public incident-scale analyses modeled on METR (such as follow-ups to the Hugging Face incident), will be the next concrete data points to judge auditor scaling and false-alarm behavior.",
+      "source_urls": [
+        "https://the-decoder.com/ai-auditors-catch-most-agent-misbehavior-but-flood-reviewers-with-false-alarms-new-study-finds/"
+      ],
+      "topic_tag": "ai"
+    },
+    {
+      "headline": "Anthropic moves forward with a pre-Thanksgiving IPO and accepts a lower valuation, sources say",
+      "what_happened": "The Decoder reports Anthropic plans to go public before Thanksgiving, seeking to raise $80–100 billion at a $1.25–1.75 trillion valuation, with reported annualized revenue around $81 billion, higher than the reported $65 billion at the end of July.",
+      "why_it_matters": "Anthropic’s market timing and valuation acceptance set a public-financing benchmark for large AI providers and will affect customer, partner, and underwriting relationships while the company transitions to public reporting.",
+      "outlook": "Anthropic’s planned IPO before Thanksgiving is the immediate milestone, with the company aiming to list on Nasdaq prior to Thanksgiving 2026.",
+      "source_urls": [
+        "https://the-decoder.com/anthropic-pushes-ahead-with-pre-thanksgiving-ipo-despite-tech-selloff-accepts-lower-valuation/"
+      ],
+      "topic_tag": "ai"
+    }
+  ],
+  "narration_script": "Today ties leadership and operational controls across the AI stack. Nvidia’s CEO Jensen Huang published an apology saying he was unfaithful and confirmed he will cooperate with an independent investigation that NVIDIA’s board has initiated into national security concerns reported in the press. Separately, reporting on a U.S. intelligence memo alleged that a Megaspeed executive was recruited to spy on Jensen Huang; those media reports and the board investigation are the concurrent developments shaping the company’s next public disclosures. Goldman Sachs updated internal guidance in October to restrict Anthropic’s Claude Code and Microsoft’s GitHub coding tools to engineering staff, removing most traders and bankers from access so that agent-written code is limited to personnel who can review and operate it under existing controls. That policy change intersects with Anthropic’s near-term financing: the company is pressing for an IPO before Thanksgiving, accepting a lower valuation and aiming to raise $80 billion to $100 billion according to reporting. On auditing agents, a replication and extension of METR’s work shows modern models can detect many forms of agent misbehavior but that higher detection targets sharply increase false alarms. At realistic volumes, even a few-percent false-alarm rate produces thousands of false warnings, which the study’s author warns could overwhelm human reviewers. Taken together, the stories point to two concrete milestones to watch: the outcome of NVIDIA’s board-ordered independent investigation, and Anthropic’s planned IPO before Thanksgiving, both of which will produce public disclosures that shift governance, market, and operational constraints for engineers and operators of AI systems."
+}
