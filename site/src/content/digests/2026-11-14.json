@@ -1,0 +1,62 @@
+{
+  "title": "The Morning Build for November 14, 2026: Nvidia Leadership Shock, Runway Open-Robot Weights, and ggml 1.0",
+  "intro": "Today's stories track shifts in the software and AI foundation layers: Nvidia's CEO exit and its implications for startup funding and chip-tracking policy; Runway publishing Praxis: 1 with open weights under Apache 2.0 for robot control; ggml reaching a 1.0.0 stable release with broad backend and API changes; renewed congressional attention to chip geotracking; and the FAA expanding an AI advisory system across all 22 air-traffic centers.",
+  "meta_description": "Nvidia's CEO exit rattles startup funding; Runway open-sources Praxis: 1 under Apache 2.0; ggml 1.0.0 ships; FAA widens SMART AI; Nvidia confirms chip-tracking feasibility.",
+  "stories": [
+    {
+      "headline": "Jensen Huang resigns after 33 years, investors warn Nvidia funding pullback will hit AI startups",
+      "what_happened": "Nvidia co-founder and CEO Jensen Huang stepped down after 33 years; investors and founders told TechCrunch that Nvidia participated in 105 rounds this year and poured tens of billions into startups, often as the largest investor, and that Huang personally drove many investment decisions.",
+      "why_it_matters": "Startups that relied on Nvidia checks for capital, validation, and access to GPUs may face smaller checks and slower dealmaking if interim CEO Colette Kress adopts a more conservative investment posture, which VCs say could reduce valuations and slow infrastructure funding.",
+      "outlook": "Hugging Face acquisition closing is expected in 2027, and investors are watching who replaces Huang and whether Colette Kress changes Nvidia's startup investment sizes and selection in the near term.",
+      "source_urls": [
+        "https://techcrunch.com/2026/11/13/jensen-huangs-departure-blasts-big-hole-in-ai-startup-funding-vcs-and-founders-say/",
+        "https://techcrunch.com/2026/11/12/jensen-huangs-exit-puts-nvidias-support-for-open-source-in-question/",
+        "https://techcrunch.com/2026/11/12/hugging-face-ceo-vows-to-keep-fighting-for-open-source-ai-after-jensen-huangs-exit/"
+      ],
+      "topic_tag": "big-tech"
+    },
+    {
+      "headline": "Runway publishes Praxis: 1 with open weights and Apache 2.0 code to control robots from video",
+      "what_happened": "Runway released Praxis: 1 weights and source code under Apache 2.0 and published a research report showing the model takes camera images, text instructions, and position data to predict scene changes and compute robot movements; pre-adapted robot versions and code are on GitHub and Hugging Face behind signup terms.",
+      "why_it_matters": "Praxis: 1 demonstrates a video-pretrained World Action Model approach that can be fine-tuned to different robot platforms, with reported success rates on RoboLab-120 and simulated transfer tests that could reduce reliance on robot-specific datasets and lower the data barrier for robot control experiments.",
+      "outlook": "Nvidia's RoboLab-120 leaderboard entries and independent benchmark runs or audits will be the first public checks of Runway's reported 46.2 percent World Action Model score and the real-robot transfer results Runway published.",
+      "source_urls": [
+        "https://the-decoder.com/runways-open-source-praxis-1-turns-video-ai-into-a-robot-controller/"
+      ],
+      "topic_tag": "ai"
+    },
+    {
+      "headline": "Nvidia privately told a lawmaker it can implement chip geotracking, reviving Chip Security Act debate",
+      "what_happened": "Nvidia representatives told Illinois Representative Bill Foster that the company could implement the anti-smuggling geotracking measures described in the Chip Security Act, even though industry groups publicly called those measures potentially infeasible, according to MIT Technology Review.",
+      "why_it_matters": "If implementable, ping-based or Fleet Intelligence tracking could provide location signals for advanced GPUs that matter to export-control enforcement; the current draft in the Senate NDAA would require geographic validation mechanisms that range from inspections to ping-based verification.",
+      "outlook": "The Chip Security Act provisions are under consideration for inclusion in the Senate's National Defense Authorization Act, and Representative Foster plans to introduce additional licensing and pre-connection verification rules in the new year.",
+      "source_urls": [
+        "https://www.technologyreview.com/2026/11/12/1148483/nvidia-chip-tracking/",
+        "https://techcrunch.com/2026/11/13/export-banned-nvidia-chips-are-behind-chinas-most-powerful-ai-models-uh-oh-jensen/",
+        "https://www.wired.com/story/who-is-colette-kress-the-woman-who-could-succeed-jensen-huang/"
+      ],
+      "topic_tag": "policy"
+    },
+    {
+      "headline": "ggml v1.0.0 releases with RPC v9, FP8, YaRN truncation, backend performance work, and many API changes",
+      "what_happened": "The ggml repository published a v1.0.0 release that prunes deprecated APIs, bumps the RPC protocol to v9, adds configurable YaRN truncation and FP8/OCP support, and delivers backend improvements across CUDA, Metal, Vulkan, SYCL, OpenCL, WebGPU, Hexagon, and CPU.",
+      "why_it_matters": "ggml 1.0.0 changes affect model loading, RPC interoperability, memory paths, and hardware kernels used by local inference stacks; the RPC protocol bump and kernel changes mean downstream projects and runtimes will need to test for compatibility and can expect faster loading and new device-side features.",
+      "outlook": "Downstream projects and model runtimes adopting ggml v1.0.0 will surface compatibility issues and RPC v9 interoperability behavior in upcoming PRs and release notes as integrations validate the new backend kernels and protocol changes.",
+      "source_urls": [
+        "https://github.com/ggml-org/ggml/releases/tag/v1.0.0"
+      ],
+      "topic_tag": "dev-tools"
+    },
+    {
+      "headline": "FAA expands SMART AI advisory system to all 22 air-traffic centers after DC rollout",
+      "what_happened": "The Federal Aviation Administration said it will deploy the $875 million SMART system, which combines weather, flight-path, traffic flow, and staffing data to make scheduling and routing recommendations, across all 22 centers after a National Capital Region rollout on September 21 that the agency says rerouted 180 flights and saved about 10 minutes and 80 gallons of fuel per flight.",
+      "why_it_matters": "SMART is cloud-based and produces scheduling recommendations that FAA specialists validate before passing to controllers, so its nationwide rollout changes where advisory automation is produced and creates an operational dependency on the central validation team and cloud-delivered predictions.",
+      "outlook": "The FAA's next public performance briefings or reports following the November 10 expansion announcement will be the measurement point for whether the National Capital Region results replicate nationwide after the SMART deployment.",
+      "source_urls": [
+        "https://arstechnica.com/features/2026/11/faa-expands-ai-advice-to-manage-air-traffic-congestion-across-entire-us-airspace/"
+      ],
+      "topic_tag": "policy"
+    }
+  ],
+  "narration_script": "Nvidia's founder and long-time CEO Jensen Huang resigned after 33 years. TechCrunch reporting says Nvidia participated in 105 funding rounds this year and has been a major investor and validation partner for AI infrastructure startups, with many investors attributing dealmaking directly to Huang. Interim CEO Colette Kress is expected to be more conservative, and observers note that the Hugging Face acquisition is still expected to close in 2027, making leadership and investment policy the immediate signals to watch. Runway released Praxis: 1, publishing weights and code under Apache 2.0 and a research report. Praxis: 1 ingests camera images, text instructions, and position data, predicts scene changes, and outputs robot movements; Runway posted pre-adapted robot versions on GitHub and Hugging Face and reported top World Action Model results on Nvidia's RoboLab-120. Independent leaderboard updates and external benchmark runs will be the first public checks of those claims. In Washington, Nvidia privately told Representative Bill Foster that it could implement the geotracking features in the Chip Security Act, even while industry associations had called such mandates potentially infeasible. The bill's ping-based location option and the Senate consideration of Chip Security Act provisions in the National Defense Authorization Act put new technical verification expectations on GPUs, and Foster plans to introduce licensing and pre-connection verification rules in the new year. The open ML library ggml shipped v1.0.0 with a pruned public API, an RPC protocol bump to v9, configurable YaRN truncation, FP8 support, and performance and kernel additions across CUDA, Metal, Vulkan, SYCL, OpenCL, WebGPU, Hexagon, and CPU backends. The release will force downstream runtimes to validate RPC v9 behavior and the new kernel paths as integrations adopt the changes. Finally, the FAA expanded SMART, its $875 million cloud-based advisory system, from the National Capital Region to all 22 air-traffic centers after a September 21 pilot that the agency says rerouted 180 flights and saved an average of 10 minutes and 80 gallons of fuel per flight. FAA specialists continue to validate SMART recommendations before distribution, and the agency's next public performance briefings after the November 10 expansion announcement will show whether the DC results scale nationwide."
+}
