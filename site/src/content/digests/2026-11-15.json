@@ -1,0 +1,58 @@
+{
+  "title": "The Morning Build for November 15, 2026: ChatGPT Wallet, LangChain's $3B Round, and Meituan's 1.6T Agent Model",
+  "intro": "Today’s stories converge on agents: OpenAI enabled agent-driven checkout with a limited ChatGPT Wallet test; LangChain raised $300 million to manage agents for enterprises; Meituan published LongCat-2.5, a 1.6T-parameter agent model with Huawei-only deployments; an open-source DeepSeek V3 JAX demo shows compact, reproducible agent architectures; and MathArena named Gemini 4 Carbon the new math leader while exposing big cost differences.",
+  "meta_description": "ChatGPT Wallet launches a limited agent checkout test; LangChain raises $300M at a $3B valuation; Meituan publishes LongCat-2.5 weights and self-hosting guide.",
+  "stories": [
+    {
+      "headline": "OpenAI launches ChatGPT Wallet to let its dots agents shop and complete checkout for limited U.S. Pro users",
+      "what_happened": "OpenAI rolled out ChatGPT Wallet to a limited set of U.S. ChatGPT Pro subscribers 18+, letting dots agents propose items and complete purchases using tokenized payment cards after the user reviews and approves via biometric security. Merchants receive shipping and contact details from the dot and card tokens are used so the agent and merchant never see raw card numbers.",
+      "why_it_matters": "Engineers building agent flows and integrations now have a concrete, user-facing example of agent-initiated payments and tokenized card flows, including a merchant-facing Commerce Partner Playbook OpenAI published to help sites support agent shoppers.",
+      "outlook": "OpenAI plans to add user controls such as spending limits and category/time pre-approval and to expand retailer support beyond the initial limited launch, per the company’s product notes.",
+      "source_urls": [
+        "https://techcrunch.com/2026/11/13/chatgpts-new-wallet-lets-ai-agents-shop-and-check-out-for-you/"
+      ],
+      "topic_tag": "ai"
+    },
+    {
+      "headline": "DeepSeek V3 published as a 190-line pure JAX demo with checkpoints and a MacBook Air training run",
+      "what_happened": "The DeepSeek-V3 implementation and v1.0 checkpoint were released as a 190-line pure JAX repo, including training logs, a 138 MB checkpoint, full scripts, tests, and instructions that reproduce a 12,000-step run on a 24 GB MacBook Air M5 and an ROCm container run that reaches similar validation losses.",
+      "why_it_matters": "Engineers get a compact, readable implementation of MLA, decoupled RoPE, Dense MoE routing, and multi-token prediction that reproduces training metrics and provides pinned requirements and test suites for reproduction and ablation experiments.",
+      "outlook": "The repository’s v1.0 release artifacts, ROCm container, and published metrics (metrics-main.jsonl and related logs) are the concrete artifacts the community can reproduce immediately to verify the reported 12k-step results and ROCm performance.",
+      "source_urls": [
+        "https://github.com/Vaibhaav-Tiwari/deepseek-v3-jax"
+      ],
+      "topic_tag": "dev-tools"
+    },
+    {
+      "headline": "Meituan publishes LongCat-2.5 weights, a 1.6T-parameter agent model quantized for Chinese chips and self-hosted on 194 Huawei accelerators",
+      "what_happened": "Meituan released LongCat-2.5 weights under the MIT license and a self-hosting guide that shows a serving cluster using 194 Huawei Ascend Atlas A2 accelerators (2 for images, 64 for prompt ingestion, 128 for response generation). The MoE model totals 1.6 trillion parameters with about 48 billion active per token, supports up to one million-token contexts and 128,000-token outputs, and uses 4-bit quantization for experts and activations.",
+      "why_it_matters": "The release provides engineers a large open-weight agent model optimized for non-Nvidia hardware, a self-hosting recipe for a specified Huawei cluster, and benchmark numbers (Terminal Bench v2.1, DeepSWE, BrowseComp) to compare multimodal agent capabilities and scaling choices.",
+      "outlook": "The published weights, MIT license, self-hosting guide, and Meituan-run benchmark scores on Terminal Bench v2.1 and DeepSWE are the immediate artifacts for third parties to reproduce or test against in their own evaluations.",
+      "source_urls": [
+        "https://the-decoder.com/meituan-releases-a-1-6-trillion-parameter-agent-model-that-never-touched-an-nvidia-gpu/"
+      ],
+      "topic_tag": "ai"
+    },
+    {
+      "headline": "Gemini 4 Carbon tops MathArena’s math leaderboard but costs roughly 15 times more per test than GPT-6.1 Sol in the published runs",
+      "what_happened": "MathArena’s published runs place Google’s Gemini 4 Carbon first on the benchmark with an estimated 85.4% ±3.0% score using reasoning settings that also produced high inference costs; the reported per-run cost for Carbon was about $15.70 versus GPT-6.1 Sol at about $1.07 under the same testing settings.",
+      "why_it_matters": "For engineers choosing models for math- and reasoning-heavy workloads, the MathArena results show a trade-off: Carbon yields the top raw math score in the testbed but does so at substantially higher inference cost relative to GPT-6.1 Sol and other models included in the published comparison.",
+      "outlook": "MathArena’s published leaderboard and the November 10, 2026 results are the concrete benchmark snapshot to compare future model updates and cost-performance changes between providers.",
+      "source_urls": [
+        "https://the-decoder.com/gemini-4-carbon-takes-the-matharena-crown-but-costs-15-times-more-than-gpt-6-1-sol/"
+      ],
+      "topic_tag": "ai"
+    },
+    {
+      "headline": "LangChain raises $300M Series C at a $3B valuation to position LangSmith as an enterprise agent management platform",
+      "what_happened": "LangChain closed a $300 million Series C led by CapitalG at a $3 billion valuation with participation from GIC, DFJ Growth, IVP, and Sapphire Ventures; the company reports 7,000 LangSmith customers including Nvidia, Toyota, and Salesforce.",
+      "why_it_matters": "The round signals strong investor conviction in vendor-agnostic agent-management tooling and provides LangChain capital to expand LangSmith’s agent-behavior and enterprise features while continuing to support multiple model and cloud backends.",
+      "outlook": "LangChain’s reported baseline of 7,000 LangSmith customers is the concrete customer-count signal to watch in future company updates and investor communications.",
+      "source_urls": [
+        "https://techcrunch.com/2026/11/13/ai-agent-startup-langchain-hits-3b-valuation/"
+      ],
+      "topic_tag": "startups"
+    }
+  ],
+  "narration_script": "OpenAI launched ChatGPT Wallet in a limited U.S. test for ChatGPT Pro subscribers, letting its dots agents propose purchases and complete checkout using tokenized cards after the user reviews and approves with biometrics. OpenAI says merchants receive shipping and contact data from the dot while the agent and merchant never see raw card numbers, and the company published a Commerce Partner Playbook to help retailers support agent shoppers. OpenAI also plans to add user controls such as spending limits and category or time pre-approvals and to expand retailer support beyond the initial launch. \n\nA compact reproduction of DeepSeek V3 was published as a 190-line pure JAX repo with a v1.0 checkpoint, pinned requirements, tests, and scripts that reproduce a 12,000-step run on a 24 GB MacBook Air and a ROCm container run that reaches similar validation loss. The release includes readable implementations of Multi-head Latent Attention, a Dense MoE routing scheme, decoupled RoPE, and multi-token prediction, plus full logs and metrics for community verification; the v1.0 artifacts and ROCm container are the immediate materials engineers can use to reproduce the reported results. \n\nMeituan published LongCat-2.5 weights under the MIT license and a self-hosting guide describing a 194-accelerator Huawei Ascend Atlas A2 cluster. LongCat-2.5 is a 1.6 trillion parameter mixture-of-experts model with about 48 billion active parameters per token, supports one million-token contexts and 128,000-token outputs, converts images to tokens, and uses 4-bit expert quantization. Meituan also published benchmark scores on Terminal Bench v2.1, DeepSWE, and BrowseComp alongside a limited-time promotional pricing schedule and the self-hosting recipe engineers can use to reproduce inference setups. \n\nMathArena’s November 10, 2026 results place Google’s Gemini 4 Carbon at the top of the math leaderboard with an estimated 85.4% score using the reasoning settings in the published runs; those same runs show Carbon’s cost per test at about $15.70 versus GPT-6.1 Sol at about $1.07, exposing a large cost-performance gap engineers must account for when selecting models for heavy reasoning workloads. \n\nLangChain raised $300 million at a $3 billion valuation in a Series C led by CapitalG and reports 7,000 LangSmith customers, positioning the company to expand its enterprise agent-management tooling while continuing to support multiple models and clouds; the 7,000-customer figure is the concrete baseline to watch in future updates. \n\nThose are the facts for this morning. Each story leaves reproducible artifacts or numeric baselines to inspect: the ChatGPT Wallet product and playbook, DeepSeek’s v1.0 repo and ROCm container, Meituan’s LongCat-2.5 weights and self-hosting guide, MathArena’s November 10 leaderboard, and LangChain’s customer count and $300 million raise."
+}
