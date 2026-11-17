@@ -1,0 +1,58 @@
+{
+  "title": "The Morning Build for November 17, 2026: OpenAI embeds external evaluators, new CSAM tools, and Qwen4-Max price/scale moves",
+  "intro": "OpenAI announced embedded third-party safety pilots and a new image-classifier plus ChatGPT CSAM warnings; a GPT-6 research result and Alibaba's Qwen4-Max pushed capability claims; and the US Commerce Department tightened export rules for advanced AI chips. All five stories change who inspects, uses, or ships increasingly capable models.",
+  "meta_description": "OpenAI embeds third-party evaluators and adds CSAM image classification; GPT-6 aids a lattice proof; US export rules tighten in 90 days; Alibaba launches Qwen4-Max.",
+  "stories": [
+    {
+      "headline": "OpenAI will embed Apollo, Goodfire, METR, and Transluce safety researchers to test model subversion",
+      "what_happened": "OpenAI announced pilots embedding third-party evaluators from Apollo Research, Goodfire, METR, and Transluce to investigate model subversion, interpretability, and the adequacy of post-training safety evaluations. Apollo’s pilot begins this week and will get access to relevant training code and datasets, reinforcement-learning rollouts with reasoning traces and rewards, and the ability to query intermediate checkpoints, while OpenAI limits access to authorized staff and to agreed models and time periods.",
+      "why_it_matters": "Engineers and safety teams now have a precedent for in-house, continuous external evaluation focused on subversion during training and deployment rather than only post-training tests; the announced access rules define what external evaluators will and will not see, including limits on staff access and redaction rights for supporting evidence.",
+      "outlook": "Apollo’s embedded pilot beginning this week is the immediate milestone; Transluce plans a 2027 test of how OpenAI uses safety tests to decide whether a model is safe enough to release.",
+      "source_urls": [
+        "https://techcrunch.com/2026/11/16/openai-will-embed-apollo-researchers-to-investigate-ai-subversion/"
+      ],
+      "topic_tag": "ai"
+    },
+    {
+      "headline": "OpenAI releases an image classifier and ChatGPT warnings to detect and deter CSAM, offering select partners free API access",
+      "what_happened": "OpenAI rolled out a new image classifier that flags CSAM, including AI-generated images, and deployed ChatGPT warning screens that interrupt prompts that sexualize children, provide support resources, and suspend offending accounts for 24 hours; OpenAI is giving select companies free API access to the classifier and published developer guidelines and law-enforcement tools.",
+      "why_it_matters": "Integrating a classifier that flags fewer images while maintaining detection rates reduces reviewer workload in partner tests, and the addition of in-app deterrent screens and a developer guideline bundle changes the signals engineers building on OpenAI APIs must account for when preventing or reporting CSAM.",
+      "outlook": "The next public milestone is the distribution of the classifier via free API access to the select partner companies OpenAI named, which will show how partners adopt the tool and the developer guidelines announced.",
+      "source_urls": [
+        "https://techcrunch.com/2026/11/16/openai-releases-a-new-image-classifier-and-chatgpt-warnings-to-combat-csam/"
+      ],
+      "topic_tag": "ai"
+    },
+    {
+      "headline": "OpenAI’s GPT-6 Astra contributed to a preprint claiming a lattice construction for the Standard Model phase problem",
+      "what_happened": "Physicist Nathaniel Craig posted a preprint and OpenAI blog describing a construction for overlap fermion phases on the lattice, and credited GPT-6 Astra with turning a strategy into a detailed proof; leading lattice theorists reviewed the work and raised questions Craig says helped build confidence.",
+      "why_it_matters": "For research engineers and computational physicists, the result shows large models being used to produce detailed, reviewable mathematical constructions and proofs tied to active preprints and community critique rather than opaque claims.",
+      "outlook": "The preprint and blog are the current public artifacts; the next milestone is formal peer review and community validation of the preprint in the lattice field theory literature.",
+      "source_urls": [
+        "https://the-decoder.com/openais-gpt-6-astra-tackles-the-standard-models-toughest-math-problem-on-a-lattice/"
+      ],
+      "topic_tag": "ai"
+    },
+    {
+      "headline": "US Commerce tightens export rules to block remote access to advanced AI chips, rule effective 90 days after Federal Register posting",
+      "what_happened": "The Commerce Department closed a loophole that allowed firms in countries such as Indonesia, Malaysia, Singapore, Thailand, and Brazil to provide remote access to advanced chips to Chinese entities; companies in those countries now must apply for licenses with strict know-your-customer controls when transferring high volumes of advanced chips.",
+      "why_it_matters": "Services offering remote access to high-end training accelerators will face new licensing and monthly transaction-reporting requirements, which will affect how cloud and colocation operators sell time on restricted hardware to customers linked to China, Russia, or Iran.",
+      "outlook": "The rule takes effect 90 days after it is posted to the Federal Register, which sets the concrete compliance and licensing window for affected hardware transfers.",
+      "source_urls": [
+        "https://arstechnica.com/tech-policy/2026/11/us-moves-to-cut-chinas-remote-access-to-ai-chips/"
+      ],
+      "topic_tag": "policy"
+    },
+    {
+      "headline": "Alibaba launches Qwen4-Max: 2.4T-parameter Max model with one-million-token context and lower per-task cost",
+      "what_happened": "Alibaba introduced Qwen4-Max, a 2.4 trillion parameter mixture-of-experts model that activates 71 billion parameters per token, offers a one-million-token context window, a revamped hybrid architecture for cheaper long-context processing, and a reported 62 percent reduction in average cost per Work360 task versus its predecessor; Alibaba will offer the model via QwenCloud and plans to open-source smaller Qwen4 models later.",
+      "why_it_matters": "Engineers building long-context agents, lab automation, or large-scale agentic tasks get a commercial option claiming higher context capacity, lower token activation, and materially lower per-task operating costs, plus an open-source path for smaller Qwen4 checkpoints down the line.",
+      "outlook": "Alibaba’s stated next milestone is the planned release of smaller Qwen4 model weights as open source, which will reveal which sizes and licenses become publicly available.",
+      "source_urls": [
+        "https://the-decoder.com/alibabas-qwen4-max-takes-on-opus-5-5-gpt-6-and-kimi-k3-1-pro-at-much-lower-prices/"
+      ],
+      "topic_tag": "ai"
+    }
+  ],
+  "narration_script": "OpenAI will embed outside safety evaluators from Apollo Research, Goodfire, METR, and Transluce to run pilots inside the company. Apollo’s pilot begins this week and will receive access to relevant training code and datasets, reinforcement-learning rollouts with reasoning traces and rewards, and the ability to query intermediate checkpoints. OpenAI limits access to authorized staff and to agreed models and time periods, and it can withhold information for technical, security, or IP reasons; Apollo can publish conclusions but OpenAI may limit supporting evidence. Transluce will test in 2027 how OpenAI uses safety tests to decide whether a model is safe enough to release. OpenAI also shipped new CSAM defenses: an image classifier that flags AI and non-AI CSAM and ChatGPT warning screens that block prompts that sexualize children, show support resources, and suspend offending accounts for 24 hours. OpenAI is providing free API access to the classifier to select partner companies, publishing developer guidelines, and offering law-enforcement plug-ins and training materials. OpenAI says the classifier, in early partner testing, flags 48 percent fewer images while finding the same number of abusive images and produces flags that are twice as likely to be abusive. In research, OpenAI’s GPT-6 Astra helped produce a preprint and an OpenAI blog post describing a lattice construction aimed at fixing a long-standing phase problem for overlap fermions in the Standard Model. Nathaniel Craig led the work, credited GPT-6 Astra with the detailed proof construction, and lattice theorists reviewed and raised questions that Craig says improved confidence in the result; the work now proceeds to formal peer review and community validation. On policy, the Commerce Department tightened rules to stop foreign data centers from enabling remote access to restricted AI chips, closing a loophole that allowed firms in several Southeast Asian and South American countries to host hardware used by Chinese entities. The rule requires companies in affected countries to apply for licenses and perform robust due diligence with monthly transaction reporting for large transfers, and it takes effect 90 days after posting to the Federal Register. Alibaba launched Qwen4-Max, a 2.4 trillion parameter mixture-of-experts Max model that activates 71 billion parameters per token, offers a one-million-token context window, and uses a hybrid architecture to reduce token activation on long contexts. Alibaba reports a 62 percent lower average cost per Work360 task versus the prior generation, native image support, Live Delivery for inspecting intermediate agent outputs, and lab automation runs that completed 48-hour autonomous experiments; Alibaba will make Qwen4-Max available through QwenCloud and plans to release smaller Qwen4 model weights as open source later. Those are the key developments engineers should track: Apollo’s pilot starting this week and Transluce’s 2027 test, the partner rollout of OpenAI’s CSAM classifier via free API access, peer review of the GPT-6 Astra preprint, the Commerce Department rule effective 90 days after its Federal Register posting, and Alibaba’s forthcoming open-source release of smaller Qwen4 weights."
+}
