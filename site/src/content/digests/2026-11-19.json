@@ -1,0 +1,50 @@
+{
+  "title": "The Morning Build for November 19, 2026: Google rolls Gemini 4 Neon, critical NGINX RCEs, Nadella on 60k buyouts, and Nvidia delays a 10-Q",
+  "intro": "Today’s brief covers product, security, and corporate signals engineers should track: Google launched Gemini 4 Neon across API and consumer tiers; multiple teams disclosed two critical unauthenticated NGINX HTTP/2 RCEs and F5 published fixes; Satya Nadella explained Microsoft’s 60,000-employee buyout as an AI-driven reorganization; and Nvidia said it will delay filing its 10-Q, citing an ongoing investigation.",
+  "meta_description": "Google launches Gemini 4 Neon with 1M-token context; two critical NGINX HTTP/2 RCEs fixed in recent NGINX releases; Nadella defends 60k buyouts; Nvidia delays 10-Q.",
+  "stories": [
+    {
+      "headline": "Google launches Gemini 4 Neon with 1 million-token context, priced for developer use",
+      "what_happened": "Google introduced Gemini 4 Neon, a Gemini 4 family model that offers a 1,000,000-token context window and is available today via the Gemini API in Google AI Studio, Gemini for business, Google Antigravity for paid Pro and Ultra subscribers, and the Gemini app for Pro and Ultra subscribers. Google published Neon’s benchmark results, pricing ($3 per million input tokens, $15 per million output tokens, with cached input tokens at $0.15 per million), and safety, alignment, and agent-behavior metrics in the model announcement and model card.",
+      "why_it_matters": "Engineers get a production-oriented model tuned for long-running, tool-heavy agent workflows, multi-modal inputs, and multi-file code work with explicit cost and context specs; the 1M-token window, four thinking levels, and published benchmark placements give concrete knobs for cost, latency, and capability tradeoffs when integrating Neon into orchestration or agent stacks.",
+      "outlook": "Over the next few days eligible Fairwind Program defenders will begin receiving Neon for cyber access, and Neon is rolling out to Pro and Ultra subscribers and the Gemini API today, which teams can verify by checking availability in Google AI Studio and the Gemini app.",
+      "source_urls": [
+        "https://blog.google/innovation-and-ai/models-and-research/gemini-models/introducing-gemini-4-neon/"
+      ],
+      "topic_tag": "ai"
+    },
+    {
+      "headline": "Multiple teams disclose two critical unauthenticated NGINX HTTP/2 RCEs, F5 issues fixes",
+      "what_happened": "Wiz Research, Ikotas Labs, Metnir, Rapid7, and Xint reported two critical remote code execution vulnerabilities in NGINX, CVE-2026-123633 (HTTP/2 use-after-free) and CVE-2026-123007 (HTTP/2 send_window integer underflow), both rated Critical with CVSS 4.0 scores of 9.2; F5 released patches addressing these issues in NGINX OSS and NGINX Plus on November 18 and coordinated public disclosure.",
+      "why_it_matters": "The flaws are in NGINX itself and can allow unauthenticated attackers to execute code on servers with HTTP/2 enabled, meaning reverse proxies and directly served static sites can be compromised even if backend applications are secure; the disclosure includes fixed releases (NGINX OSS 1.30.7 stable and 1.31.9 mainline, and NGINX Plus 37.0.7.1/37.2.0.1 or 37.0.8.1/37.3.0.1) and an immediate mitigation, temporarily disable HTTP/2, so ops and SRE teams have concrete upgrade and short-term options.",
+      "outlook": "Confirm rollouts to the fixed releases listed by F5 (NGINX OSS 1.30.7/1.31.9 or the matching NGINX Plus builds) in your fleet and re-enable HTTP/2 only after upgrades, using worker reload and crash indicators described in the disclosure as operational checks.",
+      "source_urls": [
+        "https://www.wiz.io/blog/nginx-http2-rce-vulnerabilities"
+      ],
+      "topic_tag": "dev-tools"
+    },
+    {
+      "headline": "Satya Nadella says Microsoft’s October buyouts of 60,000 were to accelerate AI-first reorganization",
+      "what_happened": "At the DealBook Summit and in prior comments, Satya Nadella explained Microsoft offered buyouts to 60,000 employees in October so people could choose to leave while Microsoft reorganizes work around AI; he described teams that now run small developer groups that build AI-driven software factories rather than directly building products.",
+      "why_it_matters": "Nadella frames the buyouts as part of an operational shift toward employees managing and organizing AI agents rather than performing prior task workflows, which signals continued internal reorganization and role changes where adoption and operational design of agent-based tooling will determine team structure and hiring profiles.",
+      "outlook": "Microsoft’s next public workforce disclosures and any subsequent reorganization announcements will show how the October buyouts translate into headcount changes and role-level shifts tied to AI-first operating models.",
+      "source_urls": [
+        "https://techcrunch.com/2026/11/18/microsoft-ceo-satya-nadella-explains-why-he-asked-60k-employees-to-quit/",
+        "https://techcrunch.com/2026/11/18/amidst-fears-of-ai-cyberattacks-satya-nadella-says-lots-of-critical-infrastructure-is-unpatchable/",
+        "https://techcrunch.com/2026/11/18/satya-nadella-predicts-ai-agents-will-reshuffle-the-economics-of-the-web/"
+      ],
+      "topic_tag": "big-tech"
+    },
+    {
+      "headline": "Nvidia delays filing its 10-Q, management ties the timing to an internal investigation",
+      "what_happened": "Nvidia told investors it will not immediately file its quarterly 10-Q and instead plans to file it in the coming weeks; management indicated the timing relates to whether additional disclosures about an ongoing investigation into CEO Jensen Huang should be included in the 10-Q.",
+      "why_it_matters": "The 10-Q contains legal proceedings and risk factor disclosures that could materially change investor-facing detail about investigations and related risks; the delayed filing is an explicit corporate signal that Nvidia is assessing whether the ongoing internal and external probes require additional disclosure in the upcoming public filing.",
+      "outlook": "The 10-Q, expected to be filed 'in the coming weeks' per Nvidia management, is the concrete next milestone that will reveal whether Nvidia adds new disclosures tied to the ongoing investigation.",
+      "source_urls": [
+        "https://techcrunch.com/2026/11/18/nvidia-created-a-weird-bit-of-intrigue-by-not-filing-a-routine-sec-report/"
+      ],
+      "topic_tag": "big-tech"
+    }
+  ],
+  "narration_script": "Google announced Gemini 4 Neon, a new Gemini 4 family model with a 1,000,000-token context window and tiered thinking levels. Neon is available today via the Gemini API in Google AI Studio, Gemini for business, Google Antigravity for paid Pro and Ultra subscribers, and the Gemini app for Pro and Ultra subscribers. Google published Neon’s pricing, three dollars per million input tokens and fifteen dollars per million output tokens, with cached input tokens at fifteen cents per million, and detailed benchmark, safety, and alignment results in the model card. Engineers integrating long-running agents or multi-file code flows get a production-oriented option with explicit cost and context tradeoffs, and eligible Fairwind defenders will begin receiving Neon for cyber access in the next few days.\n\nMultiple security teams disclosed two critical unauthenticated NGINX HTTP/2 vulnerabilities, CVE-2026-123633 and CVE-2026-123007, both rated critical with CVSS 9.2. Researchers from Wiz, Ikotas Labs, Metnir, Rapid7, and Xint reported the flaws to F5. F5 published fixes in NGINX OSS 1.30.7 stable and 1.31.9 mainline, and in the corresponding NGINX Plus builds; the disclosure notes both bugs require HTTP/2 and can lead to unauthenticated remote code execution even when backend apps are secure. The immediate operational options are to upgrade to the fixed releases or temporarily disable HTTP/2 while testing and rolling patches.\n\nMicrosoft CEO Satya Nadella explained why Microsoft offered buyouts to 60,000 employees in October. He said the intent was to give people agency while Microsoft reorganizes work around AI, shifting roles toward managing AI agents and building software factories that produce products. Nadella used the example of an 11-person team that builds an AI-driven product pipeline. The public implication is continued role and operating-model changes at Microsoft as it pursues an AI-first structure.\n\nNvidia announced it will delay filing its quarterly 10-Q and said the filing will arrive in the coming weeks. Management linked the timing to whether additional disclosures about an ongoing investigation into the CEO need to be added. The 10-Q filing in the coming weeks is the concrete milestone that will indicate whether Nvidia reports new legal or risk disclosures tied to the investigation.\n\nThat is the morning briefing. Check the Gemini model card and availability in Google AI Studio for Neon details, upgrade NGINX fleet instances to the fixed releases or disable HTTP/2 if you cannot patch immediately, watch Microsoft’s next workforce disclosures for how buyouts change roles, and expect Nvidia’s 10-Q filing in the coming weeks for any new investigation-related disclosures."
+}
