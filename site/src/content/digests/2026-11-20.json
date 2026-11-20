@@ -1,0 +1,60 @@
+{
+  "title": "The Morning Build for November 20, 2026: OpenSSL CVE Fix, Gemini 4 Neon, Apple and Agent Controls",
+  "intro": "Today’s items affect how engineers manage risk and scale agents: OpenSSL merged a public fix for CVE-2026-121481; Google published Gemini 4 Neon and a Tool Retrieval feature for the Gemini API; Apple job listings and macOS warnings point to an in-house AI agent and tighter controls for third-party agents; and Nous Research’s Hermes Agent adds a team-sharing feature inside Microsoft Teams.",
+  "meta_description": "OpenSSL merges CVE-2026-121481 fix; Google ships Gemini 4 Neon and Tool Retrieval; Apple signals an in-house Mac agent; Hermes adds Collective Wisdom in Teams.",
+  "stories": [
+    {
+      "headline": "OpenSSL patch addresses buffer overflow in EVP_EncodeBlock (CVE-2026-121481)",
+      "what_happened": "The OpenSSL repository merged changes that fix a buffer overflow in EVP_EncodeBlock by adding input checks and converting some failure paths to OPENSSL_assert, plus related hardening for EVP_DecodeBlock and a corrected length check in http_client.c; tests and documentation were added. The advisory remains pending while the Security Response Team requested the public fix.",
+      "why_it_matters": "This is a high-severity CVE (reported pattern similar to CVE-2021-23840) that affects public OpenSSL APIs used by many applications; the fix changes failure behavior and introduces asserts where earlier undefined behavior could occur, which may alter caller assumptions and crash behavior.",
+      "outlook": "The security advisory publication by the OpenSSL Security Response Team, tied to CVE-2026-121481, is the next concrete milestone to confirm vulnerability scope and recommended upgrade timing.",
+      "source_urls": [
+        "https://github.com/openssl/openssl/pull/33652"
+      ],
+      "topic_tag": "dev-tools"
+    },
+    {
+      "headline": "Google ships Gemini 4 Neon: faster throughput, lower list price, one-million-token context",
+      "what_happened": "Google DeepMind released Gemini 4 Neon, a Gemini 4 family model with a one-million-token context window that reportedly generates about 110 tokens per second and achieves lower per-task costs versus Gemini 4 Carbon due to reduced list prices; Neon appears between Carbon and Hydrogen in Google’s rollout and is claimed to score 61 on the Intelligence Index at the xhigh level.",
+      "why_it_matters": "Neon’s larger context window, higher tokens-per-second, and lower list pricing change cost and latency tradeoffs for long-context developer and knowledge-work workflows; reported benchmark wins on coding and visual tests imply different model selection tradeoffs versus Carbon and competitor models for agent and multimodal pipelines.",
+      "outlook": "Neon’s promotional pricing window through the end of November, as noted in Google’s comparisons, is the near-term commercial milestone to watch for cost and adoption signals.",
+      "source_urls": [
+        "https://the-decoder.com/googles-latest-ai-model-is-faster-cheaper-and-smarter-than-its-flagship-predecessor-from-just-weeks-ago/"
+      ],
+      "topic_tag": "ai"
+    },
+    {
+      "headline": "Apple job listing and macOS warnings indicate an in-house AI agent and stricter third-party agent controls",
+      "what_happened": "Bloomberg-reported job postings and developer communications describe Apple hiring for a senior manager to build an AI agent that can use a computer across apps, browsers, command lines, code, and APIs; Bloomberg also reported macOS 27.3 will deploy warnings discouraging users from granting full access to third-party agents and that Apple has delayed broad availability with the possibility of launching the service as soon as the end of next year.",
+      "why_it_matters": "An Apple-built agent plus OS-level warnings will change the security and platform access model for third-party agent integrations on macOS, affecting how engineers design agent permissions, automation flows, and deployment approaches on Apple hardware.",
+      "outlook": "macOS 27.3’s deployment, which Bloomberg links to the new warning UX and stricter agent controls, is the next concrete product milestone for gauging Apple’s default platform stance toward third-party agents.",
+      "source_urls": [
+        "https://techcrunch.com/2026/11/19/apple-may-be-developing-its-own-ai-agent-that-runs-your-mac/"
+      ],
+      "topic_tag": "big-tech"
+    },
+    {
+      "headline": "Gemini API adds Tool Retrieval to defer loading large tool schemas in Interactions API",
+      "what_happened": "Google launched Tool Retrieval in the Gemini Interactions API preview, letting callers set defer_loading: true on function tools so the model only loads full parameter schemas when it decides to use a tool; the feature runs server-side searches or supports client-side execution and works with Gemini 3.6 and later, including all Gemini 4 models.",
+      "why_it_matters": "Tool Retrieval reduces input-token bloat and latency for agents with large tool libraries by keeping schemas out of prompt prefixes until needed, preserving prefix caching and lowering token charges when many tools are unused; it also supports remote MCP servers and client-side registries for dynamic tool exposure.",
+      "outlook": "The preview availability in the Interactions API is the immediate milestone; adoption and integration tests against your tool libraries during the preview will show token and latency savings versus declaring all schemas up front.",
+      "source_urls": [
+        "https://blog.google/innovation-and-ai/technology/developers-tools/gemini-api-tool-retrieval/",
+        "https://techcrunch.com/2026/11/19/google-gives-gemini-the-ability-to-use-your-mac-for-you/",
+        "https://the-decoder.com/google-ships-gemini-4-neon-its-fourth-new-gemini-model-in-a-month/"
+      ],
+      "topic_tag": "dev-tools"
+    },
+    {
+      "headline": "Hermes Agent’s Collective Wisdom lets teams share validated agent skills inside Microsoft Teams",
+      "what_happened": "Nous Research announced Collective Wisdom for its open-source Hermes Agent, enabling employees to convert successful agent workflows into reusable skills that, after review, can be shared team-wide inside Microsoft Teams; Hermes runs in Azure Container Apps Sandboxes and Nous says the collected skills do not feed provider training data.",
+      "why_it_matters": "Collective Wisdom formalizes sharing of agent workflows and code within Teams and ties deployment to containerized sandboxes in Azure, which affects operational models for governance, review, and reuse of internal agent skills in organizations that choose Hermes.",
+      "outlook": "The integration of Hermes into Microsoft Teams and availability via the Microsoft Store are the near-term distribution milestones to watch for enterprise uptake and sandboxed deployment patterns.",
+      "source_urls": [
+        "https://the-decoder.com/hermes-agents-collective-wisdom-feature-turns-one-employees-ai-trick-into-the-whole-teams-skill/"
+      ],
+      "topic_tag": "startups"
+    }
+  ],
+  "narration_script": "OpenSSL merged a public fix for CVE-2026-121481 that hardens EVP_EncodeBlock and related base64 handling. The change adds input checks and uses OPENSSL_assert on previously undefined inputs, updates tests and docs, and the security advisory from the OpenSSL Security Response Team remains pending. This matters because the fix alters failure behavior and could surface crashes or change caller assumptions in downstream code. Expect the official advisory tied to CVE-2026-121481 to appear next and set upgrade guidance. Google DeepMind released Gemini 4 Neon, a Gemini 4 family model with a one-million-token context window that Google says generates about 110 tokens per second and costs less on list prices than Gemini 4 Carbon; Google positions Neon between Carbon and Hydrogen and reports benchmark gains on coding and visual tests. Neon’s end-of-November promotional pricing window is the near-term commercial milestone to watch for cost and adoption signals. Apple job listings and developer notes reported by Bloomberg describe work on an in-house AI agent that can run apps, browse the web, run commands, and write and debug code, and macOS 27.3 will surface warnings discouraging granting full access to third-party agents; Bloomberg says Apple eyed launching an in-house service by the end of next year. Those OS-level warnings and the macOS 27.3 rollout are the concrete signals that will show how Apple intends to control agent access. Google also published Tool Retrieval in the Gemini Interactions API preview. Tool Retrieval lets you defer loading parameter schemas by declaring a tool_search and setting defer_loading true on long-tail tools, so the model requests schemas only when it needs them; it works server-side or with client-side registries and supports Gemini 3.6 and later. The preview is the immediate milestone for measuring token and latency savings in real agent workloads. Finally, Nous Research’s Hermes Agent added Collective Wisdom, which converts successful agent workflows into reviewed, shareable skills inside Microsoft Teams and runs agents in Azure Container Apps Sandboxes; Nous says the shared skills do not feed provider training data. Hermes availability in the Microsoft Store and the Teams integration are the distribution milestones that will show enterprise uptake. That’s the update for this morning. Check the OpenSSL advisory, Google’s Gemini preview docs, Bloomberg’s Apple report, and Hermes’s Teams announcements for the follow-up signals each story names."
+}
