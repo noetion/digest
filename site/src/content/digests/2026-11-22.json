@@ -1,0 +1,61 @@
+{
+  "title": "The Morning Build for November 22, 2026: Inkling: 2-Mini Compresses to 5.4 GB, Google Reworks Search, and Two Riemann Proofs",
+  "intro": "Today’s thread: open-model and quantization advances that push large MoE models into phone-sized builds; Google converts its desktop search homepage into an AI-first surface; Bytedance publishes a compact-training paper and open-model results; Anthropic and Stanford publish competing Riemann hypothesis drafts; and Nvidia’s earnings, China export stance, and governance drama remain in tension.",
+  "meta_description": "Inkling: 2-Mini builds fit 5.4 GB with trellis quantization; Google converts search homepage to AI-first; competing Riemann proofs and Nvidia governance frictions dominate.",
+  "stories": [
+    {
+      "headline": "Inkling: 2-Mini and LookAtMyQuant compress a 26.4B MoE to a 5.4 GB Apple Silicon build",
+      "what_happened": "ShinMegamiBoson published LookAtMyQuant code and model builds that apply trellis-code post-training quantization and a 4,000-step distillation recipe to produce multiple Inkling: 2-Mini builds, including a 5.38 GB build and a 4.72 GB build targeted to fit 12 GB iPhone jetsam ceilings. The repo, under an MIT license, also ships lamq/runtime_mlx tooling and measured benchmarks and decode speeds on Apple M5 Max.",
+      "why_it_matters": "Engineers get an explicit, reproducible post-training quantization pipeline (trellis codes, Fisher-based bit allocation, and layerwise re-quantization plus distillation) with published model files and concrete tradeoffs: the 12.76 GB build matches the BF16 teacher on pooled benchmarks, while the 5.38 GB build preserves 90% 3-task mean and 87% GSM8K at about $34 GPU cost reported for the recipe runs.",
+      "outlook": "GitHub releases and the shinmegamiboson/lookatmyquant repo will be the next place to confirm additional packed Inkling: 2-Mini builds and any follow-on tooling updates announced in that repository.",
+      "source_urls": [
+        "https://github.com/ShinMegamiBoson/lookatmyquant",
+        "https://the-decoder.com/new-open-model-inkling-2-mini-thinks-in-loops-to-solve-problems-with-fewer-words-and-still-runs-on-a-laptop/"
+      ],
+      "topic_tag": "ai"
+    },
+    {
+      "headline": "Google replaces the desktop search button with AI chat shortcuts on the new search homepage",
+      "what_happened": "Google confirmed deployment of a redesigned desktop search homepage that removes the traditional Google Search button and adds AI-connected buttons under the search bar for image generation, file analysis, and Gemini brainstorming, after a multi-week test, according to Ars Technica and a confirmation from Search VP Robby Stein.",
+      "why_it_matters": "The UI change makes Google.com a direct entry point for AI chat and generation workflows rather than a classic query box with a dedicated search button, shifting how engineers and product teams should expect users to enter multi-turn AI interactions from the homepage.",
+      "outlook": "Robby Stein's X account and Google's official announcements are the immediate channels Google cited for deployment updates and any subsequent changes to the homepage rollout.",
+      "source_urls": [
+        "https://arstechnica.com/ai/2026/11/googles-latest-search-page-redesign-drops-the-search-button-adds-ai-sidebar/"
+      ],
+      "topic_tag": "big-tech"
+    },
+    {
+      "headline": "Bytedance publishes a paper arguing many training phases are unnecessary and backs it with an open-model result",
+      "what_happened": "A Bytedance-led paper and associated team argue that complex, multi-phase training pipelines include steps that can be removed, presenting a compact training approach and an open-model result intended to show competitive performance with fewer phases, per The Decoder coverage.",
+      "why_it_matters": "If reproducible, the paper’s claim and accompanying open-model artifacts could change how engineering teams allocate compute and pipeline stages by foregrounding a shorter pipeline that the authors say retains agentic and multi-step task capability.",
+      "outlook": "The public release and distribution of the paper and its experimental artifacts will be the next concrete milestone to validate the claims and measurements reported in The Decoder coverage.",
+      "source_urls": [
+        "https://the-decoder.com/bytedance-argues-most-ai-training-phases-are-unnecessary-and-backs-it-up-with-a-competitive-open-model/"
+      ],
+      "topic_tag": "ai"
+    },
+    {
+      "headline": "Anthropic posts a Claude-assisted Lean proof of the Generalized Riemann Hypothesis; Stanford posts an independent human draft",
+      "what_happened": "Anthropic-affiliated mathematician Levent Alpöge published a Claude-assisted proof of the Generalized Riemann Hypothesis encoded in the Lean theorem prover, and hours later Stanford posted an independent, all-human draft proof by Alessandro Masullo, according to The Decoder and related coverage.",
+      "why_it_matters": "Alpöge’s release includes a Lean-encoded, machine-verifiable package that claims computer verification, while Stanford’s draft represents a human-checked traditional approach; both releases force the math and verification communities to perform formal checking and translation work, which engineers working on formal methods and proof assistants will observe closely.",
+      "outlook": "Lean verification, community vetting, and the translation of Stanford’s draft into formal systems are the next concrete steps the sources identify as necessary to assess correctness and acceptance.",
+      "source_urls": [
+        "https://the-decoder.com/hours-after-anthropic-claims-a-claude-proof-of-the-riemann-hypothesis-stanford-releases-an-all-human-competing-draft/",
+        "https://techcrunch.com/2026/11/20/ai-claimed-a-solution-to-the-167-year-old-riemann-hypothesis-and-a-human-did-too/",
+        "https://leanprover-community.github.io/blog/posts/riemann-hypothesis/"
+      ],
+      "topic_tag": "ai"
+    },
+    {
+      "headline": "TechCrunch frames Nvidia’s week as split between strong earnings and governance tension over Jensen Huang",
+      "what_happened": "TechCrunch’s coverage summarized Nvidia’s latest earnings beat and the company’s public statement that it has no plan to reinstate Jensen Huang, while noting public calls and a petition from figures including Elon Musk advocating Huang’s return; the reporting also quotes interim CEO Colette Kress saying Nvidia will stop selling H200 chips into China.",
+      "why_it_matters": "Engineers and hardware teams should note two operational facts reported: Nvidia posted robust guidance and revenue performance, and the company publicly stated it will stop selling H200 chips into China, a move the article connects to export-control and remote-access concerns that could affect supply and deployment decisions.",
+      "outlook": "TechCrunch highlights the first half of 2027 as a window to reassess whether Nvidia’s China sales stance or leadership posture changes, per commentary in the article.",
+      "source_urls": [
+        "https://techcrunch.com/2026/11/21/a-tale-of-two-nvidias/"
+      ],
+      "topic_tag": "chips"
+    }
+  ],
+  "narration_script": "Inkling: 2-Mini: ShinMegamiBoson's LookAtMyQuant repo published a full post-training quantization pipeline, code under MIT, and multiple packed Inkling: 2-Mini builds for Apple Silicon. The project uses trellis codes, Fisher-based per-row bit allocation, and a 4,000-step distillation pass. Results include a 12.76 GB build that matches a BF16 teacher on pooled benchmarks and smaller builds down to 3.85 GB with measured tradeoffs; lamq and runtime_mlx provide single-launch Metal runtimes and command-line and Python loaders. The repo and its GitHub releases are the place to confirm additional builds and tooling updates. Google search homepage: Google confirmed a redesigned desktop search page that removes the old Google Search button and adds AI-focused shortcuts under the search bar for image generation, file analysis, and brainstorming with Gemini, after a multi-week test. Robby Stein confirmed deployment; he and Google will be the primary channels for rollout updates. Bytedance paper: The Decoder reports a Bytedance-led paper arguing many layered training phases can be removed, presenting a compact-training approach and an open-model result that aims to retain multi-step capabilities. The paper itself and its public artifacts are the next concrete items to inspect to verify the claims. Riemann proofs: Anthropic-affiliated mathematician Levent Alpöge published a Claude-assisted proof of the Generalized Riemann Hypothesis encoded and verified in Lean, and Stanford posted an independent all-human draft by Alessandro Masullo hours later. Alpöge’s release includes machine-verifiable Lean packages; Stanford’s draft was released early for community review. The next steps are Lean verification of both artifacts and human community vetting to resolve gaps. Nvidia: TechCrunch frames the week as two Nvidias, a strong earnings report and guidance on one hand, and public pressure around Jensen Huang plus an announced halt to H200 sales into China on the other. The article quotes interim CEO Colette Kress on China sales and highlights public petitions advocating Huang’s return. TechCrunch points to the first half of 2027 as a window to see whether Nvidia’s China stance or leadership posture shifts. That is today's technical briefing. Follow the GitHub releases for LookAtMyQuant, Robby Stein's posts for Google homepage changes, the Bytedance paper release for compact-training artifacts, Lean verification and community responses for the Riemann drafts, and Nvidia commentary and first-half 2027 updates for leadership and China-sales signals."
+}
