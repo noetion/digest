@@ -1,0 +1,58 @@
+{
+  "title": "The Morning Build for November 23, 2026: GPT-6.2 Astra's Proof, Anthropic's IPO, and Signal's Screenshot Limits",
+  "intro": "Today’s briefs connect advances in model capability, money flows into closed-source AI, evaluation norms, real-world agent limits, and product-level privacy defenses: GPT-6.2 Astra produced a machine-verifiable proof; large investors realized paper gains when Anthropic IPOed; a workplace simulation shows coding agents finish under 10% of tasks; OpenAI argued for perplexity as a shared metric; and Signal added screenshot restrictions on mobile.",
+  "meta_description": "GPT-6.2 Astra produced a machine-verifiable proof; Anthropic IPOed; coding agents fail most simulated workplace tasks; OpenAI pushes perplexity reporting; Signal blocks screenshots.",
+  "stories": [
+    {
+      "headline": "GPT-6.2 Astra produced a machine-verifiable proof of Smoktunowicz's gap theorem",
+      "what_happened": "OpenAI's GPT-6.2 Astra generated a formalized, Lean-checked proof of Smoktunowicz's gap theorem on Autoform-Hard, producing an 1,800-line proof after 94 minutes and $21.58 of runtime; Vals AI says this is the first known Lean proof and Astra now leads the AutoformBench leaderboard with 49 solved tasks.",
+      "why_it_matters": "This is a concrete capability milestone: a frontier model produced a machine-verifiable proof and invented a different proof strategy when Mathlib lacked foundations, showing models can both discover approaches and emit formal artifacts that integrate with proof assistants.",
+      "outlook": "AutoformBench leaderboard updates will show whether Astra's 49-task lead over GPT-6.2 Sol and Claude Fable 5.2 (48 each) holds in subsequent benchmark runs.",
+      "source_urls": [
+        "https://the-decoder.com/gpt-6-2-astra-solved-a-math-theorem-no-other-ai-could-crack-then-invented-its-own-proof-strategy/"
+      ],
+      "topic_tag": "ai"
+    },
+    {
+      "headline": "Notable Capital, GIC, and Baillie Gifford generated large paper gains after Anthropic's IPO",
+      "what_happened": "TechCrunch reports Notable Capital, GIC, and Baillie Gifford were major pre-IPO backers of Anthropic; Anthropic raised $81.3 billion in its IPO and reached a fully diluted valuation near $1.5 trillion, producing roughly 15x paper returns for some early investors.",
+      "why_it_matters": "Large pre-IPO allocations by institutional investors produced outsized paper returns, concentrating public capital and making Anthropic a substantial public player whose valuation and funding commitments will influence enterprise procurement and competitive funding dynamics.",
+      "outlook": "Anthropic's first post-IPO public filings and near-term trading performance will provide the first concrete data points on revenue recognition and market reception now that shares are trading.",
+      "source_urls": [
+        "https://techcrunch.com/2026/11/22/how-notable-capital-gic-and-baillie-gifford-bet-big-on-anthropic-before-its-ipo/"
+      ],
+      "topic_tag": "startups"
+    },
+    {
+      "headline": "AI coding agents score high on benchmarks but finish fewer than one in ten tasks in a simulated workplace",
+      "what_happened": "The Decoder ran coding agents inside a simulated software company with project boards, chat histories, and colleagues; even top models such as Claude Opus 5.5 and GPT-6 Astra fully completed fewer than 10% of tasks in that environment.",
+      "why_it_matters": "Benchmarks alone do not reflect deployment complexity: agents that saturate isolated tests fail most end-to-end task flows when they must coordinate with project context, interactions, and long-running task states, implying engineering effort is required to convert benchmark accuracy into reliable digital-employee behavior.",
+      "outlook": "Follow-up publications or updated simulated-workplace runs from The Decoder or equivalent labs will be the next public checks on whether agent completion rates improve when frameworks or model versions change.",
+      "source_urls": [
+        "https://the-decoder.com/ai-coding-agents-ace-isolated-tests-but-complete-fewer-than-one-in-ten-tasks-in-a-simulated-workplace/"
+      ],
+      "topic_tag": "dev-tools"
+    },
+    {
+      "headline": "OpenAI argues for perplexity as a shared metric to pace model development",
+      "what_happened": "OpenAI published a post advocating using perplexity (cross-entropy loss) on held-out data as a standardized metric for pretraining progress, reporting internal perplexity trends and suggesting industry transparency and shared limits tied to that metric.",
+      "why_it_matters": "Perplexity is proposed as a single, trackable substrate metric linking pretraining progress to latent capabilities; if adopted, it would change how developers and policymakers compare base models and set engineering thresholds tied to risk and monitoring practices.",
+      "outlook": "OpenAI's prediction that transformative pretraining advances could appear by 2027 sets that year as the concrete window for any reported industry movement on perplexity transparency or commitments to joint pacing measures.",
+      "source_urls": [
+        "https://openai.com/index/perplexity-and-intelligence/"
+      ],
+      "topic_tag": "big-tech"
+    },
+    {
+      "headline": "Signal limits mobile screenshots, citing OS-level AI agents and surveillance risks",
+      "what_happened": "Signal announced it will restrict screenshots on Android and iOS as it already does on Windows, saying OS-level agentic AI that can 'scan' screens undermines Signal's ability to guarantee privacy; users can disable the restriction, which Signal says would 'break our privacy guarantees.'",
+      "why_it_matters": "A major privacy-focused app is adjusting product behavior specifically because of agentic OS-level AI, forcing engineering trade-offs between user control and built-in defenses against system-level data capture.",
+      "outlook": "Android and iOS client updates that implement Signal's screenshot restrictions are the next concrete product milestones to watch as the company expands the policy beyond Windows.",
+      "source_urls": [
+        "https://techcrunch.com/2026/11/21/signal-restricts-mobile-screenshots-as-it-confronts-existential-threat-of-ai-surveillance/"
+      ],
+      "topic_tag": "policy"
+    }
+  ],
+  "narration_script": "GPT-6.2 Astra produced a Lean-checked, machine-verifiable proof of Smoktunowicz's gap theorem. According to Vals AI coverage, Astra emitted an 1,800-line proof on Autoform-Hard after 94 minutes and $21.58 of runtime, and it now leads the AutoformBench leaderboard with 49 solved tasks. The practical implication is that frontier models can invent proof strategies and produce formal artifacts that plug into proof assistants. The next public signal will be AutoformBench leaderboard updates to see if Astra's lead holds. Notable Capital, GIC, and Baillie Gifford were large pre-IPO backers of Anthropic, TechCrunch reports, and Anthropic raised $81.3 billion in its IPO at a roughly $1.5 trillion fully diluted valuation, producing roughly 15x paper returns for some early investors. The next concrete datapoints are Anthropic's first public filings and short-term trading performance now that its shares trade. The Decoder ran coding agents inside a simulated software company and found that even top models, including Claude Opus 5.5 and GPT-6 Astra, fully completed fewer than 10 percent of tasks. That result shows isolated benchmark saturation does not equate to reliable end-to-end digital-employee behavior. The immediate follow-on will be further simulated-workplace runs or publications that test different models or frameworks. OpenAI published an argument for using perplexity, or cross-entropy loss, as a shared metric to track pretraining progress and to pace development. OpenAI links specific perplexity windows to emergent capabilities and explicitly names 2027 as the window when more transformative pretraining advances could appear, making 2027 the concrete timeframe for any industry movement on perplexity transparency or shared limits. Finally, Signal announced it will restrict screenshots on Android and iOS, extending an existing Windows default, citing the risk that OS-level agentic AI can capture and expose screen content. Users can disable the restriction, but Signal says doing so would break its privacy guarantees. The next product milestones are the Android and iOS client updates that add these screenshot restrictions."
+}
