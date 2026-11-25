@@ -1,0 +1,49 @@
+{
+  "title": "The Morning Build for November 25, 2026: Meta's Muse in DMs, ShellBench Limits, and AI Math Proofs",
+  "intro": "Today’s stories show AI spreading across consumer UX, evaluation, and core research: Meta’s Muse is embedded into Instagram and connected to Walmart via an Agent Gateway; ShellBench measures everyday-agent failure modes across top models; and frontier models are now solving advanced theoretical physics problems while a Claude-assisted Riemann proof is under community review.",
+  "meta_description": "Meta's Muse connects to Walmart shopping; ShellBench finds one-third failure rate for agents; GPT-6 Astra solves most physics benchmark problems; Claude-assisted Riemann proof under review.",
+  "stories": [
+    {
+      "headline": "Walmart connects its online store to Meta’s Muse for Black Friday shopping via Agent Gateway",
+      "what_happened": "Walmart and Meta announced a partnership letting shoppers use Muse to find products, compare options, and build purchases; Muse users sign into Walmart inside the Muse app and Muse forwards requests to Walmart, which returns products and helps build the cart. Walmart says Muse does not receive customers' Walmart shopping history and users can set spending limits, require approval before purchases, and delete agent profiles. The integration uses Walmart’s Agent Gateway, launched in October, which Walmart plans to open to more developers and AI platforms.",
+      "why_it_matters": "This is a live example of an external AI assistant taking end-to-end shopping actions through a retailer API rather than a closed storefront or in-app flow, and it exposes concrete access, approval, and privacy controls engineers must consider when integrating third-party agents. The Agent Gateway model indicates a developer-facing integration surface for agents to query product catalogs and assemble carts rather than screen-scraping or embedding storefronts.",
+      "outlook": "Walmart opening the Agent Gateway to more developers and AI platforms, the next public milestone that will show whether multiple external assistants can operate against Walmart’s shopping API.",
+      "source_urls": [
+        "https://techcrunch.com/2026/11/24/walmart-teams-up-with-meta-to-bring-black-friday-deals-to-ai-agent-muse/",
+        "https://techcrunch.com/2026/11/24/meta-brings-its-muse-ai-assistant-directly-into-instagram-dms/"
+      ],
+      "topic_tag": "ai"
+    },
+    {
+      "headline": "ShellBench shows leading agent-model combos fail more than one third of everyday tasks and produce safety lapses",
+      "what_happened": "ShellBench, developed with OpenClaw Foundation, Parsewave, Hugging Face, Red Hat, and UC Berkeley, tested models from OpenAI, Anthropic, and Meta on multi-step everyday agent work drawn from over 10 million anonymized agent interactions and found even top models failed more than 33% of the time; 15.7% of attempts failed at least one safety requirement. The benchmark also found inconsistency under repeated runs and that harness choice influenced results, with model-varying performance across five harnesses.",
+      "why_it_matters": "For engineers building or deploying personal agents, the benchmark quantifies reliability and safety gaps in multi-step, real-world tasks and shows that both model choice and the agent harness materially affect success and safety rates. The measured failure modes include incorrect scheduling around child pickup, mishandling of sensitive tokens, and duplicate invoice payments, concrete errors that must be mitigated in production agent pipelines.",
+      "outlook": "Vendor responses to the ShellBench findings and any follow-up tests run in vendors' native agent harnesses, which the TechCrunch report notes were not included and would show how representative these results are of deployed consumer products.",
+      "source_urls": [
+        "https://techcrunch.com/2026/11/24/even-the-best-ai-agents-struggle-with-everyday-life/"
+      ],
+      "topic_tag": "ai"
+    },
+    {
+      "headline": "Frontier models solve most problems on a new theoretical physics benchmark, GPT-6 Astra near 90 percent",
+      "what_happened": "Suvrat Raju and colleagues created a theoretical physics benchmark using unpublished, day-scale problems from physicists and reported that leading models solved about 60 percent in early tests and that by the final set GPT-6 Astra solved nearly 90 percent of the problems. The benchmark focused on problems unlikely to appear online to avoid memorization.",
+      "why_it_matters": "This benchmark shows frontier models executing domain-specific mathematical and derivational work at a level approaching human experts on day-scale tasks, signaling that AI can perform substantive parts of theoretical computation and drafting, an engineering consideration for research pipelines that may now incorporate model-generated derivations and checks.",
+      "outlook": "Publication of the theoretical physics benchmark and its full results, which will formalize the dataset, evaluation methodology, and per-model scores.",
+      "source_urls": [
+        "https://arstechnica.com/ai/2026/11/ai-can-do-the-calculations-physicists-are-figuring-out-what-comes-next/"
+      ],
+      "topic_tag": "ai"
+    },
+    {
+      "headline": "Mathematician Levent Alpöge announces a Riemann hypothesis proof produced with Claude while community review continues",
+      "what_happened": "Levent Alpöge announced a proof of the Riemann hypothesis that he produced using Anthropic’s Claude; the Ars Technica report states it is too early to evaluate the proof and that mathematicians are still digesting the work. The announcement includes stylistic elements and possible jokes, and reports that Alpöge used Claude in generating the proof.",
+      "why_it_matters": "A claimed Claude-assisted proof for one of mathematics' central open problems underscores that large models are now being used to draft complex, high-stakes formal arguments, which raises practical engineering questions about reproducibility, validation, and the role of model-assisted derivation in formal verification workflows.",
+      "outlook": "Mathematicians' ongoing verification and peer review of Alpöge’s proof, the immediate next public milestone as the community digests and assesses the result.",
+      "source_urls": [
+        "https://arstechnica.com/ai/2026/11/whats-going-on-with-the-riemann-hypothesis/"
+      ],
+      "topic_tag": "ai"
+    }
+  ],
+  "narration_script": "Meta and Walmart launched a shopping integration that lets Muse act on behalf of users. Customers sign into Walmart inside Muse, make product or deal requests, and Muse forwards those to Walmart, which returns results and helps assemble a shopping cart. Walmart says Muse does not get access to customers' Walmart shopping history, and users can set spending limits, require approval for purchases, or delete agent profiles. The integration uses Walmart’s Agent Gateway, which launched in October and which Walmart plans to open to more developers and AI platforms. ShellBench, a new benchmark built with multiple research partners from over ten million anonymized agent interactions, tested leading models across five harnesses on multi-step everyday tasks and found top model-harness combinations failed more than one third of attempts. The benchmark reports 15.7 percent of attempts violated at least one safety requirement and documents concrete failures such as missing a child pickup, exposing a sensitive upload token, and recommending duplicate invoice payments. The study also shows harness choice changes relative model rankings and that models were inconsistent across repeated runs. In theoretical physics, Suvrat Raju and collaborators assembled unpublished day-scale problems and found frontier models rapidly improved: early results showed about 60 percent solved, and the final set had GPT-6 Astra solving nearly 90 percent. The benchmark focuses on problems not present online to reduce memorization. Finally, Levent Alpöge announced a proof of the Riemann hypothesis produced with Anthropic’s Claude; Ars Technica reports mathematicians are still digesting and verifying the submission. Across these stories the immediate milestones to watch are Walmart opening its Agent Gateway to more developers, vendor responses and any native-harness follow-up tests to ShellBench, publication of the theoretical physics benchmark and full results, and the mathematicians' verification and peer review of Alpöge's proof."
+}
