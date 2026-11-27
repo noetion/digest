@@ -1,0 +1,60 @@
+{
+  "title": "The Morning Build for November 27, 2026: Google Workspace MCP, Nvidia Shipments, and Photonic Chips",
+  "intro": "Today’s stories tighten the operational constraints engineers face: Google is forcing AI agents onto eight Workspace MCP gateways with new data-retention caps; U.S. export rules have prompted Nvidia to pause server shipments to four Southeast Asian countries; OpenAI patched a GPT-6.2 Astra pricing bug that shortens quotas; Q.ANT has live photonic chips in an IONOS pilot; and Nvidia still faces congressional and regulatory scrutiny over Megaspeed.",
+  "meta_description": "Google routes agents to MCP servers with 30-day caps; Nvidia pauses SE Asia shipments; OpenAI fixed GPT-6.2 billing; Q.ANT photonic pilot at IONOS; Nvidia faces Dec. 3 hearing.",
+  "stories": [
+    {
+      "headline": "Google requires AI agents to use eight Workspace MCP servers and caps Workspace-derived embeddings at 30 days",
+      "what_happened": "Google published a Workspace AI Tools Addendum and made eight Workspace MCP servers generally available; from February 1, 2027 any tool that \"is or is driven by an AI Agent\" must access Gmail, Drive, Calendar and other Workspace products through those MCP servers. The addendum bans training, fine-tuning, evals or distillation on Workspace data and allows Google to cap retention of \"Google Technical Information\" including embeddings and memory indexes at 30 days.",
+      "why_it_matters": "Engineered agents that currently call Workspace REST APIs will have to move to the MCP path, accept much lower project-wide Standard quotas (5,000 MCP requests/day per product) or apply for partner access to regain operations missing from public MCP tools. The 30-day cap forces designs that store long-term indexes or embeddings for Workspace data to rebuild or drop data more frequently.",
+      "outlook": "February 1, 2027 is the enforcement date when the MCP requirement, Standard-tier quotas for direct REST agent calls, and the 30-day cap take effect.",
+      "source_urls": [
+        "https://techstackups.com/articles/google-workspace-ai-agents-mcp/"
+      ],
+      "topic_tag": "policy"
+    },
+    {
+      "headline": "Nvidia pauses server shipments to Malaysia, Singapore, Thailand and Indonesia after new US export controls",
+      "what_happened": "Nvidia told partners including Dell and Supermicro to halt server shipments to Malaysia, Singapore, Thailand and Indonesia following tighter U.S. export controls intended to block indirect access to advanced AI chips. Dealers report thousands of Nvidia B300 GPUs appearing on the secondary market as suppliers seek new buyers.",
+      "why_it_matters": "Cloud providers in Southeast Asia face a 90-day licensing window to prove restricted end users are not involved, creating procurement and financing disruption for projects that expected Nvidia hardware. Engineers and infrastructure planners should expect capacity and timeline uncertainty for planned deployments in those markets.",
+      "outlook": "Cloud providers in the affected countries have 90 days to apply for Commerce Department licenses and document end users, the near-term administrative signal the source highlights.",
+      "source_urls": [
+        "https://the-decoder.com/nvidia-halts-server-shipments-to-malaysia-singapore-thailand-and-indonesia-after-tighter-us-export-controls/",
+        "https://techcrunch.com/2026/11/26/nvidia-hits-pause-on-chip-shipments-to-southeast-asia/"
+      ],
+      "topic_tag": "policy"
+    },
+    {
+      "headline": "OpenAI fixed a GPT-6.2 Astra billing bug that shortens Astra and Sol quotas for users",
+      "what_happened": "A billing error during the GPT-6.2 rollout gave incorrect discounts; OpenAI patched it so users now hit limits about 40 percent faster on GPT-6.2 Astra and 25 percent faster on GPT-6.2 Sol compared with last week. OpenAI will not retroactively bill customers and granted an extra saved reset to Go, Plus, Pro and Business subscribers; Business users get free Fast Mode through the end of the year.",
+      "why_it_matters": "Products and internal tooling that depend on Astra or Sol token economics must re-evaluate quota consumption and cost forecasts immediately; merged agentic Work modes under test could also change per-conversation token costs if rolled out more broadly.",
+      "outlook": "OpenAI’s free Fast Mode for Business users runs through the end of the year, and OpenAI is testing a merged Chat and Work mode with select Pro users as the next product signal.",
+      "source_urls": [
+        "https://the-decoder.com/gpt-6-2-astra-users-now-hit-limits-40-faster-after-openai-patched-a-pricing-error/"
+      ],
+      "topic_tag": "dev-tools"
+    },
+    {
+      "headline": "Q.ANT deployed photonic processors in an IONOS pilot as an energy-focused coprocessor for AI",
+      "what_happened": "Q.ANT, a German photonic-processor startup, has rolled out photonic chips to data-center facilities operated by IONOS as part of a pilot program and reports more than 30 engineering teams working on models optimized for photonic hardware. Q.ANT claims simulated energy reductions of four to five times versus current stacks, but says real-hardware results are not yet demonstrated at that level.",
+      "why_it_matters": "Photonic processors aim to act as coprocessors for nonlinear workloads such as image tasks, potentially shifting where engineers route specific model components and how they optimize memory access; the technology requires code adaptations and new hardware validation before it can replace GPU workflows.",
+      "outlook": "Public results from the IONOS pilot, including real-hardware energy and performance measurements, are the near-term milestone to evaluate Q.ANT’s claims.",
+      "source_urls": [
+        "https://www.wired.com/story/a-new-breed-of-chip-runs-ai-models-using-waves-of-light/"
+      ],
+      "topic_tag": "chips"
+    },
+    {
+      "headline": "Nvidia faces congressional and regulatory questioning over Megaspeed chip diversion and executive ties",
+      "what_happened": "Investigations into Megaspeed allege advanced Nvidia GPUs were diverted to China; U.S. authorities added Megaspeed and affiliates to a restricted list and new U.S. rules bar large data centers that buy U.S. chips from serving specified customers. Nvidia reinstated Jensen Huang as CEO after the board received input from senior U.S. officials, but California’s attorney general, the SEC and several House committees continue inquiries.",
+      "why_it_matters": "Ongoing investigations and regulatory scrutiny create disclosure and compliance risk for Nvidia and its partners, and congressional demands about what Nvidia knew of Megaspeed’s end use could influence export-control enforcement and vendor diligence requirements.",
+      "outlook": "A public Senate Banking Committee hearing on December 3 will question Jensen Huang, making it the next public milestone for answers on Megaspeed and Nvidia’s compliance posture.",
+      "source_urls": [
+        "https://techcrunch.com/2026/11/25/the-questions-jensen-huang-and-nvidia-will-still-have-to-answer-about-megaspeed/",
+        "https://techcrunch.com/2026/11/25/jensen-huang-broke-nvidias-code-of-conduct-and-his-employees-may-not-forget-it/"
+      ],
+      "topic_tag": "big-tech"
+    }
+  ],
+  "narration_script": "Today’s brief covers five engineering-facing developments. First, Google published a Workspace AI Tools Addendum and made eight MCP servers generally available. From February 1, 2027, any tool that is or is driven by an AI agent must access Gmail, Drive, Calendar and other Workspace services through the MCP servers. The addendum forbids using Workspace data for training or fine-tuning, and lets Google cap retention of embeddings and memory indexes classified as \"Google Technical Information\" at 30 days. Engineers building agents must map missing MCP operations, account for tight project-wide Standard MCP quotas, and consider partner access for tools that MCP does not expose publicly. The clear deadline is February 1, 2027. Next, tighter U.S. export controls intended to block indirect access to advanced AI chips have prompted Nvidia to pause server shipments to Malaysia, Singapore, Thailand and Indonesia. Dealers report thousands of B300 GPUs surfacing on the secondary market. Affected cloud providers have 90 days to apply for Commerce Department licenses and document end users, which is the immediate administrative window to watch. Third, OpenAI patched a billing bug in the GPT-6.2 rollout that had granted incorrect discounts. After the fix, users will hit Astra quotas about 40 percent faster and Sol quotas about 25 percent faster than last week. OpenAI will not retroactively charge, granted extra saved resets to subscribers, and is giving Business users free Fast Mode through the end of the year; it is also testing a merged Chat and Work mode with select Pro users. Fourth, photonic startup Q.ANT has deployed chips in an IONOS pilot and reports more than 30 teams developing models tuned for photonic hardware. Q.ANT cites four to five times energy reduction in simulation but says real-hardware results are not yet at that level. Public results from the IONOS pilot will show whether the simulated energy gains translate to production infrastructure. Finally, Nvidia remains under scrutiny over alleged chip diversion via Megaspeed. U.S. authorities added Megaspeed to a restricted list and multiple inquiries continue, including by California’s attorney general and the SEC. Nvidia’s CEO Jensen Huang will face public questioning at a Senate Banking Committee hearing on December 3, the next major public milestone in the investigations."
+}
