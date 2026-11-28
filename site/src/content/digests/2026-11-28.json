@@ -1,0 +1,48 @@
+{
+  "title": "The Morning Build for November 28, 2026: Linux in WebAssembly, DeepCrossAttention speedups, DeepMind reliability test, and OpenAI's Athena",
+  "intro": "Today’s stories touch systems and model engineering: a real Linux kernel booting as WebAssembly on unkernel.dev; Google Research publishing DeepCrossAttention with up to 3x faster training/convergence claims; DeepMind’s new reliability benchmark showing top models still fail repeated-evaluation tasks; and reports that OpenAI is building Athena, a semantic data platform for agents.",
+  "meta_description": "Linux boots in WebAssembly at unkernel.dev; Google’s DeepCrossAttention claims up to 3x faster training; DeepMind finds reliability gaps; OpenAI builds Athena semantic layer.",
+  "stories": [
+    {
+      "headline": "Unkernel boots a real Linux kernel compiled to WebAssembly on unkernel.dev",
+      "what_happened": "The unkernel.dev page runs a real Linux kernel compiled to WebAssembly inside the browser; the page requires JavaScript to start and prompts users to enable it and reload. The primary demo is presented on the project's site.",
+      "why_it_matters": "Running an upstream Linux kernel as WebAssembly demonstrates a practical path for shipping full OS-level artifacts to browser environments, which matters for systems engineers evaluating remote sandboxing, reproducible dev environments, or WASM-based platform prototypes.",
+      "outlook": "Enable JavaScript and reload unkernel.dev to reproduce the demo and validate kernel boot behavior in your browser environment.",
+      "source_urls": [
+        "https://unkernel.dev"
+      ],
+      "topic_tag": "dev-tools"
+    },
+    {
+      "headline": "Google Research: DeepCrossAttention replaces static residuals to reach comparable quality up to 3x faster",
+      "what_happened": "Google Research published DeepCrossAttention (DCA), an architecture that replaces pointwise additive residual connections with learnable, depth-wise cross-attention and mixing, and reports models achieving comparable or better quality in up to three times fewer training steps while adding less than 0.2% parameters.",
+      "why_it_matters": "DCA directly targets information dilution in deep transformers, enabling faster convergence, lower perplexity on C4 and LM1B, and reductions in depth and parameter count (example: LM1B perplexity <14 with 30 DCA layers versus 42 standard layers). The change is small in parameter cost but increases memory bandwidth demands by exposing intact layer representations.",
+      "outlook": "Refer to the ICML 2025 paper and Google Research post for implementation details and experiment tables, and check subsequent model reports that cite the ICML 2025 DCA paper for LM1B or C4 training-step and perplexity comparisons.",
+      "source_urls": [
+        "https://research.google/blog/supercharging-transformer-residual-connections/"
+      ],
+      "topic_tag": "ai"
+    },
+    {
+      "headline": "DeepMind’s 'Humanity’s First Exam' reports top models still fail repeated-run everyday tasks",
+      "what_happened": "Coverage of DeepMind’s new benchmark, 'Humanity’s First Exam,' shows that while top models can solve nearly every task family at least once, no evaluated model remains error-free across repeated runs and variations according to early results reported by The Decoder.",
+      "why_it_matters": "The benchmark reframes evaluation toward reliability under repeated and varied runs rather than single-run peak performance, providing engineers a practical test signal for model robustness and prompting teams that need consistent behavior to measure variance across runs, not just best-case outcomes.",
+      "outlook": "Look for DeepMind’s full Humanity’s First Exam benchmark release and accompanying result sets to see per-model repeatability measurements and failure modes across task families.",
+      "source_urls": [
+        "https://the-decoder.com/google-deepminds-humanitys-first-exam-shows-top-ai-models-still-fail-simple-everyday-tasks-under-repeated-runs/"
+      ],
+      "topic_tag": "ai"
+    },
+    {
+      "headline": "Reports say OpenAI is building Athena, a semantic data platform to reduce agent guesswork",
+      "what_happened": "Reporting indicates OpenAI is developing a data management platform codenamed Athena that functions like a semantic layer to provide consistent business-metric definitions for agents; the platform is described as early-stage and OpenAI has not shared a timeline or pricing.",
+      "why_it_matters": "If Athena becomes a central semantic layer for OpenAI agents, it could change how agents access and reuse documented business rules and context, which affects agent accuracy when querying business data and may increase lock-in around semantic-layer switching as reported.",
+      "outlook": "OpenAI disclosure of an Athena timeline or pricing would be the next concrete milestone to define availability and commercial scope, and the company has not published such details.",
+      "source_urls": [
+        "https://the-decoder.com/openai-is-building-athena-data-platform-to-cut-down-on-ai-agent-guesswork/"
+      ],
+      "topic_tag": "ai"
+    }
+  ],
+  "narration_script": "Unkernel published a browser demo that boots a real Linux kernel compiled to WebAssembly. The demo runs from unkernel.dev and requires JavaScript to start, so enable JavaScript and reload the page to reproduce the kernel boot in your browser. Google Research posted DeepCrossAttention, which replaces fixed additive residuals with learnable depth-wise cross-attention. The paper reports comparable or better model quality in up to three times fewer training steps while adding under 0.2 percent parameters, and shows reductions in depth and perplexity on LM1B and C4. The architecture exposes intact layer representations, increasing memory bandwidth requirements even as parameter cost stays small. The Decoder covered DeepMind’s new benchmark, Humanity’s First Exam, reporting that top models can solve almost every task family at least once, but none remain error-free across repeated runs and variations. The benchmark shifts evaluation toward repeatability and failure-mode measurement rather than single-run peak scores. Finally, reports say OpenAI is building Athena, a semantic-layer style data platform to give agents consistent business metrics and documented rules. The project is described as early-stage and OpenAI has not provided a timeline or pricing. The next concrete items to watch are reproducing the unkernel.dev demo by enabling JavaScript, consulting the ICML 2025 DCA paper and its LM1B and C4 experiment tables for implementation details, the full Humanity’s First Exam release with repeatability metrics from DeepMind, and any OpenAI announcement that provides Athena’s timeline or pricing."
+}
